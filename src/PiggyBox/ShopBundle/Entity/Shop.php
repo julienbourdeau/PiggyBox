@@ -3,6 +3,7 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\ShopBundle\Entity\Shop
@@ -39,20 +40,22 @@ class Shop
     /**
      * @var string $slug
      *
-     * @ORM\Column(name="slug", type="string", length=255)
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
      */
     private $slug;
 
     /**
      * @var \DateTime $createdat
-     *
+
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
     private $createdat;
 
     /**
      * @var \DateTime $updatedat
-     *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
