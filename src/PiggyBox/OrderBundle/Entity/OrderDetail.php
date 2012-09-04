@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * PiggyBox\OrderBundle\Entity\OrderDetail
  *
- * @ORM\Table()
+ * @ORM\Table(name="piggybox_orderdetail")
  * @ORM\Entity(repositoryClass="PiggyBox\OrderBundle\Entity\OrderDetailRepository")
  */
 class OrderDetail
@@ -110,19 +110,6 @@ class OrderDetail
     }
 
     /**
-     * Set createdat
-     *
-     * @param \DateTime $createdat
-     * @return OrderDetail
-     */
-    public function setCreatedat($createdat)
-    {
-        $this->createdat = $createdat;
-    
-        return $this;
-    }
-
-    /**
      * Get createdat
      *
      * @return \DateTime 
@@ -130,19 +117,6 @@ class OrderDetail
     public function getCreatedat()
     {
         return $this->createdat;
-    }
-
-    /**
-     * Set updatedat
-     *
-     * @param \DateTime $updatedat
-     * @return OrderDetail
-     */
-    public function setUpdatedat($updatedat)
-    {
-        $this->updatedat = $updatedat;
-    
-        return $this;
     }
 
     /**
