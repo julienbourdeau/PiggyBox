@@ -67,6 +67,11 @@ class Order
     private $updatedat;
 
     /**
+     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order")
+     **/
+    private $order_detail;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -186,5 +191,45 @@ class Order
     public function getUpdatedat()
     {
         return $this->updatedat;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->order_detail = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add order_detail
+     *
+     * @param PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
+     * @return Order
+     */
+    public function addOrderDetail(\PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail)
+    {
+        $this->order_detail[] = $orderDetail;
+    
+        return $this;
+    }
+
+    /**
+     * Remove order_detail
+     *
+     * @param PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
+     */
+    public function removeOrderDetail(\PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail)
+    {
+        $this->order_detail->removeElement($orderDetail);
+    }
+
+    /**
+     * Get order_detail
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getOrderDetail()
+    {
+        return $this->order_detail;
     }
 }
