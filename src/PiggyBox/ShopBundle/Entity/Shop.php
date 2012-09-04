@@ -55,11 +55,32 @@ class Shop
 
     /**
      * @var \DateTime $updatedat
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
 
+	
+    /**
+     * @OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="shop")
+     **/
+    private $products;
+
+    /**
+     * @OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales")
+     * @JoinColumn(name="sales_id", referencedColumnName="id")
+     **/
+    private $sales;
+    
+    /**
+     * @ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price")
+     * @JoinTable(name="product_prices",
+     *      joinColumns={@JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="prices_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    private $prices;
 
     /**
      * Get id

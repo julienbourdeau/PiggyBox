@@ -101,6 +101,12 @@ class Product
     private $updatedat;
 
     /**
+     * @ManyToOne(targetEntity="Shop", inversedBy="products")
+     * @JoinColumn(name="shop_id" referencedColumnName="id")
+     **/
+    private $shop;
+
+    /**
      * Get id
      *
      * @return integer 
