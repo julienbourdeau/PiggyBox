@@ -59,6 +59,12 @@ class OrderDetail
     private $order;
 
     /**
+     * @ORM\OneToOne(targetEntity="PiggyBox\OrderBundle\Entity\Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     **/
+    private $product;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -155,5 +161,28 @@ class OrderDetail
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+     * Set product
+     *
+     * @param PiggyBox\OrderBundle\Entity\Product $product
+     * @return OrderDetail
+     */
+    public function setProduct(\PiggyBox\OrderBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return PiggyBox\OrderBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

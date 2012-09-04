@@ -1,3 +1,13 @@
+piggy_box_manager:
+    resource: "@PiggyBoxManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+piggy_box_user:
+    resource: "@PiggyBoxUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 piggy_box_shop:
     resource: "@PiggyBoxShopBundle/Controller/"
     type:     annotation
