@@ -3,6 +3,7 @@
 namespace PiggyBox\OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\OrderBundle\Entity\Cart
@@ -24,6 +25,7 @@ class Cart
     /**
      * @var \DateTime $createdat
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
     private $createdat;
@@ -31,6 +33,7 @@ class Cart
     /**
      * @var \DateTime $updatedat
      *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
@@ -53,18 +56,6 @@ class Cart
         return $this->id;
     }
 
-    /**
-     * Set createdat
-     *
-     * @param \DateTime $createdat
-     * @return Cart
-     */
-    public function setCreatedat($createdat)
-    {
-        $this->createdat = $createdat;
-    
-        return $this;
-    }
 
     /**
      * Get createdat
@@ -76,18 +67,6 @@ class Cart
         return $this->createdat;
     }
 
-    /**
-     * Set updatedat
-     *
-     * @param \DateTime $updatedat
-     * @return Cart
-     */
-    public function setUpdatedat($updatedat)
-    {
-        $this->updatedat = $updatedat;
-    
-        return $this;
-    }
 
     /**
      * Get updatedat
