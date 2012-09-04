@@ -34,7 +34,7 @@ class Shop
      *
      * @ORM\Column(name="type", type="string", length=100)
      */
-    private $type
+    private $type;
  
 
     /**
@@ -63,25 +63,16 @@ class Shop
 
 	
     /**
-     * @OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="shop")
+     * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="shop")
      **/
     private $products;
 
     /**
-     * @OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales")
-     * @JoinColumn(name="sales_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales")
+     * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
      **/
     private $sales;
     
-    /**
-     * @ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price")
-     * @JoinTable(name="product_prices",
-     *      joinColumns={@JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="prices_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-    private $prices;
-
     /**
      * Get id
      *
@@ -182,5 +173,124 @@ class Shop
     public function getUpdatedat()
     {
         return $this->updatedat;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Shop
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Add products
+     *
+     * @param PiggyBox\ShopBundle\Entity\Product $products
+     * @return Shop
+     */
+    public function addProduct(\PiggyBox\ShopBundle\Entity\Product $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param PiggyBox\ShopBundle\Entity\Product $products
+     */
+    public function removeProduct(\PiggyBox\ShopBundle\Entity\Product $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * Set sales
+     *
+     * @param PiggyBox\ShopBundle\Entity\Sales $sales
+     * @return Shop
+     */
+    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
+    {
+        $this->sales = $sales;
+    
+        return $this;
+    }
+
+    /**
+     * Get sales
+     *
+     * @return PiggyBox\ShopBundle\Entity\Sales 
+     */
+    public function getSales()
+    {
+        return $this->sales;
+    }
+
+    /**
+     * Add prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     * @return Shop
+     */
+    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices[] = $prices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     */
+    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPrices()
+    {
+        return $this->prices;
     }
 }

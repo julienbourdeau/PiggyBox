@@ -95,16 +95,26 @@ class Product
 
     /**
      * @var \DateTime $updatedat
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
 
     /**
-     * @ManyToOne(targetEntity="Shop", inversedBy="products")
-     * @JoinColumn(name="shop_id" referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="products")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price")
+     * @ORM\JoinTable(name="product_prices",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    private $prices;
 
     /**
      * Get id
@@ -321,5 +331,114 @@ class Product
     public function getPromoPercentage()
     {
         return $this->promo_percentage;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     * @return Product
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdat
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedat()
+    {
+        return $this->createdat;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return Product
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedat
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedat()
+    {
+        return $this->updatedat;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Product
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+    
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return PiggyBox\ShopBundle\Entity\Shop 
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     * @return Product
+     */
+    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices[] = $prices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     */
+    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPrices()
+    {
+        return $this->prices;
     }
 }

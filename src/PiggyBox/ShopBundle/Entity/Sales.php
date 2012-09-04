@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PiggyBox\ShopBundle\Entity\Sales
  *
- * @ORM\Table(name="piggybox_sales)
+ * @ORM\Table(name="piggybox_sales")
  * @ORM\Entity
  */
 class Sales
