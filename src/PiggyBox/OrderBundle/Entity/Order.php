@@ -3,6 +3,7 @@
 namespace PiggyBox\OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\OrderBundle\Entity\Orders
@@ -49,6 +50,21 @@ class Order
      */
     private $total_products;
 
+    /**
+     * @var \DateTime $createdat
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="createdat", type="datetime")
+     */
+    private $createdat;
+
+    /**
+     * @var \DateTime $updatedat
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedat", type="datetime")
+     */
+    private $updatedat;
 
     /**
      * Get id
@@ -150,5 +166,25 @@ class Order
     public function getTotalProducts()
     {
         return $this->total_products;
+    }
+
+    /**
+     * Get createdat
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedat()
+    {
+        return $this->createdat;
+    }
+
+    /**
+     * Get updatedat
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedat()
+    {
+        return $this->updatedat;
     }
 }
