@@ -57,3 +57,10 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+# StofDoctrineExtensionBundle Configuration
+stof_doctrine_extensions:
+    default_locale: fr_FR 
+    orm:
+        default:
+            timestampable: true 
