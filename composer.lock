@@ -1,5 +1,5 @@
 {
-    "hash": "afa9ed2f087ef34f2ab54c177f478a34",
+    "hash": "f724148507ded123b550cdb53a0d4acd",
     "packages": [
         {
             "package": "doctrine/common",
@@ -16,12 +16,6 @@
         {
             "package": "doctrine/doctrine-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
-        },
-        {
-            "package": "doctrine/doctrine-bundle",
-            "version": "dev-master",
             "source-reference": "3600872919186e1a40e8fd556e65f6dca6337cc9",
             "commit-date": "1346617185"
         },
@@ -30,6 +24,18 @@
             "version": "2.3.x-dev",
             "source-reference": "bbf527a27356414bfa9bf520f018c5cb7af67c77",
             "commit-date": "1346250986"
+        },
+        {
+            "package": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "alias-pretty-version": "2.3.x-dev",
+            "alias-version": "2.3.9999999.9999999-dev"
+        },
+        {
+            "package": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "source-reference": "4e8a3a920eedaba4e76c26a92347e9b47bb7ffdf",
+            "commit-date": "1346486653"
         },
         {
             "package": "jms/aop-bundle",
@@ -116,6 +122,18 @@
             "commit-date": "1346138171"
         },
         {
+            "package": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
+        },
+        {
+            "package": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "source-reference": "0247e6f1658d76292c8ffe2c5106090bd36bd799",
+            "commit-date": "1346283670"
+        },
+        {
             "package": "swiftmailer/swiftmailer",
             "version": "dev-master",
             "alias-pretty-version": "4.2.x-dev",
@@ -172,14 +190,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "41ffd006e57b0955d44a2b07fd898689c0d63a56",
-            "commit-date": "1346482338"
-        },
-        {
-            "package": "twig/extensions",
-            "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
+            "source-reference": "0919361e2ed0e5bd6ebd293ee6879aa7673c3f55",
+            "commit-date": "1346761482"
         },
         {
             "package": "twig/extensions",
@@ -207,6 +219,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "doctrine/doctrine-bundle": 20,
-        "twig/extensions": 20
+        "twig/extensions": 20,
+        "stof/doctrine-extensions-bundle": 20
     }
 }
