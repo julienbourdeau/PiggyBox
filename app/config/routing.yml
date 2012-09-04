@@ -1,3 +1,8 @@
+piggy_box_shop:
+    resource: "@PiggyBoxShopBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 piggy_box_order:
     resource: "@PiggyBoxOrderBundle/Controller/"
     type:     annotation
