@@ -51,7 +51,12 @@ class OrderDetail
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
-
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="order_detail")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     **/
+    private $order;
 
     /**
      * Get id
@@ -127,5 +132,28 @@ class OrderDetail
     public function getUpdatedat()
     {
         return $this->updatedat;
+    }
+
+    /**
+     * Set order
+     *
+     * @param PiggyBox\OrderBundle\Entity\Order $order
+     * @return OrderDetail
+     */
+    public function setOrder(\PiggyBox\OrderBundle\Entity\Order $order = null)
+    {
+        $this->order = $order;
+    
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return PiggyBox\OrderBundle\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }
