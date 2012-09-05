@@ -3,6 +3,7 @@
 namespace PiggyBox\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * PiggyBox\UserBundle\Entity\User
@@ -19,8 +20,13 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
 
     /**
      * Get id
