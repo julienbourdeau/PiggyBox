@@ -9,22 +9,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\ShopBundle\Form\ShopType;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 /**
  * Shop controller.
  *
- * @Route("/moncommerce")
+ * @PreAuthorize("hasRole('ROLE_SHOP')")
+ * @Route("/monmagasin")
  */
 class ShopController extends Controller
 {
     /**
-     * Lists all Shop entities.
+     * Homepage of the shop-owner. The goal of this page is to 
      *
      * @Route("/", name="moncommerce")
      * @Template()
      */
     public function indexAction()
-    {
+	{
+		NOTE: 
+	   		//TODO: 
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
@@ -61,16 +70,19 @@ class ShopController extends Controller
     /**
      * Displays a form to create a new Shop entity.
      *
+	 * @Secure(roles="ROLE_ADMIN")
      * @Route("/new", name="moncommerce_new")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Shop();
-        $form   = $this->createForm(new ShopType(), $entity);
+		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
+		//TODO: Ajouter plus de détails au magasin que le nom et type...
+        $shop = new Shop();
+        $form = $this->createForm(new ShopType(), $shop);
 
         return array(
-            'entity' => $entity,
+            'entity' => $shop,
             'form'   => $form->createView(),
         );
     }
@@ -78,22 +90,46 @@ class ShopController extends Controller
     /**
      * Creates a new Shop entity.
      *
+	 * @Secure(roles="ROLE_ADMIN")
      * @Route("/create", name="moncommerce_create")
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Shop:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity  = new Shop();
-        $form = $this->createForm(new ShopType(), $entity);
+		//TODO: Vérifier la validité du formulaire
+		//TODO: Si le formulaire est correct, donner les ACL à l'utilisateur connécté
+		//TODO: Ajouter le rôle de l'utilisateur ROLE_SHOP
+		//TODO: Retirer le ROLE_ADMIN
+        $shop = new Shop();
+        $form = $this->createForm(new ShopType(), $shop);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($shop);
             $em->flush();
+		
+			// creating the ACL
+            $aclProvider = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($shop);
+            $acl = $aclProvider->createAcl($objectIdentity);
 
-            return $this->redirect($this->generateUrl('moncommerce_show', array('id' => $entity->getId())));
+            // retrieving the security identity of the currently logged-in user
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+            // grant owner access
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+			$aclProvider->updateAcl($acl);
+
+
+			$manipulator = $this->get('fos_user.util.user_manipulator');
+			$manipulator->addRole($user,"ROLE_SHOP");
+			$manipulator->removeRole($user,"ROLE_ADMIN");
+
+            return $this->redirect($this->generateUrl('moncommerce_show', array('id' => $shop->getId())));
         }
 
         return array(

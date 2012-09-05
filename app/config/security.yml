@@ -3,6 +3,9 @@ jms_security_extra:
     expressions: true
 
 security:
+    acl: 
+        connection: default
+    
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
