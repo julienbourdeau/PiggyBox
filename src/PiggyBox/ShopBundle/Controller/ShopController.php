@@ -15,6 +15,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use JMS\SecurityExtraBundle\Annotation\SecureReturn;
+use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
 
 /**
  * Shop controller.
@@ -25,15 +27,14 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 class ShopController extends Controller
 {
     /**
-     * Homepage of the shop-owner. The goal of this page is to 
-     *
+     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page 
+	 * 
+	 * @SecureReturn(permissions="VIEW")
      * @Route("/", name="moncommerce")
      * @Template()
      */
     public function indexAction()
 	{
-		NOTE: 
-	   		//TODO: 
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
@@ -140,25 +141,31 @@ class ShopController extends Controller
 
     /**
      * Displays a form to edit an existing Shop entity.
-     *
+	 *
      * @Route("/{id}/edit", name="moncommerce_edit")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editShopAction($id)
+	{
+		//NOTE: Vérification de l'autorisation 'VIEW' > Présentation du formulaire d'édition du Shop > Création de la vue	
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
+        $securityContext = $this->get('security.context');		
 
-        if (!$entity) {
+        if (!$shop) {
             throw $this->createNotFoundException('Unable to find Shop entity.');
         }
 
-        $editForm = $this->createForm(new ShopType(), $entity);
+		if(!$securityContext->isGranted('VIEW', $shop)){
+			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+		}
+
+        $editForm = $this->createForm(new ShopType(), $shop);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $shop,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -171,29 +178,34 @@ class ShopController extends Controller
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Shop:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateShopAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
+        $securityContext = $this->get('security.context');		
 
-        if (!$entity) {
+        if (!$shop) {
             throw $this->createNotFoundException('Unable to find Shop entity.');
         }
 
+		if(!$securityContext->isGranted('EDIT', $shop)){
+			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+		}
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ShopType(), $entity);
+        $editForm = $this->createForm(new ShopType(), $shop);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($shop);
             $em->flush();
 
             return $this->redirect($this->generateUrl('moncommerce_edit', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $shop,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
