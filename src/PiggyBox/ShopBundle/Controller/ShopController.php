@@ -74,7 +74,7 @@ class ShopController extends Controller
      * @Route("/new", name="moncommerce_new")
      * @Template()
      */
-    public function newAction()
+    public function newShopAction()
     {
 		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
@@ -95,19 +95,22 @@ class ShopController extends Controller
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Shop:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createShopAction(Request $request)
     {
-		//TODO: Vérifier la validité du formulaire
-		//TODO: Si le formulaire est correct, donner les ACL à l'utilisateur connécté
-		//TODO: Ajouter le rôle de l'utilisateur ROLE_SHOP
-		//TODO: Retirer le ROLE_ADMIN
+		//NOTE: Vérification de la validité du formulaire > Ajout du Shop à l'utilisateur > création des ACL à l'objet $user > Ajout du ROLE_SHOP et suppression du ROLE_ADMIN > Redirection vers la route logout
         $shop = new Shop();
         $form = $this->createForm(new ShopType(), $shop);
         $form->bind($request);
 
         if ($form->isValid()) {
+             // retrieving the security identity of the currently logged-in user
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+			
+			// saving the DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($shop);
+			$user->setOwnshop($shop);
             $em->flush();
 		
 			// creating the ACL
@@ -115,21 +118,18 @@ class ShopController extends Controller
             $objectIdentity = ObjectIdentity::fromDomainObject($shop);
             $acl = $aclProvider->createAcl($objectIdentity);
 
-            // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
             $securityIdentity = UserSecurityIdentity::fromAccount($user);
 
             // grant owner access
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
 			$aclProvider->updateAcl($acl);
 
-
+			// Ajout du ROLE_SHOP et suppression du ROLE_ADMIN
 			$manipulator = $this->get('fos_user.util.user_manipulator');
 			$manipulator->addRole($user,"ROLE_SHOP");
 			$manipulator->removeRole($user,"ROLE_ADMIN");
 
-            return $this->redirect($this->generateUrl('moncommerce_show', array('id' => $shop->getId())));
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
 
         return array(
