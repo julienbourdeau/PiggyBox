@@ -13,11 +13,6 @@ class ShopType extends AbstractType
         $builder
             ->add('name')
             ->add('type')
-            ->add('slug')
-            ->add('createdat')
-            ->add('updatedat')
-            ->add('sales')
-            ->add('clients')
         ;
     }
 
