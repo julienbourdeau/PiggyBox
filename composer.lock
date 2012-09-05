@@ -1,5 +1,5 @@
 {
-    "hash": "f724148507ded123b550cdb53a0d4acd",
+    "hash": "75aa9cffd96c77980d1cabd8ee73916b",
     "packages": [
         {
             "package": "doctrine/common",
@@ -26,10 +26,16 @@
             "commit-date": "1346250986"
         },
         {
-            "package": "gedmo/doctrine-extensions",
+            "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.3.x-dev",
-            "alias-version": "2.3.9999999.9999999-dev"
+            "alias-pretty-version": "2.0.x-dev",
+            "alias-version": "2.0.9999999.9999999-dev"
+        },
+        {
+            "package": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
+            "source-reference": "24edb2f2e83b227a4ba24180c69758005e805991",
+            "commit-date": "1346829941"
         },
         {
             "package": "gedmo/doctrine-extensions",
@@ -124,12 +130,6 @@
         {
             "package": "stof/doctrine-extensions-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "1.1.x-dev",
-            "alias-version": "1.1.9999999.9999999-dev"
-        },
-        {
-            "package": "stof/doctrine-extensions-bundle",
-            "version": "dev-master",
             "source-reference": "0247e6f1658d76292c8ffe2c5106090bd36bd799",
             "commit-date": "1346283670"
         },
@@ -190,14 +190,20 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "0919361e2ed0e5bd6ebd293ee6879aa7673c3f55",
-            "commit-date": "1346761482"
+            "source-reference": "1dd153205b1db5b9ddcb4bfd4825ce6b8c4f41e7",
+            "commit-date": "1346770195"
         },
         {
             "package": "twig/extensions",
             "version": "dev-master",
-            "source-reference": "v1.0.0-alpha",
-            "commit-date": "1346166263"
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
+        },
+        {
+            "package": "twig/extensions",
+            "version": "dev-master",
+            "source-reference": "f904575642b1213db69b4a98f08397e722ba1cae",
+            "commit-date": "1346770278"
         },
         {
             "package": "twig/twig",
@@ -220,6 +226,7 @@
     "stability-flags": {
         "doctrine/doctrine-bundle": 20,
         "twig/extensions": 20,
-        "stof/doctrine-extensions-bundle": 20
+        "stof/doctrine-extensions-bundle": 20,
+        "friendsofsymfony/user-bundle": 20
     }
 }

@@ -74,6 +74,12 @@ class Shop
     private $sales;
     
     /**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="shopw")
+     * @ORM\JoinTable(name="shops_clients")
+     **/
+    private $clients;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -292,5 +298,38 @@ class Shop
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    /**
+     * Add clients
+     *
+     * @param PiggyBox\UserBundle\Entity\User $clients
+     * @return Shop
+     */
+    public function addClient(\PiggyBox\UserBundle\Entity\User $clients)
+    {
+        $this->clients[] = $clients;
+    
+        return $this;
+    }
+
+    /**
+     * Remove clients
+     *
+     * @param PiggyBox\UserBundle\Entity\User $clients
+     */
+    public function removeClient(\PiggyBox\UserBundle\Entity\User $clients)
+    {
+        $this->clients->removeElement($clients);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        return $this->clients;
     }
 }

@@ -24,6 +24,8 @@ class AppKernel extends Kernel
 	    //third-party bundle
 	    new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
+            new PiggyBox\UserBundle\PiggyBoxUserBundle(),
+	    new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
