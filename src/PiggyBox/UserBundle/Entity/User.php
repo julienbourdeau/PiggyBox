@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PiggyBox\UserBundle\Entity\User
  *
- * @ORM\Table()
+ * @ORM\Table(name="piggybox_user")
  * @ORM\Entity(repositoryClass="PiggyBox\UserBundle\Entity\UserRepository")
  */
 class User
