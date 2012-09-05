@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PiggyBox\ManagerBundle\Entity\Manager
  *
- * @ORM\Table()
+ * @ORM\Table(name="piggybox_manager")
  * @ORM\Entity(repositoryClass="PiggyBox\ManagerBundle\Entity\ManagerRepository")
  */
 class Manager

@@ -59,7 +59,7 @@ class OrderDetail
     private $order;
 
     /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\OrderBundle\Entity\Product")
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      **/
     private $product;
