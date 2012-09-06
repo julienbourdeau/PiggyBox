@@ -18,16 +18,19 @@ use PiggyBox\UserBundle\Form\UserType;
 class UserController extends Controller
 {
     /**
-     * Lists all User entities.
+     * Homepage of the users
      *
      * @Route("/", name="user")
      * @Template()
      */
     public function indexAction()
     {
+		//NOTE: L'utilisateur doit pouvoir voir les magasins et cliquer sur les magasins
+		//NOTE: Il doit pouvoir avoir accès à son panier s'il en a un
+		//NOTE: il doit pouvoir se connecter ou s'enregister
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxUserBundle:User')->findAll();
+        $entities = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
 
         return array(
             'entities' => $entities,
