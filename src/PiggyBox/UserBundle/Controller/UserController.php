@@ -40,24 +40,23 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}/show", name="user_show")
+     * @Route("{slug}/show", name="user_show_shop")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Request $req, $slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxUserBundle:User')->find($id);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
+		$products = $shop->getProducts()->toArray();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+        if (!$shop) {
+            throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $shop,
+			'products'	  => $products	
         );
     }
 
