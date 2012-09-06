@@ -146,17 +146,22 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+        $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+        $securityContext = $this->get('security.context');		
 
-        if (!$entity) {
+        if (!$product) {
             throw $this->createNotFoundException('Unable to find Product entity.');
-        }
+		}
 
-        $editForm = $this->createForm(new ProductType(), $entity);
+		if(!$securityContext->isGranted('VIEW', $product)){
+			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+		}		
+
+        $editForm = $this->createForm(new ProductType(), $product);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $product,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -173,25 +178,30 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+        $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+        $securityContext = $this->get('security.context');		
 
-        if (!$entity) {
+        if (!$product) {
             throw $this->createNotFoundException('Unable to find Product entity.');
         }
 
+		if(!$securityContext->isGranted('EDIT', $product)){
+			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+		}
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ProductType(), $entity);
+        $editForm = $this->createForm(new ProductType(), $product);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($product);
             $em->flush();
 
             return $this->redirect($this->generateUrl('monmagasin_mesproduits_edit', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
+            'entity'      => $product,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
