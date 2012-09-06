@@ -42,8 +42,22 @@
 					<div class="well">
 
 						<h2>
+							<img src="{{ asset('bundles/piggyboxconsumer/img/shopping_cart.png') }}" width="38">
 							Votre panier
 						</h2>
+
+						<br /><br />
+
+						{% set order_details  = piggybox_order_get() %}
+
+						<table class="table">
+
+							{% for order_detail in order_details %}
+							<tr>
+								<td>{{ order_detail.product.name }}</td>
+							</tr>
+							{% endfor %}
+						</table>
 
 						<br /><br />
 
@@ -54,25 +68,4 @@
 
 					</div>
 
-
-					<div id="favorite">
-						<br />
-						<h2>
-							<img src="{{ asset('bundles/piggyboxconsumer/img/keditbookmarks.png') }}"  width="38" />
-							Vos articles favoris
-						</h2>
-
-						<br />
-
-						<ul class="nav nav-tabs nav-stacked">
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-						</ul>
-
-					</div>
-
-				</section>
 {% endblock %}
