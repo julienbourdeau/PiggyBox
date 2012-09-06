@@ -13,7 +13,7 @@ use PiggyBox\UserBundle\Form\UserType;
 /**
  * User controller.
  *
- * @Route("/user")
+ * @Route("/")
  */
 class UserController extends Controller
 {
