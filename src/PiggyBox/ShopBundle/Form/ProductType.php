@@ -15,11 +15,11 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('price_kg')
             ->add('active')
-            ->add('image_path')
             ->add('promo_active')
             ->add('promo_price')
             ->add('promo_expire_date')
             ->add('promo_percentage')
+			->add('file')
         ;
     }
 

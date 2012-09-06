@@ -1,6 +1,12 @@
 {
-    "hash": "75aa9cffd96c77980d1cabd8ee73916b",
+    "hash": "60292c7cbbcc2938d27af1d235ac6269",
     "packages": [
+        {
+            "package": "avalanche123/imagine-bundle",
+            "version": "dev-master",
+            "source-reference": "a1248483cdd532780928f0ac23f06596d198a3f0",
+            "commit-date": "1344289113"
+        },
         {
             "package": "doctrine/common",
             "version": "2.3.x-dev",
@@ -10,8 +16,8 @@
         {
             "package": "doctrine/dbal",
             "version": "2.3.x-dev",
-            "source-reference": "adb28e4e1f959d515971b8e8b7f05a01913a7b91",
-            "commit-date": "1346249329"
+            "source-reference": "239630b61f03f39d198441eced1bfffb7b0e61d1",
+            "commit-date": "1346866589"
         },
         {
             "package": "doctrine/doctrine-bundle",
@@ -22,14 +28,8 @@
         {
             "package": "doctrine/orm",
             "version": "2.3.x-dev",
-            "source-reference": "bbf527a27356414bfa9bf520f018c5cb7af67c77",
-            "commit-date": "1346250986"
-        },
-        {
-            "package": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "2.0.x-dev",
-            "alias-version": "2.0.9999999.9999999-dev"
+            "source-reference": "4d9f24b2eef3af3a3e76c773994c19bbb0706f88",
+            "commit-date": "1346869007"
         },
         {
             "package": "friendsofsymfony/user-bundle",
@@ -42,6 +42,12 @@
             "version": "dev-master",
             "source-reference": "4e8a3a920eedaba4e76c26a92347e9b47bb7ffdf",
             "commit-date": "1346486653"
+        },
+        {
+            "package": "imagine/Imagine",
+            "version": "dev-master",
+            "source-reference": "v0.3.0",
+            "commit-date": "1343522118"
         },
         {
             "package": "jms/aop-bundle",
@@ -88,8 +94,8 @@
         {
             "package": "monolog/monolog",
             "version": "dev-master",
-            "source-reference": "1.2.1",
-            "commit-date": "1346241200"
+            "source-reference": "a929570bb7688b39fefe4106f0ecf0ac35f37647",
+            "commit-date": "1346873566"
         },
         {
             "package": "sensio/distribution-bundle",
@@ -100,8 +106,8 @@
         {
             "package": "sensio/distribution-bundle",
             "version": "dev-master",
-            "source-reference": "a86d2c0d7212851cc4e971abdff13b89eb063861",
-            "commit-date": "1346246961"
+            "source-reference": "749aa6bbb2fac33091804d56a35339dc4c65f4a6",
+            "commit-date": "1346859132"
         },
         {
             "package": "sensio/framework-extra-bundle",
@@ -190,14 +196,8 @@
         {
             "package": "symfony/symfony",
             "version": "dev-master",
-            "source-reference": "1dd153205b1db5b9ddcb4bfd4825ce6b8c4f41e7",
-            "commit-date": "1346770195"
-        },
-        {
-            "package": "twig/extensions",
-            "version": "dev-master",
-            "alias-pretty-version": "1.0.x-dev",
-            "alias-version": "1.0.9999999.9999999-dev"
+            "source-reference": "00ec9b53911c0ff288439ac911d0f0edde176b6c",
+            "commit-date": "1346859854"
         },
         {
             "package": "twig/extensions",
@@ -227,6 +227,7 @@
         "doctrine/doctrine-bundle": 20,
         "twig/extensions": 20,
         "stof/doctrine-extensions-bundle": 20,
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "avalanche123/imagine-bundle": 20
     }
 }
