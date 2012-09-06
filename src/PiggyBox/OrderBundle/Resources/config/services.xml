@@ -28,12 +28,10 @@
             <argument type="service" id="piggy_box_order.session" />
         </service>
 
-	<!--		
-    <service id="piggy_box_cart.twig.cart_extension" class="PiggyBox\OrderBundle\Twig\CartExtension">
+    <service id="piggy_box_order.twig.order_extension" class="PiggyBox\OrderBundle\Twig\OrderExtension">
         <argument type="service" id="service_container" />
         <tag name="twig.extension" />
     </service>
-	-->
 
     <service id="piggy_box_order.session" class="PiggyBox\OrderBundle\Storage\SessionOrderStorage">
         <argument type="service" id="session" />
