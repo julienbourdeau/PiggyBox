@@ -1,0 +1,47 @@
+<h1>Order list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Note</th>
+            <th>Total_price</th>
+            <th>Pickupat</th>
+            <th>Total_products</th>
+            <th>Createdat</th>
+            <th>Updatedat</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('order_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.note }}</td>
+            <td>{{ entity.totalprice }}</td>
+            <td>{% if entity.pickupat %}{{ entity.pickupat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.totalproducts }}</td>
+            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('order_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('order_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('order_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
