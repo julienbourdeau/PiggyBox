@@ -21,11 +21,12 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new PiggyBox\OrderBundle\PiggyBoxOrderBundle(),
 
-	    //third-party bundle
-	    new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+	    	//third-party bundle
+		    new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
-            new PiggyBox\UserBundle\PiggyBoxUserBundle(),
-	    new FOS\UserBundle\FOSUserBundle(),
+			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
+		    new FOS\UserBundle\FOSUserBundle(),
+	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

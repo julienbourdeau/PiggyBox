@@ -71,3 +71,14 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: PiggyBox\UserBundle\Entity\User
+
+# AvalancheImagineBundle Configuration
+avalanche_imagine:
+    filters:
+        my_thumb:
+            type:    thumbnail
+            options: { size: [90, 90], mode: outbound, quality: 100}
+        large_thumb:
+            type:    thumbnail
+            options:  { size: [280, 280], mode: outbound, quality: 100}
+
