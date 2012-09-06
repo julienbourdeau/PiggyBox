@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Form\OrderType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
+use PiggyBox\ShopBundle\Entity\Product;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Order controller.
@@ -31,12 +33,14 @@ class OrderController extends Controller
 
         //NOTE: Création d'un nouvel OrderDetail à l'Order
 		$order_detail = new OrderDetail();
-		$order->addOrderDetail($order_detail);
+		$order_detail->setOrder($order);
+//		$order->addOrderDetail($order_detail);
 
 		//Ajout du produit à l'OrderDetail
         $em = $this->getDoctrine()->getManager();
         $order_detail->setProduct($em->getRepository('PiggyBoxShopBundle:Product')->find($req->get('id')));
 
+        $em->persist($order_detail);
         $em->persist($order);
         $em->flush();
 

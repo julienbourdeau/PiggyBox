@@ -23,20 +23,6 @@ class OrderDetail
     private $id;
 
     /**
-     * @var integer $product_quantity
-     *
-     * @ORM\Column(name="product_quantity", type="integer")
-     */
-    private $product_quantity;
-
-    /**
-     * @var float $product_price
-     *
-     * @ORM\Column(name="product_price", type="float")
-     */
-    private $product_price;
-
-    /**
      * @var \DateTime $createdat
      *
      * @Gedmo\Timestampable(on="create")
@@ -64,6 +50,14 @@ class OrderDetail
      **/
     private $product;
 
+	/**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Price")
+     * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
+     **/
+    private $price;
+
+    
+
     /**
      * Get id
      *
@@ -75,49 +69,16 @@ class OrderDetail
     }
 
     /**
-     * Set product_quantity
+     * Set createdat
      *
-     * @param integer $productQuantity
+     * @param \DateTime $createdat
      * @return OrderDetail
      */
-    public function setProductQuantity($productQuantity)
+    public function setCreatedat($createdat)
     {
-        $this->product_quantity = $productQuantity;
+        $this->createdat = $createdat;
     
         return $this;
-    }
-
-    /**
-     * Get product_quantity
-     *
-     * @return integer 
-     */
-    public function getProductQuantity()
-    {
-        return $this->product_quantity;
-    }
-
-    /**
-     * Set product_price
-     *
-     * @param float $productPrice
-     * @return OrderDetail
-     */
-    public function setProductPrice($productPrice)
-    {
-        $this->product_price = $productPrice;
-    
-        return $this;
-    }
-
-    /**
-     * Get product_price
-     *
-     * @return float 
-     */
-    public function getProductPrice()
-    {
-        return $this->product_price;
     }
 
     /**
@@ -128,6 +89,19 @@ class OrderDetail
     public function getCreatedat()
     {
         return $this->createdat;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return OrderDetail
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
     }
 
     /**
@@ -166,10 +140,10 @@ class OrderDetail
     /**
      * Set product
      *
-     * @param PiggyBox\OrderBundle\Entity\Product $product
+     * @param PiggyBox\ShopBundle\Entity\Product $product
      * @return OrderDetail
      */
-    public function setProduct(\PiggyBox\OrderBundle\Entity\Product $product = null)
+    public function setProduct(\PiggyBox\ShopBundle\Entity\Product $product = null)
     {
         $this->product = $product;
     
@@ -179,10 +153,33 @@ class OrderDetail
     /**
      * Get product
      *
-     * @return PiggyBox\OrderBundle\Entity\Product 
+     * @return PiggyBox\ShopBundle\Entity\Product 
      */
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set price
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $price
+     * @return OrderDetail
+     */
+    public function setPrice(\PiggyBox\ShopBundle\Entity\Price $price = null)
+    {
+        $this->price = $price;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return PiggyBox\ShopBundle\Entity\Price 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

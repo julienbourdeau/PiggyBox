@@ -25,28 +25,28 @@ class Order
     /**
      * @var string $note
      *
-     * @ORM\Column(name="note", type="text")
+     * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
 
     /**
      * @var float $total_price
      *
-     * @ORM\Column(name="total_price", type="float")
+     * @ORM\Column(name="total_price", type="float", nullable=true)
      */
     private $total_price;
 
     /**
      * @var \DateTime $pickupat
      *
-     * @ORM\Column(name="pickupat", type="datetime")
+     * @ORM\Column(name="pickupat", type="datetime", nullable=true)
      */
     private $pickupat;
 
     /**
      * @var integer $total_products
      *
-     * @ORM\Column(name="total_products", type="integer")
+     * @ORM\Column(name="total_products", type="integer", nullable=true)
      */
     private $total_products;
 
@@ -67,7 +67,7 @@ class Order
     private $updatedat;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order", cascade={"persist", "remove"})
      **/
     private $order_detail;
 
