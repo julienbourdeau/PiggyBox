@@ -1,93 +1,76 @@
-<h1>User</h1>
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
-<table class="record_properties">
+{% block content %}
+<h1>Product list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+			<th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price_kg</th>
+			<th>Prix</th>
+			<th>Actions</th>
+        </tr>
+    </thead>
     <tbody>
+    {% for product in products %}
         <tr>
-            <th>Username</th>
-            <td>{{ entity.username }}</td>
+			<td><img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.pricekg }}</td>
+			<td>
+				<form action="">
+					{% for price in product.prices %}
+						<input type="radio" name="sex" value="{{price.price}}" />{{price.price}}<br />
+					{% endfor %}
+				</form>
+			</td>
+			<td>
+				<a href="">Ajouter au panier</a>
+			</td>
         </tr>
-        <tr>
-            <th>Usernamecanonical</th>
-            <td>{{ entity.usernameCanonical }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ entity.email }}</td>
-        </tr>
-        <tr>
-            <th>Emailcanonical</th>
-            <td>{{ entity.emailCanonical }}</td>
-        </tr>
-        <tr>
-            <th>Enabled</th>
-            <td>{{ entity.enabled }}</td>
-        </tr>
-        <tr>
-            <th>Salt</th>
-            <td>{{ entity.salt }}</td>
-        </tr>
-        <tr>
-            <th>Password</th>
-            <td>{{ entity.password }}</td>
-        </tr>
-        <tr>
-            <th>Lastlogin</th>
-            <td>{{ entity.lastLogin|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Locked</th>
-            <td>{{ entity.locked }}</td>
-        </tr>
-        <tr>
-            <th>Expired</th>
-            <td>{{ entity.expired }}</td>
-        </tr>
-        <tr>
-            <th>Expiresat</th>
-            <td>{{ entity.expiresAt|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Confirmationtoken</th>
-            <td>{{ entity.confirmationToken }}</td>
-        </tr>
-        <tr>
-            <th>Passwordrequestedat</th>
-            <td>{{ entity.passwordRequestedAt|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Roles</th>
-            <td>{{ entity.roles }}</td>
-        </tr>
-        <tr>
-            <th>Credentialsexpired</th>
-            <td>{{ entity.credentialsExpired }}</td>
-        </tr>
-        <tr>
-            <th>Credentialsexpireat</th>
-            <td>{{ entity.credentialsExpireAt|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
+    {% endfor %}
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('user_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+				<section id="shopping-cart" class="span4">
+					<div class="well">
+
+						<h2>
+							Votre panier
+						</h2>
+
+						<br /><br />
+
+						<a class="btn btn-success pull-right"><i class="icon icon-hand-right icon-white"></i> Finir la commande</a>
+
+						<br /><br />
+
+
+					</div>
+
+
+					<div id="favorite">
+						<br />
+						<h2>
+							<img src="{{ asset('bundles/piggyboxconsumer/img/keditbookmarks.png') }}"  width="38" />
+							Vos articles favoris
+						</h2>
+
+						<br />
+
+						<ul class="nav nav-tabs nav-stacked">
+							<li><a href="#">Roti de veau</a></li>
+							<li><a href="#">Roti de veau</a></li>
+							<li><a href="#">Roti de veau</a></li>
+							<li><a href="#">Roti de veau</a></li>
+							<li><a href="#">Roti de veau</a></li>
+						</ul>
+
+					</div>
+
+				</section>
+{% endblock %}

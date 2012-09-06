@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+
+</head>
+<body>
+
+<div id="page" class="hfeed site container">
+
+	<div class="row">
+		<div class="span12">
+			<div class="user-bar">
+				{% if app.user %}
+                    <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ path('fos_user_registration_register') }}">Create a new account</a>
+                    |
+                    <a href="{{ path('fos_user_security_login') }}">Login</a>
+                {% endif %}
+            </div>
+		</div>
+	</div>
+
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="row">
+
+			<hgroup id="branding" class="span4">
+
+				<h1 class="site-title"><a href="#" title="Piggybox" rel="home">Piggybox</a></h1>
+
+				<h2 class="site-description">Et avec ceci?</h2>
+
+			</hgroup>
+
+
+			<nav role="navigation" class="site-navigation main-navigation pull-right">
+
+				<h1 class="assistive-text">Menu</h1>
+
+
+				<div class="menu">
+					<ul class="nav nav-pills">
+						<li class="current_page_item active"><a href="#" title="Home">Acceuil</a></li>
+						<li class="page_item"><a href="#">Nous Contacter</a></li>
+
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Dropdown
+								<b class="caret"></b>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a>test</a></li>
+								</ul>
+						</li>
+					</ul>
+				</div>
+
+
+
+			</nav>
+
+		</div>
+	</header><!-- #masthead .site-header -->
+
+
+	<div id="main">
+
+		<div id="primary" class="site-content">
+
+			{% for name, value in app.session.flashes if name in ['success', 'error'] %}
+                <div class="alert alert-{{ name }}">
+                    <a class="close" data-dismiss="alert" href="#">×</a>
+                    {{ value|trans }}
+                </div>
+            {% endfor %}
+
+			{% block content %}
+
+
+			{% endblock %}
+
+
+		</div>
+
+	</div><!-- #main -->
+
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+        {% block javascript %}{% endblock %}
+</body>
+</html>
+
