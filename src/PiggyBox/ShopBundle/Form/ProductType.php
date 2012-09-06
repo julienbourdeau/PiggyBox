@@ -23,6 +23,7 @@ class ProductType extends AbstractType
 			->add('prices', 'collection', array(
        		 	'type' => new PriceType(),
         		'allow_add' => true,
+				'allow_delete' => true,
 		        'by_reference' => false,
     		));
         ;
