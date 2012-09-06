@@ -25,19 +25,23 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 class ProductController extends Controller
 {
     /**
-     * Lister tous les produits du magasin
+     * Lister les produits du magasin, les linker vers le CRUD
      *
      * @Route("/", name="monmagasin_mesproduits")
      * @Template()
      */
     public function indexAction()
     {
+		//NOTE: Get the list of product by category for the shopowner > link them to the CRUD
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxShopBundle:Product')->findAll();
+        $securityContext = $this->get('security.context');
+        $user = $securityContext->getToken()->getUser();
+
+		$products = $user->getOwnshop()->getProducts()->toArray();
 
         return array(
-            'entities' => $entities,
+            'entities' => $products,
         );
     }
 
@@ -73,11 +77,11 @@ class ProductController extends Controller
      */
     public function newAction()
     {
-        $entity = new Product();
-        $form   = $this->createForm(new ProductType(), $entity);
+        $product= new Product();
+        $form   = $this->createForm(new ProductType(), $product);
 
         return array(
-            'entity' => $entity,
+            'entity' => $product,
             'form'   => $form->createView(),
         );
     }
@@ -104,8 +108,7 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
 			$product->setShop($user->getOwnshop());
-			$user->getOwnshop()->addProduct($product);
-			var_dump($user->getOwnshop()->getProducts());die();
+			//inutile à checker $user->getOwnshop()->addProduct($product);
             $em->flush();
 		
 			// creating the ACL
@@ -119,10 +122,6 @@ class ProductController extends Controller
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
 			$aclProvider->updateAcl($acl);
 
-			// Ajout du ROLE_SHOP et suppression du ROLE_ADMIN
-			$manipulator = $this->get('fos_user.util.user_manipulator');
-			$manipulator->addRole($user,"ROLE_SHOP");
-			$manipulator->removeRole($user,"ROLE_ADMIN");
             return $this->redirect($this->generateUrl('monmagasin_mesproduits_show', array('id' => $product->getId())));
         }
 

@@ -75,7 +75,7 @@ class ShopController extends Controller
      * @Route("/new", name="moncommerce_new")
      * @Template()
      */
-    public function newShopAction()
+    public function newAction()
     {
 		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
@@ -96,7 +96,7 @@ class ShopController extends Controller
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Shop:new.html.twig")
      */
-    public function createShopAction(Request $request)
+    public function createAction(Request $request)
     {
 		//NOTE: Vérification de la validité du formulaire > Ajout du Shop à l'utilisateur > création des ACL à l'objet $user > Ajout du ROLE_SHOP et suppression du ROLE_ADMIN > Redirection vers la route logout
         $shop = new Shop();
@@ -145,7 +145,7 @@ class ShopController extends Controller
      * @Route("/{id}/edit", name="moncommerce_edit")
      * @Template()
      */
-    public function editShopAction($id)
+    public function editAction($id)
 	{
 		//NOTE: Vérification de l'autorisation 'VIEW' > Présentation du formulaire d'édition du Shop > Création de la vue	
         $em = $this->getDoctrine()->getManager();
