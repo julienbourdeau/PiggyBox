@@ -18,16 +18,19 @@ use PiggyBox\UserBundle\Form\UserType;
 class UserController extends Controller
 {
     /**
-     * Lists all User entities.
+     * Homepage of the users
      *
      * @Route("/", name="user")
      * @Template()
      */
     public function indexAction()
     {
+		//NOTE: L'utilisateur doit pouvoir voir les magasins et cliquer sur les magasins
+		//NOTE: Il doit pouvoir avoir accès à son panier s'il en a un
+		//NOTE: il doit pouvoir se connecter ou s'enregister
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxUserBundle:User')->findAll();
+        $entities = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
 
         return array(
             'entities' => $entities,
@@ -37,24 +40,23 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}/show", name="user_show")
+     * @Route("{slug}/show", name="user_show_shop")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Request $req, $slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxUserBundle:User')->find($id);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
+		$products = $shop->getProducts()->toArray();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+        if (!$shop) {
+            throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $shop,
+			'products'	  => $products	
         );
     }
 
