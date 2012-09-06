@@ -20,6 +20,11 @@ class ProductType extends AbstractType
             ->add('promo_expire_date')
             ->add('promo_percentage')
 			->add('file')
+			->add('prices', 'collection', array(
+       		 	'type' => new PriceType(),
+        		'allow_add' => true,
+		        'by_reference' => false,
+    		));
         ;
     }
 
