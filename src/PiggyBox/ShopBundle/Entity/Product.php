@@ -110,7 +110,7 @@ class Product
     private $shop;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price")
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price", cascade={"persist"})
      * @ORM\JoinTable(name="product_prices",
      *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id", unique=true)}
@@ -495,7 +495,7 @@ class Product
      * @param PiggyBox\ShopBundle\Entity\Price $prices
      * @return Product
      */
-    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    public function addPrix(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices[] = $prices;
     
@@ -507,7 +507,7 @@ class Product
      *
      * @param PiggyBox\ShopBundle\Entity\Price $prices
      */
-    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    public function removePrix(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices->removeElement($prices);
     }
