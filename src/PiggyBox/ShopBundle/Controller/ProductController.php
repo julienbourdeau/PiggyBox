@@ -220,13 +220,19 @@ class ProductController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+            $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+	        $securityContext = $this->get('security.context');		
 
-            if (!$entity) {
+            if (!$product) {
                 throw $this->createNotFoundException('Unable to find Product entity.');
             }
 
-            $em->remove($entity);
+			if(!$securityContext->isGranted('DELETE', $product)){
+				throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+			}
+			
+
+            $em->remove($product);
             $em->flush();
         }
 
