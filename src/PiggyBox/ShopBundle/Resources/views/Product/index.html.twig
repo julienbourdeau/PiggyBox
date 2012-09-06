@@ -1,0 +1,59 @@
+<h1>Product list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+			<th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price_kg</th>
+            <th>Active</th>
+            <th>Image_path</th>
+            <th>Promo_active</th>
+            <th>Promo_price</th>
+            <th>Promo_expire_date</th>
+            <th>Promo_percentage</th>
+            <th>Createdat</th>
+            <th>Updatedat</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('monmagasin_mesproduits_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+			<td><img src="{{entity.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.pricekg }}</td>
+            <td>{{ entity.active }}</td>
+            <td>{{ entity.imagepath }}</td>
+            <td>{{ entity.promoactive }}</td>
+            <td>{{ entity.promoprice }}</td>
+            <td>{% if entity.promoexpiredate %}{{ entity.promoexpiredate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ entity.promopercentage }}</td>
+            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('monmagasin_mesproduits_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('monmagasin_mesproduits_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('monmagasin_mesproduits_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
