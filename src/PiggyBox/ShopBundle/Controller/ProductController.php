@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\Sales;
 use PiggyBox\ShopBundle\Form\ProductType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -103,7 +104,11 @@ class ProductController extends Controller
              // retrieving the security identity of the currently logged-in user
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
-			
+
+			// Adding Sales entity relaton to the product
+			$sales = new Sales();
+			$product->setSales($sales);
+
 			// saving the DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);

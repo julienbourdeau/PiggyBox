@@ -127,6 +127,12 @@ class Product
      * @Assert\File(maxSize="6000000")
      */
     public $file;
+	
+	/**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
+     **/
+    private $sales;
 
     public function getAbsolutePath()
     {
@@ -514,5 +520,51 @@ class Product
     public function getPrices()
     {
         return $this->prices;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Product
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set sales
+     *
+     * @param PiggyBox\ShopBundle\Entity\Sales $sales
+     * @return Product
+     */
+    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
+    {
+        $this->sales = $sales;
+    
+        return $this;
+    }
+
+    /**
+     * Get sales
+     *
+     * @return PiggyBox\ShopBundle\Entity\Sales 
+     */
+    public function getSales()
+    {
+        return $this->sales;
     }
 }

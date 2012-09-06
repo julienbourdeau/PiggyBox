@@ -3,6 +3,7 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\ShopBundle\Entity\Sales
@@ -26,15 +27,15 @@ class Sales
      *
      * @ORM\Column(name="sales_nbr", type="integer")
      */
-    private $sales_nbr;
+    private $sales_nbr = 0;
 
     /**
      * @var \DateTime $updatedat
-     *
+	 *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
-
 
     /**
      * Get id
