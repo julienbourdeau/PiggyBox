@@ -79,7 +79,12 @@ class Shop
      **/
     private $clients;
 
-    /**
+	/**
+     * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="shop")
+     **/
+    private $orders;	
+	
+	/**
      * Get id
      *
      * @return integer 
@@ -331,5 +336,38 @@ class Shop
     public function getClients()
     {
         return $this->clients;
+    }
+
+    /**
+     * Add orders
+     *
+     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     * @return Shop
+     */
+    public function addOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
+    {
+        $this->orders[] = $orders;
+    
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     */
+    public function removeOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }
