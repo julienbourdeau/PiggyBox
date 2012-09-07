@@ -44,7 +44,6 @@ class OrderExtension extends \Twig_Extension
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $order_details = $this->container->get('piggy_box_order.provider')->getOrder()->getOrderDetail();
-		
 		return $order_details->toArray();
     }
 

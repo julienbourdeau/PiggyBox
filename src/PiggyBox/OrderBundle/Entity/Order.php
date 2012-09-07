@@ -79,6 +79,12 @@ class Order
      **/
     private $order_detail;
 
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop", inversedBy="orders")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     **/
+    private $shop;
+
     /**
      * Get id
      *
@@ -288,5 +294,28 @@ class Order
         $this->updatedat = $updatedat;
     
         return $this;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Order
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+    
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return PiggyBox\ShopBundle\Entity\Shop 
+     */
+    public function getShop()
+    {
+        return $this->shop;
     }
 }

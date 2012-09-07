@@ -38,7 +38,8 @@ class OrderController extends Controller
 
 		//Ajout du produit à l'OrderDetail
         $em = $this->getDoctrine()->getManager();
-        $order_detail->setProduct($em->getRepository('PiggyBoxShopBundle:Product')->find($req->get('id')));
+		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($req->get('id'));
+        $order_detail->setProduct($product);
 		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($req->get('price_id')));
 
         $em->persist($order_detail);

@@ -43,8 +43,8 @@ class OrderProvider
      */
     public function getOrder()
     {
-        //NOTE: Check if the session is null
-        if (null == $this->storage->getCurrentOrderIdentifier()) {
+        //NOTE: Check if there is a session or and order associate to the session
+        if (null == $this->storage->getCurrentOrderIdentifier() or null == $this->em->getRepository('PiggyBoxOrderBundle:Order')->find($this->storage->getCurrentOrderIdentifier())){
 
             //NOTE: Create the Cart and save it in the DB
             $order  = new Order();
