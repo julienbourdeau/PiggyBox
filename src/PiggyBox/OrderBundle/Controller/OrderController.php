@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 /**
  * Order controller.
  *
- * @Route("/order")
+ * @Route("/commande")
  */
 class OrderController extends Controller
 {
@@ -24,7 +24,7 @@ class OrderController extends Controller
     /**
      * Crée ou récupère un nouvel Order grâce à la session du l'utilisateur 
      *
-     * @Route("/add", name="order_add_product")
+     * @Route("/ajouter/produit", name="order_add_product")
      */
     public function addProductAction(Request $req)
     {
@@ -55,7 +55,7 @@ class OrderController extends Controller
     /**
      * Remove a product from the cart
      *
-     * @Route("/remove/{productId}", name="cart_remove_product")
+     * @Route("/enlever/{productId}", name="cart_remove_product")
      */
     public function removeProductAction($productId)
     {
@@ -78,7 +78,7 @@ class OrderController extends Controller
     /**
      * Validate order 
      *
-     * @Route("/commande/validation", name="validate_order")
+     * @Route("/validation", name="validate_order")
      */
     public function validateOrderAction(Request $req)
     {
