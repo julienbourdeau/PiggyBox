@@ -74,5 +74,26 @@ class OrderController extends Controller
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
 
+    /**
+     * Validate order 
+     *
+     * @Route("/commande/validation", name="validate_order")
+     */
+    public function validateOrderAction(Request $req)
+    {
+		//NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
+        $order = $this->get('piggy_box_order.provider')->getOrder();
+		$order->setStatus("sent");
+		//Ajout du produit à l'OrderDetail
+        $em = $this->getDoctrine()->getManager();
 
+        $em->persist($order);
+        $em->flush();
+
+        //NOTE: Set a flash message to share the success
+        $this->get('session')->setFlash('success', 'Votre commande a bien été envoyé.');
+
+        return new RedirectResponse($this->get('request')->headers->get('referer'));
+
+	}
 }
