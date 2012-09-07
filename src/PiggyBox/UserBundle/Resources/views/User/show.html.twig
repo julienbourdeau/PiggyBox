@@ -24,7 +24,7 @@
 			<td>
 				<form action="{{ path('order_add_product')}}">
 					{% for price in product.prices %}
-						<input type="radio" name="sex" value="{{price.price}}" />{{price.price}}<br />
+						<input type="radio" name="price_id" value="{{price.id}}" />{{price.price}}<br />
 					{% endfor %}
 					<input type="hidden" name="id" value="{{product.id}}">											
 				<button type="submit" href="" class="btn btn-info btn-large"><i class="icon icon-plus icon-white"></i> Ajouter</button>
@@ -55,6 +55,7 @@
 							{% for order_detail in order_details %}
 							<tr>
 								<td>{{ order_detail.product.name }}</td>
+								<td>{{ order_detail.price.price}}</td>
 							</tr>
 							{% endfor %}
 						</table>
