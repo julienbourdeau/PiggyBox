@@ -25,9 +25,17 @@ class Order
     /**
      * @var string $note
      *
-     * @ORM\Column(name="note", type="text", nullable=true)
+     * @ORM\Column(name="note", type="string", nullable=true)
      */
     private $note;
+
+    /**
+     * @var string $status
+     *
+     * @ORM\Column(name="status", type="text")
+     */
+    private $status = "ordering";
+	
 
     /**
      * @var float $total_price
@@ -231,5 +239,54 @@ class Order
     public function getOrderDetail()
     {
         return $this->order_detail;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Order
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     * @return Order
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+    
+        return $this;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return Order
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
     }
 }
