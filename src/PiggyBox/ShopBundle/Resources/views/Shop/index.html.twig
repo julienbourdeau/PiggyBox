@@ -1,4 +1,4 @@
-<h1>Order list</h1>
+<h1>Les commandes à valider</h1>
 
 <table class="records_list">
     <thead>
@@ -9,8 +9,10 @@
     <tbody>
     {% for entity in entities %}
         <tr>
+			<td>{{entity.}} + </td>
 			{% for orderdetail in entity.orderdetail%}
 			<td>{{orderdetail.product.name}} + </td>
+			<td>{{orderdetail.price.price}} + </td>
 			{% endfor %}
         </tr>
     {% endfor %}
