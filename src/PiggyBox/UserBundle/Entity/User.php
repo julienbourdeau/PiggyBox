@@ -38,6 +38,11 @@ class User extends BaseUser
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Shop", mappedBy="clients")
      **/
     private $shops;
+	
+	/**
+     * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="user")
+     **/
+    private $orders;
 
     /**
      * Get id
@@ -103,5 +108,38 @@ class User extends BaseUser
     public function getShops()
     {
         return $this->shops;
+    }
+
+    /**
+     * Add orders
+     *
+     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     * @return User
+     */
+    public function addOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
+    {
+        $this->orders[] = $orders;
+    
+        return $this;
+    }
+
+    /**
+     * Remove orders
+     *
+     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     */
+    public function removeOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
+    {
+        $this->orders->removeElement($orders);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 }
