@@ -85,6 +85,7 @@ class OrderController extends Controller
 		//NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
         $order = $this->get('piggy_box_order.provider')->getOrder();
 		$order->setStatus("sent");
+		$order->setUser($this->get('security.context')->getToken()->getUser());
 		//Ajout du produit à l'OrderDetail
         $em = $this->getDoctrine()->getManager();
 
