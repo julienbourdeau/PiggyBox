@@ -45,18 +45,16 @@ class OrderDetail
     private $order;
 
     /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      **/
     private $product;
 
 	/**
-     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Price")
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Price")
      * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
      **/
     private $price;
-
-    
 
     /**
      * Get id
