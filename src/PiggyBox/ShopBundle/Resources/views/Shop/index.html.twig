@@ -9,7 +9,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-			<td>{{entity.}} + </td>
+			<td>{{entity.user.username}} + </td>
 			{% for orderdetail in entity.orderdetail%}
 			<td>{{orderdetail.product.name}} + </td>
 			<td>{{orderdetail.price.price}} + </td>
