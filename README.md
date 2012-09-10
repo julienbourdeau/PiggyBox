@@ -15,4 +15,4 @@ PiggyBoxUserBundle
 	-session panier dans différents magasins
 
 PiggyBoxOrderBundle
-
+	-créer la fonction pour enlever un delete un order
