@@ -32,21 +32,35 @@ class OrderController extends Controller
         //NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
+		//NOTE: Get the product to add
         $em = $this->getDoctrine()->getManager();
 		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($req->get('id'));
-		$order = $em->getRepository('PiggyBoxOrderBundle:Cart')->getOrderByShop($product->getShop()->getId());
-		$order_detail = new OrderDetail();
-		
+
+		$orders = $cart->getOrders()->toArray();
+		$shop = $product->getShop();
+		$order = null;
+
+		foreach($orders as $tab){
+			if($shop->getId() == $tab->getShop()->getId()){
+				$order = $tab;	
+				break;
+			}
+		}
+	
 		if(null == $order){
 			$order = new Order();
+			$cart->addOrder($order);
+    	    $em->persist($cart);	
 		}
+		$order->setShop($product->getShop());
 
 		//Ajout du produit à l'OrderDetail
+		$order_detail = new OrderDetail();
 		$order_detail->setOrder($order);	
         $order_detail->setProduct($product);
 		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($req->get('price_id')));
-		$order->setShop($product->getShop());
 
+		//persist & flush
         $em->persist($order_detail);
         $em->persist($order);
         $em->flush();
@@ -83,13 +97,14 @@ class OrderController extends Controller
     /**
      * Validate cart 
      *
-     * @Route("/validation", name="validate_order")
+     * @Route("/validation/transaction", name="validate_order")
      */
     public function validateOrderAction(Request $req)
     {
 		//NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
-        $cart = $this->get('piggy_box_cart.provider')->getOrder();
-		$cart->setStatus("sent");
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+		
+		$cart->setStatus("toValidate");
 		$cart->setUser($this->get('security.context')->getToken()->getUser());
 		//Ajout du produit à l'OrderDetail
         $em = $this->getDoctrine()->getManager();
@@ -102,5 +117,15 @@ class OrderController extends Controller
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
 
+	}
+
+    /**
+     * Validation Page
+     *
+     * @Route("/validation", name="validation_page")
+     */
+	public function validationPageAction()
+	{
+		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig');
 	}
 }

@@ -48,25 +48,28 @@
 
 						<br /><br />
 
-						{% set order_details  = piggybox_cart_get() %}
-
+						{% set orders  = piggybox_orders_get() %}
 						<table class="table">
 
-							{% for order_detail in order_details %}
-							<tr>
-								<td>{{ order_detail.product.name }}</td>
-								<td>{{ order_detail.price.price}}</td>
-							</tr>
+							{% for order in orders %}
+							<h2>{{order.shop.name}}</h2>
+								{% for order_detail in order.orderdetail %}
+								<tr>
+									<td>{{ order_detail.order.id}}</td>
+									<td>{{ order_detail.product.name }}</td>
+									<td>{{ order_detail.price.price}}</td>
+								</tr>
+								{% endfor %}
 							{% endfor %}
 						</table>
 
 						<br /><br />
 
-							<a href="{{ path('validate_order') }}">Valider le panier</td>
+							<a href="{{ path('validation_page') }}">Valider le panier</td>
 
 						<br /><br />
 
 
 					</div>
-
+					</section>
 {% endblock %}
