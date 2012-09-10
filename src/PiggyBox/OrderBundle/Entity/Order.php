@@ -25,28 +25,36 @@ class Order
     /**
      * @var string $note
      *
-     * @ORM\Column(name="note", type="text")
+     * @ORM\Column(name="note", type="string", nullable=true)
      */
     private $note;
 
     /**
+     * @var string $status
+     *
+     * @ORM\Column(name="status", type="text")
+     */
+    private $status = "ordering";
+	
+
+    /**
      * @var float $total_price
      *
-     * @ORM\Column(name="total_price", type="float")
+     * @ORM\Column(name="total_price", type="float", nullable=true)
      */
     private $total_price;
 
     /**
      * @var \DateTime $pickupat
      *
-     * @ORM\Column(name="pickupat", type="datetime")
+     * @ORM\Column(name="pickupat", type="datetime", nullable=true)
      */
     private $pickupat;
 
     /**
      * @var integer $total_products
      *
-     * @ORM\Column(name="total_products", type="integer")
+     * @ORM\Column(name="total_products", type="integer", nullable=true)
      */
     private $total_products;
 
@@ -67,9 +75,21 @@ class Order
     private $updatedat;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order", cascade={"persist", "remove"})
      **/
     private $order_detail;
+
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop", inversedBy="orders")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     **/
+    private $shop;
+
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="orders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
 
     /**
      * Get id
@@ -231,5 +251,100 @@ class Order
     public function getOrderDetail()
     {
         return $this->order_detail;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Order
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     * @return Order
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+    
+        return $this;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return Order
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Order
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+    
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return PiggyBox\ShopBundle\Entity\Shop 
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Set user
+     *
+     * @param PiggyBox\UserBundle\Entity\User $user
+     * @return Order
+     */
+    public function setUser(\PiggyBox\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return PiggyBox\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

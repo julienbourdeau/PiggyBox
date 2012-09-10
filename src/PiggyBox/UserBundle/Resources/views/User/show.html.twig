@@ -22,14 +22,16 @@
             <td>{{ product.description }}</td>
             <td>{{ product.pricekg }}</td>
 			<td>
-				<form action="">
+				<form action="{{ path('order_add_product')}}">
 					{% for price in product.prices %}
-						<input type="radio" name="sex" value="{{price.price}}" />{{price.price}}<br />
+						<input type="radio" name="price_id" value="{{price.id}}" />{{price.price}}<br />
 					{% endfor %}
+					<input type="hidden" name="id" value="{{product.id}}">											
+				<button type="submit" href="" class="btn btn-info btn-large"><i class="icon icon-plus icon-white"></i> Ajouter</button>
+					
 				</form>
 			</td>
 			<td>
-				<a href="">Ajouter au panier</a>
 			</td>
         </tr>
     {% endfor %}
@@ -40,37 +42,31 @@
 					<div class="well">
 
 						<h2>
+							<img src="{{ asset('bundles/piggyboxconsumer/img/shopping_cart.png') }}" width="38">
 							Votre panier
 						</h2>
 
 						<br /><br />
 
-						<a class="btn btn-success pull-right"><i class="icon icon-hand-right icon-white"></i> Finir la commande</a>
+						{% set order_details  = piggybox_order_get() %}
+
+						<table class="table">
+
+							{% for order_detail in order_details %}
+							<tr>
+								<td>{{ order_detail.product.name }}</td>
+								<td>{{ order_detail.price.price}}</td>
+							</tr>
+							{% endfor %}
+						</table>
+
+						<br /><br />
+
+							<a href="{{ path('validate_order') }}">Valider le panier</td>
 
 						<br /><br />
 
 
 					</div>
 
-
-					<div id="favorite">
-						<br />
-						<h2>
-							<img src="{{ asset('bundles/piggyboxconsumer/img/keditbookmarks.png') }}"  width="38" />
-							Vos articles favoris
-						</h2>
-
-						<br />
-
-						<ul class="nav nav-tabs nav-stacked">
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-							<li><a href="#">Roti de veau</a></li>
-						</ul>
-
-					</div>
-
-				</section>
 {% endblock %}
