@@ -1,0 +1,35 @@
+				<section id="shopping-cart" class="span4">
+					<div class="well">
+
+						<h2>
+							<img src="{{ asset('bundles/piggyboxconsumer/img/shopping_cart.png') }}" width="38">
+							Votre panier
+						</h2>
+
+						<br /><br />
+
+						{% set orders  = piggybox_orders_get() %}
+						<table class="table">
+
+							{% for order in orders %}
+							<h2>{{order.shop.name}}</h2>
+								{% for order_detail in order.orderdetail %}
+								<tr>
+									<td>{{ order_detail.order.id}}</td>
+									<td>{{ order_detail.product.name }}</td>
+									<td>{{ order_detail.price.price}}</td>
+								</tr>
+								{% endfor %}
+							{% endfor %}
+						</table>
+
+						<br /><br />
+
+							<a href="{{ path('validate_order') }}">Valider le panier</td>
+
+						<br /><br />
+
+
+					</div>
+					</section>
+
