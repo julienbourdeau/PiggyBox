@@ -59,7 +59,7 @@ class CartProvider
         return $cart;
         }
 
-        return $this->em->getRepository('PiggyBoxCartBundle:Cart')->find($this->storage->getCurrentCartIdentifier());
+        return $this->em->getRepository('PiggyBoxOrderBundle:Cart')->find($this->storage->getCurrentCartIdentifier());
     }
 }
 

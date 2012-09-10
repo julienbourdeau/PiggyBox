@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * PiggyBox\OrderBundle\Entity\Cart
  *
  * @ORM\Table(name="piggybox_cart")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PiggyBox\OrderBundle\Entity\CartRepository")
  */
 class Cart
 {
