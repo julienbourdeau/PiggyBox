@@ -97,21 +97,25 @@ class OrderController extends Controller
     /**
      * Validate cart 
      *
-     * @Route("/validation/transaction", name="validate_order")
+     * @Route("/validation/{order_id}/transaction", name="validate_order")
      */
-    public function validateOrderAction(Request $req)
+    public function validateOrderAction(Request $req, $order_id)
     {
-		//NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
-		
-		$cart->setStatus("toValidate");
-		$cart->setUser($this->get('security.context')->getToken()->getUser());
-		//Ajout du produit à l'OrderDetail
+		//Récupérer l'Order
         $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($order_id);
 
+		//Récupérer le Cart pour retirer l'Order du Cart
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+		$cart->removeOrder($order);		
+		
+		$order->setStatus("toValidate");
+		$order->setUser($this->get('security.context')->getToken()->getUser());
+
+        $em->persist($order);
         $em->persist($cart);
         $em->flush();
-
+		
         //NOTE: Set a flash message to share the success
         $this->get('session')->setFlash('success', 'Votre commande a bien été envoyé.');
 

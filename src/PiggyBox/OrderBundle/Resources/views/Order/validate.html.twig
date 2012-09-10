@@ -9,25 +9,22 @@
 						<br /><br />
 
 						{% set orders  = piggybox_orders_get() %}
-						<table class="table">
-
 							{% for order in orders %}
-							<h2>{{order.shop.name}}</h2>
-								{% for order_detail in order.orderdetail %}
-								<tr>
-									<td>{{ order_detail.order.id}}</td>
-									<td>{{ order_detail.product.name }}</td>
-									<td>{{ order_detail.price.price}}</td>
-								</tr>
-								{% endfor %}
+								<h2>{{order.shop.name}}</h2>
+									{% for order_detail in order.orderdetail %}
+										<table class="table">
+											<tr>
+												<td>{{ order_detail.product.name }}</td>
+												<td>{{ order_detail.price.price}}</td>
+	
+											</tr>
+										</table>
+									{% endfor %}
+									<br /><br />
+										<a href="{{ path('validate_order', { 'order_id': order.id}) }}">Valider le panier</td>
+									<br /><br />
 							{% endfor %}
-						</table>
 
-						<br /><br />
-
-							<a href="{{ path('validate_order') }}">Valider le panier</td>
-
-						<br /><br />
 
 
 					</div>
