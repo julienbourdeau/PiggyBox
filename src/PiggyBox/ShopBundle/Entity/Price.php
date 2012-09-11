@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"unitprice" = "UnitPrice", "sliceprice" = "SlicePrice"})*
+ * @ORM\DiscriminatorMap({"unitprice" = "UnitPrice", "sliceprice" = "SlicePrice", "weightprice" = "WeightPrice"})
  * @ORM\Table(name="piggybox_price")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\PriceRepository")
  */
