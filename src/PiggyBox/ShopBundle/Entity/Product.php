@@ -121,12 +121,12 @@ class Product
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
     /**
      * @Assert\File(maxSize="6000000")
      */
-    public $file;
+    private $file;
 	
 	/**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales", cascade={"persist", "remove"})

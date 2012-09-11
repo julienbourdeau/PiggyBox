@@ -3,10 +3,14 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\ShopBundle\Entity\Price
  *
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"unitprice" = "UnitPrice", "sliceprice" = "SlicePrice"})*
  * @ORM\Table(name="piggybox_price")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\PriceRepository")
  */
@@ -28,127 +32,27 @@ class Price
      */
     private $price;
 
-    /**
-     * @var float $weight
+	/**
+     * @var float $price
      *
-     * @ORM\Column(name="weight", type="float")
+     * @ORM\Column(name="price_kg", type="float")
      */
-    private $weight;
+    private $price_kg;
 
     /**
-     * @var string $unity
-     *
-     * @ORM\Column(name="unity", type="string", length=10)
+     * @var \DateTime $createdat
+
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="createdat", type="datetime")
      */
-    private $unity;
+    private $createdat;
 
     /**
-     * @var string $description
+     * @var \DateTime $updatedat
      *
-     * @ORM\Column(name="description", type="text")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedat", type="datetime")
      */
-    private $description;
+    private $updatedat;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set price
-     *
-     * @param float $price
-     * @return Price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set weight
-     *
-     * @param float $weight
-     * @return Price
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return float 
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
-     * Set unity
-     *
-     * @param string $unity
-     * @return Price
-     */
-    public function setUnity($unity)
-    {
-        $this->unity = $unity;
-    
-        return $this;
-    }
-
-    /**
-     * Get unity
-     *
-     * @return string 
-     */
-    public function getUnity()
-    {
-        return $this->unity;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Price
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 }
