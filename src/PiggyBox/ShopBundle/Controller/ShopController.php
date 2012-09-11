@@ -37,7 +37,7 @@ class ShopController extends Controller
 	{
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxOrderBundle:Order')->findByStatus('sent');
+        $entities = $em->getRepository('PiggyBoxOrderBundle:Order')->findByStatus('toValidate');
 
         return array(
             'entities' => $entities,
