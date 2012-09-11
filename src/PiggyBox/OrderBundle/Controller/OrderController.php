@@ -47,6 +47,7 @@ class OrderController extends Controller
 			}
 		}
 	
+		//Création d'un nouvel order si nouveau produit
 		if(null == $order){
 			$order = new Order();
 			$cart->addOrder($order);
@@ -74,19 +75,29 @@ class OrderController extends Controller
     /**
      * Remove a product from the cart
      *
-     * @Route("/enlever/{productId}", name="cart_remove_product")
+     * @Route("/enlever/{order_detail_id}", name="cart_remove_product")
      */
-    public function removeProductAction($productId)
+    public function removeProductAction($order_detail_id)
     {
-        //NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
-
-        //NOTE: Add the product to the cart and save it in DB
+		//trouver le magasin du produit
         $em = $this->getDoctrine()->getManager();
-        $cart->removeProduct($em->getRepository('PiggyBoxCustomerBundle:Product')->find($productId));
+		$order_detail = $em->getRepository('PiggyBoxOrderBundle:OrderDetail')->find($order_detail_id); 
 
-        $em->persist($cart);
-        $em->flush();
+		$order = $order_detail->getOrder();
+		//TODO: Check the order_detail quantity
+		$order->removeOrderDetail($order_detail);
+
+		if(0 == $order->getOrderDetail()->count()){
+	        $cart = $this->get('piggy_box_cart.provider')->getCart();
+			$cart->removeOrder($order);	
+			$em->remove($order);
+			$em->persist($cart);
+		}
+		
+		//Remove OrderDetail
+		$em->remove($order_detail);
+		$em->persist($order);
+		$em->flush();
 
         //NOTE: Set a flash message to share the success
         $this->get('session')->setFlash('success', 'Le produit a ete correctement retiré');

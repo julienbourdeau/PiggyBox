@@ -56,7 +56,10 @@
 											<tr>
 												<td>{{ order_detail.product.name }}</td>
 												<td>{{ order_detail.price.price}}</td>
-	
+												<td>
+													<a href="{{ path('cart_remove_product', {'order_detail_id': order_detail.id}) }}">Enlever un produit</td>
+												</td>	
+
 											</tr>
 										</table>
 									{% endfor %}
