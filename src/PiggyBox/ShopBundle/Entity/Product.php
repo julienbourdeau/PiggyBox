@@ -118,6 +118,24 @@ class Product
      **/
     private $prices;
 	
+	/**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\SlicePrice", cascade={"persist"})
+     * @ORM\JoinTable(name="product_sliceprices",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="sliceprice_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+	private $sliceprices;
+	
+	/**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\UnitPrice", cascade={"persist"})
+     * @ORM\JoinTable(name="product_unitprices",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="unitprice_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    private $unitprices;	
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -126,7 +144,7 @@ class Product
     /**
      * @Assert\File(maxSize="6000000")
      */
-    private $file;
+    public $file;
 	
 	/**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales", cascade={"persist", "remove"})
@@ -566,5 +584,94 @@ class Product
     public function getSales()
     {
         return $this->sales;
+    }
+
+    /**
+     * Add prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     * @return Product
+     */
+    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices[] = $prices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     */
+    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Add sliceprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices
+     * @return Product
+     */
+    public function addSliceprix(\PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices)
+    {
+        $this->sliceprices[] = $sliceprices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove sliceprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices
+     */
+    public function removeSliceprix(\PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices)
+    {
+        $this->sliceprices->removeElement($sliceprices);
+    }
+
+    /**
+     * Get sliceprices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSliceprices()
+    {
+        return $this->sliceprices;
+    }
+
+    /**
+     * Add unitprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\UnitPrice $unitprices
+     * @return Product
+     */
+    public function addUnitprix(\PiggyBox\ShopBundle\Entity\UnitPrice $unitprices)
+    {
+        $this->unitprices[] = $unitprices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove unitprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\UnitPrice $unitprices
+     */
+    public function removeUnitprix(\PiggyBox\ShopBundle\Entity\UnitPrice $unitprices)
+    {
+        $this->unitprices->removeElement($unitprices);
+    }
+
+    /**
+     * Get unitprices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getUnitprices()
+    {
+        return $this->unitprices;
     }
 }

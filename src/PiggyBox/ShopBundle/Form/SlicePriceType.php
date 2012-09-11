@@ -11,10 +11,8 @@ class SlicePriceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price')
-            ->add('price_kg')
-            ->add('createdat')
-            ->add('updatedat')
+			->add('price')
+			->add('price_kg')
             ->add('slices_nbr')
             ->add('total_weight')
         ;
@@ -29,6 +27,6 @@ class SlicePriceType extends AbstractType
 
     public function getName()
     {
-        return 'piggybox_shopbundle_slicepricetype';
+        return 'sliceprices';
     }
 }

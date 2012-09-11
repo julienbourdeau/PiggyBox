@@ -13,8 +13,6 @@ class UnitPriceType extends AbstractType
         $builder
             ->add('price')
             ->add('price_kg')
-            ->add('createdat')
-            ->add('updatedat')
         ;
     }
 
@@ -27,6 +25,6 @@ class UnitPriceType extends AbstractType
 
     public function getName()
     {
-        return 'piggybox_shopbundle_unitpricetype';
+        return 'unitprices';
     }
 }
