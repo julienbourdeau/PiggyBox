@@ -3,15 +3,15 @@
 namespace PiggyBox\OrderBundle\Twig;
 
 use Twig_Extension;
-use PiggyBox\OrderBundle\Provider\OrderProvider;
+use PiggyBox\OrderBundle\Provider\CartProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class OrderExtension extends \Twig_Extension
+class CartExtension extends \Twig_Extension
 {
     /**
-     * Order provider.
+     * Cart provider.
      *
-     * @var OrderProvider
+     * @var CartProvider
      */
     private $container;
 
@@ -31,7 +31,7 @@ class OrderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'piggybox_order_get' => new \Twig_Function_Method($this,'getCurrentOrder'),
+            'piggybox_orders_get' => new \Twig_Function_Method($this,'getCurrentOrders'),
             );
     }
 
@@ -40,11 +40,10 @@ class OrderExtension extends \Twig_Extension
      *
      * @return cart
      */
-    public function getCurrentOrder()
+    public function getCurrentOrders()
     {
-        $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $order_details = $this->container->get('piggy_box_order.provider')->getOrder()->getOrderDetail();
-		return $order_details->toArray();
+       $em = $this->container->get('doctrine.orm.default_entity_manager');
+       return  $this->container->get('piggy_box_cart.provider')->getCart()->getOrders();
     }
 
     public function getName()
@@ -52,4 +51,5 @@ class OrderExtension extends \Twig_Extension
         return 'cart_extension';
     }
 }
+
 

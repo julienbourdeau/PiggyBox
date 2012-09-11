@@ -2,15 +2,15 @@
 
 namespace PiggyBox\OrderBundle\Provider;
 
-use PiggyBox\OrderBundle\Storage\SessionOrderStorage;
+use PiggyBox\OrderBundle\Storage\SessionCartStorage;
 use Doctrine\ORM\EntityManager;
-use PiggyBox\OrderBundle\Entity\Order;
+use PiggyBox\OrderBundle\Entity\Cart;
 
 /**
  * Default provider cart.
  *
  */
-class OrderProvider
+class CartProvider
 {
     /**
      * SessionCartStorage.
@@ -32,7 +32,7 @@ class OrderProvider
      * @param EntityManager $em
      * @param Session       $session
      */
-    public function __construct(EntityManager $em, SessionOrderStorage $storage)
+    public function __construct(EntityManager $em, SessionCartStorage $storage)
     {
         $this->storage = $storage;
         $this->em = $em;
@@ -41,25 +41,25 @@ class OrderProvider
     /**
      * Retrieve the Cart from the DB if the session exist and create a new Cart with it's session if it does not exist
      */
-    public function getOrder()
+    public function getCart()
     {
-        //NOTE: Check if there is a session or and order associate to the session
-        if (null == $this->storage->getCurrentOrderIdentifier() or null == $this->em->getRepository('PiggyBoxOrderBundle:Order')->find($this->storage->getCurrentOrderIdentifier())){
-
+        //NOTE: Check if there is a session or and cart associate to the session
+        if (null == $this->storage->getCurrentCartIdentifier()){
             //NOTE: Create the Cart and save it in the DB
-            $order  = new Order();
+            $cart  = new Cart();
 
 
-        $this->em->persist($order);
+        $this->em->persist($cart);
         $this->em->flush();
 
         //NOTE: Set the session
-        $this->storage->setCurrentOrderIdentifier($order);
+        $this->storage->setCurrentCartIdentifier($cart);
 
-        return $order;
+        return $cart;
         }
 
-        return $this->em->getRepository('PiggyBoxOrderBundle:Order')->find($this->storage->getCurrentOrderIdentifier());
+        return $this->em->getRepository('PiggyBoxOrderBundle:Cart')->find($this->storage->getCurrentCartIdentifier());
     }
 }
+
 
