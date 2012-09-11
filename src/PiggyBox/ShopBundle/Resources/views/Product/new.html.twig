@@ -3,7 +3,6 @@
 <form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_row(form.name) }}
 	{{ form_row(form.description) }}
-	{{ form_row(form.price_kg) }}
 	{{ form_row(form.active) }}
 	{{ form_row(form.promo_active) }}
 	{{ form_row(form.promo_price) }}
@@ -18,6 +17,11 @@
 
 	<h3>UnitPrice</h3>
     <ul class="unitprices" data-prototype="{{ form_widget(form.unitprices.vars.prototype)|e }}">
+        {# iterate over each existing tag and render its only field: name #}
+    </ul>
+
+	<h3>WeightPrice</h3>
+    <ul class="weightprices" data-prototype="{{ form_widget(form.weightprices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
     </ul>
 
@@ -43,6 +47,7 @@
 // Get the div that holds the collection of prices 
 var collectionHolderSlice = $('ul.sliceprices');
 var collectionHolderUnit = $('ul.unitprices');
+var collectionHolderWeight = $('ul.weightprices');
 
 // setup an "add a tag" link
 var $addTagLink = $('<a href="#" class="add_price_link">Add a Price</a>');
@@ -56,12 +61,21 @@ jQuery(document).ready(function() {
     // add the "add a tag" anchor and li to the tags ul
     collectionHolderSlice.append($newLinkLi);
 
+	
 	// add a delete link to all of the existing tag form li elements
     collectionHolderUnit.find('li').each(function() {
         addTagFormDeleteLink($(this));
     });
     // add the "add a tag" anchor and li to the tags ul
     collectionHolderUnit.append($newLinkLi);
+
+
+	// add a delete link to all of the existing tag form li elements
+    collectionHolderWeight.find('li').each(function() {
+        addTagFormDeleteLink($(this));
+    });
+    // add the "add a tag" anchor and li to the tags ul
+    collectionHolderWeight.append($newLinkLi);
 
     $addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
@@ -70,6 +84,7 @@ jQuery(document).ready(function() {
         // add a new tag form (see next code block)
         addTagForm(collectionHolderSlice, $newLinkLi);
         addTagForm(collectionHolderUnit, $newLinkLi);
+        addTagForm(collectionHolderWeight, $newLinkLi);
     });
 });
 

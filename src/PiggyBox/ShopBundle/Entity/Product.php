@@ -39,13 +39,6 @@ class Product
     private $description;
 
     /**
-     * @var float $price_kg
-     *
-     * @ORM\Column(name="price_kg", type="float", nullable=true)
-     */
-    private $price_kg;
-
-    /**
      * @var boolean $active
      *
      * @ORM\Column(name="active", type="boolean",nullable=true)
@@ -136,6 +129,15 @@ class Product
      **/
     private $unitprices;	
 
+	/**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\WeightPrice", cascade={"persist"})
+     * @ORM\JoinTable(name="product_weightprices",
+     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="weightprices_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    private $weightprices;	
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -215,6 +217,17 @@ class Product
     }
  
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sliceprices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->unitprices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->weightprices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -268,29 +281,6 @@ class Product
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set price_kg
-     *
-     * @param float $priceKg
-     * @return Product
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-    
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return float 
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
     }
 
     /**
@@ -478,69 +468,6 @@ class Product
     }
 
     /**
-     * Set shop
-     *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shop
-     * @return Product
-     */
-    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
-    {
-        $this->shop = $shop;
-    
-        return $this;
-    }
-
-    /**
-     * Get shop
-     *
-     * @return PiggyBox\ShopBundle\Entity\Shop 
-     */
-    public function getShop()
-    {
-        return $this->shop;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Product
-     */
-    public function addPrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-    
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Get prices
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getPrices()
-    {
-        return $this->prices;
-    }
-
-    /**
      * Set path
      *
      * @param string $path
@@ -564,26 +491,26 @@ class Product
     }
 
     /**
-     * Set sales
+     * Set shop
      *
-     * @param PiggyBox\ShopBundle\Entity\Sales $sales
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Product
      */
-    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
-        $this->sales = $sales;
+        $this->shop = $shop;
     
         return $this;
     }
 
     /**
-     * Get sales
+     * Get shop
      *
-     * @return PiggyBox\ShopBundle\Entity\Sales 
+     * @return PiggyBox\ShopBundle\Entity\Shop 
      */
-    public function getSales()
+    public function getShop()
     {
-        return $this->sales;
+        return $this->shop;
     }
 
     /**
@@ -607,6 +534,16 @@ class Product
     public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPrices()
+    {
+        return $this->prices;
     }
 
     /**
@@ -673,5 +610,61 @@ class Product
     public function getUnitprices()
     {
         return $this->unitprices;
+    }
+
+    /**
+     * Add weightprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\WeightPrice $weightprices
+     * @return Product
+     */
+    public function addWeightprix(\PiggyBox\ShopBundle\Entity\WeightPrice $weightprices)
+    {
+        $this->weightprices[] = $weightprices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove weightprices
+     *
+     * @param PiggyBox\ShopBundle\Entity\WeightPrice $weightprices
+     */
+    public function removeWeightprix(\PiggyBox\ShopBundle\Entity\WeightPrice $weightprices)
+    {
+        $this->weightprices->removeElement($weightprices);
+    }
+
+    /**
+     * Get weightprices
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getWeightprices()
+    {
+        return $this->weightprices;
+    }
+
+    /**
+     * Set sales
+     *
+     * @param PiggyBox\ShopBundle\Entity\Sales $sales
+     * @return Product
+     */
+    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
+    {
+        $this->sales = $sales;
+    
+        return $this;
+    }
+
+    /**
+     * Get sales
+     *
+     * @return PiggyBox\ShopBundle\Entity\Sales 
+     */
+    public function getSales()
+    {
+        return $this->sales;
     }
 }

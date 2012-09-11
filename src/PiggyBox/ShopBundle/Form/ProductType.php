@@ -13,7 +13,6 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('price_kg')
             ->add('active')
             ->add('promo_active')
             ->add('promo_price')
@@ -28,6 +27,12 @@ class ProductType extends AbstractType
 			))
 			->add('unitprices', 'collection', array(
        		 	'type' => new UnitPriceType(),
+        		'allow_add' => true,
+				'allow_delete' => true,
+		        'by_reference' => false,
+			))
+			->add('weightprices', 'collection', array(
+       		 	'type' => new WeightPriceType(),
         		'allow_add' => true,
 				'allow_delete' => true,
 		        'by_reference' => false,
