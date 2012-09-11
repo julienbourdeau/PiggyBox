@@ -74,7 +74,7 @@ class Shop
     private $sales;
     
     /**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="shopw")
+     * @ORM\ManyToMany(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="shops")
      * @ORM\JoinTable(name="shops_clients")
      **/
     private $clients;
