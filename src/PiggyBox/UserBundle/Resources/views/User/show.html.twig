@@ -9,7 +9,6 @@
 			<th>Image</th>
             <th>Name</th>
             <th>Description</th>
-            <th>Price_kg</th>
 			<th>Prix</th>
 			<th>Actions</th>
         </tr>
@@ -20,10 +19,11 @@
 			<td><img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
-            <td>{{ product.pricekg }}</td>
 			<td>
 				<form action="{{ path('cart_add_product')}}">
+					{% if product.sliceprices %}{{product.name}} {% endif %}
 					{% for price in product.prices %}
+					{{dump(price.price)}}
 						<input type="radio" name="price_id" value="{{price.id}}" />{{price.price}}<br />
 					{% endfor %}
 					<input type="hidden" name="id" value="{{product.id}}">											
