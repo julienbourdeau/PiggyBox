@@ -43,4 +43,50 @@ class SlicePrice extends Price
     {
         return $this->id;
     }
+
+    /**
+     * Set slices_nbr
+     *
+     * @param integer $slicesNbr
+     * @return SlicePrice
+     */
+    public function setSlicesNbr($slicesNbr)
+    {
+        $this->slices_nbr = $slicesNbr;
+    
+        return $this;
+    }
+
+    /**
+     * Get slices_nbr
+     *
+     * @return integer 
+     */
+    public function getSlicesNbr()
+    {
+        return $this->slices_nbr;
+    }
+
+    /**
+     * Set total_weight
+     *
+     * @param integer $totalWeight
+     * @return SlicePrice
+     */
+    public function setTotalWeight($totalWeight)
+    {
+        $this->total_weight = $totalWeight;
+    
+        return $this;
+    }
+
+    /**
+     * Get total_weight
+     *
+     * @return integer 
+     */
+    public function getTotalWeight()
+    {
+        return $this->total_weight;
+    }
 }

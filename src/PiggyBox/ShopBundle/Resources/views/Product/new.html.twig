@@ -11,12 +11,14 @@
 	{{ form_row(form.promo_percentage) }}
 	{{ form_row(form.file) }}
 
-	<h3>Prices</h3>
-    <ul class="prices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
+	<h3>SlicePrice</h3>
+    <ul class="sliceprices" data-prototype="{{ form_widget(form.sliceprices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
-        {% for price in form.prices %}
-            <li>{{ form_row(price.price) }}</li>
-        {% endfor %}
+    </ul>
+
+	<h3>UnitPrice</h3>
+    <ul class="unitprices" data-prototype="{{ form_widget(form.unitprices.vars.prototype)|e }}">
+        {# iterate over each existing tag and render its only field: name #}
     </ul>
 
     {{ form_rest(form) }}
@@ -39,7 +41,8 @@
 <script type="text/javascript"><!--
 
 // Get the div that holds the collection of prices 
-var collectionHolder = $('ul.prices');
+var collectionHolderSlice = $('ul.sliceprices');
+var collectionHolderUnit = $('ul.unitprices');
 
 // setup an "add a tag" link
 var $addTagLink = $('<a href="#" class="add_price_link">Add a Price</a>');
@@ -47,28 +50,36 @@ var $newLinkLi = $('<li></li>').append($addTagLink);
 
 jQuery(document).ready(function() {
 	// add a delete link to all of the existing tag form li elements
-    collectionHolder.find('li').each(function() {
+    collectionHolderSlice.find('li').each(function() {
         addTagFormDeleteLink($(this));
     });
     // add the "add a tag" anchor and li to the tags ul
-    collectionHolder.append($newLinkLi);
+    collectionHolderSlice.append($newLinkLi);
+
+	// add a delete link to all of the existing tag form li elements
+    collectionHolderUnit.find('li').each(function() {
+        addTagFormDeleteLink($(this));
+    });
+    // add the "add a tag" anchor and li to the tags ul
+    collectionHolderUnit.append($newLinkLi);
 
     $addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addTagForm(collectionHolder, $newLinkLi);
+        addTagForm(collectionHolderSlice, $newLinkLi);
+        addTagForm(collectionHolderUnit, $newLinkLi);
     });
 });
 
-function addTagForm(collectionHolder, $newLinkLi) {
+function addTagForm(collectionHolderSlice, $newLinkLi) {
     // Get the data-prototype we explained earlier
-    var prototype = collectionHolder.attr('data-prototype');
+    var prototype = collectionHolderSlice.attr('data-prototype');
 	console.log(prototype);
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on the current collection's length.
-    var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+    var newForm = prototype.replace(/__name__/g, collectionHolderSlice.children().length);
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
