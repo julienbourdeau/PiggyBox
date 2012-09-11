@@ -21,11 +21,9 @@
             <td>{{ product.description }}</td>
 			<td>
 				<form action="{{ path('cart_add_product')}}">
-					{% if product.sliceprices %}{{product.name}} {% endif %}
-					{% for price in product.prices %}
-					{{dump(price.price)}}
-						<input type="radio" name="price_id" value="{{price.id}}" />{{price.price}}<br />
-					{% endfor %}
+					{% if product.prices %}price{% endif %}
+					{% if product.sliceprices %}sliceprice{% endif %}
+					{% if product.weightprices %}weightprice{% endif %}
 					<input type="hidden" name="id" value="{{product.id}}">											
 				<button type="submit" href="" class="btn btn-info btn-large"><i class="icon icon-plus icon-white"></i> Ajouter</button>
 					
