@@ -53,34 +53,6 @@ class Product
     private $image_path;
 
     /**
-     * @var string $promo_active
-     *
-     * @ORM\Column(name="promo_active", type="string", length=255, nullable=true)
-     */
-    private $promo_active;
-
-    /**
-     * @var string $promo_price
-     *
-     * @ORM\Column(name="promo_price", type="string", length=255, nullable=true)
-     */
-    private $promo_price;
-
-    /**
-     * @var \DateTime $promo_expire_date
-     *
-     * @ORM\Column(name="promo_expire_date", type="datetime", nullable=true)
-     */
-    private $promo_expire_date;
-
-    /**
-     * @var float $promo_percentage
-     *
-     * @ORM\Column(name="promo_percentage", type="float", nullable=true)
-     */
-    private $promo_percentage;
-
-    /**
      * @var \DateTime $createdat
 
      * @Gedmo\Timestampable(on="create")
@@ -111,32 +83,6 @@ class Product
      **/
     private $prices;
 	
-	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\SlicePrice", cascade={"persist"})
-     * @ORM\JoinTable(name="product_sliceprices",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="sliceprice_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-	private $sliceprices;
-	
-	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\UnitPrice", cascade={"persist"})
-     * @ORM\JoinTable(name="product_unitprices",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="unitprice_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-    private $unitprices;	
-
-	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\WeightPrice", cascade={"persist"})
-     * @ORM\JoinTable(name="product_weightprices",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="weightprices_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-    private $weightprices;	
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -222,11 +168,9 @@ class Product
     public function __construct()
     {
         $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sliceprices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->unitprices = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->weightprices = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+
     /**
      * Get id
      *
@@ -330,98 +274,6 @@ class Product
     }
 
     /**
-     * Set promo_active
-     *
-     * @param string $promoActive
-     * @return Product
-     */
-    public function setPromoActive($promoActive)
-    {
-        $this->promo_active = $promoActive;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_active
-     *
-     * @return string 
-     */
-    public function getPromoActive()
-    {
-        return $this->promo_active;
-    }
-
-    /**
-     * Set promo_price
-     *
-     * @param string $promoPrice
-     * @return Product
-     */
-    public function setPromoPrice($promoPrice)
-    {
-        $this->promo_price = $promoPrice;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_price
-     *
-     * @return string 
-     */
-    public function getPromoPrice()
-    {
-        return $this->promo_price;
-    }
-
-    /**
-     * Set promo_expire_date
-     *
-     * @param \DateTime $promoExpireDate
-     * @return Product
-     */
-    public function setPromoExpireDate($promoExpireDate)
-    {
-        $this->promo_expire_date = $promoExpireDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_expire_date
-     *
-     * @return \DateTime 
-     */
-    public function getPromoExpireDate()
-    {
-        return $this->promo_expire_date;
-    }
-
-    /**
-     * Set promo_percentage
-     *
-     * @param float $promoPercentage
-     * @return Product
-     */
-    public function setPromoPercentage($promoPercentage)
-    {
-        $this->promo_percentage = $promoPercentage;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_percentage
-     *
-     * @return float 
-     */
-    public function getPromoPercentage()
-    {
-        return $this->promo_percentage;
-    }
-
-    /**
      * Set createdat
      *
      * @param \DateTime $createdat
@@ -519,7 +371,7 @@ class Product
      * @param PiggyBox\ShopBundle\Entity\Price $prices
      * @return Product
      */
-    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    public function addPrix(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices[] = $prices;
     
@@ -531,7 +383,7 @@ class Product
      *
      * @param PiggyBox\ShopBundle\Entity\Price $prices
      */
-    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    public function removePrix(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices->removeElement($prices);
     }
@@ -544,105 +396,6 @@ class Product
     public function getPrices()
     {
         return $this->prices;
-    }
-
-    /**
-     * Add sliceprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices
-     * @return Product
-     */
-    public function addSliceprix(\PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices)
-    {
-        $this->sliceprices[] = $sliceprices;
-    
-        return $this;
-    }
-
-    /**
-     * Remove sliceprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices
-     */
-    public function removeSliceprix(\PiggyBox\ShopBundle\Entity\SlicePrice $sliceprices)
-    {
-        $this->sliceprices->removeElement($sliceprices);
-    }
-
-    /**
-     * Get sliceprices
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSliceprices()
-    {
-        return $this->sliceprices;
-    }
-
-    /**
-     * Add unitprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\UnitPrice $unitprices
-     * @return Product
-     */
-    public function addUnitprix(\PiggyBox\ShopBundle\Entity\UnitPrice $unitprices)
-    {
-        $this->unitprices[] = $unitprices;
-    
-        return $this;
-    }
-
-    /**
-     * Remove unitprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\UnitPrice $unitprices
-     */
-    public function removeUnitprix(\PiggyBox\ShopBundle\Entity\UnitPrice $unitprices)
-    {
-        $this->unitprices->removeElement($unitprices);
-    }
-
-    /**
-     * Get unitprices
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getUnitprices()
-    {
-        return $this->unitprices;
-    }
-
-    /**
-     * Add weightprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\WeightPrice $weightprices
-     * @return Product
-     */
-    public function addWeightprix(\PiggyBox\ShopBundle\Entity\WeightPrice $weightprices)
-    {
-        $this->weightprices[] = $weightprices;
-    
-        return $this;
-    }
-
-    /**
-     * Remove weightprices
-     *
-     * @param PiggyBox\ShopBundle\Entity\WeightPrice $weightprices
-     */
-    public function removeWeightprix(\PiggyBox\ShopBundle\Entity\WeightPrice $weightprices)
-    {
-        $this->weightprices->removeElement($weightprices);
-    }
-
-    /**
-     * Get weightprices
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getWeightprices()
-    {
-        return $this->weightprices;
     }
 
     /**

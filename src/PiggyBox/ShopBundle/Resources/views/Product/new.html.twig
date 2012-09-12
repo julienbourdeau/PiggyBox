@@ -4,24 +4,19 @@
     {{ form_row(form.name) }}
 	{{ form_row(form.description) }}
 	{{ form_row(form.active) }}
-	{{ form_row(form.promo_active) }}
-	{{ form_row(form.promo_price) }}
-	{{ form_row(form.promo_expire_date) }}
-	{{ form_row(form.promo_percentage) }}
 	{{ form_row(form.file) }}
 
 	<h3>SlicePrice</h3>
-    <ul class="sliceprices" data-prototype="{{ form_widget(form.sliceprices.vars.prototype)|e }}">
+    <ul class="sliceprices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
     </ul>
-
 	<h3>UnitPrice</h3>
-    <ul class="unitprices" data-prototype="{{ form_widget(form.unitprices.vars.prototype)|e }}">
+    <ul class="unitprices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
     </ul>
 
 	<h3>WeightPrice</h3>
-    <ul class="weightprices" data-prototype="{{ form_widget(form.weightprices.vars.prototype)|e }}">
+    <ul class="weightprices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
     </ul>
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]> <html lang="en" class="no-js oldie"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}2 pas 2 clics{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="author" content="Baptiste DUPUCH" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
+
+        <link rel="stylesheet" href="{{ asset('bundles/packagistweb/css/main.css?v=6') }}" />
+        <link rel="stylesheet" href="{{ asset('css/humane/jackedup.css?v=2') }}" />
+
+        {# {% stylesheets
+            '@PackagistWebBundle/Resources/public/css/main.css'
+            'css/humane/jackedup.css'
+            filter="yui_css" output='css/main.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %} #}
+
+        <script src="{{ asset('js/libs/modernizr-1.7.min.js') }}"></script>
+    </head>
+    <body>
+	{% block body %}{% endblock %}
+    </body>
+</html>
+
+
