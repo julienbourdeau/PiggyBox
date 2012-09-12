@@ -16,23 +16,11 @@ class ProductType extends AbstractType
             ->add('active')
 			->add('file')
 			->add('prices', 'collection', array(
-       		 	'type' => new SlicePriceType(),
+       		 	'type' => new PriceType(),
         		'allow_add' => true,
 				'allow_delete' => true,
 		        'by_reference' => false,
 			))
-			->add('prices', 'collection', array(
-       		 	'type' => new UnitPriceType(),
-        		'allow_add' => true,
-				'allow_delete' => true,
-		        'by_reference' => false,
-			))
-			->add('prices', 'collection', array(
-       		 	'type' => new WeightPriceType(),
-        		'allow_add' => true,
-				'allow_delete' => true,
-		        'by_reference' => false,
-    		));
         ;
     }
 
