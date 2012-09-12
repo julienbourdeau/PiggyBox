@@ -1,49 +1,61 @@
-<h1>Product list</h1>
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+{% block body%}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-			<th>Image</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Active</th>
-            <th>Image_path</th>
-            :th>Createdat</th>
-            <th>Updatedat</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('monmagasin_mesproduits_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-			<td><img src="{{entity.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.description }}</td>
-            <td>{{ entity.active }}</td>
-            <td>{{ entity.imagepath }}</td>
-            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('monmagasin_mesproduits_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('monmagasin_mesproduits_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% include 'PiggyBoxShopBundle:Product:product_sub_header.html.twig' %}
+<div id="main">
+	<div id="primary" class="site-content container">
 
-<ul>
-    <li>
-        <a href="{{ path('monmagasin_mesproduits_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+
+	<div class="page-header">
+		<h1>Produits disponibles à la commande en ligne</h1>
+	</div>
+
+
+
+	<ul class="nav nav-pills nav-pills-large">
+		<li class="active">
+			<a href="#">Boeuf</a>
+		</li>
+		<li><a href="#">Veau</a></li>
+		<li><a href="#">Porc</a></li>
+		<li><a href="#">Charcuterie</a></li>
+		<li><a href="#">Barbecue</a></li>
+		<li><a href="#">Plats cuisinés</a></li>
+	</ul>
+
+
+		<div class="box box-margined">
+		    <div class="row-fluid">
+
+		    	<div class="span2">
+		    		<img src="http://placehold.it/120x120" class="img-polaroid">
+		    	</div>
+
+				<div class="entry-description span6">
+					<h3 class="no-margin">Onglet Angus</h3>
+					<div>La renommée de la race Angus est mondiale, et il n'est pas rare de trouver des pièces d'Angus à la carte des gastronomiques</div>
+
+				</div>
+
+				<div class="span2 text-centered">
+					
+					<h4 class="">Prix /Kg</h4>
+					<h3 class="no-margin">21,90 €</h3>
+
+				</div>
+
+				<div class="span2">
+					<a href="produits-modify.php" class="btn btn-large btn-block btn-primary"><i class="icon-wrench icon-white"></i> Modifier</a>
+					<hr />
+					<a href="" class="btn btn-block"><i class="icon-eject"></i> Indisponible</a>
+				</div>
+
+		    </div>
+		</div>  
+
+
+    </div>
+</div>
+
+{% endblock %}
+
