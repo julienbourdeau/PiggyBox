@@ -13,21 +13,22 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
 
-        <link rel="stylesheet" href="{{ asset('bundles/packagistweb/css/main.css?v=6') }}" />
-        <link rel="stylesheet" href="{{ asset('css/humane/jackedup.css?v=2') }}" />
+		{% stylesheets
+			'@PiggyBoxShopBundle/Resources/public/less/bootstrap.less'
+				filter='lessphp'
+				output='css/main.css'
+		%}
+		<link rel="stylesheet" href="{{ asset_url }}">
+		{% endstylesheets %}
 
-        {# {% stylesheets
-            '@PackagistWebBundle/Resources/public/css/main.css'
-            'css/humane/jackedup.css'
-            filter="yui_css" output='css/main.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %} #}
-
-        <script src="{{ asset('js/libs/modernizr-1.7.min.js') }}"></script>
     </head>
+
     <body>
-	{% block body %}{% endblock %}
+
+		{% block body %}{% endblock %}
+
     </body>
+
 </html>
 
 
