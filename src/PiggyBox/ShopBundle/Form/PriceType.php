@@ -13,8 +13,9 @@ class PriceType extends AbstractType
         $builder
             ->add('price')
             ->add('price_kg')
+            ->add('weight')
+            ->add('total_weight')
             ->add('slice_nbr')
-            ->add('updatedat')
         ;
     }
 
@@ -27,6 +28,6 @@ class PriceType extends AbstractType
 
     public function getName()
     {
-        return 'piggybox_shopbundle_pricetype';
+        return 'prices';
     }
 }

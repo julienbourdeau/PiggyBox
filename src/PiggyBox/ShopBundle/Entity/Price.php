@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="piggybox_price")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\PriceRepository")
  */
-abstract class Price
+class Price
 {
     /**
      * @var integer $id
