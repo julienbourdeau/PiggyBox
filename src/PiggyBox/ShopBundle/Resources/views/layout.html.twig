@@ -13,9 +13,8 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
 
-		{% stylesheets
-			'@PiggyBoxShopBundle/Resources/public/less/bootstrap.less'
-				filter='lessphp'
+		{% stylesheets filter='cssrewrite, lessphp'
+			'bundles/piggyboxshop/less/bootstrap.less'
 				output='css/main.css'
 		%}
 		<link rel="stylesheet" href="{{ asset_url }}">
