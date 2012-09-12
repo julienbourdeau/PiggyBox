@@ -23,24 +23,24 @@
 		<li><a href="#">Plats cuisinés</a></li>
 	</ul>
 
-
+		{% for product in products %}
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
 		    	<div class="span2">
-		    		<img src="http://placehold.it/120x120" class="img-polaroid">
+					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" class="img-polaroid">
 		    	</div>
 
 				<div class="entry-description span6">
-					<h3 class="no-margin">Onglet Angus</h3>
-					<div>La renommée de la race Angus est mondiale, et il n'est pas rare de trouver des pièces d'Angus à la carte des gastronomiques</div>
+					<h3 class="no-margin">{{product.name}}</h3>
+					<div>{{product.description}}</div>
 
 				</div>
 
 				<div class="span2 text-centered">
 					
 					<h4 class="">Prix /Kg</h4>
-					<h3 class="no-margin">21,90 €</h3>
+					<h3 class="no-margin">{{product.pricekg}}</h3>
 
 				</div>
 
@@ -52,6 +52,7 @@
 
 		    </div>
 		</div>  
+		{% endfor %}
 
 
     </div>
