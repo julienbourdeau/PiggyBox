@@ -3,6 +3,7 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PiggyBox\ShopBundle\Entity\Price
@@ -28,26 +29,49 @@ class Price
      */
     private $price;
 
-    /**
-     * @var float $weight
+	/**
+     * @var float $price
      *
-     * @ORM\Column(name="weight", type="float")
+     * @ORM\Column(name="price_kg", type="float")
+     */
+    private $price_kg;
+
+	/**
+     * @var integer $weight
+     *
+     * @ORM\Column(name="weight", type="integer", nullable=true)
      */
     private $weight;
 
-    /**
-     * @var string $unity
+	/**
+     * @var integer $total_weight
      *
-     * @ORM\Column(name="unity", type="string", length=10)
+     * @ORM\Column(name="total_weight", type="integer", nullable=true)
      */
-    private $unity;
+    private $total_weight;
+
+	/**
+     * @var integer $slice_nbr
+     *
+     * @ORM\Column(name="slice_nbr", type="integer", nullable=true)
+     */
+    private $slice_nbr;
+	
+    /**
+     * @var \DateTime $createdat
+
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="createdat", type="datetime")
+     */
+    private $createdat;
 
     /**
-     * @var string $description
+     * @var \DateTime $updatedat
      *
-     * @ORM\Column(name="description", type="text")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="updatedat", type="datetime")
      */
-    private $description;
+    private $updatedat;
 
 
     /**
@@ -84,9 +108,83 @@ class Price
     }
 
     /**
+     * Set price_kg
+     *
+     * @param float $priceKg
+     * @return Price
+     */
+    public function setPriceKg($priceKg)
+    {
+        $this->price_kg = $priceKg;
+    
+        return $this;
+    }
+
+    /**
+     * Get price_kg
+     *
+     * @return float 
+     */
+    public function getPriceKg()
+    {
+        return $this->price_kg;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     * @return Price
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdat
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedat()
+    {
+        return $this->createdat;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return Price
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedat
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedat()
+    {
+        return $this->updatedat;
+    }
+
+	public function __toString()
+	{
+  		return strval($this->id);
+	}
+
+    /**
      * Set weight
      *
-     * @param float $weight
+     * @param integer $weight
      * @return Price
      */
     public function setWeight($weight)
@@ -99,7 +197,7 @@ class Price
     /**
      * Get weight
      *
-     * @return float 
+     * @return integer 
      */
     public function getWeight()
     {
@@ -107,48 +205,48 @@ class Price
     }
 
     /**
-     * Set unity
+     * Set total_weight
      *
-     * @param string $unity
+     * @param integer $totalWeight
      * @return Price
      */
-    public function setUnity($unity)
+    public function setTotalWeight($totalWeight)
     {
-        $this->unity = $unity;
+        $this->total_weight = $totalWeight;
     
         return $this;
     }
 
     /**
-     * Get unity
+     * Get total_weight
      *
-     * @return string 
+     * @return integer 
      */
-    public function getUnity()
+    public function getTotalWeight()
     {
-        return $this->unity;
+        return $this->total_weight;
     }
 
     /**
-     * Set description
+     * Set slice_nbr
      *
-     * @param string $description
+     * @param integer $sliceNbr
      * @return Price
      */
-    public function setDescription($description)
+    public function setSliceNbr($sliceNbr)
     {
-        $this->description = $description;
+        $this->slice_nbr = $sliceNbr;
     
         return $this;
     }
 
     /**
-     * Get description
+     * Get slice_nbr
      *
-     * @return string 
+     * @return integer 
      */
-    public function getDescription()
+    public function getSliceNbr()
     {
-        return $this->description;
+        return $this->slice_nbr;
     }
 }

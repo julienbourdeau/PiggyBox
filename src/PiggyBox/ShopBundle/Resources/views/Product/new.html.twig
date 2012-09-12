@@ -3,20 +3,12 @@
 <form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_row(form.name) }}
 	{{ form_row(form.description) }}
-	{{ form_row(form.price_kg) }}
 	{{ form_row(form.active) }}
-	{{ form_row(form.promo_active) }}
-	{{ form_row(form.promo_price) }}
-	{{ form_row(form.promo_expire_date) }}
-	{{ form_row(form.promo_percentage) }}
 	{{ form_row(form.file) }}
 
-	<h3>Prices</h3>
-    <ul class="prices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
+	<h3>WeightPrice</h3>
+    <ul class="weightprices" data-prototype="{{ form_widget(form.prices.vars.prototype)|e }}">
         {# iterate over each existing tag and render its only field: name #}
-        {% for price in form.prices %}
-            <li>{{ form_row(price.price) }}</li>
-        {% endfor %}
     </ul>
 
     {{ form_rest(form) }}
@@ -39,7 +31,7 @@
 <script type="text/javascript"><!--
 
 // Get the div that holds the collection of prices 
-var collectionHolder = $('ul.prices');
+var collectionHolder = $('ul.weightprices');
 
 // setup an "add a tag" link
 var $addTagLink = $('<a href="#" class="add_price_link">Add a Price</a>');

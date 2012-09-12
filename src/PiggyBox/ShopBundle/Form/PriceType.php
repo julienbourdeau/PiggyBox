@@ -12,9 +12,10 @@ class PriceType extends AbstractType
     {
         $builder
             ->add('price')
+            ->add('price_kg')
             ->add('weight')
-            ->add('unity')
-            ->add('description')
+            ->add('total_weight')
+            ->add('slice_nbr')
         ;
     }
 

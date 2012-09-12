@@ -51,6 +51,7 @@ class UserController extends Controller
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
 		$products = $shop->getProducts()->toArray();
 
+
         if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
