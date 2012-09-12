@@ -11,6 +11,9 @@
 	</div>
 
 
+	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(form)}} class="form-horizontal">
+    {{ form_errors(form) }}
+
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
@@ -19,35 +22,27 @@
 		    	</div>
 
 				<div class="span8">
-					<form class="form-horizontal">
 
 						<div class="control-group">
 							<label class="control-label" for="inputName">Nom du produit</label>
 							<div class="controls">
-								<input type="text" class="span12" id="inputName" placeholder="Nom du produit...">
+								{{ form_widget(form.name, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} }) }}
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="inputDesc">Description</label>
 							<div class="controls">
-								<textarea rows="3" class="span12"></textarea>
+								{{ form_widget(form.description, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="inputName">Changer la photo</label>
 							<div class="controls">
-								<input type="file" class="span12" id="inputPhoto">
+								{{ form_widget(form.file, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
-
-						<div class="form-actions">
-							<button type="submit" class="btn btn-large btn-primary"><i class="icon-ok icon-white"></i> Enregistrer les modifications</button>
-							<button type="button" class="btn">Annuler</button>
-						</div>
-
-					</form>
 
 				</div>
 
@@ -89,11 +84,10 @@
 			</div>
 		</div>
 
-
 		<div id="unit-pricing-container" class="row hide pricing-tab-container">
 			<div class="span12">
 				<div class="box">
-					<form action="#" class="form-inline form-huge">
+					<div class="form-inline form-huge">
 						<div class="row-fluid">
 							<div class="span4 offset2">
 								<h3 class="no-margin text-centered">Prix Unitaire</h3>
@@ -104,11 +98,11 @@
 						</div>
 						
 						<div class="row-fluid">
-							<div class="span4 offset2">
-								<input type="number" class="span12 text-centered" placeholder="Ex: 3.59">
+							<div id="unit-pricing-input-price" class="span4 offset2">
+								{{ form_widget(form.prices.vars.prototype.price, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 3.59'} }) }}
 							</div>
-							<div class="span4">
-								<input type="number" class="span12 text-centered" placeholder="Ex: 11.99">
+							<div id="unit-pricing-input-price-kg" class="span4">
+								{{ form_widget(form.price_kg, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 11.99'} }) }}
 							</div>
 						</div>
 
@@ -116,10 +110,10 @@
 
 						<div class="row-fluid">
 							<div class="span8 offset2">
-								<button class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer</button>
+								<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer</button>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -128,7 +122,7 @@
 		<div id="kg-pricing-container" class="row hide pricing-tab-container">
 			<div class="span12">
 				<div class="box">
-					<form action="#" class="form-inline form-huge">
+					<div class="form-inline form-huge">
 						<div class="row-fluid">
 							<div class="span4 offset4">
 								<h3 class="no-margin text-centered">Prix au Kg</h3>
@@ -136,7 +130,7 @@
 						</div>
 						
 						<div class="row-fluid">
-							<div class="span4 offset4">
+							<div id="kg-pricing-input-price-kg" class="span4 offset4">
 								<input type="text" class="span12 text-centered" placeholder="Ex: 3.59">
 							</div>
 						</div>
@@ -145,10 +139,10 @@
 
 						<div class="row-fluid">
 							<div class="span4 offset4">
-								<button class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer</button>
+								<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer</button>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -157,7 +151,7 @@
 		<div id="multiple-pricing-container" class="row hide pricing-tab-container">
 			<div class="span12">
 				<div class="box">
-					<form action="#" class="form-inline">
+					<div class="form-inline">
 						<table class="table table-bordered">
 							<tr>
 								<th>Coupe / pièce</th>
@@ -166,44 +160,16 @@
 								<th>Prix / Kg</th>
 							</tr>
 							<tr>
-								<td>
+								<td id="multiple-pricing-input-slice-price">
 									<input type="text" class="input-small" placeholder="1 pièce" />
 								</td>
-								<td>
+								<td id="multiple-pricing-input-total-weight">
 									<input type="text" class="" placeholder="entre 150g et 200g" />
 								</td>
-								<td>
+								<td id="multiple-pricing-input-price">
 									<input type="text" class="input-small" placeholder="4,49" />
 								</td>
-								<td>
-									<input type="text" class="input-small" placeholder="23,99" />
-								</td>
-							</tr>
-							<tr class="hide">
-								<td>
-									<input type="text" class="input-small" placeholder="1 pièce" />
-								</td>
-								<td>
-									<input type="text" class="" placeholder="entre 150g et 200g" />
-								</td>
-								<td>
-									<input type="text" class="input-small" placeholder="4,49" />
-								</td>
-								<td>
-									<input type="text" class="input-small" placeholder="23,99" />
-								</td>
-							</tr>
-							<tr class="hide">
-								<td>
-									<input type="text" class="input-small" placeholder="1 pièce" />
-								</td>
-								<td>
-									<input type="text" class="" placeholder="entre 150g et 200g" />
-								</td>
-								<td>
-									<input type="text" class="input-small" placeholder="4,49" />
-								</td>
-								<td>
+								<td id="multiple-pricing-input-price-kg">
 									<input type="text" class="input-small" placeholder="23,99" />
 								</td>
 							</tr>
@@ -214,14 +180,17 @@
 								<a class="btn btn-large btn-block btn-success add-table-row"><i class="icon-plus icon-white"></i> Ajouter une ligne</a>
 							</div>
 							<div class="span6">
-								<button class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer tout</button>
+								<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer tout</button>
 							</div>
 						</div>
 
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
+    {{ form_rest(form) }}
+
+</form>
 
 
     </div>
@@ -231,6 +200,14 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+var collectionHolder = $('div#unit-pricing-input');
+var $addTagLink = $('<a href="#" class="add_price_link">Add a Price</a>');
+
+jQuery(document).ready(function() {
+    collectionHolder.append($addTagLink);
+
+});
 
 $('.pricing-tab').click(function() {
 	var container = '#' + $(this).attr('rel') + '-container';
@@ -247,5 +224,3 @@ $('.add-table-row').click(function() {
 {% endblock %}
 
 {% endblock %}
-
-
