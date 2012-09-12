@@ -8,9 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * PiggyBox\ShopBundle\Entity\Price
  *
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"unitprice" = "UnitPrice", "sliceprice" = "SlicePrice", "weightprice" = "WeightPrice"})
  * @ORM\Table(name="piggybox_price")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\PriceRepository")
  */
@@ -39,6 +36,27 @@ abstract class Price
      */
     private $price_kg;
 
+	/**
+     * @var integer $weight
+     *
+     * @ORM\Column(name="weight", type="integer", nullable=true)
+     */
+    private $weight;
+
+	/**
+     * @var integer $total_weight
+     *
+     * @ORM\Column(name="total_weight", type="integer", nullable=true)
+     */
+    private $total_weight;
+
+	/**
+     * @var integer $slice_nbr
+     *
+     * @ORM\Column(name="slice_nbr", type="integer", nullable=true)
+     */
+    private $slice_nbr;
+	
     /**
      * @var \DateTime $createdat
 
@@ -162,4 +180,73 @@ abstract class Price
 	{
   		return strval($this->id);
 	}
+
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     * @return Price
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer 
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * Set total_weight
+     *
+     * @param integer $totalWeight
+     * @return Price
+     */
+    public function setTotalWeight($totalWeight)
+    {
+        $this->total_weight = $totalWeight;
+    
+        return $this;
+    }
+
+    /**
+     * Get total_weight
+     *
+     * @return integer 
+     */
+    public function getTotalWeight()
+    {
+        return $this->total_weight;
+    }
+
+    /**
+     * Set slice_nbr
+     *
+     * @param integer $sliceNbr
+     * @return Price
+     */
+    public function setSliceNbr($sliceNbr)
+    {
+        $this->slice_nbr = $sliceNbr;
+    
+        return $this;
+    }
+
+    /**
+     * Get slice_nbr
+     *
+     * @return integer 
+     */
+    public function getSliceNbr()
+    {
+        return $this->slice_nbr;
+    }
 }
