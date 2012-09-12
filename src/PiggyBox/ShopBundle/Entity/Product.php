@@ -48,7 +48,7 @@ class Product
 	/**
      * @var float $price_kg
      *
-     * @ORM\Column(name="price_kg", type="boolean",nullable=true)
+     * @ORM\Column(name="price_kg", type="float",nullable=true)
      */
     private $price_kg;
 
