@@ -20,6 +20,7 @@
         "jms/di-extra-bundle": "1.1.*",
 		"stof/doctrine-extensions-bundle": "dev-master",
 		"friendsofsymfony/user-bundle": "dev-master",
+		"leafo/lessphp": "dev-master",
 		"avalanche123/imagine-bundle": "dev-master"
     },
     "scripts": {
