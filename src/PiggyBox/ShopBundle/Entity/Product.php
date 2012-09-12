@@ -39,13 +39,6 @@ class Product
     private $description;
 
     /**
-     * @var float $price_kg
-     *
-     * @ORM\Column(name="price_kg", type="float", nullable=true)
-     */
-    private $price_kg;
-
-    /**
      * @var boolean $active
      *
      * @ORM\Column(name="active", type="boolean",nullable=true)
@@ -58,34 +51,6 @@ class Product
      * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
     private $image_path;
-
-    /**
-     * @var string $promo_active
-     *
-     * @ORM\Column(name="promo_active", type="string", length=255, nullable=true)
-     */
-    private $promo_active;
-
-    /**
-     * @var string $promo_price
-     *
-     * @ORM\Column(name="promo_price", type="string", length=255, nullable=true)
-     */
-    private $promo_price;
-
-    /**
-     * @var \DateTime $promo_expire_date
-     *
-     * @ORM\Column(name="promo_expire_date", type="datetime", nullable=true)
-     */
-    private $promo_expire_date;
-
-    /**
-     * @var float $promo_percentage
-     *
-     * @ORM\Column(name="promo_percentage", type="float", nullable=true)
-     */
-    private $promo_percentage;
 
     /**
      * @var \DateTime $createdat
@@ -118,10 +83,11 @@ class Product
      **/
     private $prices;
 	
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -197,6 +163,15 @@ class Product
     }
  
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+
+    /**
      * Get id
      *
      * @return integer 
@@ -253,29 +228,6 @@ class Product
     }
 
     /**
-     * Set price_kg
-     *
-     * @param float $priceKg
-     * @return Product
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-    
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return float 
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
-    }
-
-    /**
      * Set active
      *
      * @param boolean $active
@@ -319,98 +271,6 @@ class Product
     public function getImagePath()
     {
         return $this->image_path;
-    }
-
-    /**
-     * Set promo_active
-     *
-     * @param string $promoActive
-     * @return Product
-     */
-    public function setPromoActive($promoActive)
-    {
-        $this->promo_active = $promoActive;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_active
-     *
-     * @return string 
-     */
-    public function getPromoActive()
-    {
-        return $this->promo_active;
-    }
-
-    /**
-     * Set promo_price
-     *
-     * @param string $promoPrice
-     * @return Product
-     */
-    public function setPromoPrice($promoPrice)
-    {
-        $this->promo_price = $promoPrice;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_price
-     *
-     * @return string 
-     */
-    public function getPromoPrice()
-    {
-        return $this->promo_price;
-    }
-
-    /**
-     * Set promo_expire_date
-     *
-     * @param \DateTime $promoExpireDate
-     * @return Product
-     */
-    public function setPromoExpireDate($promoExpireDate)
-    {
-        $this->promo_expire_date = $promoExpireDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_expire_date
-     *
-     * @return \DateTime 
-     */
-    public function getPromoExpireDate()
-    {
-        return $this->promo_expire_date;
-    }
-
-    /**
-     * Set promo_percentage
-     *
-     * @param float $promoPercentage
-     * @return Product
-     */
-    public function setPromoPercentage($promoPercentage)
-    {
-        $this->promo_percentage = $promoPercentage;
-    
-        return $this;
-    }
-
-    /**
-     * Get promo_percentage
-     *
-     * @return float 
-     */
-    public function getPromoPercentage()
-    {
-        return $this->promo_percentage;
     }
 
     /**
@@ -460,6 +320,29 @@ class Product
     }
 
     /**
+     * Set path
+     *
+     * @param string $path
+     * @return Product
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
      * Set shop
      *
      * @param PiggyBox\ShopBundle\Entity\Shop $shop
@@ -481,14 +364,7 @@ class Product
     {
         return $this->shop;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
     /**
      * Add prices
      *
@@ -520,29 +396,6 @@ class Product
     public function getPrices()
     {
         return $this->prices;
-    }
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return Product
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
     }
 
     /**

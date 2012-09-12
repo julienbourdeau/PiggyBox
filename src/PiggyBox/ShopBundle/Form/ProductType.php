@@ -13,19 +13,14 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('price_kg')
             ->add('active')
-            ->add('promo_active')
-            ->add('promo_price')
-            ->add('promo_expire_date')
-            ->add('promo_percentage')
 			->add('file')
 			->add('prices', 'collection', array(
        		 	'type' => new PriceType(),
         		'allow_add' => true,
 				'allow_delete' => true,
 		        'by_reference' => false,
-    		));
+			))
         ;
     }
 

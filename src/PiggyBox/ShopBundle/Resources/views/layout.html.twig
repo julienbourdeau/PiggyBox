@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]> <html lang="en" class="no-js oldie"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}2 pas 2 clics{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="author" content="Baptiste DUPUCH" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
+
+		{% stylesheets
+			'@PiggyBoxShopBundle/Resources/public/less/bootstrap.less'
+				filter='lessphp'
+				output='css/main.css'
+		%}
+		<link rel="stylesheet" href="{{ asset_url }}">
+		{% endstylesheets %}
+
+    </head>
+
+    <body>
+
+		{% block body %}{% endblock %}
+
+    </body>
+
+</html>
+
+
