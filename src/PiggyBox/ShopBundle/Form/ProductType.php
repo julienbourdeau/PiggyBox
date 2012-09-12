@@ -14,6 +14,7 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('active')
+			->add('price_kg')
 			->add('file')
 			->add('prices', 'collection', array(
        		 	'type' => new PriceType(),

@@ -30,13 +30,6 @@ class Price
     private $price;
 
 	/**
-     * @var float $price
-     *
-     * @ORM\Column(name="price_kg", type="float")
-     */
-    private $price_kg;
-
-	/**
      * @var integer $weight
      *
      * @ORM\Column(name="weight", type="integer", nullable=true)
@@ -105,29 +98,6 @@ class Price
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Set price_kg
-     *
-     * @param float $priceKg
-     * @return Price
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-    
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return float 
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
     }
 
     /**
