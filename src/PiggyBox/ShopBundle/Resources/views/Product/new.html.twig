@@ -258,32 +258,86 @@ jQuery(document).ready(function() {
 		  $('td#multiple-pricing-input-slice-price > input').remove();
 		  $('td#multiple-pricing-input-total-weight > input').remove();
 		  
+		  $('div#kg-pricing-input-price-kg > input').remove();
+		  
 		  $kgPriceKgPriceDiv.append(datatypeKgPrice);	
+		  $('div#kg-pricing-input-price-kg > input').attr({
+			  class: 'span12 text-centered',
+			  placeholder: 'Ex: 3.59'
+			});
+		  $('div#multiple-pricing.box').attr('class', 'box box-error');
+		  $('div#kg-pricing.box').attr('class', 'box box-success');
+		  $('div#unit-pricing.box').attr('class', 'box box-error');
 
 		  break;
 		case 'multiple-pricing':
 
-		  $('div#unit-pricing-input-price > input').remove();
+   		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
-	
-		  $('div#kg-pricing-input-price-kg > input').remove();
 
-		  $slicePricePriceDiv.append(datatypePrice);
-		  $slicePriceKgPriceDiv.append(datatypeKgPrice);
-		  $slicePriceSliceDiv.append(datatypeSliceNbr);
-		  $slicePriceTotalWeightDiv.append(datatypeTotalWeight);
-			
-		  break;
-		default:
 		  $('td#multiple-pricing-input-price > input').remove();
 		  $('td#multiple-pricing-input-price-kg > input').remove();
 		  $('td#multiple-pricing-input-slice-price > input').remove();
 		  $('td#multiple-pricing-input-total-weight > input').remove();
 		  
 		  $('div#kg-pricing-input-price-kg > input').remove();
+
+
+		  $slicePricePriceDiv.append(datatypePrice);
+		  $slicePriceKgPriceDiv.append(datatypeKgPrice);
+		  $slicePriceSliceDiv.append(datatypeSliceNbr);
+		  $slicePriceTotalWeightDiv.append(datatypeTotalWeight);
+
+		  $('td#multiple-pricing-input-price > input').attr({
+			  class: 'input-small',
+			  placeholder: '4,49'
+			});
+		  $('td#multiple-pricing-input-price-kg > input').attr({
+			  class: 'input-small',
+			  placeholder: '23,99'
+			});
+		  $('td#multiple-pricing-input-slice-price > input').attr({
+			  class: 'input-small',
+			  placeholder: '1 pièce'
+			});
+		  $('td#multiple-pricing-input-total-weight > input').attr({
+			  class: '',
+			  placeholder: 'entre 150g et 200g'
+			});
+
+		  $('div#multiple-pricing.box').attr('class', 'box box-success');
+		  $('div#kg-pricing.box').attr('class', 'box box-error');
+		  $('div#unit-pricing.box').attr('class', 'box box-error');
+			
+		  break;
+		default:
+   		  $('div#unit-pricing-input-price > input').remove();
+		  $('div#unit-pricing-input-price-kg > input').remove();
+
+		  $('td#multiple-pricing-input-price > input').remove();
+		  $('td#multiple-pricing-input-price-kg > input').remove();
+		  $('td#multiple-pricing-input-slice-price > input').remove();
+		  $('td#multiple-pricing-input-total-weight > input').remove();
 		  
-		  $unitPricePriceDiv 
-	   	  $unitPriceKgPriceDiv
+		  $('div#kg-pricing-input-price-kg > input').remove();
+
+		  
+		  $unitPricePriceDiv.append(datatypePrice); 
+	   	  $unitPriceKgPriceDiv.append(datatypeKgPrice);
+
+   		  $('div#unit-pricing-input-price > input').attr({
+			  class: 'span12 text-centered',
+			  placeholder: 'Ex: 3.59'
+			});
+		  $('div#unit-pricing-input-price-kg > input').attr({
+			  class: 'span12 text-centered',
+			  placeholder: 'Ex: 11.99'
+			});
+
+		  $('div#multiple-pricing.box').attr('class', 'box box-error');
+		  $('div#kg-pricing.box').attr('class', 'box box-error');
+		  $('div#unit-pricing.box').attr('class', 'box box-success');
+		  
 		}
 		$('.pricing-tab-container').hide();
 		$(container).show();
