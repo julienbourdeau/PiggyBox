@@ -13,9 +13,15 @@
 
 	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(form)}} class="form-horizontal">
     {{ form_errors(form) }}
-<div class="weightprices" data-prototype="{{ form_widget(form.prices.vars.prototype.price, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} })|e }}">
-        {# iterate over each existing tag and render its only field: name #}
-    </div>
+
+<div class="datatypeprice" data-prototype="{{ form_widget(form.prices.vars.prototype.price, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} })|e }}">
+</div>
+<div class="datatypeslicenbr" data-prototype="{{ form_widget(form.prices.vars.prototype.slice_nbr, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} })|e }}">
+</div>
+<div class="datatypetotalweight" data-prototype="{{ form_widget(form.prices.vars.prototype.total_weight, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} })|e }}">
+</div>
+<div class="datatypekgprice" data-prototype="{{ form_widget(form.price_kg, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} })|e }}">
+</div>
 
 		<div class="box box-margined">
 		    <div class="row-fluid">
@@ -102,10 +108,8 @@
 						
 						<div class="row-fluid">
 							<div id="unit-pricing-input-price" class="span4 offset2">
-								{{ form_widget(form.prices.vars.prototype.price, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 3.59'} }) }}
 							</div>
 							<div id="unit-pricing-input-price-kg" class="span4">
-								{{ form_widget(form.price_kg, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 11.99'} }) }}
 							</div>
 						</div>
 
@@ -134,7 +138,6 @@
 						
 						<div class="row-fluid">
 							<div id="kg-pricing-input-price-kg" class="span4 offset4">
-								<input type="text" class="span12 text-centered" placeholder="Ex: 3.59">
 							</div>
 						</div>
 
@@ -164,20 +167,12 @@
 							</tr>
 							<tr>
 								<td id="multiple-pricing-input-slice-price">
-								{{ form_widget(form.prices.vars.prototype.slice_nbr, { 'attr': {'class': 'input-small','placeholder':'1 pièce'} }) }}
-									<input type="text" class="input-small" placeholder="1 pièce" />
 								</td>
 								<td id="multiple-pricing-input-total-weight">
-								{{ form_widget(form.prices.vars.prototype.total_weight, { 'attr': {'class': '','placeholder':'entre 150g et 200g'} }) }}
-									<input type="text" class="" placeholder="entre 150g et 200g" />
 								</td>
 								<td id="multiple-pricing-input-price">
-								{{ form_widget(form.prices.vars.prototype.price, { 'attr': {'class': 'input-small','placeholder':'4,49'} }) }}
-									<input type="text" class="input-small" placeholder="4,49" />
 								</td>
 								<td id="multiple-pricing-input-price-kg">
-								{{ form_widget(form.price_kg, { 'attr': {'class': 'input-small','placeholder':'23,99'} }) }}
-									<input type="text" class="input-small" placeholder="23,99" />
 								</td>
 							</tr>
 						</table>
@@ -203,8 +198,11 @@
 
     </div>
 </div>
+{% endblock %}
+
 
 {% block javascript %}
+{{ parent() }}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -223,13 +221,28 @@ $('.add-table-row').click(function() {
 
 
 // Get the div that holds the collection of prices 
-var collectionHolder = $('div.weightprices');
+var datatypePrice = $('div.datatypeprice');
+var datatypeKgPrice = $('div.datatypekgprice');
+var datatypeSliceNbr = $('div.datatypeslicenbr');
+var datatypeTotalWeight= $('div.datatypetotalweight');
+
+// Get the div container that contains all input
+var unitPricePriceDiv
+var unitPriceKgPriceDiv
+
+var kgPriceKgPriceDiv 
+
+var slicePricePriceDiv
+var slicePriceKgPriceDiv
+var slicePriceSliceDiv
+var slicePriceTotalWeightDiv
+
 
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_price_link">Add a Price</a>');
+var $addTagLink = $('<a href="#" class="add_price_link"'>Add a Price</a>');
 var $newLinkLi = $('<li></li>').append($addTagLink);
 
-var $addUnitPrice = $('div.unit-pricing-input-price');
+var $addUnitPrice = $('div#unit-pricing-input-price');
 
 jQuery(document).ready(function() {
 	// add a delete link to all of the existing tag form li elements
@@ -237,7 +250,9 @@ jQuery(document).ready(function() {
         addTagFormDeleteLink($(this));
     });
     // add the "add a tag" anchor and li to the tags ul
-    collectionHolder.append($newLinkLi);
+    var prototype = collectionHolder.attr('data-prototype');
+	console.log(prototype);
+    $addUnitPrice.append(prototype);
 
     $addTagLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
@@ -280,4 +295,3 @@ function addTagFormDeleteLink($tagFormLi) {
 </script>
 {% endblock %}
 
-{% endblock %}
