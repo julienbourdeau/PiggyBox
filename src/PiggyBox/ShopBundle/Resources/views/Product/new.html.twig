@@ -207,12 +207,12 @@
 
 <script type="text/javascript">
 
-$('.pricing-tab').click(function() {
-	var container = '#' + $(this).attr('rel') + '-container';
-	//alert(container);
-	$('.pricing-tab-container').hide();
-	$(container).show();
-});
+//$('.pricing-tab').click(function() {
+//	var container = '#' + $(this).attr('rel') + '-container';
+//	alert($(this).attr('rel'));
+//	$('.pricing-tab-container').hide();
+//	$(container).show();
+//});
 
 $('.add-table-row').click(function() {
 	$('tr.hide').first().removeClass("hide");
@@ -221,45 +221,73 @@ $('.add-table-row').click(function() {
 
 
 // Get the div that holds the collection of prices 
-var datatypePrice = $('div.datatypeprice');
-var datatypeKgPrice = $('div.datatypekgprice');
-var datatypeSliceNbr = $('div.datatypeslicenbr');
-var datatypeTotalWeight= $('div.datatypetotalweight');
+var datatypePrice = $('div.datatypeprice').attr('data-prototype');
+var datatypeKgPrice = $('div.datatypekgprice').attr('data-prototype');
+var datatypeSliceNbr = $('div.datatypeslicenbr').attr('data-prototype');
+var datatypeTotalWeight= $('div.datatypetotalweight').attr('data-prototype');
 
 // Get the div container that contains all input
-var unitPricePriceDiv
-var unitPriceKgPriceDiv
+var $unitPricePriceDiv = $('div#unit-pricing-input-price');
+var $unitPriceKgPriceDiv = $('div#unit-pricing-input-price-kg');
 
-var kgPriceKgPriceDiv 
+var $kgPriceKgPriceDiv= $('div#kg-pricing-input-price-kg');
 
-var slicePricePriceDiv
-var slicePriceKgPriceDiv
-var slicePriceSliceDiv
-var slicePriceTotalWeightDiv
-
+var $slicePricePriceDiv = $('td#multiple-pricing-input-price');
+var $slicePriceKgPriceDiv = $('td#multiple-pricing-input-price-kg');
+var $slicePriceSliceDiv = $('td#multiple-pricing-input-slice-price');
+var $slicePriceTotalWeightDiv = $('td#multiple-pricing-input-total-weight');
 
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_price_link"'>Add a Price</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
-
-var $addUnitPrice = $('div#unit-pricing-input-price');
+//var $addTagLink = $('<a href="#" class="add_price_link"'>Add a Price</a>');
+//var $newLinkLi = $('<li></li>').append($addTagLink);
 
 jQuery(document).ready(function() {
-	// add a delete link to all of the existing tag form li elements
-    collectionHolder.find('li').each(function() {
-        addTagFormDeleteLink($(this));
-    });
-    // add the "add a tag" anchor and li to the tags ul
-    var prototype = collectionHolder.attr('data-prototype');
-	console.log(prototype);
-    $addUnitPrice.append(prototype);
-
-    $addTagLink.on('click', function(e) {
+    $('.pricing-tab').on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
-        // add a new tag form (see next code block)
-        addTagForm(collectionHolder, $newLinkLi);
+		var container = '#' + $(this).attr('rel') + '-container';
+		switch($(this).attr('rel'))
+		{
+		case "kg-pricing":
+   		  $('div#unit-pricing-input-price > input').remove();
+		  $('div#unit-pricing-input-price-kg > input').remove();
+
+		  $('td#multiple-pricing-input-price > input').remove();
+		  $('td#multiple-pricing-input-price-kg > input').remove();
+		  $('td#multiple-pricing-input-slice-price > input').remove();
+		  $('td#multiple-pricing-input-total-weight > input').remove();
+		  
+		  $kgPriceKgPriceDiv.append(datatypeKgPrice);	
+
+		  break;
+		case 'multiple-pricing':
+
+		  $('div#unit-pricing-input-price > input').remove();
+		  $('div#unit-pricing-input-price-kg > input').remove();
+	
+		  $('div#kg-pricing-input-price-kg > input').remove();
+
+		  $slicePricePriceDiv.append(datatypePrice);
+		  $slicePriceKgPriceDiv.append(datatypeKgPrice);
+		  $slicePriceSliceDiv.append(datatypeSliceNbr);
+		  $slicePriceTotalWeightDiv.append(datatypeTotalWeight);
+			
+		  break;
+		default:
+		  $('td#multiple-pricing-input-price > input').remove();
+		  $('td#multiple-pricing-input-price-kg > input').remove();
+		  $('td#multiple-pricing-input-slice-price > input').remove();
+		  $('td#multiple-pricing-input-total-weight > input').remove();
+		  
+		  $('div#kg-pricing-input-price-kg > input').remove();
+		  
+		  $unitPricePriceDiv 
+	   	  $unitPriceKgPriceDiv
+		}
+		$('.pricing-tab-container').hide();
+		$(container).show();
+
     });
 });
 
