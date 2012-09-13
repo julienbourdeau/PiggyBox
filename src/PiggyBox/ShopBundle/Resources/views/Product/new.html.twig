@@ -165,7 +165,7 @@
 								<th>Prix</th>
 								<th>Prix / Kg</th>
 							</tr>
-							<tr>
+							<tr >
 								<td id="multiple-pricing-input-slice-price">
 								</td>
 								<td id="multiple-pricing-input-total-weight">
@@ -268,14 +268,8 @@ jQuery(document).ready(function() {
    		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
 
-			for (i=0; i<5; i++)
-  			{
-		  		$('td#multiple-pricing-input-price'+i+' > input').remove();
-		  		$('td#multiple-pricing-input-price-kg'+i+' > input').remove();
-		  		$('td#multiple-pricing-input-slice-price'+i+' > input').remove();
-		  		$('td#multiple-pricing-input-total-weight'+i+' > input').remove();
-  			}
-		  
+    	  $('table#multiple-pricing-table tr#multiple').remove();
+					  
 		  $('div#kg-pricing-input-price-kg > input').remove();
 
 
@@ -372,7 +366,7 @@ function addTagForm(datatypePrice,datatypeKgPrice,datatypeSliceNbr,datatypeTotal
     var $newForminputdatatypeSliceNbr = $('<td id="multiple-pricing-input-slice-price'+i+'"></td>').append(inputdatatypeSliceNbr);
     var $newForminputdatatypeTotalWeight = $('<td id="multiple-pricing-input-total-weight'+i+'"></td>').append(inputdatatypeTotalWeight);
 
-	var $finalform =$('<tr></tr>').append($newForminputdatatypeSliceNbr.after($newForminputdatatypeTotalWeight.after($newForminputdatatypePrice.after($newForminputdatatypeKgPrice))));
+	var $finalform =$('<tr id="multiple"></tr>').append($newForminputdatatypeSliceNbr.after($newForminputdatatypeTotalWeight.after($newForminputdatatypePrice.after($newForminputdatatypeKgPrice))));
 	$('table#multiple-pricing-table tr:last').after($finalform);
 console.log($finalform);
 	$('td#multiple-pricing-input-price'+i+' > input').attr({
@@ -396,18 +390,6 @@ console.log($finalform);
 	return i;
 }
 
-function addTagFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<a href="#">delete this tag</a>');
-    $tagFormLi.append($removeFormA);
-
-    $removeFormA.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
-
-        // remove the li for the tag form
-        $tagFormLi.remove();
-    });
-}
 </script>
 </script>
 {% endblock %}
