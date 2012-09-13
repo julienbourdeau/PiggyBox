@@ -158,7 +158,7 @@
 			<div class="span12">
 				<div class="box">
 					<div class="form-inline">
-						<table class="table table-bordered">
+						<table id="multiple-pricing-table" class="table table-bordered">
 							<tr>
 								<th>Coupe / pièce</th>
 								<th>Poids total</th>
@@ -179,10 +179,10 @@
 
 						<div class="row-fluid">
 							<div class="span3">
-								<a class="btn btn-large btn-block btn-success add-table-row"><i class="icon-plus icon-white"></i> Ajouter une ligne</a>
+								<a id="add-line-button" class="btn btn-large btn-block btn-success add-table-row"><i class="icon-plus icon-white"></i> Ajouter une ligne</a>
 							</div>
 							<div class="span3">
-								<a class="btn btn-large btn-block btn-danger add-table-row"><i class="icon-minus icon-white"></i> Retirer une ligne</a>
+								<a id="remove-line-button" class="btn btn-large btn-block btn-danger add-table-row"><i class="icon-minus icon-white"></i> Retirer une ligne</a>
 							</div>
 							<div class="span6">
 								<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Enregistrer tout</button>
@@ -210,19 +210,6 @@
 
 <script type="text/javascript">
 
-//$('.pricing-tab').click(function() {
-//	var container = '#' + $(this).attr('rel') + '-container';
-//	alert($(this).attr('rel'));
-//	$('.pricing-tab-container').hide();
-//	$(container).show();
-//});
-
-$('.add-table-row').click(function() {
-	$('tr.hide').first().removeClass("hide");
-});
-
-
-
 // Get the div that holds the collection of prices 
 var datatypePrice = $('div.datatypeprice').attr('data-prototype');
 var datatypeKgPrice = $('div.datatypekgprice').attr('data-prototype');
@@ -245,6 +232,9 @@ var $slicePriceTotalWeightDiv = $('td#multiple-pricing-input-total-weight');
 //var $newLinkLi = $('<li></li>').append($addTagLink);
 
 jQuery(document).ready(function() {
+
+		var i=0;
+
     $('.pricing-tab').on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
@@ -278,10 +268,13 @@ jQuery(document).ready(function() {
    		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
 
-		  $('td#multiple-pricing-input-price > input').remove();
-		  $('td#multiple-pricing-input-price-kg > input').remove();
-		  $('td#multiple-pricing-input-slice-price > input').remove();
-		  $('td#multiple-pricing-input-total-weight > input').remove();
+			for (i=0; i<5; i++)
+  			{
+		  		$('td#multiple-pricing-input-price'+i+' > input').remove();
+		  		$('td#multiple-pricing-input-price-kg'+i+' > input').remove();
+		  		$('td#multiple-pricing-input-slice-price'+i+' > input').remove();
+		  		$('td#multiple-pricing-input-total-weight'+i+' > input').remove();
+  			}
 		  
 		  $('div#kg-pricing-input-price-kg > input').remove();
 
@@ -346,20 +339,61 @@ jQuery(document).ready(function() {
 		$(container).show();
 
     });
+
+    $('a#add-line-button').on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+		i = addTagForm(datatypePrice,datatypeKgPrice,datatypeSliceNbr,datatypeTotalWeight, i);
+		});
+	
+	$('a#remove-line-button').on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+		$('table#multiple-pricing-table tr:last').remove();
+
+	});	
 });
 
-function addTagForm(collectionHolder, $newLinkLi) {
-    // Get the data-prototype we explained earlier
-    var prototype = collectionHolder.attr('data-prototype');
-	console.log(prototype);
+
+
+function addTagForm(datatypePrice,datatypeKgPrice,datatypeSliceNbr,datatypeTotalWeight, i) {
     // Replace '__name__' in the prototype's HTML to
     // instead be a number based on the current collection's length.
-    var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+	var inputdatatypePrice = datatypePrice.replace(/__name__/g, i);
+	var inputdatatypeKgPrice = datatypeKgPrice.replace(/__name__/g, i);
+	var inputdatatypeSliceNbr = datatypeSliceNbr.replace(/__name__/g, i);
+	var inputdatatypeTotalWeight = datatypeTotalWeight.replace(/__name__/g, i);
+
+
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
-    $newLinkLi.before($newFormLi);
-	addTagFormDeleteLink($newFormLi);
+	var $newForminputdatatypePrice = $('<td id="multiple-pricing-input-price'+i+'" ></td>').append(inputdatatypePrice);
+    var $newForminputdatatypeKgPrice = $('<td id="multiple-pricing-input-price-kg'+i+'"></td>').append(inputdatatypeKgPrice);
+    var $newForminputdatatypeSliceNbr = $('<td id="multiple-pricing-input-slice-price'+i+'"></td>').append(inputdatatypeSliceNbr);
+    var $newForminputdatatypeTotalWeight = $('<td id="multiple-pricing-input-total-weight'+i+'"></td>').append(inputdatatypeTotalWeight);
+
+	var $finalform =$('<tr></tr>').append($newForminputdatatypeSliceNbr.after($newForminputdatatypeTotalWeight.after($newForminputdatatypePrice.after($newForminputdatatypeKgPrice))));
+	$('table#multiple-pricing-table tr:last').after($finalform);
+console.log($finalform);
+	$('td#multiple-pricing-input-price'+i+' > input').attr({
+			  class: 'input-small',
+			  placeholder: '4,49'
+			});
+		  $('td#multiple-pricing-input-price-kg'+i+' > input').attr({
+			  class: 'input-small',
+			  placeholder: '23,99'
+			});
+		  $('td#multiple-pricing-input-slice-price'+i+' > input').attr({
+			  class: 'input-small',
+			  placeholder: '1 pièce'
+			});
+		  $('td#multiple-pricing-input-total-weight'+i+' > input').attr({
+			  class: '',
+			  placeholder: 'entre 150g et 200g'
+			});
+
+	i = parseInt(i)+1;
+	return i;
 }
 
 function addTagFormDeleteLink($tagFormLi) {
@@ -374,9 +408,7 @@ function addTagFormDeleteLink($tagFormLi) {
         $tagFormLi.remove();
     });
 }
-
-
-
+</script>
 </script>
 {% endblock %}
 
