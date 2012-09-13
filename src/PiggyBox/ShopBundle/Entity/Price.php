@@ -32,14 +32,14 @@ class Price
 	/**
      * @var integer $total_weight
      *
-     * @ORM\Column(name="total_weight", type="integer", nullable=true)
+     * @ORM\Column(name="total_weight", type="string", length=100, nullable=true)
      */
     private $total_weight;
 
 	/**
      * @var integer $slice_nbr
      *
-     * @ORM\Column(name="slice_nbr", type="integer", nullable=true)
+     * @ORM\Column(name="slice_nbr", type="string", length=100, nullable=true)
      */
     private $slice_nbr;
 	
