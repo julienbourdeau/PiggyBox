@@ -30,13 +30,6 @@ class Price
     private $price;
 
 	/**
-     * @var integer $weight
-     *
-     * @ORM\Column(name="weight", type="integer", nullable=true)
-     */
-    private $weight;
-
-	/**
      * @var integer $total_weight
      *
      * @ORM\Column(name="total_weight", type="integer", nullable=true)
@@ -144,34 +137,6 @@ class Price
     public function getUpdatedat()
     {
         return $this->updatedat;
-    }
-
-	public function __toString()
-	{
-  		return strval($this->id);
-	}
-
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return Price
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer 
-     */
-    public function getWeight()
-    {
-        return $this->weight;
     }
 
     /**
