@@ -1,0 +1,37 @@
+<div class="row-fluid">
+   <div class="span3">
+   	<ul class="nav nav-list">
+   		<li class="nav-header">Viandes</li>
+   			<li class="active"><a href="#">Boeuf</a></li>
+   			<li><a href="#">Porc</a></li>
+   			<li><a href="#">Veau</a></li>
+   		<li class="nav-header">Charcuterie</li>
+   			<li class=""><a href="#">Jambons</a></li>
+   			<li><a href="#">Pates</a></li>
+   			<li><a href="#">Saucissons</a></li>
+   		<li class="nav-header">Barbecue</li>
+   			<li class=""><a href="#">Brochettes</a></li>
+   			<li><a href="#">Saucisses</a></li>
+   	</ul>
+   </div>
+   <div class="span9">
+   	{% for product in products %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box">
+				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="img-polaroid">
+				<div>
+					<div>{{product.pricekg}} €<sub>/Kg</sub></div>
+					<div class="pull-right">{{product.minprice}} €</div>
+					<h3 class="no-margin">{{product.name}}</h3>
+					<p>{{product.description}}</p>
+					<a href="page-product.php" class="btn btn-small"><i class="icon-eye-open"></i> Voir le détail</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	{% endfor %}	
+   </div>
+</div>
+

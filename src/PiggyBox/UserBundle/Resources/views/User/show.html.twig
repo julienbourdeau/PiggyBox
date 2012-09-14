@@ -1,72 +1,162 @@
 {% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
 {% block content %}
-<h1>Product list</h1>
+        <div class="container">
+            <div class="row">
 
-<table class="records_list">
-    <thead>
-        <tr>
-			<th>Image</th>
-            <th>Name</th>
-            <th>Description</th>
-			<th>Prix</th>
-			<th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for product in products %}
-        <tr>
-			<td><img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
-            <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
-			<td>{{product.pricekg}}
-				<form action="{{ path('cart_add_product')}}">
-					{#	{%for price in product.prices %}
-						{{price.price}}
-						{% endfor %} #}
-					<input type="hidden" name="id" value="{{product.id}}">											
-				<button type="submit" href="" class="btn btn-info btn-large"><i class="icon icon-plus icon-white"></i> Ajouter</button>
-					
-				</form>
-			</td>
-			<td>
-			</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                <div id="content" class="span8">
+                    
+                    <div id="photo-slider">
+                        <div id="shopCarousel" class="carousel slide">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="active item">
+                                    <img src="img/carousel/boutique.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/carousel/boutique-2.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/carousel/boutique-3.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                            </div>
 
-				<section id="shopping-cart" class="span4">
-					<div class="well">
+                            <!-- Carousel nav -->
+                            <a class="carousel-control left" href="#shopCarousel" data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#shopCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+                    </div>
 
-						<h2>
-							<img src="{{ asset('bundles/piggyboxconsumer/img/shopping_cart.png') }}" width="38">
-							Votre panier
-						</h2>
+                    <div id="entry-container">
+                        <div id="entry-nav">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#fiche" data-toggle="tab">Fiche</a>
+                                </li>
+                                <li><a href="#shop" data-toggle="tab">Produits a commander</a></li>
+                                <li><a href="#infos" data-toggle="tab">Informations pratiques</a></li>
+                                <li class="disabled"><a data-toggle="">Avis</a></li>
+                                <li><a href="#photos" data-toggle="tab">Photos</a></li>
+                            </ul> 
+                        </div>
 
-						<br /><br />
+                        <div id="entry-content" class="tab-content">
+                            <div id="fiche" class="tab-pane active">
+                            </div>
+                            <div id="shop" class="tab-pane">
+								<div class="row-fluid">
+									<div class="span3">
+										<ul class="nav nav-list">
+											<li class="nav-header">Viandes</li>
+												<li class="active"><a href="#">Boeuf</a></li>
+												<li><a href="#">Porc</a></li>
+												<li><a href="#">Veau</a></li>
+											<li class="nav-header">Charcuterie</li>
+												<li class=""><a href="#">Jambons</a></li>
+												<li><a href="#">Pates</a></li>
+												<li><a href="#">Saucissons</a></li>
+											<li class="nav-header">Barbecue</li>
+												<li class=""><a href="#">Brochettes</a></li>
+												<li><a href="#">Saucisses</a></li>
+										</ul>
+									</div>
 
-						{% set orders  = piggybox_orders_get() %}
-							{% for order in orders %}
-								<h2>{{order.shop.name}}</h2>
-									{% for order_detail in order.orderdetail %}
-										<table class="table">
-											<tr>
-												<td>{{ order_detail.product.name }}</td>
-												<td>{{ order_detail.price.price}}</td>
-												<td>
-													<a href="{{ path('cart_remove_product', {'order_detail_id': order_detail.id}) }}">Enlever un produit</td>
-												</td>	
+								<div class="span9">
+									{% for product in products %}
+									<div class="row-fluid">
+										<div class="span12">
+											<div class="box">
+												<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="img-polaroid">
+												<div>
+													<div>{{product.pricekg}} €<sub>/Kg</sub></div>
+													<div class="pull-right">{{product.minprice}} €</div>
+													<h3 class="no-margin">{{product.name}}</h3>
+													<p>{{product.description}}</p>
+													<a href="page-product.php" class="btn btn-small"><i class="icon-eye-open"></i> Voir le détail</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									{% endfor %}	
+								</div>
+	</div>
+                            </div>
+                            <div id="infos" class="tab-pane">
+                            </div>
+                            <div id="photos" class="tab-pane">
+                        </div>
 
-											</tr>
-										</table>
-									{% endfor %}
-							{% endfor %}
-					</div>
-					<br /><br />
-					<a href="{{ path('validation_page') }}">Valider le panier</td>
-					<br /><br />
-					</section>
+</div>
+                    </div>
+
+                </div>
+      
+
+            <div id="sidebar" class="span4">
+                <div id="sidebar-content">
+                    
+                    <div id="shop-infos" class="">
+                        <h1>Boucherie de Zola</h1>
+
+                        <hr>
+
+                        <div><i class="icon-user"></i> 02.40.46.50.42</div>
+                        <div><i class="icon-envelope"></i> zola@boucherdefrance.fr</div>
+                        <div><i class="icon-home"></i> 6 place Emile Zola 44120 Nantes</div>
+
+                        <?php /* ?>
+                        <div>
+                          <a href="#" class="btn btn-block btn-success" rel="tooltip" data-placement="top" data-original-title="Visiter la boutique en ligne de cet artisan">
+                            <i class="icon-shopping-cart icon-white"></i> 
+                            Voir les produits
+                          </a>
+                        </div> 
+                        <?php */ ?>
+
+                        <hr>
+
+                        <div class="logos">
+                            <img src="img/logos/parking.jpg" alt="">
+                            <img src="img/logos/cb.jpg" alt="">
+                            <img src="img/logos/cheque.png" alt="">
+                            <img src="img/logos/cheque-resto.jpg" alt="">
+                            <img src="img/logos/cheque-resto-2.jpg" alt="">
+                            <img src="img/logos/cheque-resto-3.jpg" alt="">
+                            <img src="img/logos/cheque-resto-4.jpg" alt="">
+                        </div>
+                    </div>
+
+                    
+                    <div id="user-cart" class="">
+                        <h2>Panier</h2>
+                        <ul>
+                           <li>Lorem <a href="#" rel="tooltip" data-placement="top" data-original-title="Visiter la boutique en ligne de cet artisan">exemple</a> </li>
+                           <li>Aliquam tincidunt </li>
+                           <li>Vestibulum </li>
+                           <li>Lorem ipsum </li>
+                           <li>Aliquam tincidunt </li>
+                           <li>Vestibulum </li>
+                        </ul>
+    
+                    </div>
+
+                </div>
+            </div>
 
 
-{% endblock %}
+            </div><!-- /row -->
+        </div> <!-- /container -->
+		{% endblock %}
