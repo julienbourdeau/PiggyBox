@@ -108,6 +108,9 @@ class ProductController extends Controller
 			// Adding Sales entity relaton to the product
 			$sales = new Sales();
 			$product->setSales($sales);
+			if(false !== $product->getPrices()->first()){
+				$product->setMinPrice($product->getPrices()->first()->getPrice());
+			}
 
 			// saving the DB
             $em = $this->getDoctrine()->getManager();
