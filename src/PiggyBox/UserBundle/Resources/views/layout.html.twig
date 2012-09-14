@@ -1,97 +1,142 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Radley' rel='stylesheet' type='text/css'>
+        
+		{% stylesheets filter='cssrewrite, lessphp'
+			'bundles/piggyboxuser/less/styles.less'
+				output='css/main.css'
+		%}
+		<link rel="stylesheet" href="{{ asset_url }}">
+		{% endstylesheets %}
+
+		<link type="text/css" rel="stylesheet" href="{{asset('bundles/piggyboxuser/css/css.css') }}">
+
+    </head>
+    <body>
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
 
 
-</head>
-<body>
-
-<div id="page" class="hfeed site container">
-
-	<div class="row">
-		<div class="span12">
-			<div class="user-bar">
-				{% if app.user %}
-                    <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> | <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-                {% else %}
-                    <a href="{{ path('fos_user_registration_register') }}">Create a new account</a>
-                    |
-                    <a href="{{ path('fos_user_security_login') }}">Login</a>
-                {% endif %}
-            </div>
-		</div>
-	</div>
-
-
-	<header id="masthead" class="site-header" role="banner">
-		<div class="row">
-
-			<hgroup id="branding" class="span4">
-
-				<h1 class="site-title"><a href="#" title="Piggybox" rel="home">Piggybox</a></h1>
-
-				<h2 class="site-description">Et avec ceci?</h2>
-
-			</hgroup>
-
-
-			<nav role="navigation" class="site-navigation main-navigation pull-right">
-
-				<h1 class="assistive-text">Menu</h1>
-
-
-				<div class="menu">
-					<ul class="nav nav-pills">
-						<li class="current_page_item active"><a href="#" title="Home">Acceuil</a></li>
-						<li class="page_item"><a href="#">Nous Contacter</a></li>
-
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-								Dropdown
-								<b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a>test</a></li>
-								</ul>
-						</li>
-					</ul>
-				</div>
-
-
-
-			</nav>
-
-		</div>
-	</header><!-- #masthead .site-header -->
-
-
-	<div id="main">
-
-		<div id="primary" class="site-content">
-
-			{% for name, value in app.session.flashes if name in ['success', 'error'] %}
-                <div class="alert alert-{{ name }}">
-                    <a class="close" data-dismiss="alert" href="#">×</a>
-                    {{ value|trans }}
+        <header id="header" class="">
+            <div class="container">
+                <div class="row">
+                    <div id="logo" class="span3">
+                    </div>
                 </div>
-            {% endfor %}
+            </div>
+            <ul id="ongletcontain">
+                    	<a href="#"><li>Comment ça marche?</li></a>
+                        <a href="#"><li>Les commerçants</li></a>
+                        <a href="#"><li>Mon Panier</li></a>
+                </ul>
+        </header>
 
-			{% block content %}
+        <div class="container">
+            <div class="row">
+
+                <div id="content" class="span8">
+                    
+                    <div id="photo-slider">
+                        <div id="shopCarousel" class="carousel slide">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="active item">
+                                    <img src="img/carousel/boutique.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/carousel/boutique-2.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/carousel/boutique-3.jpg" alt="">
+                                    <div class="carousel-caption">
+                                    <h4>Boucherie de Zola</h4>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Carousel nav -->
+                            <a class="carousel-control left" href="#shopCarousel" data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#shopCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+                    </div>
+
+                    <div id="entry-container">
+                        <div id="entry-nav">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#fiche" data-toggle="tab">Fiche</a>
+                                </li>
+                                <li><a href="#shop" data-toggle="tab">Produits a commander</a></li>
+                                <li><a href="#infos" data-toggle="tab">Informations pratiques</a></li>
+                                <li class="disabled"><a data-toggle="">Avis</a></li>
+                                <li><a href="#photos" data-toggle="tab">Photos</a></li>
+                            </ul> 
+                        </div>
+
+                        <div id="entry-content" class="tab-content">
+                            <div id="fiche" class="tab-pane active">
+                                <?php include 'tab-fiche.php'; ?>
+                            </div>
+                            <div id="shop" class="tab-pane">
+                                <?php include 'tab-shop.php'; ?>
+                            </div>
+                            <div id="infos" class="tab-pane">
+                                <?php include 'tab-infos.php'; ?>
+                            </div>
+                            <div id="photos" class="tab-pane">
+                                <?php include 'tab-photos.php'; ?></div>
+                        </div>
 
 
-			{% endblock %}
+                    </div>
+
+                </div>
+      
+
+                <?php include 'sidebar.php'; ?>
+
+            </div><!-- /row -->
+        </div> <!-- /container -->
 
 
-		</div>
+    <?php include 'footer.php'; ?>
 
-	</div><!-- #main -->
 
-</div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-        {% block javascript %}{% endblock %}
-</body>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
+
+			<script src="{{ asset('bundles/piggyboxuser/js/vendor/bootstrap.min.js')}}"></script>
+
+			<script src="{{ asset('bundles/piggyboxuser/js/main.js')}}"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
 </html>
 

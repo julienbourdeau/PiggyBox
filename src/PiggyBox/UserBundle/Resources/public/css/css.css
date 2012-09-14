@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+#ongletcontain{ position:relative; margin-top: 117px; float: right; margin-right: 10%; display:block; width: 700px; list-style-type : none ;}
+
+#ongletcontain li{ display: inline; padding: 15px;  margin-left: 15px; background:rgba(0,0,0,0.7); font-size:24px; font-family: 'Radley', serif; color:#FF9; -webkit-border-top-left-radius: 5px;-webkit-border-top-right-radius: 5px;-moz-border-radius-topleft: 5px;-moz-border-radius-topright: 5px;border-top-left-radius: 5px;border-top-right-radius: 5px;-webkit-transition: all .1s ease-in;-moz-transition: all .1s ease-in;-o-transition: all .1s ease-in;transition: all .1s ease-in;}
+
+#ongletcontain li:hover{background:rgba(0,0,0,0.9);-webkit-transition: all .1s ease-in;-moz-transition: all .1s ease-in;-o-transition: all .1s ease-in;transition: all .1s ease-in;}	
+
+#shop-infos h1{background: #8dec2e;}
