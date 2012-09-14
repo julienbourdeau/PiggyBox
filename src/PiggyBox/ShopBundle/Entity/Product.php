@@ -68,6 +68,13 @@ class Product
     private $createdat;
 
     /**
+     * @var float $min_price
+     *
+     * @ORM\Column(name="min_price", type="float", nullable=true)
+     */
+	private $min_price;
+	
+	/**
      * @var \DateTime $updatedat
      *
      * @Gedmo\Timestampable(on="update")
@@ -472,5 +479,28 @@ class Product
     public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
     {
         $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Set min_price
+     *
+     * @param float $minPrice
+     * @return Product
+     */
+    public function setMinPrice($minPrice)
+    {
+        $this->min_price = $minPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get min_price
+     *
+     * @return float 
+     */
+    public function getMinPrice()
+    {
+        return $this->min_price;
     }
 }
