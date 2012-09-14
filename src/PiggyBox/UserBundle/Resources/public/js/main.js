@@ -1,0 +1,2 @@
+
+$('a[rel=tooltip]').tooltip();
