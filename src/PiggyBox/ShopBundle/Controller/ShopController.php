@@ -30,7 +30,7 @@ class ShopController extends Controller
      * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page 
 	 * 
 	 * @SecureReturn(permissions="VIEW")
-     * @Route("/", name="moncommerce")
+     * @Route("/", name="moncommerce_mescommandes")
      * @Template()
      */
     public function indexAction()

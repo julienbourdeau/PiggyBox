@@ -80,8 +80,8 @@ avalanche_imagine:
     filters:
         my_thumb:
             type:    thumbnail
-            options: { size: [90, 90], mode: outbound, quality: 100}
+            options: { size: [120, 120], mode: outbound, quality: 100}
         large_thumb:
             type:    thumbnail
-            options:  { size: [280, 280], mode: outbound, quality: 100}
+            options:  { size: [240, 240], mode: outbound, quality: 100}
 
