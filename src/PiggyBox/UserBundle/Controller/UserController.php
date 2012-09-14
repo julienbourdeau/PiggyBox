@@ -57,7 +57,7 @@ class UserController extends Controller
         }
 
         return array(
-            'entity'      => $shop,
+            'shop'      => $shop,
 			'products'	  => $products	
         );
     }
