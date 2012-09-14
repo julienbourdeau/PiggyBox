@@ -19,13 +19,11 @@
 			<td><img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt=""></td>			
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
-			<td>
+			<td>{{product.pricekg}}
 				<form action="{{ path('cart_add_product')}}">
-					{%for price in product.prices %}
-       				     {% if price.slice_nbr is not defined %}
-							CACAAAAA	
-			  			 {% endif %}
-					{% endfor %}
+					{#	{%for price in product.prices %}
+						{{price.price}}
+						{% endfor %} #}
 					<input type="hidden" name="id" value="{{product.id}}">											
 				<button type="submit" href="" class="btn btn-info btn-large"><i class="icon icon-plus icon-white"></i> Ajouter</button>
 					
