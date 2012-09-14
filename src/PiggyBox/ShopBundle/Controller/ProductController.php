@@ -42,7 +42,7 @@ class ProductController extends Controller
 		$products = $user->getOwnshop()->getProducts()->toArray();
 
         return array(
-            'entities' => $products,
+            'products' => $products,
         );
     }
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
     /**
      * Ajouter un nouveau produit 
      *
-     * @Route("/new", name="monmagasin_mesproduits_new")
+     * @Route("/new", name="monmagasin_mesproduits_ajouter")
      * @Template()
      */
     public function newAction()

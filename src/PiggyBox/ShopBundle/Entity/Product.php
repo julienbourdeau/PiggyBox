@@ -43,7 +43,14 @@ class Product
      *
      * @ORM\Column(name="active", type="boolean",nullable=true)
      */
-    private $active;
+	private $active;
+	
+	/**
+     * @var float $price_kg
+     *
+     * @ORM\Column(name="price_kg", type="float",nullable=true)
+     */
+    private $price_kg;
 
     /**
      * @var string $image_path
@@ -419,5 +426,51 @@ class Product
     public function getSales()
     {
         return $this->sales;
+    }
+
+    /**
+     * Set price_kg
+     *
+     * @param boolean $priceKg
+     * @return Product
+     */
+    public function setPriceKg($priceKg)
+    {
+        $this->price_kg = $priceKg;
+    
+        return $this;
+    }
+
+    /**
+     * Get price_kg
+     *
+     * @return boolean 
+     */
+    public function getPriceKg()
+    {
+        return $this->price_kg;
+    }
+
+    /**
+     * Add prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     * @return Product
+     */
+    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices[] = $prices;
+    
+        return $this;
+    }
+
+    /**
+     * Remove prices
+     *
+     * @param PiggyBox\ShopBundle\Entity\Price $prices
+     */
+    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
+    {
+        $this->prices->removeElement($prices);
     }
 }

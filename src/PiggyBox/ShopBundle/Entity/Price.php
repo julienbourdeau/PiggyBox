@@ -30,30 +30,16 @@ class Price
     private $price;
 
 	/**
-     * @var float $price
-     *
-     * @ORM\Column(name="price_kg", type="float")
-     */
-    private $price_kg;
-
-	/**
-     * @var integer $weight
-     *
-     * @ORM\Column(name="weight", type="integer", nullable=true)
-     */
-    private $weight;
-
-	/**
      * @var integer $total_weight
      *
-     * @ORM\Column(name="total_weight", type="integer", nullable=true)
+     * @ORM\Column(name="total_weight", type="string", length=100, nullable=true)
      */
     private $total_weight;
 
 	/**
      * @var integer $slice_nbr
      *
-     * @ORM\Column(name="slice_nbr", type="integer", nullable=true)
+     * @ORM\Column(name="slice_nbr", type="string", length=100, nullable=true)
      */
     private $slice_nbr;
 	
@@ -108,29 +94,6 @@ class Price
     }
 
     /**
-     * Set price_kg
-     *
-     * @param float $priceKg
-     * @return Price
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-    
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return float 
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
-    }
-
-    /**
      * Set createdat
      *
      * @param \DateTime $createdat
@@ -174,34 +137,6 @@ class Price
     public function getUpdatedat()
     {
         return $this->updatedat;
-    }
-
-	public function __toString()
-	{
-  		return strval($this->id);
-	}
-
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return Price
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer 
-     */
-    public function getWeight()
-    {
-        return $this->weight;
     }
 
     /**
