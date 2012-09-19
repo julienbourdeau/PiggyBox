@@ -1,6 +1,4 @@
-Côtelette et tarte à la fraise
-
-h2. TODO:
+h1. Côtelette et tarte à la fraise
 
 # Baptiste
 * Finir la logique de commande
