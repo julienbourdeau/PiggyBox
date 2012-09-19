@@ -10,6 +10,7 @@
 	* Informations sur les commerces en BDD
 	* Google Analytics
 	* Validation des formulaires
+	* Ajouter la classe Image...
 
 * PiggyBoxUserBundle
 	* Afficher le panier
