@@ -1,0 +1,29 @@
+<div class="row-fluid">
+    <div class="span12">
+        <table class="table table-bordered">
+            <tbody><tr>
+                <th>Coupe / Pièce</th>
+                <th>Poid</th>
+                <th>Prix</th>
+                <th>Prix au Kg</th>
+                <th>Quantité</th>
+            </tr>
+            {% if product.prices|length %}
+				{% for price in product.prices %}
+    	        	<tr>
+						{% if price.slice_nbr %}
+							<td>{{price.slice_nbr}}</td>
+						{% endif %}
+
+						{% if price.total_weight %}
+            	    		<td>{{price.total_weight}}</td>
+						{% endif %}
+                		<td>4,30 €</td>
+                		<td>14,69 €</td>
+                		<td><button class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</button></td>
+            		</tr>
+				{% endfor %}
+			{% endif %}
+        </tbody></table>
+    </div>
+</div>
