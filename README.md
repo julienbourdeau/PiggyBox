@@ -34,3 +34,4 @@
 	* Page validation du panier
 	* mettre php 5.4
 	* flyers production
+	* Ajouter la notion "BETA" au magasin
