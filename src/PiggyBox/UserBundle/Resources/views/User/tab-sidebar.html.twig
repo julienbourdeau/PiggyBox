@@ -22,13 +22,13 @@
             <hr>
 
             <div class="logos">
-                <img src="img/logos/parking.jpg" alt="">
-                <img src="img/logos/cb.jpg" alt="">
-                <img src="img/logos/cheque.png" alt="">
-                <img src="img/logos/cheque-resto.jpg" alt="">
-                <img src="img/logos/cheque-resto-2.jpg" alt="">
-                <img src="img/logos/cheque-resto-3.jpg" alt="">
-                <img src="img/logos/cheque-resto-4.jpg" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/parking.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cb.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque.png')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-2.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-3.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-4.jpg')}}" alt="">
             </div>
         </div>
 
@@ -48,4 +48,19 @@
 
     </div>
 </div>
+{% set orders  = piggybox_orders_get() %}
+							{% for order in orders %}
+								<h2>{{order.shop.name}}</h2>
+									{% for order_detail in order.orderdetail %}
+										<table class="table">
+											<tr>
+												<td>{{ order_detail.product.name }}</td>
+												<td>{{ order_detail.price.price}}</td>
+												<td>
+													<a href="{{ path('cart_remove_product', {'order_detail_id': order_detail.id}) }}">Enlever un produit</td>
+												</td>	
 
+											</tr>
+										</table>
+									{% endfor %}
+							{% endfor %}

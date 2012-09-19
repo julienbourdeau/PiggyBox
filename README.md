@@ -15,7 +15,6 @@
 
 * PiggyBoxUserBundle
 	* Afficher le panier
-	* Ré-intégrer le design final
 	* Ajout de Google Analytics
 	* Ajout de la page de validation
 	* Gestionnaire du cache
