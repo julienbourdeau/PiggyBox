@@ -26,6 +26,8 @@
 					<h3 class="no-margin">{{product.name}}</h3>
 					<p>{{product.description}}</p>
 					<a href="page-product.php" class="btn btn-small"><i class="icon-eye-open"></i> Voir le détail</a>
+                    <div class="details-toggler{% if loop.index0 == 0 %} open{% endif %}"{% if loop.index0 %} data-load-more="{{ path('view_version', {versionId: version.id, _format: 'json'}) }}"{% endif %}></div>
+					
 				</div>
 			</div>
 		</div>
