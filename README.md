@@ -28,8 +28,8 @@
 	* prix à l'unité
 	* prix au poids
 	* prix à la coupe
- Première page et page d'explication
- Toutes les infos des magasins
- Page validation du panier
- mettre php 5.4
- flyers production
+ 	* Première page et page d'explication
+	* Toutes les infos des magasins
+	* Page validation du panier
+	* mettre php 5.4
+	* flyers production
