@@ -1,0 +1,62 @@
+// Boxes
+// -------------------------
+@boxBackground:     #f5f5f5;
+@boxBorder:         @white;
+
+
+.box {
+	background: none repeat scroll 0 0 @boxBackground;
+	.border-radius(4px);
+	border: 1px solid @boxBorder;
+	*border: 0; // Remove the border to prevent IE7's black border on input:focus
+	border-bottom-color: darken(@boxBorder, 10%);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	.ie7-restore-left-whitespace(); // Give IE7 some love
+	.well-large;
+	.clearfix;
+
+  img.float {
+    float: left;
+    margin-right: 24px;
+  }
+}
+
+.box-margined {
+	margin: 12px 0;
+}
+
+.box-muted {
+  opacity: 0.6;
+}
+.box-warning {
+  background-color: @warningBackground;
+  border-color: @warningBorder;
+  hr {
+  	border-top: 1px solid @warningBorder;
+  	border-bottom: 1px solid @grayLighter;
+  }
+}
+.box-error {
+  background-color: @errorBackground;
+  border-color: @errorBorder;
+  hr {
+  	border-top: 1px solid @errorBorder;
+  	border-bottom: 1px solid @grayLighter;
+  }
+}
+.box-info {
+  background-color: @infoBackground;
+  border-color: @infoBorder;
+  hr {
+  	border-top: 1px solid @infoBorder;
+  	border-bottom: 1px solid @grayLighter;
+  }
+}
+.box-success {
+  background-color: @successBackground;
+  border-color: @successBorder;
+  hr {
+  	border-top: 1px solid @successBorder;
+  	border-bottom: 1px solid @grayLighter;
+  }
+}
