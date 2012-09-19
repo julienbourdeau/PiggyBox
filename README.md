@@ -11,6 +11,7 @@
 	* Google Analytics
 	* Validation des formulaires
 	* Ajouter la classe Image...
+	* Ajouter les images lors de la création d'un magasin
 
 * PiggyBoxUserBundle
 	* Afficher le panier
