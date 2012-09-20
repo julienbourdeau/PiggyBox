@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\UserBundle\Form\UserType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * User controller.
@@ -51,4 +52,23 @@ class UserController extends Controller
 			'products'	  => $products	
         );
     }
+
+    /**
+     * @Template()
+     * @Route(
+     *     "product/{product_id}.{_format}",
+     *     name="view_product",
+     *     requirements={"_format"="(json)"}
+     * )
+     * @Method({"GET"})
+     */
+    public function viewProductPriceAction(Request $req, $product_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
+
+        $html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', array('product' => $product));
+        return new JsonResponse(array('content' => $html));
+    }
+	
 }

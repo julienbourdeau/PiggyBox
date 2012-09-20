@@ -25,16 +25,16 @@ class OrderController extends Controller
     /**
      * Crée ou récupère un nouvel Order grâce à la session du l'utilisateur 
      *
-     * @Route("/ajouter/produit", name="cart_add_product")
+     * @Route("/ajouter/produit/{product_id}/{price_id}", name="cart_add_product")
      */
-    public function addProductAction(Request $req)
+    public function addProductAction(Request $req, $product_id, $price_id)
     {
         //NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
 		//NOTE: Get the product to add
         $em = $this->getDoctrine()->getManager();
-		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($req->get('id'));
+		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
 
 		$orders = $cart->getOrders()->toArray();
 		$shop = $product->getShop();
@@ -59,7 +59,7 @@ class OrderController extends Controller
 		$order_detail = new OrderDetail();
 		$order_detail->setOrder($order);	
         $order_detail->setProduct($product);
-		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($req->get('price_id')));
+		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
 
 		//persist & flush
         $em->persist($order_detail);
