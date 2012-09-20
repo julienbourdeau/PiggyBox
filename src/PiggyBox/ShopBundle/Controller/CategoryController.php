@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Category;
 use PiggyBox\ShopBundle\Form\CategoryType;
+use PiggyBox\ShopBundle\Form\ChoiceList\CategoryEntityLoader;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
 
 /**
  * Category controller.
@@ -17,29 +19,28 @@ use PiggyBox\ShopBundle\Form\CategoryType;
  */
 class CategoryController extends Controller
 {
-    /**
-     * Lists all Category entities.
-     *
-     * @Route("/", name="category")
-     * @Template()
+/**
+     * @Route("/", name="demo_category_tree")
+     * @Template
      */
-    public function indexAction()
+    public function treeAction()
     {
-		$em = $this->getDoctrine()->getManager();
-
+        $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('PiggyBoxShopBundle:Category');
 
-		$self = &$this;
+        $self = &$this;
         $options = array(
             'decorate' => true,
             'nodeDecorator' => function($node) use (&$self) {
+                $linkEdit = '<a href="' . $self->generateUrl('demo_category_edit', array('id' => $node['id'])) . '">Edit</a>';
+                $linkDelete = '<a href="' . $self->generateUrl('demo_category_delete', array('id' => $node['id'])) . '">Delete</a>';
                 $linkUp = '<a href="' . $self->generateUrl('demo_category_move_up', array('id' => $node['id'])) . '">Up</a>';
                 $linkDown = '<a href="' . $self->generateUrl('demo_category_move_down', array('id' => $node['id'])) . '">Down</a>';
                 $linkNode = '<a href="' . $self->generateUrl('demo_category_show', array('slug' => $node['slug']))
                     . '">' . $node['title'] . '</a>'
                 ;
                 if ($node['level'] !== 0) {
-                    $linkNode .= '&nbsp;&nbsp;&nbsp;' . $linkUp . '&nbsp;' . $linkDown;
+                    $linkNode .= '&nbsp;&nbsp;&nbsp;' . $linkEdit . '&nbsp;' . $linkDelete . '&nbsp;' . $linkUp . '&nbsp;' . $linkDown;
                 }
                 return $linkNode;
             }
@@ -57,176 +58,17 @@ class CategoryController extends Controller
             return $node['level'] === 0;
         });
 
-		return compact('tree', 'languages', 'rootNodes');    
-	}
-
-
-    /**
-     * Finds and displays a Category entity.
-     *
-     * @Route("/{id}/show", name="category_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PiggyBoxShopBundle:Category')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return compact('tree', 'rootNodes');
     }
 
     /**
-     * Displays a form to create a new Category entity.
-     *
-     * @Route("/new", name="category_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Category();
-        $form   = $this->createForm(new CategoryType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-	/**
-     * @Route("/save", name="category_create")
-     * @Method("POST")
-     */
-    public function saveAction()
-    {
-        $node = new Category;
-        $form = $this->createForm(new CategoryType, $node);
-        $form->bindRequest($this->get('request'), $node);
-        if ($form->isValid()) {
-            $em = $this->get('doctrine.orm.entity_manager');
-            $em->persist($node);
-            $em->flush();
-            $this->get('session')->setFlash('message', 'Category was added');
-            return $this->redirect($this->generateUrl('category'));
-        } else {
-            $this->get('session')->setFlash('error', 'Fix the following errors');
-        }
-        $form = $form->createView();
-        return $this->render('PiggyBoxShopBundle:Category:new.html.twig', compact('form'));
-    }
-
-    /**
-     * Displays a form to edit an existing Category entity.
-     *
-     * @Route("/{id}/edit", name="category_edit")
-     * @Template()
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PiggyBoxShopBundle:Category')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
-        }
-
-        $editForm = $this->createForm(new CategoryType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Edits an existing Category entity.
-     *
-     * @Route("/{id}/update", name="category_update")
-     * @Method("POST")
-     * @Template("PiggyBoxShopBundle:Category:edit.html.twig")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PiggyBoxShopBundle:Category')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new CategoryType(), $entity);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
-        }
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Deletes a Category entity.
-     *
-     * @Route("/{id}/delete", name="category_delete")
-     * @Method("POST")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PiggyBoxShopBundle:Category')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Category entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('category'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
-
-	/**
      * @Route("/move-up/{id}", name="demo_category_move_up")
      */
     public function moveUpAction($id)
     {
         $node = $this->findNodeOr404($id);
         $repo = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+            ->getRepository('PiggyBoxShopBundle:Category')
         ;
 
         $repo->moveUp($node);
@@ -240,7 +82,7 @@ class CategoryController extends Controller
     {
         $node = $this->findNodeOr404($id);
         $repo = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+            ->getRepository('PiggyBoxShopBundle:Category')
         ;
 
         $repo->moveDown($node);
@@ -251,12 +93,12 @@ class CategoryController extends Controller
      * @Route("/show/{slug}", name="demo_category_show")
      * @Template
      */
-    public function showDemoAction($slug)
+    public function showAction($slug)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $dql = <<<____SQL
             SELECT c
-            FROM GedmoDemoBundle:Category c
+            FROM PiggyBoxShopBundle:Category c
             WHERE c.slug = :slug
 ____SQL;
         $q = $em
@@ -264,7 +106,6 @@ ____SQL;
             ->setMaxResults(1)
             ->setParameters(compact('slug'))
         ;
-        $this->setTranslatableHints($q);
         $node = $q->getResult();
         if (!$node) {
             throw $this->createNotFoundException(sprintf(
@@ -274,17 +115,106 @@ ____SQL;
         }
         $node = current($node);
 
-        $translationRepo = $em->getRepository(
-            'Gedmo:Translation'
-        );
-        $translations = $translationRepo->findTranslations($node);
         $pathQuery = $em
-            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+            ->getRepository('PiggyBoxShopBundle:Category')
             ->getPathQuery($node)
         ;
-        $this->setTranslatableHints($pathQuery);
         $path = $pathQuery->getArrayResult();
 
-        return compact('node', 'translations', 'path');
+        return compact('node', 'path');
+    }
+
+    /**
+     * @Route("/delete/{id}", name="demo_category_delete")
+     */
+    public function deleteAction($id)
+    {
+        $node = $this->findNodeOr404($id);
+		$em = $this->get('doctrine.orm.entity_manager');
+        $em->remove($node);
+        $em->flush();
+        $this->get('session')->setFlash('message', 'Category '.$node->getTitle().' was removed');
+
+        return $this->redirect($this->generateUrl('demo_category_tree'));
+    }
+
+    /**
+     * @Route("/edit/{id}", name="demo_category_edit")
+     * @Template
+     * @Method({"GET", "POST"})
+     */
+    public function editAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $node = $this->findNodeOr404($id);
+        $choiceLoader = new CategoryEntityLoader($this, $em, $node);
+        $choiseList = new EntityChoiceList(
+            $em,
+            'PiggyBoxShopBundle:Category',
+            'title',
+            $choiceLoader
+        );
+        $form = $this->createForm(new CategoryType($choiseList), $node);
+        if ('POST' === $this->get('request')->getMethod()) {
+            $form->bindRequest($this->get('request'), $node);
+            if ($form->isValid()) {
+                $em->persist($node);
+                $em->flush();
+                $this->get('session')->setFlash('message', 'Category was updated');
+                return $this->redirect($this->generateUrl('demo_category_tree'));
+            } else {
+                $this->get('session')->setFlash('error', 'Fix the following errors');
+            }
+        }
+        $form = $form->createView();
+        return compact('form');
+    }
+
+    /**
+     * @Route("/add", name="demo_category_add")
+     * @Template
+     */
+    public function addAction()
+    {
+        $form = $this->createForm(new CategoryType, new Category)->createView();
+        return compact('form');
+    }
+
+    /**
+     * @Route("/save", name="demo_category_save")
+     * @Method("POST")
+     */
+    public function saveAction()
+    {
+        $node = new Category;
+        $form = $this->createForm(new CategoryType, $node);
+        $form->bindRequest($this->get('request'), $node);
+        if ($form->isValid()) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($node);
+            $em->flush();
+            $this->get('session')->setFlash('message', 'Category was added');
+            return $this->redirect($this->generateUrl('demo_category_tree'));
+        } else {
+            $this->get('session')->setFlash('error', 'Fix the following errors');
+        }
+        $form = $form->createView();
+        return $this->render('PiggyBoxShopBundle:Category:add.html.twig', compact('form'));
+    }
+
+	private function findNodeOr404($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $q = $em->createQuery('SELECT c FROM PiggyBoxShopBundle:Category c WHERE c.id = :id');
+        $q->setParameter('id', $id);
+        $q->setMaxResults(1);
+        $node = $q->getResult();
+        if (!$node) {
+            throw new NotFoundHttpException(sprintf(
+                'Failed to find Category by id:[%s]',
+                $id
+            ));
+        }
+        return current($node);
     }
 }
