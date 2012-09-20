@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="piggybox_categories")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
-class Category
+class Category 
 {
     /**
      * @ORM\Column(type="integer")

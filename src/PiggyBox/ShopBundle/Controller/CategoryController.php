@@ -25,14 +25,41 @@ class CategoryController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+		$em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxShopBundle:Category')->findAll();
+        $repo = $em->getRepository('PiggyBoxShopBundle:Category');
 
-        return array(
-            'entities' => $entities,
+		$self = &$this;
+        $options = array(
+            'decorate' => true,
+            'nodeDecorator' => function($node) use (&$self) {
+                $linkUp = '<a href="' . $self->generateUrl('demo_category_move_up', array('id' => $node['id'])) . '">Up</a>';
+                $linkDown = '<a href="' . $self->generateUrl('demo_category_move_down', array('id' => $node['id'])) . '">Down</a>';
+                $linkNode = '<a href="' . $self->generateUrl('demo_category_show', array('slug' => $node['slug']))
+                    . '">' . $node['title'] . '</a>'
+                ;
+                if ($node['level'] !== 0) {
+                    $linkNode .= '&nbsp;&nbsp;&nbsp;' . $linkUp . '&nbsp;' . $linkDown;
+                }
+                return $linkNode;
+            }
         );
-    }
+        $query = $em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('PiggyBoxShopBundle:Category', 'node')
+            ->orderBy('node.root, node.lft', 'ASC')
+            ->getQuery()
+        ;
+        $nodes = $query->getArrayResult();
+        $tree = $repo->buildTree($nodes, $options);
+        $rootNodes = array_filter($nodes, function ($node) {
+            return $node['level'] === 0;
+        });
+
+		return compact('tree', 'languages', 'rootNodes');    
+	}
+
 
     /**
      * Finds and displays a Category entity.
@@ -76,7 +103,7 @@ class CategoryController extends Controller
     }
 
 	/**
-     * @Route("/save", name="demo_category_save")
+     * @Route("/save", name="category_create")
      * @Method("POST")
      */
     public function saveAction()
@@ -89,12 +116,12 @@ class CategoryController extends Controller
             $em->persist($node);
             $em->flush();
             $this->get('session')->setFlash('message', 'Category was added');
-            return $this->redirect($this->generateUrl('demo_category_list'));
+            return $this->redirect($this->generateUrl('category'));
         } else {
             $this->get('session')->setFlash('error', 'Fix the following errors');
         }
         $form = $form->createView();
-        return $this->render('GedmoDemoBundle:Category:add.html.twig', compact('form'));
+        return $this->render('PiggyBoxShopBundle:Category:new.html.twig', compact('form'));
     }
 
     /**
@@ -190,5 +217,74 @@ class CategoryController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+	/**
+     * @Route("/move-up/{id}", name="demo_category_move_up")
+     */
+    public function moveUpAction($id)
+    {
+        $node = $this->findNodeOr404($id);
+        $repo = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+        ;
+
+        $repo->moveUp($node);
+        return $this->redirect($this->generateUrl('demo_category_tree'));
+    }
+
+    /**
+     * @Route("/move-down/{id}", name="demo_category_move_down")
+     */
+    public function moveDownAction($id)
+    {
+        $node = $this->findNodeOr404($id);
+        $repo = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+        ;
+
+        $repo->moveDown($node);
+        return $this->redirect($this->generateUrl('demo_category_tree'));
+    }
+
+    /**
+     * @Route("/show/{slug}", name="demo_category_show")
+     * @Template
+     */
+    public function showDemoAction($slug)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $dql = <<<____SQL
+            SELECT c
+            FROM GedmoDemoBundle:Category c
+            WHERE c.slug = :slug
+____SQL;
+        $q = $em
+            ->createQuery($dql)
+            ->setMaxResults(1)
+            ->setParameters(compact('slug'))
+        ;
+        $this->setTranslatableHints($q);
+        $node = $q->getResult();
+        if (!$node) {
+            throw $this->createNotFoundException(sprintf(
+                'Failed to find Category by slug:[%s]',
+                $slug
+            ));
+        }
+        $node = current($node);
+
+        $translationRepo = $em->getRepository(
+            'Gedmo:Translation'
+        );
+        $translations = $translationRepo->findTranslations($node);
+        $pathQuery = $em
+            ->getRepository('Gedmo\DemoBundle\Entity\Category')
+            ->getPathQuery($node)
+        ;
+        $this->setTranslatableHints($pathQuery);
+        $path = $pathQuery->getArrayResult();
+
+        return compact('node', 'translations', 'path');
     }
 }
