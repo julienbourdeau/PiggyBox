@@ -1,0 +1,62 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+{% block body%}
+
+{% include 'PiggyBoxShopBundle:Product:product_sub_header.html.twig' %}
+<div id="main">
+	<div id="primary" class="site-content container">
+
+
+	<div class="page-header">
+		<h1>Produits disponibles à la commande en ligne</h1>
+	</div>
+
+
+
+	<ul class="nav nav-pills nav-pills-large">
+		<li class="active">
+			<a href="#">Boeuf</a>
+		</li>
+		<li><a href="#">Veau</a></li>
+		<li><a href="#">Porc</a></li>
+		<li><a href="#">Charcuterie</a></li>
+		<li><a href="#">Barbecue</a></li>
+		<li><a href="#">Plats cuisinés</a></li>
+	</ul>
+
+		{% for product in products %}
+		<div class="box box-margined">
+		    <div class="row-fluid">
+
+		    	<div class="span2">
+					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" class="img-polaroid">
+		    	</div>
+
+				<div class="entry-description span6">
+					<h3 class="no-margin">{{product.name}}</h3>
+					<div>{{product.description}}</div>
+
+				</div>
+
+				<div class="span2 text-centered">
+					
+					<h4 class="">Prix /Kg</h4>
+					<h3 class="no-margin">{{product.pricekg}}</h3>
+
+				</div>
+
+				<div class="span2">
+					<a href="produits-modify.php" class="btn btn-large btn-block btn-primary"><i class="icon-wrench icon-white"></i> Modifier</a>
+					<hr />
+					<a href="" class="btn btn-block"><i class="icon-eject"></i> Indisponible</a>
+				</div>
+
+		    </div>
+		</div>  
+		{% endfor %}
+
+
+    </div>
+</div>
+
+{% endblock %}
+

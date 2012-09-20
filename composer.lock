@@ -1,6 +1,53 @@
 {
-    "hash": "caa6266ddd215974c8476df91ea2e15d",
+    "hash": "7a16d02f9db14ca60387d165b77fd837",
     "packages": [
+        {
+            "name": "avalanche123/imagine-bundle",
+            "version": "dev-master",
+            "target-dir": "Avalanche/Bundle/ImagineBundle",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/avalanche123/AvalancheImagineBundle.git",
+                "reference": "a1248483cdd532780928f0ac23f06596d198a3f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/avalanche123/AvalancheImagineBundle/zipball/a1248483cdd532780928f0ac23f06596d198a3f0",
+                "reference": "a1248483cdd532780928f0ac23f06596d198a3f0",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "2.*",
+                "imagine/imagine": "dev-master"
+            },
+            "suggest": {
+                "symfony/twig-bundle": "2.*"
+            },
+            "time": "1344289113",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Avalanche\\Bundle\\ImagineBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image manipulation using Imagine and Twig Filters.",
+            "homepage": "https://github.com/avalanche123/AvalancheImagineBundle",
+            "keywords": [
+                "image manipulation",
+                "imagine"
+            ]
+        },
         {
             "name": "doctrine/common",
             "version": "2.3.x-dev",
@@ -266,6 +313,183 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/UserBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
+                "reference": "34f1919ceab96339a8dc6ad7c2b00274a6f499f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/34f1919ceab96339a8dc6ad7c2b00274a6f499f1",
+                "reference": "34f1919ceab96339a8dc6ad7c2b00274a6f499f1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.1.*",
+                "symfony/security-bundle": "2.1.*"
+            },
+            "require-dev": {
+                "twig/twig": "*",
+                "doctrine/doctrine-bundle": "*",
+                "swiftmailer/swiftmailer": "*",
+                "willdurand/propel-typehintable-behavior": "dev-master",
+                "symfony/validator": "2.1.*",
+                "symfony/yaml": "2.1.*"
+            },
+            "suggest": {
+                "doctrine/couchdb-odm-bundle": "*",
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "*"
+            },
+            "time": "1347897534",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\UserBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Thibault Duplessis",
+                    "email": "thibault.duplessis@gmail.com",
+                    "homepage": "http://ornicar.github.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
+                }
+            ],
+            "description": "Symfony FOSUserBundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "User management"
+            ]
+        },
+        {
+            "name": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
+                "reference": "c52b23174a74010beed6e24b543f7fb8249abe93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/c52b23174a74010beed6e24b543f7fb8249abe93",
+                "reference": "c52b23174a74010beed6e24b543f7fb8249abe93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "doctrine/common": ">=2.2,<2.5-dev"
+            },
+            "suggest": {
+                "doctrine/orm": ">=2.1",
+                "doctrine/mongodb-odm": "*"
+            },
+            "time": "1347664039",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Gedmo": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "tree",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "sluggable",
+                "loggable",
+                "translatable",
+                "nestedset",
+                "sortable",
+                "timestampable"
+            ]
+        },
+        {
+            "name": "imagine/Imagine",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine",
+                "reference": "v0.3.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/avalanche123/Imagine/zipball/v0.3.0",
+                "reference": "v0.3.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "time": "1343522118",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Imagine": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "image manipulation",
+                "image processing",
+                "drawing",
+                "graphics"
             ]
         },
         {
@@ -590,6 +814,42 @@
             ]
         },
         {
+            "name": "leafo/lessphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/leafo/lessphp",
+                "reference": "330402e2713773bba8515525ec55bb0fd4445f49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/leafo/lessphp/zipball/330402e2713773bba8515525ec55bb0fd4445f49",
+                "reference": "330402e2713773bba8515525ec55bb0fd4445f49",
+                "shasum": ""
+            },
+            "time": "1347545089",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/"
+        },
+        {
             "name": "monolog/monolog",
             "version": "dev-master",
             "source": {
@@ -785,6 +1045,68 @@
                 }
             ],
             "description": "This bundle generates code for you"
+        },
+        {
+            "name": "stof/doctrine-extensions-bundle",
+            "version": "dev-master",
+            "target-dir": "Stof/DoctrineExtensionsBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle",
+                "reference": "0247e6f1658d76292c8ffe2c5106090bd36bd799"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle/zipball/0247e6f1658d76292c8ffe2c5106090bd36bd799",
+                "reference": "0247e6f1658d76292c8ffe2c5106090bd36bd799",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.1.*",
+                "gedmo/doctrine-extensions": ">=2.3-dev"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "2.1.*"
+            },
+            "time": "1346283670",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Stof\\DoctrineExtensionsBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
+            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
+            "keywords": [
+                "tree",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "sluggable",
+                "loggable",
+                "translatable",
+                "nestedset",
+                "sortable",
+                "timestampable"
+            ]
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1014,12 +1336,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "v2.1.2"
+                "reference": "9fd2baa502ea6700461cce89f2295a695c20e430"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/v2.1.2",
-                "reference": "v2.1.2",
+                "url": "https://github.com/symfony/symfony/zipball/9fd2baa502ea6700461cce89f2295a695c20e430",
+                "reference": "9fd2baa502ea6700461cce89f2295a695c20e430",
                 "shasum": ""
             },
             "require": {
@@ -1068,7 +1390,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "1348125180",
+            "time": "1348130370",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1205,6 +1527,10 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "doctrine/doctrine-bundle": 20,
-        "twig/extensions": 20
+        "twig/extensions": 20,
+        "stof/doctrine-extensions-bundle": 20,
+        "friendsofsymfony/user-bundle": 20,
+        "leafo/lessphp": 20,
+        "avalanche123/imagine-bundle": 20
     }
 }

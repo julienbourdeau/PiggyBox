@@ -1,0 +1,52 @@
+<div id="sidebar" class="span4">
+    <div id="sidebar-content">
+        
+        <div id="shop-infos" class="">
+            <h1>Boucherie de Zola</h1>
+
+            <hr>
+
+            <div><i class="icon-user"></i> 02.40.46.50.42</div>
+            <div><i class="icon-envelope"></i> zola@boucherdefrance.fr</div>
+            <div><i class="icon-home"></i> 6 place Emile Zola 44120 Nantes</div>
+
+            <?php /* ?>
+            <div>
+              <a href="#" class="btn btn-block btn-success" rel="tooltip" data-placement="top" data-original-title="Visiter la boutique en ligne de cet artisan">
+                <i class="icon-shopping-cart icon-white"></i> 
+                Voir les produits
+              </a>
+            </div> 
+            <?php */ ?>
+
+            <hr>
+
+            <div class="logos">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/parking.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cb.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque.png')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-2.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-3.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/cheque-resto-4.jpg')}}" alt="">
+            </div>
+        </div>
+
+        
+        {% set orders  = piggybox_orders_get() %}
+		<div id="user-cart" class="">
+			<h2>Panier</h2>
+			{% for order in orders %}	
+			<h2>{{order.shop.name}}</h2>	
+				{% for order_detail in order.orderdetail %}	
+				<ul>
+					<li>{{ order_detail.product.name }}</li>
+					<li>{{ order_detail.price.price}}</li>
+				</ul>
+				{% endfor %}
+			{% endfor %}
+		</div>
+
+    </div>
+</div>
+
