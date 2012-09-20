@@ -1,4 +1,3 @@
-
 {% block actions %}
 <ul>
     <li><a href="{{ path('demo_category_tree') }}">Show Tree</a></li>
@@ -20,15 +19,14 @@ $(document).ready(function() {
 {% form_theme form "PiggyBoxShopBundle::form.html.twig" %}
 
 <div class="row">
-    <form action="{{ path('demo_category_edit', {'id': form.vars.value.id}) }}" method="post">
+    <form action="{{ path('demo_category_save') }}" method="post">
       <fieldset>
-      <legend>Edit Category</legend>
+      <legend>Add Category</legend>
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
-        {{ form_row(form.parent) }}
         {{ form_rest(form) }}
         <div class="actions">
-          <button class="btn primary" type="submit">Update</button>
+          <button class="btn primary" type="submit">Add</button>
         </div>
       </fieldset>
     </form>

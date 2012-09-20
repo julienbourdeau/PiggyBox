@@ -1,22 +1,38 @@
-<h1>Product edit</h1>
 
-<form action="{{ path('monmagasin_mesproduits_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('monmagasin_mesproduits') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('monmagasin_mesproduits_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
+{% block actions %}
+<ul>
+    <li><a href="{{ path('demo_category_tree') }}">Show Tree</a></li>
 </ul>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('button.cancel').click(function () {
+        window.history.back(-1);
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+{{ parent() }}
+
+{% form_theme form "PiggyBoxShopBundle::form.html.twig" %}
+
+<div class="row">
+    <form action="{{ path('demo_category_edit', {'id': form.vars.value.id}) }}" method="post">
+      <fieldset>
+      <legend>Edit Category</legend>
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.parent) }}
+        {{ form_rest(form) }}
+        <div class="actions">
+          <button class="btn primary" type="submit">Update</button>
+        </div>
+      </fieldset>
+    </form>
+</div>
+
+{% endblock %}

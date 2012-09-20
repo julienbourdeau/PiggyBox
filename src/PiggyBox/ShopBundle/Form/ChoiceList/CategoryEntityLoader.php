@@ -1,6 +1,6 @@
 <?php
 
-namespace Gedmo\DemoBundle\Form\ChoiceList;
+namespace PiggyBox\ShopBundle\Form\ChoiceList;
 
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,7 +33,7 @@ class CategoryEntityLoader implements EntityLoaderInterface
         $qb = $this->em
             ->createQueryBuilder()
             ->select('c')
-            ->from('GedmoDemoBundle:Category', 'c')
+            ->from('PiggyBoxShopBundle:Category', 'c')
         ;
         if (!is_null($this->basedOnNode)) {
             $qb->where($qb->expr()->notIn(
@@ -41,18 +41,17 @@ class CategoryEntityLoader implements EntityLoaderInterface
                 $this->em
                     ->createQueryBuilder()
                     ->select('n')
-                    ->from('GedmoDemoBundle:Category', 'n')
+                    ->from('PiggyBoxShopBundle:Category', 'n')
                     ->where('n.root = '.$this->basedOnNode->getRoot())
                     ->andWhere($qb->expr()->between(
                         'n.lft',
-                        $this->basedOnNode->getLeft(),
-                        $this->basedOnNode->getRight()
+                        $this->basedOnNode->getLft(),
+                        $this->basedOnNode->getRgt()
                     ))
                     ->getDQL()
             ));
         }
         $q = $qb->getQuery();
-        $this->categoryController->setTranslatableHints($q);
         return $q->getResult();
     }
 
@@ -64,15 +63,14 @@ class CategoryEntityLoader implements EntityLoaderInterface
         $q = $this->em
             ->createQueryBuilder()
             ->select('c')
-            ->from('GedmoDemoBundle:Category', 'c')
-            ->where($qb->expr()->in(
+            ->from('PiggyBoxShopBundle:Category', 'c')
+            ->where($q->expr()->in(
                 'c.'.$identifier,
                 ':ids'
             ))
             ->setParameter('ids', $values, Connection::PARAM_INT_ARRAY)
             ->getQuery()
         ;
-        $this->categoryController->setTranslatableHints($q);
         return $q->getResult();
     }
 }
