@@ -8,14 +8,12 @@
 		* Envoie de mail post commande
 	* Requête AJAX pour l'affichage des commandes
 	* Informations sur les commerces en BDD
-	* Google Analytics
 	* Validation des formulaires
 	* Ajouter la classe Image...
 	* Ajouter les images lors de la création d'un magasin
 	* Editer les Produits
 
 * PiggyBoxUserBundle
-	* Ajout de Google Analytics
 	* Ajout de la page de validation
 	* Gestionnaire du cache
 	* Page de création d'un compte/connexion
