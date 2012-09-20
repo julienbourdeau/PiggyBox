@@ -12,6 +12,7 @@
 	* Validation des formulaires
 	* Ajouter la classe Image...
 	* Ajouter les images lors de la création d'un magasin
+	* Editer les Produits
 
 * PiggyBoxUserBundle
 	* Afficher le panier
