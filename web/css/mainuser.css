@@ -130,6 +130,9 @@ textarea {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.box-shadow {
+  box-shadow: 1px 1px 4px #666;
+}
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -6614,6 +6617,17 @@ a.badge:hover {
   padding: 9px 15px;
   border-top: 1px solid #e5e5e5;
 }
+.carouselimg {
+  width: 100%;
+}
+.carousel-caption {
+  border: solid 1px;
+}
+.carousel-caption h4 {
+  font-family: 'Vollkorn', serif;
+  font-size: 25px;
+  color: #FF9;
+}
 .carousel {
   position: relative;
   margin-bottom: 25px;
@@ -6805,6 +6819,9 @@ a.badge:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.box-shadow {
+  box-shadow: 1px 1px 4px #666;
 }
 .hidden {
   display: none;
@@ -8539,44 +8556,92 @@ a.badge:hover {
 header#header {
   height: 100px;
   background: url(../../bundles/piggyboxuser/img/head2.gif);
+  margin-bottom: 36px;
+}
+#ongletcontain {
+  position: relative;
+  margin-top: 50px;
+  float: right;
+  margin-right: 10%;
+  display: block;
+  width: 700px;
+  list-style-type: none;
+}
+#ongletcontain li {
+  display: inline;
+  padding: 8px;
+  margin-left: 15px;
+  font-size: 25px;
+  font-family: 'Vollkorn', serif;
+  color: #bad3b4;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 3px #555;
+  -webkit-transition: all .1s ease-in;
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+}
+#ongletcontain li:hover {
+  color: #e7f2e4;
+  text-decoration: none;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 3px #555;
+}
+#ongletcontain li a {
+  text-decoration: none;
+}
+#ongletcontain li a:hover {
+  text-decoration: none;
 }
 #content {
   min-height: 1px;
 }
-#photo-slider,
-#entry-container,
-#shop-infos {
-  margin-top: 36px;
-  box-shadow: 1px 1px 6px #555;
+#photo-slider {
+  box-shadow: 1px 1px 4px #666;
+  box-shadow: 1px 1px 4px #666;
 }
 #entry-container {
-  margin-bottom: 20px;
-}
-#user-cart {
-  margin-top: 56px;
+  margin: 36px 0 20px 0;
 }
 #entry-nav ul.nav {
-  margin-bottom: 0;
+  margin: 0 0 0 -5px;
+  padding: 5px 0 0 5px;
+  overflow: hidden;
+  border: 0;
+}
+#entry-nav ul.nav li {
+  padding-right: 12px;
+}
+#entry-nav ul.nav li.active a {
+  box-shadow: 1px 1px 4px #666;
+  box-shadow: 1px 1px 4px #666;
 }
 #entry-content {
   padding: 26px 10px;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
+  box-shadow: 1px 1px 4px #666;
+  box-shadow: 1px 1px 4px #666;
 }
 #sidebar {
   height: 100%;
   min-height: 1px;
 }
 #shop-infos {
-  border: #4d9900 solid 2px;
-  box-shadow: 1px 1px 6px #555;
+  border: 2px solid #4d9900;
   background: url(../../bundles/piggyboxuser/img/backsmall.jpg);
+  box-shadow: 1px 1px 4px #666;
+  box-shadow: 1px 1px 4px #666;
 }
 #shop-infos h1 {
   font-size: 30px;
-  padding: 4px;
-  padding-top: 11px;
+  padding: 11px 4px 4px 4px;
+  margin-top: 36px;
   background: #4d9900;
   font-family: 'Vollkorn', serif;
   color: #FFF;
@@ -8587,6 +8652,7 @@ header#header {
 }
 #user-cart {
   background: #fff9a1;
+  margin-top: 56px;
   border: #bd1616 solid 3px;
   color: #000;
 }
@@ -8601,7 +8667,7 @@ footer#footer {
   height: 190px;
   bottom: 0;
   background: #262626;
-  border-top: 8px solid #262626;
+  border-top: 8px solid #000000;
   color: #f9f9f9;
 }
 #ribbon {
