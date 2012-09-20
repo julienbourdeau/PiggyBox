@@ -1,69 +1,103 @@
 <?php
-
 namespace PiggyBox\ShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * PiggyBox\ShopBundle\Entity\Category
- *
- * @ORM\Table(name="piggybox_category")
- * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\CategoryRepository")
+ * @Gedmo\Tree(type="nested")
+ * @ORM\Table(name="piggybox_categories")
+ * @ORM\Entity
  */
 class Category
 {
     /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      */
     private $id;
 
     /**
-     * @var string $name
-     *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @Assert\NotBlank(message="Category title must be set")
+     * @ORM\Column(length=64)
      */
-    private $name;
+    private $title;
 
     /**
-     * @var string $description
-     *
-     * @ORM\Column(name="description", type="text")
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $parent;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $level;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @var integer $level_depth
-     *
-     * @ORM\Column(name="level_depth", type="integer")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
      */
-    private $level_depth;
+    private $created;
 
     /**
-     * @var boolean $active
-     *
-     * @ORM\Column(name="active", type="boolean")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
      */
-    private $active;
+    private $updated;
 
+	/**
+	 *
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=64, unique=true)
+     */
+	private $slug;
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
     /**
-     * @var \DateTime $createdat
-     *
-     * @ORM\Column(name="createdat", type="datetime")
+     * Constructor
      */
-    private $createdat;
-
-    /**
-     * @var \DateTime $updatedat
-     *
-     * @ORM\Column(name="updatedat", type="datetime")
-     */
-    private $updatedat;
-
-
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -75,26 +109,118 @@ class Category
     }
 
     /**
-     * Set name
+     * Set title
      *
-     * @param string $name
+     * @param string $title
      * @return Category
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
     
         return $this;
     }
 
     /**
-     * Get name
+     * Get title
      *
      * @return string 
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     * @return Category
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+    
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer 
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     * @return Category
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+    
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer 
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     * @return Category
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+    
+        return $this;
+    }
+
+    /**
+     * Get root
+     *
+     * @return integer 
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return Category
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return $this->level;
     }
 
     /**
@@ -121,94 +247,127 @@ class Category
     }
 
     /**
-     * Set level_depth
+     * Set created
      *
-     * @param integer $levelDepth
+     * @param \DateTime $created
      * @return Category
      */
-    public function setLevelDepth($levelDepth)
+    public function setCreated($created)
     {
-        $this->level_depth = $levelDepth;
+        $this->created = $created;
     
         return $this;
     }
 
     /**
-     * Get level_depth
-     *
-     * @return integer 
-     */
-    public function getLevelDepth()
-    {
-        return $this->level_depth;
-    }
-
-    /**
-     * Set active
-     *
-     * @param boolean $active
-     * @return Category
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    
-        return $this;
-    }
-
-    /**
-     * Get active
-     *
-     * @return boolean 
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * Set createdat
-     *
-     * @param \DateTime $createdat
-     * @return Category
-     */
-    public function setCreatedat($createdat)
-    {
-        $this->createdat = $createdat;
-    
-        return $this;
-    }
-
-    /**
-     * Get createdat
+     * Get created
      *
      * @return \DateTime 
      */
-    public function getCreatedat()
+    public function getCreated()
     {
-        return $this->createdat;
+        return $this->created;
     }
 
     /**
-     * Set updatedat
+     * Set updated
      *
-     * @param \DateTime $updatedat
+     * @param \DateTime $updated
      * @return Category
      */
-    public function setUpdatedat($updatedat)
+    public function setUpdated($updated)
     {
-        $this->updatedat = $updatedat;
+        $this->updated = $updated;
     
         return $this;
     }
 
     /**
-     * Get updatedat
+     * Get updated
      *
      * @return \DateTime 
      */
-    public function getUpdatedat()
+    public function getUpdated()
     {
-        return $this->updatedat;
+        return $this->updated;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $parent
+     * @return Category
+     */
+    public function setParent(\PiggyBox\ShopBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return PiggyBox\ShopBundle\Entity\Category 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $children
+     * @return Category
+     */
+    public function addChildren(\PiggyBox\ShopBundle\Entity\Category $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $children
+     */
+    public function removeChildren(\PiggyBox\ShopBundle\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

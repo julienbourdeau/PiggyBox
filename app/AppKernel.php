@@ -27,6 +27,12 @@ class AppKernel extends Kernel
 			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
 		    new FOS\UserBundle\FOSUserBundle(),
 	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
+
+			//bundles for category in PiggyBoxShopBundle
+			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
