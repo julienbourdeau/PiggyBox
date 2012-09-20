@@ -17,10 +17,15 @@
 	* Ajout de la page de validation
 	* Gestionnaire du cache
 	* Page de création d'un compte/connexion
+	* Afficher les catégories dans la page du magasin
+	* Afficher les bonnes informations du magasin
+	* Afficher les magasins actuels sur la homepage
 
 * PiggyBoxOrderBundle
 	* Tests Unitaires
 	* Refactorisation de la classe d'ajout et de validation des produits
+
+* Fixer les versions de symfony2.1
 
 ## Julien
 
