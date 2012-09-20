@@ -33,34 +33,20 @@
         </div>
 
         
-        <div id="user-cart" class="">
-            <h2>Panier</h2>
-            <ul>
-               <li>Lorem <a href="#" rel="tooltip" data-placement="top" data-original-title="Visiter la boutique en ligne de cet artisan">exemple</a> </li>
-               <li>Aliquam tincidunt </li>
-               <li>Vestibulum </li>
-               <li>Lorem ipsum </li>
-               <li>Aliquam tincidunt </li>
-               <li>Vestibulum </li>
-            </ul>
-
-        </div>
+        {% set orders  = piggybox_orders_get() %}
+		<div id="user-cart" class="">
+			<h2>Panier</h2>
+			{% for order in orders %}	
+			<h2>{{order.shop.name}}</h2>	
+				{% for order_detail in order.orderdetail %}	
+				<ul>
+					<li>{{ order_detail.product.name }}</li>
+					<li>{{ order_detail.price.price}}</li>
+				</ul>
+				{% endfor %}
+			{% endfor %}
+		</div>
 
     </div>
 </div>
-{% set orders  = piggybox_orders_get() %}
-							{% for order in orders %}
-								<h2>{{order.shop.name}}</h2>
-									{% for order_detail in order.orderdetail %}
-										<table class="table">
-											<tr>
-												<td>{{ order_detail.product.name }}</td>
-												<td>{{ order_detail.price.price}}</td>
-												<td>
-													<a href="{{ path('cart_remove_product', {'order_detail_id': order_detail.id}) }}">Enlever un produit</td>
-												</td>	
 
-											</tr>
-										</table>
-									{% endfor %}
-							{% endfor %}
