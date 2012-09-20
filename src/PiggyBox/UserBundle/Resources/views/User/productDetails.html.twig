@@ -21,7 +21,7 @@
 						{% endif %}
                 		<td>4,30 €</td>
                 		<td>14,69 €</td>
-						<td><button href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</button></td>
+						<td><a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</a></td>
             		</tr>
 				{% endfor %}
 			{% endif %}

@@ -15,7 +15,6 @@
 	* Editer les Produits
 
 * PiggyBoxUserBundle
-	* Afficher le panier
 	* Ajout de Google Analytics
 	* Ajout de la page de validation
 	* Gestionnaire du cache
@@ -23,6 +22,7 @@
 
 * PiggyBoxOrderBundle
 	* Tests Unitaires
+	* Refactorisation de la classe d'ajout et de validation des produits
 
 ## Julien
 
