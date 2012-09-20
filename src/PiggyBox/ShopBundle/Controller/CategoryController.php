@@ -11,10 +11,12 @@ use PiggyBox\ShopBundle\Entity\Category;
 use PiggyBox\ShopBundle\Form\CategoryType;
 use PiggyBox\ShopBundle\Form\ChoiceList\CategoryEntityLoader;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 
 /**
  * Category controller.
  *
+ * @PreAuthorize("hasRole('ROLE_ADMIN')")
  * @Route("/category")
  */
 class CategoryController extends Controller
