@@ -114,6 +114,12 @@ class Product
      **/
     private $sales;
 
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+	private $category;
+
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -502,5 +508,28 @@ class Product
     public function getMinPrice()
     {
         return $this->min_price;
+    }
+
+    /**
+     * Set category
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $category
+     * @return Product
+     */
+    public function setCategory(\PiggyBox\ShopBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return PiggyBox\ShopBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
