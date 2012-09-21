@@ -4,6 +4,7 @@
 
 * PiggyBoxShopBundle
 	* Catégoriser les produits
+		* Ajouter les produits aux catégories
 	* Validation des commandes
 		* Envoie de mail post commande
 	* Requête AJAX pour l'affichage des commandes
