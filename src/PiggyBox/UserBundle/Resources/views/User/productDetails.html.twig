@@ -1,30 +1,39 @@
 <div class="row-fluid">
+
     <div class="span12">
         <table class="table table-bordered">
-            <tbody><tr>
-                <th>Coupe / Pièce</th>
-                <th>Poid</th>
-                <th>Prix</th>
-                <th>Prix au Kg</th>
-                <th>Quantité</th>
-            </tr>
-			{% set product_id = product.id%}
-            {% if product.prices|length %}
-				{% for price in product.prices %}
-    	        	<tr>
-						{% if price.slicenbr|length %}
-							<td>{{price.slicenbr}}</td>
-						{% endif %}
+            <tbody>
+                <tr>
+                    <th>Coupe / Pièce</th>
+                    <th>Poid</th>
+                    <th>Prix</th>
+                    <th>Prix au Kg</th>
+                    <th>Quantité</th>
+                </tr>
 
-						{% if price.totalweight|length %}
-            	    		<td>{{price.totalweight}}</td>
-						{% endif %}
-                		<td>4,30 €</td>
-                		<td>14,69 €</td>
-						<td><a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</a></td>
-            		</tr>
-				{% endfor %}
-			{% endif %}
-        </tbody></table>
+    			{% set product_id = product.id%}
+                {% if product.prices|length %}
+    				{% for price in product.prices %}
+        	        	<tr>
+    						{% if price.slicenbr|length %}
+    							<td>{{price.slicenbr}}</td>
+    						{% endif %}
+
+    						{% if price.totalweight|length %}
+                	    		<td>{{price.totalweight}}</td>
+    						{% endif %}
+                    		
+                            <td>4,30 €</td>
+                    		<td>14,69 €</td>
+
+    						<td>
+                                <a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</a>
+                            </td>
+                		</tr>
+    				{% endfor %}
+    			{% endif %}
+            </tbody>
+        </table>
     </div>
+
 </div>
