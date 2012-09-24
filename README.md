@@ -23,6 +23,7 @@
 * PiggyBoxOrderBundle
 	* Tests Unitaires
 	* Refactorisation de la classe d'ajout et de validation des produits
+	* Ajouter la quantité dans une commande
 
 * Fixer les versions de symfony2.1
 
