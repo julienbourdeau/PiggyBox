@@ -39,16 +39,36 @@ class ProductController extends Controller
         $securityContext = $this->get('security.context');
         $user = $securityContext->getToken()->getUser();
 		
+		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=:id')
+								  ->setParameter('id', $user->getOwnShop()->getId())	
+								  ->getResult();
+		$products = new \Doctrine\Common\Collections\ArrayCollection();
+		
+		//NOTE: Si on affiche les produits faisant parties d'une catégorie
 		if ($category_id != 0) {
-			$category = $em->getRepository('PiggyBoxShopBundle:Category')->find($category_id);
+			$repo = $em->getRepository('PiggyBoxShopBundle:Category');
+			$category = $repo->find($category_id);
+
+			$children = $repo->children($category);
 			$products = $category->getProducts();
+
+			//NOTE: Si il a des enfant
+			if ($repo->childCount($category) != 0) {
+				//NOTE: Si la catégorie existe dans le magasin
+				foreach ($children as $children_category) {
+					if (in_array($children_category,$categories)) {
+						$children_category_products = $children_category->getProducts();
+						foreach ($children_category_products as $product_tab) {
+							$products->add($product_tab);
+						}
+					}
+				}
+			}
+			
 		}
 		else {
-			$products = $user->getOwnshop()->getProducts()->toArray();
-		}
-		
-		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=16')
-								  ->getResult();
+			$products = $user->getOwnshop()->getProducts();
+		}		
 		
         return array(
             'products' => $products,
@@ -260,4 +280,21 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+	
+	/**
+	 *  Merge the arrays passed to the function and keep the keys intact.
+	 *  If two keys overlap then it is the last added key that takes precedence.
+	 * 
+	 * @return Array the merged array
+	 */
+	function array_merge_maintain_keys() {
+	    $args = func_get_args();
+	    $result = array();
+	    foreach ( $args as &$array ) {
+	        foreach ( $array as $key => &$value ) {
+	            $result[$key] = $value;
+	        }
+	    }
+	    return $result;
+	}
 }
