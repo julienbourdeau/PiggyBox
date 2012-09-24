@@ -28,21 +28,55 @@ class ProductController extends Controller
     /**
      * Lister les produits du magasin, les linker vers le CRUD
      *
-     * @Route("/", name="monmagasin_mesproduits")
+     * @Route("/{category_id}", name="monmagasin_mesproduits", requirements={"category_id"="\d+"}, defaults={"category_id"="0"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($category_id)
     {
 		//NOTE: Get the list of product by category for the shopowner > link them to the CRUD
         $em = $this->getDoctrine()->getManager();
 
         $securityContext = $this->get('security.context');
         $user = $securityContext->getToken()->getUser();
+		
+		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=:id')
+								  ->setParameter('id', $user->getOwnShop()->getId())	
+								  ->getResult();
+		
+		//NOTE: Si on affiche les produits faisant parties d'une catégorie
+		if (!$category_id) {
+			$products = $user->getOwnshop()->getProducts();
+			
+	        return array(
+	            'products' => $products,
+				'categories' => $categories,
+				'flag' => $category_id,
+	        );
+		}
+			
+		$repo = $em->getRepository('PiggyBoxShopBundle:Category');
+		$category = $repo->find($category_id);
 
-		$products = $user->getOwnshop()->getProducts()->toArray();
+		$children = $repo->children($category);
+		$products = $category->getProducts();
 
+		//NOTE: Si il a des enfant
+		if ($repo->childCount($category) != 0) {
+			//NOTE: Si la catégorie existe dans le magasin
+			foreach ($children as $children_category) {
+				if (in_array($children_category,$categories)) {
+					$children_category_products = $children_category->getProducts();
+					foreach ($children_category_products as $product_tab) {
+						$products->add($product_tab);
+					}
+				}
+			}
+		}		
+		
         return array(
             'products' => $products,
+			'categories' => $categories,
+			'flag' => $category_id,
         );
     }
 
@@ -249,4 +283,21 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+	
+	/**
+	 *  Merge the arrays passed to the function and keep the keys intact.
+	 *  If two keys overlap then it is the last added key that takes precedence.
+	 * 
+	 * @return Array the merged array
+	 */
+	function array_merge_maintain_keys() {
+	    $args = func_get_args();
+	    $result = array();
+	    foreach ( $args as &$array ) {
+	        foreach ( $array as $key => &$value ) {
+	            $result[$key] = $value;
+	        }
+	    }
+	    return $result;
+	}
 }
