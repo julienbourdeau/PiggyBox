@@ -3,9 +3,6 @@
 ## Baptiste
 
 * PiggyBoxShopBundle
-	* Catégoriser les produits
-		* Ajouter les produits aux catégories
-		* Afficher les catégories
 	* Validation des commandes
 		* Envoie de mail post commande
 	* Requête AJAX pour l'affichage des commandes

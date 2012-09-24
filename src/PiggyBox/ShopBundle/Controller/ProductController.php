@@ -42,32 +42,35 @@ class ProductController extends Controller
 		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=:id')
 								  ->setParameter('id', $user->getOwnShop()->getId())	
 								  ->getResult();
-		$products = new \Doctrine\Common\Collections\ArrayCollection();
 		
 		//NOTE: Si on affiche les produits faisant parties d'une catégorie
-		if ($category_id != 0) {
-			$repo = $em->getRepository('PiggyBoxShopBundle:Category');
-			$category = $repo->find($category_id);
+		if (!$category_id) {
+			$products = $user->getOwnshop()->getProducts();
+			
+	        return array(
+	            'products' => $products,
+				'categories' => $categories,
+				'flag' => $category_id,
+	        );
+		}
+			
+		$repo = $em->getRepository('PiggyBoxShopBundle:Category');
+		$category = $repo->find($category_id);
 
-			$children = $repo->children($category);
-			$products = $category->getProducts();
+		$children = $repo->children($category);
+		$products = $category->getProducts();
 
-			//NOTE: Si il a des enfant
-			if ($repo->childCount($category) != 0) {
-				//NOTE: Si la catégorie existe dans le magasin
-				foreach ($children as $children_category) {
-					if (in_array($children_category,$categories)) {
-						$children_category_products = $children_category->getProducts();
-						foreach ($children_category_products as $product_tab) {
-							$products->add($product_tab);
-						}
+		//NOTE: Si il a des enfant
+		if ($repo->childCount($category) != 0) {
+			//NOTE: Si la catégorie existe dans le magasin
+			foreach ($children as $children_category) {
+				if (in_array($children_category,$categories)) {
+					$children_category_products = $children_category->getProducts();
+					foreach ($children_category_products as $product_tab) {
+						$products->add($product_tab);
 					}
 				}
 			}
-			
-		}
-		else {
-			$products = $user->getOwnshop()->getProducts();
 		}		
 		
         return array(
