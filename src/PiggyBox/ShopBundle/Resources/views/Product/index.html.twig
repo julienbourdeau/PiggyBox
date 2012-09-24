@@ -15,12 +15,6 @@
 		{% for category in categories %}
 			<li {% if flag == category.id %}class="active"{% endif %}><a href="{{ path('monmagasin_mesproduits', {'category_id': category.id}) }}">{{category.title}}</a></li>
 		{% endfor %}
-		
-		
-		<li><a href="#">Porc</a></li>
-		<li><a href="#">Charcuterie</a></li>
-		<li><a href="#">Barbecue</a></li>
-		<li><a href="#">Plats cuisinés</a></li>
 	</ul>
 
 		{% for product in products %}

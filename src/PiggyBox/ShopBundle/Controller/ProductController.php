@@ -28,10 +28,10 @@ class ProductController extends Controller
     /**
      * Lister les produits du magasin, les linker vers le CRUD
      *
-     * @Route("/{category_id}", name="monmagasin_mesproduits")
+     * @Route("/{category_id}", name="monmagasin_mesproduits", requirements={"category_id"="\d+"}, defaults={"category_id"="0"})
      * @Template()
      */
-    public function indexAction($category_id=0)
+    public function indexAction($category_id)
     {
 		//NOTE: Get the list of product by category for the shopowner > link them to the CRUD
         $em = $this->getDoctrine()->getManager();
