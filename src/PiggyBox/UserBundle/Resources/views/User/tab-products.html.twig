@@ -2,17 +2,9 @@
 
 	<div class="span3">
 		<ul class="nav nav-list">
-			<li class="nav-header">Viandes</li>
-				<li class="active"><a href="#">Boeuf</a></li>
-				<li><a href="#">Porc</a></li>
-				<li><a href="#">Veau</a></li>
-			<li class="nav-header">Charcuterie</li>
-				<li class=""><a href="#">Jambons</a></li>
-				<li><a href="#">Pates</a></li>
-				<li><a href="#">Saucissons</a></li>
-			<li class="nav-header">Barbecue</li>
-				<li class=""><a href="#">Brochettes</a></li>
-				<li><a href="#">Saucisses</a></li>
+			{% for category in categories %}
+				<li {% if category.level == 0 %}class="nav-header"{% endif %}><a href="#">{{category.title}}</a></li>
+			{% endfor %}
 		</ul>
 	</div>
 
