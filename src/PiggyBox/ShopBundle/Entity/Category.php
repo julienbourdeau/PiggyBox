@@ -85,7 +85,12 @@ class Category
      * @ORM\Column(length=64, unique=true)
      */
 	private $slug;
-
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="category")
+	 **/
+	private $products;
+		
     public function __toString()
     {
         return $this->getTitle();
@@ -369,5 +374,38 @@ class Category
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Add products
+     *
+     * @param PiggyBox\ShopBundle\Entity\Product $products
+     * @return Category
+     */
+    public function addProduct(\PiggyBox\ShopBundle\Entity\Product $products)
+    {
+        $this->products[] = $products;
+    
+        return $this;
+    }
+
+    /**
+     * Remove products
+     *
+     * @param PiggyBox\ShopBundle\Entity\Product $products
+     */
+    public function removeProduct(\PiggyBox\ShopBundle\Entity\Product $products)
+    {
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }
