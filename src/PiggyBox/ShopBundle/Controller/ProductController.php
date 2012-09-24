@@ -28,21 +28,32 @@ class ProductController extends Controller
     /**
      * Lister les produits du magasin, les linker vers le CRUD
      *
-     * @Route("/", name="monmagasin_mesproduits")
+     * @Route("/{category_id}", name="monmagasin_mesproduits")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($category_id=0)
     {
 		//NOTE: Get the list of product by category for the shopowner > link them to the CRUD
         $em = $this->getDoctrine()->getManager();
 
         $securityContext = $this->get('security.context');
         $user = $securityContext->getToken()->getUser();
-
-		$products = $user->getOwnshop()->getProducts()->toArray();
-
+		
+		if ($category_id != 0) {
+			$category = $em->getRepository('PiggyBoxShopBundle:Category')->find($category_id);
+			$products = $category->getProducts();
+		}
+		else {
+			$products = $user->getOwnshop()->getProducts()->toArray();
+		}
+		
+		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=16')
+								  ->getResult();
+		
         return array(
             'products' => $products,
+			'categories' => $categories,
+			'flag' => $category_id,
         );
     }
 

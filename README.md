@@ -5,6 +5,7 @@
 * PiggyBoxShopBundle
 	* Catégoriser les produits
 		* Ajouter les produits aux catégories
+		* Afficher les catégories
 	* Validation des commandes
 		* Envoie de mail post commande
 	* Requête AJAX pour l'affichage des commandes
@@ -34,9 +35,10 @@
 	* prix à l'unité
 	* prix au poids
 	* prix à la coupe
- 	* Première page et page d'explication
+	* Première page et page d'explication
 	* Toutes les infos des magasins
 	* Page validation du panier
-	* mettre php 5.4
+	
+	
 	* flyers production
 	* Ajouter la notion "BETA" au magasin

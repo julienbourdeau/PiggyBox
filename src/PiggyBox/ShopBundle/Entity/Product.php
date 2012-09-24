@@ -61,7 +61,7 @@ class Product
 
     /**
      * @var \DateTime $createdat
-
+	 *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -115,9 +115,9 @@ class Product
     private $sales;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Category")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
+	 * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Category", inversedBy="products")
+	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+	 **/
 	private $category;
 
     public function getAbsolutePath()
