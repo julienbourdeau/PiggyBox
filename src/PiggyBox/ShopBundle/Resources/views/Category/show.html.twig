@@ -1,0 +1,74 @@
+
+{% block actions %}
+<ul>
+    <li><a href="{{ path('demo_category_tree') }}">Show Tree</a></li>
+    <li><a href="{{ path('demo_category_add') }}">Add Category</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<h3>Node Path:</h3>
+{% set pathString = '' %}
+{% for item in path %}
+    {% set pathString = pathString ~ '/' ~ item.title %}
+{% endfor %}
+<p>{{ pathString }}</p>
+
+<h3>Current record</h3>
+
+<table class="table zebra-striped">
+<tr>
+    <th>Field</th>
+    <th>Value</th>
+</tr>
+<tr>
+    <td>Id</td>
+    <td>{{ node.id }}</td>
+</tr>
+<tr>
+    <td>Title</td>
+    <td>{{ node.title }}</td>
+    </tr>
+<tr>
+    <td>Description</td>
+    <td>{{ node.description }}</td>
+    
+</tr>
+<tr>
+    <td>Slug</td>
+    <td>{{ node.slug }}</td>
+    
+</tr>
+<tr>
+    <td>Updated</td>
+    <td>{{ node.updated|date('Y-m-d H:i:s') }}</td>
+</tr>
+<tr>
+    <td>Created</td>
+    <td>{{ node.created|date('Y-m-d H:i:s') }}</td>
+</tr>
+<tr>
+    <td>Lft</td>
+    <td>{{ node.getLft }}</td>
+</tr>
+<tr>
+    <td>Rgt</td>
+    <td>{{ node.getRgt }}</td>
+</tr>
+<tr>
+    <td>Parent</td>
+    {% set parent = node.parent %}
+    <td>{{ parent ? parent.title : 'NULL' }}</td>
+</tr>
+<tr>
+    <td>Root</td>
+    <td>{{ node.root }}</td>
+</tr>
+<tr>
+    <td>Level</td>
+    <td>{{ node.getLevel }}</td>
+</tr>
+</table>
+
+{% endblock %}

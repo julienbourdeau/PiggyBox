@@ -1,7 +1,10 @@
 {% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+
 {% block body%}
 
 {% include 'PiggyBoxShopBundle:Product:product_sub_header.html.twig' %}
+
 <div id="main">
 	<div id="primary" class="site-content container">
 
@@ -52,6 +55,13 @@
 								{{ form_widget(form.file, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
+							
+						<div class="control-group">
+							<label class="control-label" for="inputName">Choisir une Catégorie</label>
+							<div class="controls">
+								{{ form_widget(form.category, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
 
 				</div>
 
@@ -65,7 +75,7 @@
 				<a class='pricing-tab' rel="unit-pricing">
 					<div id="unit-pricing" class="box box-error">
 						<h3 class="no-margin text-centered">
-							<img src="img/cross.png" />
+							<img src="{{ asset('bundles/piggyboxshop/img/cross.png')}}" />
 							Prix Unitaire
 						</h3>
 					</div>
@@ -75,7 +85,7 @@
 				<a class="pricing-tab" rel="kg-pricing">
 					<div id="kg-pricing" class="box box-error">
 						<h3 class="no-margin text-centered">
-							<img src="img/cross.png" alt="">
+							<img src="{{ asset('bundles/piggyboxshop/img/cross.png')}}" alt="">
 							Prix au Kg
 						</h3>
 					</div>
@@ -85,7 +95,7 @@
 				<a class="pricing-tab" rel="multiple-pricing">
 					<div id="multiple-pricing" class="box box-success">
 						<h3 class="no-margin text-centered">
-							<img src="img/tick.png" alt="">
+							<img src="{{ asset('bundles/piggyboxshop/img/tick.png')}}" alt="">
 							Prix à la coupe
 						</h3>
 					</div>
