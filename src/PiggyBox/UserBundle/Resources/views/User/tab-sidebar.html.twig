@@ -4,8 +4,6 @@
         <div id="shop-infos" class="">
             <h1>Boucherie de Zola</h1>
 
-            <hr>
-
             <div><i class="icon-user"></i> 02.40.46.50.42</div>
             <div><i class="icon-envelope"></i> zola@boucherdefrance.fr</div>
             <div><i class="icon-home"></i> 6 place Emile Zola 44120 Nantes</div>
@@ -18,8 +16,6 @@
               </a>
             </div> 
             <?php */ ?>
-
-            <hr>
 
             <div class="logos">
                 <img src="{{ asset('bundles/piggyboxuser/img/logos/parking.jpg')}}" alt="">
@@ -36,15 +32,29 @@
         {% set orders  = piggybox_orders_get() %}
 		<div id="user-cart" class="">
 			<h2>Panier</h2>
+
 			{% for order in orders %}	
-			<h2>{{order.shop.name}}</h2>	
-				{% for order_detail in order.orderdetail %}	
-				<ul>
-					<li>{{ order_detail.product.name }}</li>
-					<li>{{ order_detail.price.price}}</li>
-				</ul>
-				{% endfor %}
-			{% endfor %}
+
+			<h2>{{order.shop.name}}</h2>
+                <table class="table">
+                    <tr>
+                        <td>Produit</td>
+                        <td>Qté</td>
+                        <td>Prix</td>
+                    </tr>
+
+                {% for order_detail in order.orderdetail %} 
+                    <tr>
+                        <td>{{ order_detail.product.name }}</td>
+                        <td>{{ order_detail.price.price}}</td>
+                        <td>4</td>
+                    </tr>
+                {% endfor %}
+
+                </table>	
+
+            {% endfor %}
+
 		</div>
 
     </div>
