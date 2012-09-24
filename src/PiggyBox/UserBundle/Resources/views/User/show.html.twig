@@ -47,7 +47,6 @@
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
                                 <li><a href="#shop" data-toggle="tab">Produits a commander</a></li>
-                                <li><a href="#infos" data-toggle="tab">Informations pratiques</a></li>
                                 <li class="disabled"><a data-toggle="">Avis</a></li>
                                 <li><a href="#photos" data-toggle="tab">Photos</a></li>
                             </ul> 
@@ -59,9 +58,6 @@
                             </div>
                             <div id="shop" class="tab-pane">
 								{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'products': products} %}
-                            </div>
-                            <div id="infos" class="tab-pane">
-                                {% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' %}
                             </div>
                             <div id="photos" class="tab-pane">
                                 <?php include 'tab-photos.php'; ?></div>
