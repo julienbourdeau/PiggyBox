@@ -69,15 +69,78 @@
  
         </header>
 
+
+
 		{% block content %}{% endblock %}
+
+
 
 		<footer id="footer" class="">
             <div class="container">
-            	<div class="row">
-            		<div class="span12">
-            			<p>&copy; Tailoring in Nantes, city of audacious</p>
-            		</div>
-            	</div>
+                
+                <div class="row">
+
+                    <div class="span4">
+                        {#
+                        <h3 class="no-margin">
+                            <img src="{{ asset('bundles/piggyboxuser/img/lifesaver.png')}}" alt="">
+                            Besoins d'aide ? <small>Contactez-nous</small>
+                        </h3> 
+                        #}
+                        <div class="help-contact">
+                            <img src="{{ asset('bundles/piggyboxuser/img/help-telephone.png')}}" alt="">
+                            <img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt="">
+                            <img src="{{ asset('bundles/piggyboxuser/img/help-email.png')}}" alt="">
+                        </div>
+
+                    </div>
+
+                    <div class="span4">
+                        <h3 class="no-margin">Lancement <span class="label label-important">Beta</span> </h3>
+                        <p>Cotelette & tarte aux fraises vient d'être en lancer sur Nantes, bientot d'autres commerçes seront disponibles: 
+                            Boulangeries, Primeurs, Boucheries, Crèmeries, Cavistes,...</p>
+                    </div>
+
+                    <div class="span2">
+                        <h3 class="no-margin">A voir</h3>
+                        <ul>
+                            <li><a href="/">Accueil</a></li>
+                            <li><a href="">Les commerçants</a></li>
+                            <li><a href="">Comment ça marche ?</a></li>
+                            <li><a href="">Qui sommes-nous ?</a></li>
+                            <li><a href="">Mentions légales</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="span2">
+                        <h3 class="no-margin">A propos</h3>
+                        <address>
+                            <strong>The Box Makers SAS</strong><br>
+                            15C rue Jenner<br>
+                            44100 Nantes<br>
+                            <abbr title="Telephone">Tel:</abbr> 02 40 50 XX XX
+                            <a href="mailto:">contact@theboxmakers.com</a>
+                        </address>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="span12 text-centered">
+                        <p>&copy; Tous droits réservés - 2012 - Pensé et contruit à Nantes</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div id="legal-line" class="span8 offset2">
+                        <p>
+                            Les photos des produits ne sont pas contractuelles. Selon disponibilités des produits en magasins. Si une différence de prix est constaté, le prix en magasin fait foi. 
+                            <br>
+                            L'abus d'alcool est dangereux pour la santé. A consommer avec modération.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </footer>
 		
