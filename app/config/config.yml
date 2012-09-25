@@ -68,6 +68,8 @@ stof_doctrine_extensions:
         default:
             timestampable: true 
             sluggable: true    
+            translatable: true
+            tree: true
 
 # FOSUserBundle Configuration
 fos_user:
@@ -84,4 +86,12 @@ avalanche_imagine:
         large_thumb:
             type:    thumbnail
             options:  { size: [240, 240], mode: outbound, quality: 100}
+#
+# Knp Menu Configuration
+knp_menu:
+    twig: ~
+    templating: true
+    default_renderer: twig
 
+# Knp Time Configuration
+knp_time: ~ 

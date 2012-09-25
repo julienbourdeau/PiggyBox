@@ -29,8 +29,9 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/commande/validation/transaction, role: ROLE_USER}
         - { path: ^/moncommerce/, role: ROLE_SHOP}
+        - { path: ^/category/, role: ROLE_ADMIN}
 
 
     role_hierarchy:
         ROLE_SHOP:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_SHOP
+        ROLE_ADMIN: ROLE_SHOP
