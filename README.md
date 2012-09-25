@@ -11,6 +11,7 @@
 	* Ajouter la classe Image...
 	* Ajouter les images lors de la création d'un magasin
 	* Editer les Produits
+	* Faire une commande pour la génération de catégories	
 
 * PiggyBoxUserBundle
 	* Ajout de la page de validation
