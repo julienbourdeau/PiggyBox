@@ -145,9 +145,12 @@ class ProductController extends Controller
 			$shop = $user->getOwnshop();
 			if(!$shop->getCategories()->contains($product->getCategory())){
 				$shop->addCategory($product->getCategory());
-				// Ajouter la catégorie parente si elle n'existe pas						
-				$html = $this->createHtmlTreeFromShop($shop);			
-						
+				// Ajouter la catégorie parente si elle n'existe pas
+				if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
+				{
+					$shop->addCategory($product->getCategory()->getParent());
+				}
+				$shop->setCategoryHtml($this->createHtmlTreeFromShop($shop));		
 				$em->persist($shop);						
 			}
 
