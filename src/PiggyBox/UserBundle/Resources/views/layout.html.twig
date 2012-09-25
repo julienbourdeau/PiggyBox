@@ -31,18 +31,43 @@
         <![endif]-->
 
 
-        <header id="header" class="">
-            <div class="container">
-                <div class="row">
-                    <div id="logo" class="span3">
+        <header id="header" class="clearfix">
+
+            <div class="black-container">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="span12">
+
+                            <div id="logo">
+                                <a href="">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/logo.png')}}" width="220px" height="" alt="">
+                                </a>
+                            </div>
+
+                            <div class="header-content">
+                                logged as julienbourdeau!
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div> 
+            </div>  
+
+                <div class="container">
+                    <div class="row">
+                        <div class="span12">
+                            <div class="header-menu tabbable tabs-below pull-right">
+                                <ul class="access nav nav-tabs">
+                                    <li class="active"><a href="">Accueil</a></li>
+                                    <li><a href="">Les commerçants</a></li>
+                                    <li><a href="">Comment ça marche?</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <ul id="ongletcontain">
-                    	<a href="#"><li>Comment ça marche?</li></a>
-                        <a href="#"><li>Les commerçants</li></a>
-                        <a href="#"><li>Mon Panier</li></a>
-                </ul>
+ 
         </header>
 
 		{% block content %}{% endblock %}
