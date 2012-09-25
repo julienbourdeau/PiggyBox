@@ -19,48 +19,37 @@
 
 
 header#header {
-	height: 100px;
-	//background:url(../img/head2.gif);
-	margin-bottom: 36px;
+	height: 100%;
+	margin-bottom: 52px;
+	#logo {
+		float: left;
+		a {
+			display: block;
+		}
+	}
+	.black-container {
+		height: 80px;
+		background: @grayDarker;
+		color: @white;
+	}
+
+	.nav-tabs li a {
+		padding: 8px 16px;
+		margin-left: 32px;
+		font-size: 21px;
+		line-height: 32px;
+		background: @mainRed;
+		color: @white;
+		border: none;
+	}
+	.nav-tabs li.active a,
+	.nav-tabs li a:hover {
+		background: @mainPink;
+		color: @grayDarker;
+	}
+
 }
 
-#ongletcontain {
-	position:relative; 
-	margin-top: 50px; 
-	float: right; 
-	margin-right: 10%; 
-	display:block; 
-	width: 700px; 
-	list-style-type : none;
-}
-
-#ongletcontain li {
-	display: inline; 
-	padding: 8px; 
-	margin-left: 15px; 
-	font-size:25px; 
-	//font-family:'Vollkorn', serif; 
-	color: #bad3b4; 
-	border-radius: 10px; 
-	text-shadow: 2px 2px 3px #555;  
-	-webkit-transition: all .1s ease-in; 
-	-moz-transition: all .1s ease-in;-o-transition: all .1s ease-in;
-	transition: all .1s ease-in;
-}
-
-#ongletcontain li:hover {
-	color: #e7f2e4; 
-	text-decoration:none;
-	border-radius: 10px;
-}	
-
-#ongletcontain li a {
-	text-decoration:none;
-}
-
-#ongletcontain li a:hover {
-	text-decoration:none;
-}
 
 
 
@@ -73,7 +62,7 @@ header#header {
 
 // ENTRY CONTAINER
 #entry-container {
-	margin: 36px 0 20px 0;
+	margin: 57px 0 20px 0;
 }
 
 	#entry-nav ul.nav {
@@ -114,6 +103,15 @@ header#header {
 #sidebar {
 	height: 100%;
 	min-height: 1px;
+
+	h1 {
+		font-size: 30px; 
+		padding-bottom: 8px;
+		margin: 0;
+		font-family: 'Museo-300'; 
+		color: @grayDarker; 
+		text-align: center;
+	}
 }
 		
 	#shop-infos {
@@ -123,33 +121,96 @@ header#header {
 			margin: 8px 0;
 		}
 		h1 {
-			font-size: 30px; 
-			padding-bottom: 8px;
-			margin: 0;
 			border-bottom: 4px solid @grayDarker;
-			font-family: 'Museo-300'; 
-			color: @grayDarker; 
-			text-align: center;
 		}
 	}
 	
 	.shopelements{
 		margin: 10px;
 	}
+
 	#user-cart {
-		background:#fff9a1;
-		margin-top: 56px;
-		border:#bd1616 solid 3px;
-		h2{background:#bd1616; padding-left: 10px; padding-top: 5px; color:#FFF; font-family: 'Vollkorn', serif;}
-		color:#000;
+		margin-top: 52px;
+
+		h1 {
+			border-bottom: 4px solid @grayDarker;
+		}
+
+		.corner-top {
+			width: 52px;
+			height: 0px;
+			border-top: 4px solid @grayDarker;
+		}
+		.corner-right {
+			width: 0px;
+			height: 52px;
+			border-right: 4px solid @grayDarker;
+		}
+		.corner-bottom {
+			width: 52px;
+			height: 0px;
+			border-bottom: 4px solid @grayDarker;
+		}
+		.corner-left {
+			width: 0px;
+			height: 52px;
+			border-left: 4px solid @grayDarker;
+		}
+
+		.user-cart-content {
+			padding: 0 4px;
+		}
+
+		th {
+			background: #444;
+			color: #f9f9f9;
+		}
 	}
+
+
+table.pricing {
+	th {
+		padding: 2px 8px;
+	}
+	td.text-right,
+	th.text-right {
+		text-align: right;
+	}
+	tfoot tr td {
+		font-weight: bold;
+		text-align: right;
+		border: 0;
+	}
+}	
 	
 footer#footer {
-	height: 190px;
-	bottom: 0;
-	background: #262626;
-	border-top: 8px solid #000000;
-	color: #f9f9f9;
+	//padding-top: 12px;
+	background: @grayDarker;
+	border-top: 8px solid @black;
+	color: @white;
+	font-family: @museo300FontFamily;
+	.row {
+		margin-top: 16px;
+	}
+	a {
+		color: @white;
+	}
+	ul {
+		margin: 0;
+		list-style-type: none;
+	}
+	#legal-line {
+		font-family: @sansFontFamily;
+		font-size: 12px;
+		line-height: 12px;
+		color: #666;
+		text-align: center;
+	}
+}
+
+.help-contact img {
+	margin-bottom: 12px;
+	text-align: center;
 }
 
 

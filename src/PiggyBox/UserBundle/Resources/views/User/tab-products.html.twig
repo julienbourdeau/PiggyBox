@@ -26,7 +26,7 @@
 							{{product.description}}
 			            </div>
 
-						<div id="prices" class="span4">
+						<div id="prices" class="span4 text-right">
 							<span class="primary-price">{{product.minprice}} €</span> <br />
 							<span class="secondary-price">{{product.pricekg}} €<sub>/Kg</sub></span>
 						</div>
@@ -40,7 +40,7 @@
 
 				<div class="span12">
 					<div class="details"></div>
-					<div class="btn btn-success details-toggler pull-right" data-load-more="{{ path('view_product', {product_id: product.id, _format: 'json'}) }}">
+					<div class="btn btn-primary details-toggler pull-right" data-load-more="{{ path('view_product', {product_id: product.id, _format: 'json'}) }}">
 						<i class="icon-shopping-cart icon-white"></i> Commandez
 					</div>
 				</div>
