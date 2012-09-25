@@ -87,7 +87,7 @@ class Category
 	private $slug;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="category")
+	 * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="category", cascade={"persist"})
 	 **/
 	private $products;
 		
