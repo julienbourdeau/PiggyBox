@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product controller.
@@ -146,12 +147,18 @@ class ProductController extends Controller
 			if(!$shop->getCategories()->contains($product->getCategory())){
 				$shop->addCategory($product->getCategory());
 				// Ajouter la catégorie parente si elle n'existe pas
-				if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
+				if($product->getCategory()->getLevel()>0)
 				{
-					$shop->addCategory($product->getCategory()->getParent());
+					if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
+					{
+						$shop->addCategory($product->getCategory()->getParent());
+					}
 				}
-				$shop->setCategoryHtml($this->createHtmlTreeFromShop($shop));		
-				$em->persist($shop);						
+				
+				$shop->setCategoryHtml($this->createHtmlTreeFromShop($shop));
+				$em->persist($shop);
+				$em->flush();		
+										
 			}
 
 			// Adding Sales entity relaton to the product
@@ -302,27 +309,31 @@ class ProductController extends Controller
 	private function createHtmlTreeFromShop($shop)
 	{
 		$categories = $shop->getCategories();
-		$html = "";
-				
+		$categories_buffer = new \Doctrine\Common\Collections\ArrayCollection();
+		$html = '';
+
 		foreach($categories as $category){
-					
-			if($category->getLevel() !=0){
-				$category = $category->getParent();
-			}
-		
-			$html.='<li class="">'.$category->getTitle().'</li>';
-			$children_categories = $category->getChildren();
-		
-			$html.='<ul class="nav nav-list">';
-			foreach ($children_categories as $children_category) {
-				if($categories->contains($children_category)){
-						$html.='<li class="">'.$children_category->getTitle().'</li>';
-						$categories->removeElement($children_category);
+			if(!$categories_buffer->contains($category))
+			{
+				if($category->getLevel() !=0){
+					$category = $category->getParent();
 				}
-			}
-			$categories->removeElement($category);
-			$html.='</ul>';
-					
+		
+				$html.='<li class="">'.$category->getTitle().'</li>';
+				$children_categories = $category->getChildren();
+		
+				$html.='<ul class="nav nav-list">';
+
+				foreach ($children_categories as $children_category) {
+					if($categories->contains($children_category) and !$categories_buffer->contains($children_category))
+					{
+							$html.='<li class="">'.$children_category->getTitle().'</li>';
+							$categories_buffer->add($children_category);
+					}
+				}
+				$categories_buffer->add($category);
+				$html.='</ul>';	
+			}		
 		}
 		return $html;
 	}
