@@ -1,3 +1,8 @@
+@font-face {font-family: 'Museo-300';src: url('../fonts/2429BD_1_0.eot');src: url('../fonts/2429BD_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_1_0.woff') format('woff'),url('../fonts/2429BD_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Museo-500';src: url('../fonts/2429BD_2_0.eot');src: url('../fonts/2429BD_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_2_0.woff') format('woff'),url('../fonts/2429BD_2_0.ttf') format('truetype');}
+@font-face {font-family: 'Museo-700';src: url('../fonts/2429BD_0_0.eot');src: url('../fonts/2429BD_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_0_0.woff') format('woff'),url('../fonts/2429BD_0_0.ttf') format('truetype');}  
+
+
 @import "bootstrap.less";
 @import "responsive.less";
 
@@ -6,16 +11,16 @@
 /*==========================================================================
    Author's custom styles
   ==========================================================================*/
-@userInfoHeight: 300px;
-@userInfoPadding: 16px;
+
 
 .red {
 	background: red;
 }
 
+
 header#header {
 	height: 100px;
-	background:url(../img/head2.gif);
+	//background:url(../img/head2.gif);
 	margin-bottom: 36px;
 }
 
@@ -34,10 +39,8 @@ header#header {
 	padding: 8px; 
 	margin-left: 15px; 
 	font-size:25px; 
-	font-family:'Vollkorn', serif; 
+	//font-family:'Vollkorn', serif; 
 	color: #bad3b4; 
-	-webkit-border-radius: 10px; 
-	-moz-border-radius: 10px; 
 	border-radius: 10px; 
 	text-shadow: 2px 2px 3px #555;  
 	-webkit-transition: all .1s ease-in; 
@@ -47,11 +50,8 @@ header#header {
 
 #ongletcontain li:hover {
 	color: #e7f2e4; 
-	text-decoration:none; 
-	-webkit-border-radius: 10px; 
-	-moz-border-radius: 10px; 
-	border-radius: 10px; 
-	text-shadow: 2px 2px 3px #555;
+	text-decoration:none;
+	border-radius: 10px;
 }	
 
 #ongletcontain li a {
@@ -68,7 +68,7 @@ header#header {
 	min-height: 1px;
 }
 #photo-slider {
-	.box-shadowed;
+	//.box-shadowed;
 }
 
 // ENTRY CONTAINER
@@ -77,44 +77,59 @@ header#header {
 }
 
 	#entry-nav ul.nav {
-		margin: 0 0 0 -5px;
-		padding: 5px 0 0 5px;
+		margin: 0;
+		padding: 0;
 		overflow: hidden;
 		border: 0;
+		border-bottom: 6px solid @grayDarker;
 		li {
-			padding-right: 12px;
+			font-size: 21px;
+			line-height: 28px;
+			margin: 0 24px 0 0;
 		}
-		li.active a {
-			.box-shadowed;
+		li.active {
+			margin-top: 2px;
+			a {
+				background: @grayDarker;
+				color: @white;
+				border: 0;
+				//.box-shadowed;
+			}
 		}
 	}
 	#entry-content {
 		padding: 26px 10px;
-		border-right: 1px solid @grayBorder;
-		border-bottom: 1px solid @grayBorder;
-		border-left: 1px solid @grayBorder;
-		.box-shadowed;
+		border: 0;
+		//.box-shadowed;
 	}
 
 
+// PRODUCT
+	.primary-price {
+		font-size: 24px; 
+		line-height: 40px;
+	}
+
 // SIDEBAR
 #sidebar {
-height: 100%;
-min-height: 1px;
+	height: 100%;
+	min-height: 1px;
 }
 		
 	#shop-infos {
-		border: 2px solid @green;
-		background:url(../img/backsmall.jpg);
-		.box-shadowed;
+		height: 300px;
+		#shop-details {
+			height: 192px;
+			margin: 8px 0;
+		}
 		h1 {
 			font-size: 30px; 
-			padding: 11px 4px 4px 4px; 
-			margin-top: 36px;
-			background: @green; 
-			font-family: 'Vollkorn', serif; 
-			color:#FFF; 
-			margin-top: 10px;
+			padding-bottom: 8px;
+			margin: 0;
+			border-bottom: 4px solid @grayDarker;
+			font-family: 'Museo-300'; 
+			color: @grayDarker; 
+			text-align: center;
 		}
 	}
 	
@@ -144,6 +159,7 @@ footer#footer {
   ==========================================================================*/
 
 #ribbon {
+	margin-top: -36px;
 	background: #eeeeee;
 	#action-buttons {
 		margin: 36px 0;

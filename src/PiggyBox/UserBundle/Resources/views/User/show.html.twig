@@ -13,24 +13,12 @@
                             <div class="carousel-inner">
                                 <div class="active item">
 									<img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique.jpg')}}" alt="">
-                                    <div class="carousel-caption">
-                                    <h4>Boucherie de Zola</h4>
-                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
-                                    </div>
                                 </div>
                                 <div class="item">
                                     <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-2.jpg')}}" alt="">
-                                    <div class="carousel-caption">
-                                    <h4>Boucherie de Zola</h4>
-                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
-                                    </div>
                                 </div>
                                 <div class="item">
                                     <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-3.jpg')}}" alt="">
-                                    <div class="carousel-caption">
-                                    <h4>Boucherie de Zola</h4>
-                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
-                                    </div>
                                 </div>
                             </div>
 
@@ -47,7 +35,6 @@
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
                                 <li><a href="#shop" data-toggle="tab">Produits a commander</a></li>
-                                <li><a href="#infos" data-toggle="tab">Informations pratiques</a></li>
                                 <li class="disabled"><a data-toggle="">Avis</a></li>
                                 <li><a href="#photos" data-toggle="tab">Photos</a></li>
                             </ul> 
@@ -55,13 +42,10 @@
 
                         <div id="entry-content" class="tab-content">
                             <div id="fiche" class="tab-pane active">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis sodales molestie. Cras vel lacus et felis consectetur feugiat. Etiam a elit urna. Pellentesque ipsum neque, consequat molestie dignissim et, suscipit at est. Praesent aliquam ipsum ut libero tristique sit amet euismod mi porttitor. Nam eu diam nisl. Donec ut diam a sapien gravida venenatis. Etiam ullamcorper lobortis ante sed interdum. In varius felis a erat lobortis vel vestibulum nisl rutrum.<br><br>Nam id sem est. Proin venenatis, mi quis feugiat semper, augue sapien lacinia ligula, a ullamcorper nisl felis at justo. Nunc id orci non nunc volutpat luctus. Donec orci lorem, rutrum vel auctor in, porttitor vitae ante. Nunc ut aliquam magna. Suspendisse sit amet felis quis mi vulputate varius. Mauris tincidunt dapibus sem, quis posuere eros ultricies at. Donec leo justo, iaculis vitae gravida non, aliquet eget ipsum. In accumsan fringilla tincidunt.</p>
+                                {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' %}
                             </div>
                             <div id="shop" class="tab-pane">
 								{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'products': products, 'categories': categories} %}
-                            </div>
-                            <div id="infos" class="tab-pane">
-                                <?php include 'tab-infos.php'; ?>
                             </div>
                             <div id="photos" class="tab-pane">
                                 <?php include 'tab-photos.php'; ?></div>
