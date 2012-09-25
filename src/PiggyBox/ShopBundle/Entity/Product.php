@@ -61,7 +61,7 @@ class Product
 
     /**
      * @var \DateTime $createdat
-
+	 *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -113,6 +113,12 @@ class Product
      * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
      **/
     private $sales;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Category", inversedBy="products")
+	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+	 **/
+	private $category;
 
     public function getAbsolutePath()
     {
@@ -502,5 +508,28 @@ class Product
     public function getMinPrice()
     {
         return $this->min_price;
+    }
+
+    /**
+     * Set category
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $category
+     * @return Product
+     */
+    public function setCategory(\PiggyBox\ShopBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return PiggyBox\ShopBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

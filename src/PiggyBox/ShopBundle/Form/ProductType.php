@@ -21,6 +21,7 @@ class ProductType extends AbstractType
 				'allow_delete' => true,
 		        'by_reference' => false,
 			))
+			->add('category')
         ;
     }
 
