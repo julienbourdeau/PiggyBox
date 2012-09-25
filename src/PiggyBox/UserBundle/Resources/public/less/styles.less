@@ -184,11 +184,33 @@ table.pricing {
 }	
 	
 footer#footer {
-	height: 190px;
-	bottom: 0;
-	background: #262626;
-	border-top: 8px solid #000000;
-	color: #f9f9f9;
+	//padding-top: 12px;
+	background: @grayDarker;
+	border-top: 8px solid @black;
+	color: @white;
+	font-family: @museo300FontFamily;
+	.row {
+		margin-top: 16px;
+	}
+	a {
+		color: @white;
+	}
+	ul {
+		margin: 0;
+		list-style-type: none;
+	}
+	#legal-line {
+		font-family: @sansFontFamily;
+		font-size: 12px;
+		line-height: 12px;
+		color: #666;
+		text-align: center;
+	}
+}
+
+.help-contact img {
+	margin-bottom: 12px;
+	text-align: center;
 }
 
 
