@@ -19,48 +19,37 @@
 
 
 header#header {
-	height: 100px;
-	//background:url(../img/head2.gif);
-	margin-bottom: 36px;
+	height: 100%;
+	margin-bottom: 52px;
+	#logo {
+		float: left;
+		a {
+			display: block;
+		}
+	}
+	.black-container {
+		height: 80px;
+		background: @grayDarker;
+		color: @white;
+	}
+
+	.nav-tabs li a {
+		padding: 8px 16px;
+		margin-left: 32px;
+		font-size: 21px;
+		line-height: 32px;
+		background: @mainRed;
+		color: @white;
+		border: none;
+	}
+	.nav-tabs li.active a,
+	.nav-tabs li a:hover {
+		background: @mainPink;
+		color: @grayDarker;
+	}
+
 }
 
-#ongletcontain {
-	position:relative; 
-	margin-top: 50px; 
-	float: right; 
-	margin-right: 10%; 
-	display:block; 
-	width: 700px; 
-	list-style-type : none;
-}
-
-#ongletcontain li {
-	display: inline; 
-	padding: 8px; 
-	margin-left: 15px; 
-	font-size:25px; 
-	//font-family:'Vollkorn', serif; 
-	color: #bad3b4; 
-	border-radius: 10px; 
-	text-shadow: 2px 2px 3px #555;  
-	-webkit-transition: all .1s ease-in; 
-	-moz-transition: all .1s ease-in;-o-transition: all .1s ease-in;
-	transition: all .1s ease-in;
-}
-
-#ongletcontain li:hover {
-	color: #e7f2e4; 
-	text-decoration:none;
-	border-radius: 10px;
-}	
-
-#ongletcontain li a {
-	text-decoration:none;
-}
-
-#ongletcontain li a:hover {
-	text-decoration:none;
-}
 
 
 
@@ -73,7 +62,7 @@ header#header {
 
 // ENTRY CONTAINER
 #entry-container {
-	margin: 36px 0 20px 0;
+	margin: 57px 0 20px 0;
 }
 
 	#entry-nav ul.nav {
@@ -141,6 +130,12 @@ header#header {
 	}
 
 	#user-cart {
+		margin-top: 52px;
+
+		h1 {
+			border-bottom: 4px solid @grayDarker;
+		}
+
 		.corner-top {
 			width: 52px;
 			height: 0px;
@@ -161,8 +156,6 @@ header#header {
 			height: 52px;
 			border-left: 4px solid @grayDarker;
 		}
-		background:#f9f9f9;
-		margin-top: 78px;
 
 		.user-cart-content {
 			padding: 0 4px;
