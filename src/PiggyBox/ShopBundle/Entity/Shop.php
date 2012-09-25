@@ -36,6 +36,12 @@ class Shop
      */
     private $type;
  
+    /**
+     * @var text $category_html
+     *
+     * @ORM\Column(name="category_html", type="text", nullable=true)
+     */
+    private $category_html;
 
     /**
      * @var string $slug
@@ -45,9 +51,10 @@ class Shop
      */
     private $slug;
 
+
     /**
      * @var \DateTime $createdat
-
+	 *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -90,7 +97,19 @@ class Shop
 	 **/
     private $categories;
 	
-	/**
+	
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->clients = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -121,6 +140,52 @@ class Shop
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Shop
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set category_html
+     *
+     * @param string $categoryHtml
+     * @return Shop
+     */
+    public function setCategoryHtml($categoryHtml)
+    {
+        $this->category_html = $categoryHtml;
+    
+        return $this;
+    }
+
+    /**
+     * Get category_html
+     *
+     * @return string 
+     */
+    public function getCategoryHtml()
+    {
+        return $this->category_html;
     }
 
     /**
@@ -191,37 +256,6 @@ class Shop
     {
         return $this->updatedat;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return Shop
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Add products
@@ -277,39 +311,6 @@ class Shop
     public function getSales()
     {
         return $this->sales;
-    }
-
-    /**
-     * Add prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Shop
-     */
-    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-    
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Get prices
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getPrices()
-    {
-        return $this->prices;
     }
 
     /**
