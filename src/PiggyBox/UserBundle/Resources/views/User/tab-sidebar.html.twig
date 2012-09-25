@@ -35,31 +35,55 @@
 
         
         {% set orders  = piggybox_orders_get() %}
-		<div id="user-cart" class="">
-			<h2>Panier</h2>
+		<div id="user-cart" class="clearfix">
+            {# <div class="corner-top pull-left"></div>
+            <div class="clear"></div>
+            <div class="corner-left pull-left"></div> #}
 
-			{% for order in orders %}	
+            <div class="user-cart-content">
+    			<h1>Panier</h1>
 
-			<h2>{{order.shop.name}}</h2>
-                <table class="table">
-                    <tr>
-                        <td>Produit</td>
-                        <td>Qté</td>
-                        <td>Prix</td>
-                    </tr>
+    			{% for order in orders %}	
 
-                {% for order_detail in order.orderdetail %} 
-                    <tr>
-                        <td>{{ order_detail.product.name }}</td>
-                        <td>{{ order_detail.price.price}}</td>
-                        <td>4</td>
-                    </tr>
+    			 <h3>{{order.shop.name}}</h3>
+                    <table class="table pricing">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th class="text-right">Qté</th>
+                                <th class="text-right">Prix</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for order_detail in order.orderdetail %} 
+                            <tr>
+                                <td>{{ order_detail.product.name }}</td>
+                                <td class="text-right">{{ order_detail.price.price}}</td>
+                                <td class="text-right">4,30 €</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="ttc-price">
+                                <td colspan="2">Total TTC</td>
+                                <td>12,67 €</td>
+                            </tr>
+                        </tfoot>
+
+                    </table>	
+
+                    <div class="text-centered">
+                        <a href="" class="btn btn-primary"><i class="icon-download-alt icon-white"></i> Finaliser la commande</a>
+                    </div>
+
                 {% endfor %}
+            </div>
 
-                </table>	
-
-            {% endfor %}
-
+            {# <div class="corner-right pull-right"></div>
+            <div class="clear"></div>
+            <div class="corner-bottom pull-right"></div> #}
 		</div>
 
     </div>
