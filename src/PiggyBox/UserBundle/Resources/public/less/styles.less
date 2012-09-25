@@ -114,6 +114,15 @@ header#header {
 #sidebar {
 	height: 100%;
 	min-height: 1px;
+
+	h1 {
+		font-size: 30px; 
+		padding-bottom: 8px;
+		margin: 0;
+		font-family: 'Museo-300'; 
+		color: @grayDarker; 
+		text-align: center;
+	}
 }
 		
 	#shop-infos {
@@ -123,25 +132,37 @@ header#header {
 			margin: 8px 0;
 		}
 		h1 {
-			font-size: 30px; 
-			padding-bottom: 8px;
-			margin: 0;
 			border-bottom: 4px solid @grayDarker;
-			font-family: 'Museo-300'; 
-			color: @grayDarker; 
-			text-align: center;
 		}
 	}
 	
 	.shopelements{
 		margin: 10px;
 	}
+
 	#user-cart {
-		background:#fff9a1;
-		margin-top: 56px;
-		border:#bd1616 solid 3px;
-		h2{background:#bd1616; padding-left: 10px; padding-top: 5px; color:#FFF; font-family: 'Vollkorn', serif;}
-		color:#000;
+		.corner-top {
+			width: 52px;
+			height: 0px;
+			border-top: 4px solid @grayDarker;
+		}
+		.corner-right {
+			width: 0px;
+			height: 52px;
+			border-right: 4px solid @grayDarker;
+		}
+		.corner-bottom {
+			width: 52px;
+			height: 0px;
+			border-bottom: 4px solid @grayDarker;
+		}
+		.corner-left {
+			width: 0px;
+			height: 52px;
+			border-left: 4px solid @grayDarker;
+		}
+		background:#f9f9f9;
+		margin-top: 78px;
 	}
 	
 footer#footer {
