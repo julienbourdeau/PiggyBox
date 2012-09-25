@@ -35,31 +35,40 @@
 
         
         {% set orders  = piggybox_orders_get() %}
-		<div id="user-cart" class="">
-			<h2>Panier</h2>
+		<div id="user-cart" class="clearfix">
+            <div class="corner-top pull-left"></div>
+            <div class="clear"></div>
+            <div class="corner-left pull-left"></div>
 
-			{% for order in orders %}	
+            <div class="user-cart-content">
+    			<h1>Panier</h1>
 
-			<h2>{{order.shop.name}}</h2>
-                <table class="table">
-                    <tr>
-                        <td>Produit</td>
-                        <td>Qté</td>
-                        <td>Prix</td>
-                    </tr>
+    			{% for order in orders %}	
 
-                {% for order_detail in order.orderdetail %} 
-                    <tr>
-                        <td>{{ order_detail.product.name }}</td>
-                        <td>{{ order_detail.price.price}}</td>
-                        <td>4</td>
-                    </tr>
+    			 <h3>{{order.shop.name}}</h3>
+                    <table class="table">
+                        <tr>
+                            <td>Produit</td>
+                            <td>Qté</td>
+                            <td>Prix</td>
+                        </tr>
+
+                    {% for order_detail in order.orderdetail %} 
+                        <tr>
+                            <td>{{ order_detail.product.name }}</td>
+                            <td>{{ order_detail.price.price}}</td>
+                            <td>4</td>
+                        </tr>
+                    {% endfor %}
+
+                    </table>	
+
                 {% endfor %}
+            </div>
 
-                </table>	
-
-            {% endfor %}
-
+            <div class="corner-right pull-right"></div>
+            <div class="clear"></div>
+            <div class="corner-bottom pull-right"></div>
 		</div>
 
     </div>
