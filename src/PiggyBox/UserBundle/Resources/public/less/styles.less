@@ -20,7 +20,7 @@
 
 header#header {
 	height: 100px;
-	background:url(../img/head2.gif);
+	//background:url(../img/head2.gif);
 	margin-bottom: 36px;
 }
 
@@ -39,10 +39,8 @@ header#header {
 	padding: 8px; 
 	margin-left: 15px; 
 	font-size:25px; 
-	font-family:'Vollkorn', serif; 
+	//font-family:'Vollkorn', serif; 
 	color: #bad3b4; 
-	-webkit-border-radius: 10px; 
-	-moz-border-radius: 10px; 
 	border-radius: 10px; 
 	text-shadow: 2px 2px 3px #555;  
 	-webkit-transition: all .1s ease-in; 
@@ -52,11 +50,8 @@ header#header {
 
 #ongletcontain li:hover {
 	color: #e7f2e4; 
-	text-decoration:none; 
-	-webkit-border-radius: 10px; 
-	-moz-border-radius: 10px; 
-	border-radius: 10px; 
-	text-shadow: 2px 2px 3px #555;
+	text-decoration:none;
+	border-radius: 10px;
 }	
 
 #ongletcontain li a {
@@ -116,20 +111,18 @@ header#header {
 		
 	#shop-infos {
 		height: 300px;
-		border: 2px solid @green;
-		background:url(../img/backsmall.jpg);
-		.box-shadowed;
 		#shop-details {
-			padding-left: 10px;
+			height: 192px;
+			margin: 8px 0;
 		}
 		h1 {
 			font-size: 30px; 
-			padding: 11px 4px 4px 10px; 
-			margin-top: 36px;
-			background: @green; 
-			font-family: 'Vollkorn', serif; 
-			color:#FFF; 
-			margin-top: 10px;
+			padding-bottom: 8px;
+			margin: 0;
+			border-bottom: 4px solid @grayDarker;
+			font-family: 'Museo-300'; 
+			color: @grayDarker; 
+			text-align: center;
 		}
 	}
 	
