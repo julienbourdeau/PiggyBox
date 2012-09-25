@@ -85,6 +85,12 @@ class Shop
     private $orders;	
 	
 	/**
+	 * @ORM\ManyToMany(targetEntity="Category", inversedBy="shops")
+	 * @ORM\JoinTable(name="shops_categories")
+	 **/
+    private $categories;
+	
+	/**
      * Get id
      *
      * @return integer 
@@ -191,6 +197,7 @@ class Shop
     public function __construct()
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -369,5 +376,38 @@ class Shop
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $categories
+     * @return Shop
+     */
+    public function addCategory(\PiggyBox\ShopBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param PiggyBox\ShopBundle\Entity\Category $categories
+     */
+    public function removeCategory(\PiggyBox\ShopBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
