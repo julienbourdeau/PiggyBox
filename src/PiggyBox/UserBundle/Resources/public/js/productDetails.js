@@ -15,5 +15,18 @@
             });
         }
     });
+		//     $('.category-item').click(function (e) {
+		//         var target = $(this);
+		// 
+		// if(!target.parent().hasClass('active')){
+		// 	target.parent().toggleClass('active');
+		// 	$('.category-item').not(target).parent().removeClass('active');
+		// 
+		// 	$(".product-item").hide();
+		// 	target.removeClass('category-item');
+		// 	$(".product-item."+target.attr('class')).fadeIn("slow", "linear");
+		// 	$(target.attr('class')).toggleClass('hide');	
+		// }
+		//     });
 	
 })(jQuery);
