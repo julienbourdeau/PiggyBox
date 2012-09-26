@@ -27,10 +27,20 @@ header#header {
 			display: block;
 		}
 	}
+	.header-content {
+		color: @white;
+		a {
+			color: @white;
+			padding: 0 3px;
+		}
+		a:hover {
+			background: @mainRed;
+			text-decoration: none;
+		}
+	}
 	.black-container {
 		height: 80px;
 		background: @grayDarker;
-		color: @white;
 	}
 
 	.nav-tabs li a {
@@ -52,10 +62,22 @@ header#header {
 
 
 
+h1 {
+	border-bottom: 4px solid @grayDarker;
+}
 
 #content {	
-	min-height: 1px;
+	min-height: 700px;
+	
 }
+#piggybox_register_content {
+	width: 356px;
+	margin: 24px auto;
+	input {
+		width: 356px;
+	}
+}
+
 #photo-slider {
 	//.box-shadowed;
 }
@@ -120,9 +142,6 @@ header#header {
 			height: 192px;
 			margin: 8px 0;
 		}
-		h1 {
-			border-bottom: 4px solid @grayDarker;
-		}
 	}
 	
 	.shopelements{
@@ -131,11 +150,6 @@ header#header {
 
 	#user-cart {
 		margin-top: 52px;
-
-		h1 {
-			border-bottom: 4px solid @grayDarker;
-		}
-
 		.corner-top {
 			width: 52px;
 			height: 0px;
