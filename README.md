@@ -16,7 +16,6 @@
 	* Ajout de la page de validation
 	* Gestionnaire du cache
 	* Page de création d'un compte/connexion
-	* Afficher les catégories dans la page du magasin
 	* Afficher les bonnes informations du magasin
 	* Afficher les magasins actuels sur la homepage
 

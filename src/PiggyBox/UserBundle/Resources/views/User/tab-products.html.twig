@@ -2,9 +2,7 @@
 
 	<div class="span3">
 		<ul class="nav nav-list">
-			{% for category in categories %}
-				<li {% if category.level == 0 %}class="nav-header"{% endif %}><a href="#">{{category.title}}</a></li>
-			{% endfor %}
+			{{shop.categoryhtml|raw}}
 		</ul>
 	</div>
 

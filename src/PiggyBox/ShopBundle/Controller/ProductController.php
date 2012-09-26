@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\Category;
 use PiggyBox\ShopBundle\Entity\Sales;
 use PiggyBox\ShopBundle\Form\ProductType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product controller.
@@ -138,6 +140,26 @@ class ProductController extends Controller
              // retrieving the security identity of the currently logged-in user
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
+			$em = $this->getDoctrine()->getManager();
+			
+			//Vérifie l'arbe et le regènere ou pas d'ailleurs 
+			$shop = $user->getOwnshop();
+			if(!$shop->getCategories()->contains($product->getCategory())){
+				$shop->addCategory($product->getCategory());
+				// Ajouter la catégorie parente si elle n'existe pas
+				if($product->getCategory()->getLevel()>0)
+				{
+					if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
+					{
+						$shop->addCategory($product->getCategory()->getParent());
+					}
+				}
+				
+				$shop->setCategoryHtml($this->createHtmlTreeFromShop($shop));
+				$em->persist($shop);
+				$em->flush();		
+										
+			}
 
 			// Adding Sales entity relaton to the product
 			$sales = new Sales();
@@ -147,7 +169,7 @@ class ProductController extends Controller
 			}
 
 			// saving the DB
-            $em = $this->getDoctrine()->getManager();
+            
             $em->persist($product);
 			$product->setShop($user->getOwnshop());
 			//inutile à checker $user->getOwnshop()->addProduct($product);
@@ -284,20 +306,35 @@ class ProductController extends Controller
         ;
     }
 	
-	/**
-	 *  Merge the arrays passed to the function and keep the keys intact.
-	 *  If two keys overlap then it is the last added key that takes precedence.
-	 * 
-	 * @return Array the merged array
-	 */
-	function array_merge_maintain_keys() {
-	    $args = func_get_args();
-	    $result = array();
-	    foreach ( $args as &$array ) {
-	        foreach ( $array as $key => &$value ) {
-	            $result[$key] = $value;
-	        }
-	    }
-	    return $result;
+	private function createHtmlTreeFromShop($shop)
+	{
+		$categories = $shop->getCategories();
+		$categories_buffer = new \Doctrine\Common\Collections\ArrayCollection();
+		$html = '';
+
+		foreach($categories as $category){
+			if(!$categories_buffer->contains($category))
+			{
+				if($category->getLevel() !=0){
+					$category = $category->getParent();
+				}
+		
+				$html.='<li class="">'.$category->getTitle().'</li>';
+				$children_categories = $category->getChildren();
+		
+				$html.='<ul class="nav nav-list">';
+
+				foreach ($children_categories as $children_category) {
+					if($categories->contains($children_category) and !$categories_buffer->contains($children_category))
+					{
+							$html.='<li class="">'.$children_category->getTitle().'</li>';
+							$categories_buffer->add($children_category);
+					}
+				}
+				$categories_buffer->add($category);
+				$html.='</ul>';	
+			}		
+		}
+		return $html;
 	}
 }

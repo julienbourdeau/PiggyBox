@@ -42,10 +42,6 @@ class UserController extends Controller
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
 		$products = $shop->getProducts();
 
-		$categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=:id')
-					->setParameter('id', $shop->getId())	
-					->getResult();
-
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
@@ -53,7 +49,6 @@ class UserController extends Controller
         return array(
             'shop'      => $shop,
 			'products'	  => $products,
-			'categories'	=> $categories,
         );
     }
 
