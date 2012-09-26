@@ -57,6 +57,11 @@ class Image
      */
     private $createdat;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="Shop")
+	 * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+	 **/
+	private $shop;	
 
     /**
      * Get id
@@ -220,5 +225,28 @@ class Image
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Image
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+    
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return PiggyBox\ShopBundle\Entity\Shop 
+     */
+    public function getShop()
+    {
+        return $this->shop;
     }
 }
