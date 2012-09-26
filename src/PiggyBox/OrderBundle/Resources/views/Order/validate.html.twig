@@ -1,32 +1,122 @@
-				<section id="shopping-cart" class="span4">
-					<div class="well">
-
-						<h2>
-							<img src="{{ asset('bundles/piggyboxconsumer/img/shopping_cart.png') }}" width="38">
-							Votre panier
-						</h2>
-
-						<br /><br />
-
-						{% set orders  = piggybox_orders_get() %}
-							{% for order in orders %}
-								<h2>{{order.shop.name}}</h2>
-									{% for order_detail in order.orderdetail %}
-										<table class="table">
-											<tr>
-												<td>{{ order_detail.product.name }}</td>
-												<td>{{ order_detail.price.price}}</td>
-	
-											</tr>
-										</table>
-									{% endfor %}
-									<br /><br />
-										<a href="{{ path('validate_order', { 'order_id': order.id}) }}">Valider le panier</td>
-									<br /><br />
-							{% endfor %}
 
 
+{% extends 'FOSUserBundle::layout.html.twig' %}
 
-					</div>
-					</section>
+{% block content %}
 
+
+<div class="container">
+    <div class="row">
+
+        <div id="content" class="">
+
+        	<section id="shopping-cart" class="">
+
+					<h1>
+						Votre panier <small>Commande à valider</small>
+					</h1>
+
+					{% set orders  = piggybox_orders_get() %}
+
+						{% for order in orders %}	
+
+		    			 	<div class="span10 offset1">
+
+		    			 		<h3>{{order.shop.name}}</h3>
+
+			                    <table class="table pricing">
+			                        <thead>
+			                            <tr>
+			                                <th>Produit</th>
+			                                <th class="text-right">Qté</th>
+			                                <th class="text-right">Prix</th>
+			                            </tr>
+			                        </thead>
+
+			                        <tbody>
+			                        {% for order_detail in order.orderdetail %} 
+			                            <tr>
+			                                <td>{{ order_detail.product.name }}</td>
+			                                <td class="text-right">{{ order_detail.price.price}}</td>
+			                                <td class="text-right">4,30 €</td>
+			                            </tr>
+			                        {% endfor %}
+			                        </tbody>
+
+			                        <tfoot>
+			                            <tr class="ttc-price">
+			                                <td colspan="2">Total TTC</td>
+			                                <td>12,67 €</td>
+			                            </tr>
+			                        </tfoot>
+
+			                    </table>	
+
+			                    <a href="#validationModalContent-12" role="button" class="btn btn-primary pull-right" data-toggle="modal">
+			                    	<i class="icon-time icon-white"></i> 
+			                    	Finaliser ma commande
+			                    </a>
+
+			                    <div id="validationModalContent-12" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				                   	<form action="" class="form-horizontal modal-form">
+
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											<h3 id="">Finalisez votre commande <small>en quelques secondes</small></h3>
+										</div>
+
+										<div class="modal-body">
+
+											<h3>A propos de votre commande</h3>
+					                    	<p>A quelle heure souhaitez vous passez la recupérer?</p>	
+
+					                    	<div id="datepickercontainer"></div>
+
+					                    	<h3>A propos de vous</h3>
+
+											<div class="control-group">
+												<label class="control-label" for="yourname">Votre nom</label>
+												<div class="controls">
+													<input type="text" id="" class="span3" placeholder="Ex: Antoine Dupuy">
+												</div>
+											</div>
+				                    		
+											<div class="control-group">
+												<label class="control-label" for="yourname">Votre email</label>
+												<div class="controls">
+													<input type="text" id="" class="span3" placeholder="Ex: antoine.dupuy@gmail.com">
+												</div>
+											</div>
+				                    		
+											<div class="control-group">
+												<label class="control-label" for="yourname">Votre téléphone</label>
+												<div class="controls">
+													<input type="text" id="" class="span3" placeholder="Ex: 06 11 34 23 00">
+												</div>
+											</div>
+
+					                    </div>
+
+					                    <div class="modal-footer">
+					                    	<button class="btn btn-small" data-dismiss="modal" aria-hidden="true">Annuler et revenir au panier</button>
+					                    	<button class="btn btn-large btn-primary"><i class="icon-ok icon-white"></i> Valider la commande</button>
+					                    </div>		
+
+				                    </form>
+			                    </div>
+
+
+		                    </div>
+
+		                {% endfor %}
+
+
+			</section>
+
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
