@@ -1,6 +1,4 @@
-	<div class="span9">
-
-   	{% for product in products %}
+{% for product in products %}
 
    		<div class="product-item Tous {{product.category.title}} {% if product.category.level > 0 %}{{product.category.parent.title}}{% endif %}">
 			<div class="row-fluid product-infos">
@@ -44,5 +42,3 @@
 		</div>
 
 	{% endfor %}
-
-   </div>

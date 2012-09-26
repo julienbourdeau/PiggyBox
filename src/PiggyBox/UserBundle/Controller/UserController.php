@@ -31,7 +31,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("{slug}/{category_title}.{_format}", name="user_show_shop", requirements={"_format"="(html|json)"}, defaults={"_format"="html", "category_title"="default"})
+     * @Route("magasin/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
      * @Template()
      */
     public function showAction(Request $req, $slug, $category_title)
@@ -39,7 +39,7 @@ class UserController extends Controller
 		//TODO: Le nom de la route à revoir en fonction de mes lectures REST
         $em = $this->getDoctrine()->getManager();
 
-        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find(18);
 		
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
@@ -49,7 +49,7 @@ class UserController extends Controller
 			$category = $shop->getCategories()->first();
 		}
 		else{
-			$category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);	
+			$category = $em->getRepository('PiggyBoxShopBundle:Category')->find(30);	
 		}
 		
 		if($category->getLevel() == 0){
@@ -64,11 +64,6 @@ class UserController extends Controller
 		}
 		else{
 			$products = $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $category->getId());
-		}
-
-		if ($req->getRequestFormat() === 'json'){
-			$html = $this->renderView('PiggyBoxUserBundle:User:tab-products.html.twig', array('products' => $products));
-			return new JsonResponse(array('content' => $html));
 		}	
 
         return array(

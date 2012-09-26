@@ -47,7 +47,9 @@
                             <div id="shop" class="tab-pane">
 								<div class="row-fluid">
 									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
-									{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}	
+									<div class="product-list span9">
+										{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}	
+									</div>
 								</div>
                             </div>
                             <div id="photos" class="tab-pane">

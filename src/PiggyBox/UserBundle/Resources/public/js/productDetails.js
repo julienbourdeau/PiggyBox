@@ -15,6 +15,7 @@
             });
         }
     });
+	
 		//     $('.category-item').click(function (e) {
 		//         var target = $(this);
 		// 
