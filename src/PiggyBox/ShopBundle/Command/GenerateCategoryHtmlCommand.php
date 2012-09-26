@@ -45,14 +45,14 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
 						$category = $category->getParent();
 					}
 				
-					$html.='<li class=""><a class="Tous '.$category->getTitle().'">'.$category->getTitle().'</a></li>';
+					$html.='<li class=""><a class="category-item '.$category->getTitle().'">'.$category->getTitle().'</a></li>';
 					$children_categories = $category->getChildren();
 					$html.='<ul class="nav nav-list">';
 
 					foreach ($children_categories as $children_category) {
 						if(in_array($children_category, $categories) and !$categories_buffer->contains($children_category))
 						{
-								$html.='<li class=""><a class="Tous '.$children_category->getTitle().' '.$category->getTitle().' ">'.$children_category->getTitle().'</a></li>';
+								$html.='<li class=""><a class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a></li>';
 								$categories_buffer->add($children_category);
 						}
 					}

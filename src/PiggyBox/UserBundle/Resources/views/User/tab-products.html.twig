@@ -2,7 +2,7 @@
 
 	<div class="span3">
 		<ul class="nav nav-list">
-			<li class=""><a href="">Tous</a></li>
+			<li class="category-item Tous"><a>Tous</a></li>
 			{{shop.categoryhtml|raw}}
 		</ul>
 	</div>
@@ -12,8 +12,8 @@
 
    	{% for product in products %}
 
-   		<div class="product-item">
-			<div class="row-fluid product-infos Tous {{product.category.title}} {% if product.category.level > 0 %}{{product.category.parent.title}}{% endif %}">
+   		<div class="product-item Tous {{product.category.title}} {% if product.category.level > 0 %}{{product.category.parent.title}}{% endif %}">
+			<div class="row-fluid product-infos">
 
 				<div class="span4">
 					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
@@ -47,11 +47,12 @@
 
 			</div>
 
+			<div class="clear"></div>
+
+			<hr />
+
 		</div>
 
-		<div class="clear"></div>
-
-		<hr />
 	{% endfor %}
 
    </div>
