@@ -1,0 +1,32 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div id="content" class="span6 offset3">
+
+        	<h1 class="text-centered">Créez un compte <small>C'est simple et rapide</small></h1>
+
+			<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+			    
+			    <div id="piggybox_register_content" class="">
+			    	{{ form_widget(form) }}
+			    </div>
+			    
+			    <input type="submit" class="btn btn-large btn-primary btn-block" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+
+			</form>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
