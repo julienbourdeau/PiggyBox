@@ -1,14 +1,69 @@
+{# -----------  PRIX A L'UNITE  -------- #}
+
+<div class="row-fluid">
+    <div class="span12 text-right">
+        <form action="" class="form-inline">
+            <select name="" id=""class="span2">
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>
+                <option value="">4</option>
+                <option value="">5</option>
+                <option value="">6</option>
+                <option value="">7</option>
+                <option value="">8</option>
+                <option value="">9</option>
+                <option value="">10</option>
+            </select>
+            <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+        </form>
+    </div>
+</div>
+
+{# --------------------------------- #}
+
+<div class="row-fluid">
+    <div class="span12 text-right">
+        <form action="" class="form-inline">
+            <select name="" id="" class="span4">
+                <option value="">50g &nbsp;&nbsp;&nbsp;&nbsp; - &nbsp; 12 € </option>
+                <option value="">80g &nbsp;&nbsp;&nbsp;&nbsp; - &nbsp; 12 € </option>
+                <option value="" selected="selected">100g &nbsp;&nbsp; - &nbsp; 12 € </option>
+                <option value="">200g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">300g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">400g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">500g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">600g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">700g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">800g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">900g &nbsp;&nbsp; - &nbsp; 12 €</option>
+                <option value="">1000g &nbsp;- &nbsp; 12 €</option>
+            </select>
+            <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+        </form>
+    </div>
+</div>
+
+{# -----------  PRIX AU KILO  -------- #}
+
+
+{# --------------------------------- #}
+
+
+
+{# -----------  PRIX A LA COUPE  -------- #}
+
 <div class="row-fluid">
 
     <div class="span12">
-        <table class="table table-bordered">
+        <table class="table table-bordered pricing">
             <tbody>
                 <tr>
-                    <th>Coupe / Pièce</th>
-                    <th>Poid</th>
-                    <th>Prix</th>
-                    <th>Prix au Kg</th>
-                    <th>Quantité</th>
+                    <th class="span2">Découpe <br><small>Pièce</small></th>
+                    <th class="span4">Poids</th>
+                    <th class="span2">Prix</th>
+                    <th class="span2">Prix <br><small>au Kg</small></th>
+                    <th class="span3">Quantité</th>
                 </tr>
 
     			{% set product_id = product.id%}
@@ -27,7 +82,7 @@
                     		<td>14,69 €</td>
 
     						<td>
-                                <a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-success"> <i class="icon-shopping-cart icon-white"></i> Commander</a>
+                                <a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-primary"> <i class="icon-plus icon-white"></i> Ajouter</a>
                             </td>
                 		</tr>
     				{% endfor %}
@@ -37,3 +92,5 @@
     </div>
 
 </div>
+
+{# --------------------------------- #}
