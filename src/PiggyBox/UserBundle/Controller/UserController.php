@@ -31,26 +31,28 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("magasin/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
+     * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
      * @Template()
      */
     public function showAction(Request $req, $slug, $category_title)
     {
+//		var_dump($req);die();
 		//TODO: Le nom de la route à revoir en fonction de mes lectures REST
         $em = $this->getDoctrine()->getManager();
 
-        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find(18);
+        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findBySlug($slug);
 		
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
-		
+		var_dump($shop);die();
 		if($category_title == "default"){
 			$category = $shop->getCategories()->first();
 		}
 		else{
-			$category = $em->getRepository('PiggyBoxShopBundle:Category')->find(30);	
+			$category = $em->getRepository('PiggyBoxShopBundle:Category')->findByTitle($category_title);	
 		}
+		var_dump($category);die();
 		
 		if($category->getLevel() == 0){
 			$children_categories = $category->getChildren();
