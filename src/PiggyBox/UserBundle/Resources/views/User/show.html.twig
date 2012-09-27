@@ -45,7 +45,12 @@
                                 {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' %}
                             </div>
                             <div id="shop" class="tab-pane">
-								{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}
+								<div class="row-fluid">
+									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
+									<div class="product-list span9">
+										{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}	
+									</div>
+								</div>
                             </div>
                             <div id="photos" class="tab-pane">
                                 <?php include 'tab-photos.php'; ?></div>
