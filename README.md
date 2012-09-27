@@ -16,7 +16,6 @@
 * PiggyBoxUserBundle
 	* Ajout de la page de validation
 	* Gestionnaire du cache
-	* Page de création d'un compte/connexion
 	* Afficher les bonnes informations du magasin
 	* Afficher les magasins actuels sur la homepage
 
@@ -24,8 +23,6 @@
 	* Tests Unitaires
 	* Refactorisation de la classe d'ajout et de validation des produits
 	* Ajouter la quantité dans une commande
-	* Login
-	* Enregistrement
 	
 * Fixer les versions de symfony2.1
 
