@@ -91,11 +91,6 @@ class Category
 	 **/
 	private $products;
 		
-	/**
-     * @ORM\ManyToMany(targetEntity="Shop", mappedBy="categories")
-     **/
-	private $shops;
-		
     public function __toString()
     {
         return $this->getTitle();
@@ -107,7 +102,6 @@ class Category
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->shops = new \Doctrine\Common\Collections\ArrayCollection();
 	}
     
     /**
@@ -414,38 +408,5 @@ class Category
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * Add shops
-     *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shops
-     * @return Category
-     */
-    public function addShop(\PiggyBox\ShopBundle\Entity\Shop $shops)
-    {
-        $this->shops[] = $shops;
-    
-        return $this;
-    }
-
-    /**
-     * Remove shops
-     *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shops
-     */
-    public function removeShop(\PiggyBox\ShopBundle\Entity\Shop $shops)
-    {
-        $this->shops->removeElement($shops);
-    }
-
-    /**
-     * Get shops
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getShops()
-    {
-        return $this->shops;
     }
 }

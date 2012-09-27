@@ -8,9 +8,10 @@
 	* Requête AJAX pour l'affichage des commandes
 	* Informations sur les commerces en BDD
 	* Validation des formulaires
-	* Ajouter la classe Image...
 	* Ajouter les images lors de la création d'un magasin
 	* Editer les Produits
+	* Toutes les infos des magasins
+	* Filtrage des catégories à régler
 
 * PiggyBoxUserBundle
 	* Ajout de la page de validation
@@ -23,7 +24,9 @@
 	* Tests Unitaires
 	* Refactorisation de la classe d'ajout et de validation des produits
 	* Ajouter la quantité dans une commande
-
+	* Login
+	* Enregistrement
+	
 * Fixer les versions de symfony2.1
 
 ## Julien
@@ -31,11 +34,13 @@
 * implémentation des trois catégories de prix => JULIEN
 	* prix à l'unité
 	* prix au poids
-	* prix à la coupe
-	* Première page et page d'explication
-	* Toutes les infos des magasins
+
+	* Comment ça marche
+	* Accueil
+	* Les commerçants
+	
+	
 	* Page validation du panier
+	* Login
+	* Enregistrement
 	
-	
-	* flyers production
-	* Ajouter la notion "BETA" au magasin

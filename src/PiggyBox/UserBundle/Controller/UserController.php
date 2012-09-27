@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\UserBundle\Form\UserType;
+use PiggyBox\ShopBundle\Entity\Shop;
+use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -31,20 +33,43 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("{slug}/show", name="user_show_shop")
+     * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
      * @Template()
      */
-    public function showAction(Request $req, $slug)
+    public function showAction(Request $req, $slug, $category_title)
     {
-		//TODO: Le nom de la route à revoir en fonction de mes lectures REST
         $em = $this->getDoctrine()->getManager();
 
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
-		$products = $shop->getProducts();
 
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
+
+		if($category_title == "default"){
+			$products = $shop->getProducts();
+			
+	        return array(
+	            'shop'      => $shop,
+				'products'	  => $products,
+	        );
+		}
+		
+		$category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);	
+		
+		if($category->getLevel() == 0){
+			$children_categories = $category->getChildren();
+			$products = array();
+			
+			foreach($children_categories as $children_category){
+				$products = array_merge($products, 
+				$em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $children_category->getId())
+				);
+			}
+		}
+		else{
+			$products = $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $category->getId());
+		}	
 
         return array(
             'shop'      => $shop,

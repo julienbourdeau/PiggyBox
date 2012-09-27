@@ -141,35 +141,16 @@ class ProductController extends Controller
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
 			$em = $this->getDoctrine()->getManager();
-			
-			//Vérifie l'arbe et le regènere ou pas d'ailleurs 
-			$shop = $user->getOwnshop();
-			if(!$shop->getCategories()->contains($product->getCategory())){
-				$shop->addCategory($product->getCategory());
-				// Ajouter la catégorie parente si elle n'existe pas
-				if($product->getCategory()->getLevel()>0)
-				{
-					if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
-					{
-						$shop->addCategory($product->getCategory()->getParent());
-					}
-				}
-				
-				$shop->setCategoryHtml($this->createHtmlTreeFromShop($shop));
-				$em->persist($shop);
-				$em->flush();		
-										
-			}
 
 			// Adding Sales entity relaton to the product
 			$sales = new Sales();
 			$product->setSales($sales);
+			
 			if(false !== $product->getPrices()->first()){
 				$product->setMinPrice($product->getPrices()->first()->getPrice());
 			}
 
-			// saving the DB
-            
+			// saving the DB            
             $em->persist($product);
 			$product->setShop($user->getOwnshop());
 			//inutile à checker $user->getOwnshop()->addProduct($product);
@@ -305,36 +286,4 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
-	
-	private function createHtmlTreeFromShop($shop)
-	{
-		$categories = $shop->getCategories();
-		$categories_buffer = new \Doctrine\Common\Collections\ArrayCollection();
-		$html = '';
-
-		foreach($categories as $category){
-			if(!$categories_buffer->contains($category))
-			{
-				if($category->getLevel() !=0){
-					$category = $category->getParent();
-				}
-		
-				$html.='<li class="">'.$category->getTitle().'</li>';
-				$children_categories = $category->getChildren();
-		
-				$html.='<ul class="nav nav-list">';
-
-				foreach ($children_categories as $children_category) {
-					if($categories->contains($children_category) and !$categories_buffer->contains($children_category))
-					{
-							$html.='<li class="">'.$children_category->getTitle().'</li>';
-							$categories_buffer->add($children_category);
-					}
-				}
-				$categories_buffer->add($category);
-				$html.='</ul>';	
-			}		
-		}
-		return $html;
-	}
 }

@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
+	public function findAllByShopAndCategory($shop_id, $category_id)
+	{
+		return $this->getEntityManager()
+			->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.category=:category_id)')
+			->setParameters(array(
+				'shop_id' => $shop_id,
+				'category_id' => $category_id,
+				))
+			->getResult();    
+	}
 }
