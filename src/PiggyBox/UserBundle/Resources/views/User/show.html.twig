@@ -31,20 +31,21 @@
                     <div id="entry-container">
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
-                                <li class="active">
+                                <li class="{% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
-                                <li><a href="#shop" data-toggle="tab">Produits a commander</a></li>
+                                <li class="{% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+									<a href="#shop" data-toggle="tab">Produits a commander</a></li>
                                 <li class="disabled"><a data-toggle="">Avis</a></li>
                                 <li><a href="#photos" data-toggle="tab">Photos</a></li>
                             </ul> 
                         </div>
 
                         <div id="entry-content" class="tab-content">
-                            <div id="fiche" class="tab-pane active">
+                            <div id="fiche" class="tab-pane {% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
                                 {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' %}
                             </div>
-                            <div id="shop" class="tab-pane">
+                            <div id="shop" class="tab-pane {% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
 								<div class="row-fluid">
 									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
 									<div class="product-list span9">
