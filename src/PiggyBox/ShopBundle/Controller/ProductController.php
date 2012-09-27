@@ -149,8 +149,10 @@ class ProductController extends Controller
 				// Ajouter la catégorie parente si elle n'existe pas
 				if($product->getCategory()->getLevel()>0)
 				{
+					var_dump("1");
 					if(!$shop->getCategories()->contains($product->getCategory()->getParent()))
 					{
+						var_dump("2");die();
 						$shop->addCategory($product->getCategory()->getParent());
 					}
 				}
