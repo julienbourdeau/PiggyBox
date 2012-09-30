@@ -1,4 +1,5 @@
 {# -----------  PRIX A L'UNITE  -------- #}
+{% if product.prices|length > 0 and product.prices[0].slicenbr is not defined %}
 
 <div class="row-fluid">
     <div class="span12 text-right">
@@ -19,9 +20,10 @@
         </form>
     </div>
 </div>
+{% endif %}
 
 {# --------------------------------- #}
-
+{% if product.prices|length == 0 %}
 <div class="row-fluid">
     <div class="span12 text-right">
         <form action="" class="form-inline">
@@ -43,7 +45,7 @@
         </form>
     </div>
 </div>
-
+{% endif %}
 {# -----------  PRIX AU KILO  -------- #}
 
 
@@ -67,7 +69,7 @@
                 </tr>
 
     			{% set product_id = product.id%}
-                {% if product.prices|length %}
+                {% if product.prices|length > 0 %}
     				{% for price in product.prices %}
         	        	<tr>
     						{% if price.slicenbr|length %}
@@ -78,8 +80,8 @@
                 	    		<td>{{price.totalweight}}</td>
     						{% endif %}
                     		
-                            <td>4,30 €</td>
-                    		<td>14,69 €</td>
+                            <td>{{price.price}} €</td>
+                    		<td>{{product.pricekg}} €</td>
 
     						<td>
                                 <a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-primary"> <i class="icon-plus icon-white"></i> Ajouter</a>
