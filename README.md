@@ -26,7 +26,8 @@
 	** Ordering
 	** Validated
 	** NotValidated
-	** 
+	** ToPrepare
+	** Archive
 	
 * Fixer les versions de symfony2.1
 * Ajout du DoctrineMigrationBundle

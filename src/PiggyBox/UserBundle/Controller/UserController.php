@@ -38,6 +38,9 @@ class UserController extends Controller
      */
     public function showAction(Request $req, $slug, $category_title)
     {
+		// Test du mailer
+		throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
+		
         $em = $this->getDoctrine()->getManager();
 
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
