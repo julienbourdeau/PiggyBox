@@ -8,6 +8,7 @@
 		<service id="piggybox.user.exception_listener" class="PiggyBox\UserBundle\EventListener\ExceptionListener">
 			<tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
 			<argument type="service" id="mailer" />
+			<argument type="service" id="kernel" />
 		</service>
     </services>
 </container>
