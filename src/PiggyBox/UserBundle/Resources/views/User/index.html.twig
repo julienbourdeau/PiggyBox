@@ -1,63 +1,72 @@
 {% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
 {% block content %}
-<div id="ribbon">
+<div id="">
         <div class="container text-centered">
-            <div class="row">
+
+            <div class="row big-quote">
                 <div class="span12">
-                    <h3>
+                    <blockquote>
                         La qualité et le service des commerces de proximité <br>
                         avec les avantages du drive
-                    </h3>
+                    </blockquote>
                 </div>
             </div>
 
             <div class="row">
-                <div class="span4">
-                    <div class="box">
-                        <h1 class="step-number"><span>1</span></h1>
-                        <img src="{{ asset('bundles/piggyboxuser/img/pictos/1.png')}}" alt="">
-                        <h2>Recherchez</h2>
-                        <p>Rechercher un commerçant de tradition à proximité de chez vous</p>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="box">
-                        <h1 class="step-number"><span>2</span></h1>
-                        <img src="{{ asset('bundles/piggyboxuser/img/pictos/2.png')}}" alt="">
-                        <h2>Commandez</h2>
-                        <p>Passez votre commande au même tarif qu'en boutique</p>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="box">
-                        <h1 class="step-number"><span>3</span></h1>
-                        <img src="{{ asset('bundles/piggyboxuser/img/pictos/3.png')}}" alt="">
-                        <h2>Retirez</h2>
-                        <p>Allez chercher votre commande sans faire la queue et dites bonjour à votre commerçant</p>
+                <div class="span12">
+                    <div class="step-wrapper">
+                        <div class="step-container">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>1</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
+                                <h2>Recherchez</h2>
+                                <p>Recherchez votre commerce à proximité</p>
+                            </div>
+                        </div>
+                        <div class="step-container step-offset">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>2</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
+                                <h2>Commandez</h2>
+                                <p>Commandez au même tarif qu'en boutique</p>
+                            </div>
+                        </div>
+                        <div class="step-container step-offset">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>3</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
+                                <h2>Retirez</h2>
+                                <p>Retirez vos commandes sans faire la queue</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <div id="action-buttons" class="row">
                 <div class="span12">
-                    <a href="#map" id="dropMarkers" class="btn btn-large btn-primary"><i class="icon-map-marker icon-white"></i> Rechercher sur Nantes</a>
+                    <a href="#map" id="" class="btn btn-large btn-primary"><i class="icon-map-marker icon-white"></i> Rechercher sur Nantes</a>
                     <a href="#map" class="btn btn-large"><i class="icon-book"></i> Comprendre le site</a>
                 </div>
             </div>
+
         </div>
     </div>
 
-<div id="launch-ribbon">
+
 	<div class="container">
 		<div class="row">
-			<div class="span12 text-centered">
-				<h2>Lancement sur Nantes en septembre 2012
-					<br>Bientôt plus de commerces et villes disponibles</h2>
-			</div>
-		</div>
-	</div>
-</div>
+			<div class="span12">
+                <div id="launch-ribbon text-centered">
+    				<h2>Lancement sur Nantes en septembre 2012
+    					<br>Bientôt plus de commerces et villes disponibles</h2>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
 
     <div id="map">
         <div class="container">
