@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]> <html lang="en" class="no-js oldie"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}Côtelettes et tartes aux fraises{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="author" content="Baptiste DUPUCH" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
+
+		{% stylesheets filter='cssrewrite, lessphp'
+			'bundles/piggyboxshop/less/styles.less'
+				output='css/main.css'
+		%}
+		<link rel="stylesheet" href="{{ asset_url }}">
+		{% endstylesheets %}
+
+    </head>
+
+    <body>
+		<header id="masterhead" class="app-banner container">
+			
+			<div class="navbar navbar-fixed-bottom navbar-inverse">
+			  <div class="navbar-inner">
+				<div class="container">
+			 
+				  <!-- Everything you want hidden at 940px or less, place within here -->
+				  <div class="nav-collapse row">
+					<nav>
+						<ul class="nav">
+							<li class="active span3"><a href="{{ path('moncommerce_mescommandes') }}">Commandes</a></li>
+							<li class="span2"><a href="{{ path('monmagasin_mesproduits', {'category_id': 0 }) }}">Produits</a></li>
+							<li class="span2"><a href="#">Clients</a></li>
+							<li class="span2"><a href="#">Outils</a></li>
+							<li class="span2 "><a href="#">MonCompte</a></li>
+						</ul>
+
+					</nav>
+				  </div>
+			 
+				</div>
+			  </div>
+			</div>	
+
+		</header>
+
+		{% block body %}{% endblock %}
+
+		{% if not app.debug %}
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+		{% endif %}
+
+		{% block javascript %}{% endblock %}
+    </body>
+
+</html>
+
+
