@@ -1,0 +1,80 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="row">
+
+                <div id="content" class="span8">
+                    
+                    <div id="photo-slider">
+                        <div id="shopCarousel" class="carousel slide">
+                            <!-- Carousel items -->
+                            <div class="carousel-inner">
+                                <div class="active item">
+									<img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique.jpg')}}" alt="">
+                                </div>
+                                <div class="item">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-2.jpg')}}" alt="">
+                                </div>
+                                <div class="item">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-3.jpg')}}" alt="">
+                                </div>
+                            </div>
+
+                            <!-- Carousel nav -->
+                            <a class="carousel-control left" href="#shopCarousel" data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#shopCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+                    </div>
+
+                    <div id="entry-container">
+                        <div id="entry-nav">
+                            <ul class="nav nav-tabs">
+                                <li class="{% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
+                                    <a href="#fiche" data-toggle="tab">Fiche</a>
+                                </li>
+                                <li class="{% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+									<a href="#shop" data-toggle="tab">Produits a commander</a></li>
+                                <li class="disabled"><a data-toggle="">Avis</a></li>
+                                <li><a href="#photos" data-toggle="tab">Photos</a></li>
+                            </ul> 
+                        </div>
+
+                        <div id="entry-content" class="tab-content">
+                            <div id="fiche" class="tab-pane {% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
+                                {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' %}
+                            </div>
+                            <div id="shop" class="tab-pane {% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+								<div class="row-fluid">
+									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
+									<div class="product-list span9">
+										{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}	
+									</div>
+								</div>
+                            </div>
+                            <div id="photos" class="tab-pane">
+                                <?php include 'tab-photos.php'; ?></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+      
+
+			{% include 'PiggyBoxUserBundle:User:tab-sidebar.html.twig' with {'shop': shop} %}
+
+
+            </div><!-- /row -->
+        </div> <!-- /container -->
+
+
+{% endblock %}
+
+{% block javascript %}
+{{parent()}}
+
+		<script src="{{ asset('bundles/piggyboxuser/js/productDetails.js')}}"></script>
+
+{% endblock %}

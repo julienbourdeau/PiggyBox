@@ -1,0 +1,93 @@
+<div id="sidebar" class="span4">
+    <div id="sidebar-content">
+        
+        <div id="shop-infos" class="">
+            <h1 class="">Boucherie de Zola</h1>
+
+            <div id="shop-details" class="row-fluid">
+
+                <div class="span12">
+                    <p>
+                        <i class="icon-user"></i> 02.40.46.50.42 <br />
+                        <i class="icon-envelope"></i> zola@boucherdefrance.fr<br />
+                        <i class="icon-home"></i> 6 place Emile Zola 44120 Nantes
+                    </p>
+                    <p>
+                        <i class="icon-time"></i> Du Mardi au Samedi <br />
+                        <i class="icon-"></i> 8:30 - 13:30 & 15:30 - 19:30 <br />
+                        <i class="icon-"></i> Le dimanch matin <br />
+                        <i class="icon-"></i> 8:30 - 13:00
+                    </p>
+
+                    
+                </div>
+
+
+            </div>
+
+            <div id="shop-logos" class="pull-right">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/new_parking_logo.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/new_cb_logo.jpg')}}" alt="">
+                <img src="{{ asset('bundles/piggyboxuser/img/logos/new_cheque_resto_logo.jpg')}}" alt="">
+            </div>
+
+        </div>
+
+        
+        {% set orders  = piggybox_orders_get() %}
+		<div id="user-cart" class="clearfix">
+            {# <div class="corner-top pull-left"></div>
+            <div class="clear"></div>
+            <div class="corner-left pull-left"></div> #}
+
+            <div class="user-cart-content">
+    			<h1>Panier</h1>
+
+    			{% for order in orders %}	
+
+    			 <h3>{{order.shop.name}}</h3>
+                    <table class="table pricing">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th class="text-right">Qté</th>
+                                <th class="text-right">Prix</th>
+								<th class="text-right">Suppression</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for order_detail in order.orderdetail %} 
+                            <tr>
+                                <td>{{ order_detail.product.name }}</td>
+                                <td class="text-right">{{ order_detail.price.price}}</td>
+                                <td class="text-right">4,30 €</td>
+								<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="ttc-price">
+                                <td colspan="2">Total TTC</td>
+                                <td>12,67 €</td>
+                            </tr>
+                        </tfoot>
+
+                    </table>	
+
+                    <div class="text-centered">
+                        <a href="{{ path('validation_page')}}" class="btn btn-primary"><i class="icon-download-alt icon-white"></i> Finaliser la commande</a>
+                    </div>
+
+                {% endfor %}
+            </div>
+
+            {# <div class="corner-right pull-right"></div>
+            <div class="clear"></div>
+            <div class="corner-bottom pull-right"></div> #}
+		</div>
+
+    </div>
+</div>
+
