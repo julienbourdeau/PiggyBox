@@ -92,6 +92,13 @@ class Shop
     private $orders;	
 	
     /**
+     * @var array $opening_time
+     *
+     * @ORM\Column(name="opening_time", type="array")
+     */
+    private $opening_time;
+	
+    /**
      * Constructor
      */
     public function __construct()
@@ -369,5 +376,28 @@ class Shop
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * Set opening_time
+     *
+     * @param array $openingTime
+     * @return Shop
+     */
+    public function setOpeningTime($openingTime)
+    {
+        $this->opening_time = $openingTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get opening_time
+     *
+     * @return array 
+     */
+    public function getOpeningTime()
+    {
+        return $this->opening_time;
     }
 }
