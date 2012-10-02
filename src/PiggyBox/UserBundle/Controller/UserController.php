@@ -37,7 +37,7 @@ class UserController extends Controller
      * @Template()
      */
     public function showAction(Request $req, $slug, $category_title)
-    {
+    {	
         $em = $this->getDoctrine()->getManager();
 
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);

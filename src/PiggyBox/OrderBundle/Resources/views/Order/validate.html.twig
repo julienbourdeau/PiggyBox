@@ -19,7 +19,6 @@
 					{% set orders  = piggybox_orders_get() %}
 
 						{% for order in orders %}	
-
 		    			 	<div class="span10 offset1">
 
 		    			 		<h3>{{order.shop.name}}</h3>
@@ -37,8 +36,8 @@
 			                        {% for order_detail in order.orderdetail %} 
 			                            <tr>
 			                                <td>{{ order_detail.product.name }}</td>
-			                                <td class="text-right">{{ order_detail.price.price}}</td>
-			                                <td class="text-right">4,30 €</td>
+			                                <td class="text-right">1</td>
+			                                <td class="text-right">{{ order_detail.price.price}} €</td>
 			                            </tr>
 			                        {% endfor %}
 			                        </tbody>
@@ -46,7 +45,7 @@
 			                        <tfoot>
 			                            <tr class="ttc-price">
 			                                <td colspan="2">Total TTC</td>
-			                                <td>12,67 €</td>
+			                                <td>0 €</td>
 			                            </tr>
 			                        </tfoot>
 
@@ -69,9 +68,9 @@
 
 											<h3>A propos de votre commande</h3>
 					                    	<p>A quelle heure souhaitez vous passez la recupérer?</p>	
-
-					                    	<div id="datepickercontainer"></div>
-
+					        
+											{{ form_widget(form) }}
+											
 					                    	<h3>A propos de vous</h3>
 
 											<div class="control-group">
