@@ -11,12 +11,14 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note')
-            ->add('total_price')
-            ->add('pickupat')
-            ->add('total_products')
-            ->add('createdat')
-            ->add('updatedat')
+            ->add('pickup_date', 'date', array(
+				'input'  => 'datetime',
+				'widget' => 'choice',
+				'format' => 'eeee d Y',
+				'with_seconds' => false,
+				'data_timezone' => "Europe/Paris",
+				'user_timezone' => "Europe/Paris"
+				))
         ;
     }
 

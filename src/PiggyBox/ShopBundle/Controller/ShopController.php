@@ -81,10 +81,33 @@ class ShopController extends Controller
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
         $form = $this->createForm(new ShopType(), $shop);
+		
+		$defaultData = array('message' => 'Type your message here');
+		$opening_hour = $this->createFormBuilder($defaultData)
+        ->add('monday', 'choice', array(
+    		'choices' => array(
+				'test' => 'test',
+				'test' => 'test',
+  			))
+		)
+		->add('tuesday', 'choice', array(
+	    	'choices' => array(
+				'test' => 'test',
+				'test' => 'test',
+	  		))
+		)
+		->add('wedesnday', 'choice', array(
+	    	'choices' => array(
+				'test' => 'test',
+				'test' => 'test',
+	  		))
+		)								
+		->getForm();
 
         return array(
             'entity' => $shop,
             'form'   => $form->createView(),
+			'opening_hour' => $opening_hour->createView(),
         );
     }
 

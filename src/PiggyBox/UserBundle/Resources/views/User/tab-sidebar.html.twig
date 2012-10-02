@@ -52,6 +52,7 @@
                                 <th>Produit</th>
                                 <th class="text-right">Qté</th>
                                 <th class="text-right">Prix</th>
+								<th class="text-right">Suppression</th>
                             </tr>
                         </thead>
 
@@ -61,6 +62,7 @@
                                 <td>{{ order_detail.product.name }}</td>
                                 <td class="text-right">{{ order_detail.price.price}}</td>
                                 <td class="text-right">4,30 €</td>
+								<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -75,7 +77,7 @@
                     </table>	
 
                     <div class="text-centered">
-                        <a href="" class="btn btn-primary"><i class="icon-download-alt icon-white"></i> Finaliser la commande</a>
+                        <a href="{{ path('validation_page')}}" class="btn btn-primary"><i class="icon-download-alt icon-white"></i> Finaliser la commande</a>
                     </div>
 
                 {% endfor %}
