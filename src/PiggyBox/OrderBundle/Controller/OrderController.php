@@ -143,9 +143,8 @@ class OrderController extends Controller
      */
 	public function validationPageAction()
 	{
-		$date = new \DateTime('today');
-		$ymd = $date->format('Ymd');
-		
+		$date = new \DateTime('now'); 
+
 		$defaultData = array('message' => 'Type your message here');
 		$form = $this->createFormBuilder($defaultData)
         ->add('pickup_date', 'choice', array(
