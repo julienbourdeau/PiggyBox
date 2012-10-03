@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
+use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -80,7 +81,14 @@ class ShopController extends Controller
 		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
-        $form = $this->createForm(new ShopType(), $shop);
+        
+		
+		$monday = new Day();
+		$monday->setDayName('Lundi');
+
+		$shop->addOpeningDay($monday);
+
+		$form = $this->createForm(new ShopType(), $shop);
 
         return array(
             'entity' => $shop,
