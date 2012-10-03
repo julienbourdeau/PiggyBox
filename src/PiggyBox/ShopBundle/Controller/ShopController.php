@@ -81,7 +81,7 @@ class ShopController extends Controller
 		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
-        
+		
 		// Ajout de tous les jours de la semaine
 		$monday = new Day();
 		$monday->setDayName('Lundi');
