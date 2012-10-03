@@ -45,7 +45,7 @@ class Price
 	
     /**
      * @var \DateTime $createdat
-
+	 *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */

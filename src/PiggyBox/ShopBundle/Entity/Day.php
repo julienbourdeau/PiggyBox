@@ -57,12 +57,11 @@ class Day
     private $to_time_afternoon;
 
     /**
-     * @var string $day_name
+     * @var integer $$day_of_the_week
      *
-     * @ORM\Column(name="day_name", type="string", length=255)
+     * @ORM\Column(name="day_of_the_week", type="integer")
      */
-    private $day_name;
-
+    private $day_of_the_week;
 
     /**
      * Get id
@@ -190,25 +189,25 @@ class Day
     }
 
     /**
-     * Set day_name
+     * Set day_of_the_week
      *
-     * @param string $dayName
+     * @param integer $dayOfTheWeek
      * @return Day
      */
-    public function setDayName($dayName)
+    public function setDayOfTheWeek($dayOfTheWeek)
     {
-        $this->day_name = $dayName;
+        $this->day_of_the_week = $dayOfTheWeek;
     
         return $this;
     }
 
     /**
-     * Get day_name
+     * Get day_of_the_week
      *
-     * @return string 
+     * @return integer 
      */
-    public function getDayName()
+    public function getDayOfTheWeek()
     {
-        return $this->day_name;
+        return $this->day_of_the_week;
     }
 }
