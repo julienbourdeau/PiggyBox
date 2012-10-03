@@ -1,24 +1,18 @@
 <?php
 
-namespace PiggyBox\OrderBundle\Form;
+namespace PiggyBox\OrderBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use PiggyBox\OrderBundle\Form\EventListener\AddUserInfoFieldsSubscriber;
+use PiggyBox\OrderBundle\Form\Type\UserType;
 
 class OrderType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('pickup_date', 'date', array(
-				'input'  => 'datetime',
-				'widget' => 'choice',
-				'format' => 'eeee d Y',
-				'with_seconds' => false,
-				'data_timezone' => "Europe/Paris",
-				'user_timezone' => "Europe/Paris"
-				))
+		$builder->add('user', new UserType())
         ;
     }
 
