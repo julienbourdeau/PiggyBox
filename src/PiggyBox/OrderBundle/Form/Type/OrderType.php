@@ -13,10 +13,8 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 		$subscriber = new AddOpeningHoursFieldsSubscriber($builder->getFormFactory());
-		$builder->addEventSubscriber($subscriber);
-		
-		$builder->add('user', new UserType())
-        ;
+		$builder->addEventSubscriber($subscriber);		
+		$builder->add('user', new UserType());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
