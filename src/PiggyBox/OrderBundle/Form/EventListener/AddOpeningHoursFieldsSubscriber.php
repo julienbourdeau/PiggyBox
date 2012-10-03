@@ -37,10 +37,49 @@ class AddOpeningHoursFieldsSubscriber implements EventSubscriberInterface
             return;
         }
 
-		if (!$data->getId()) {
+		if ($data->getId()) {
 			$opening_days = $data->getShop()->getOpeningDays();
 			
-		    $form->add($this->factory->createNamed('name', 'text'));
+			$opening_days_tab = array();			
+			$date = new \DateTime('now');					
+			
+			$close_day_tab = array();
+				
+			foreach ($opening_days as $day) {
+				if ($day->getOpen() == false) {
+					array_push($close_day_tab,$day->getDayOfTheWeek());
+				}
+				$opening_days_tab[$date->format('Ymd')] = $date->format('l jS F Y');
+				$date->modify('+1 day');
+			}
+			
+			$date = new \DateTime('now');
+			foreach ($opening_days_tab as $day) {
+				foreach ($close_day_tab as $close_day) {
+					if($date->format('N') == $close_day){
+						unset($opening_days_tab[$date->format('Ymd')]);
+					}
+				}
+				$date->modify('+1 day');
+			}
+			
+			$opening_hours = array();
+			$date = new \DateTime('now');
+			
+			foreach ($opening_days_tab as $day) {
+				var_dump($date->format('Ymd'));
+				var_dump($date->format('Hm'));
+				var_dump(array_key_exists($date->format('Ymd'),$opening_days_tab) );die();
+				if (array_keys($opening_days_tab,$day) === $date->format('Ymd')) {
+					var_dump("yalllaaa");die();
+				}
+			}
+			
+		    $form->add($this->factory->createNamed('pickup_date', 'choice','null', array(
+				'choices' => $opening_days_tab)
+			));
+				
+				
 		}
         
     }

@@ -157,8 +157,7 @@ class OrderController extends Controller
 			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
 //			var_dump($data['form'][$order->getId()]);die();
 		}
-		$date = new \DateTime('now'); 
-		var_dump($date->format('N'));die();
+
 			
 		// $date = new \DateTime('now'); 
 		// 
