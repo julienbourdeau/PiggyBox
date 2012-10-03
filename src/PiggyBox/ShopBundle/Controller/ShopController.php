@@ -169,7 +169,7 @@ class ShopController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'entity' => $shop,
             'form'   => $form->createView(),
         );
     }

@@ -24,7 +24,7 @@ class Day
     /**
      * @var boolean $open
      *
-     * @ORM\Column(name="open", type="boolean")
+     * @ORM\Column(name="open", type="boolean", nullable=true)
      */
     private $open;
 
