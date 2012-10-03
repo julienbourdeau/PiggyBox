@@ -6,26 +6,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ShopType extends AbstractType
+class DayType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('type')
-			->add('opening_days', 'collection', array('type' => new DayType()));
-			;
+            ->add('open')
+            ->add('from_time_morning')
+            ->add('to_time_morning')
+            ->add('from_time_afternoon')
+            ->add('to_time_afternoon')
+            ->add('day_name')
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PiggyBox\ShopBundle\Entity\Shop'
+            'data_class' => 'PiggyBox\ShopBundle\Entity\Day'
         ));
     }
 
     public function getName()
     {
-        return 'piggybox_shopbundle_shoptype';
+        return 'day';
     }
 }
