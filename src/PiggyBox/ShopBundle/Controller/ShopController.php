@@ -84,25 +84,25 @@ class ShopController extends Controller
 		
 		// Ajout de tous les jours de la semaine
 		$monday = new Day();
-		$monday->setDayName('Lundi');
+		$monday->setDayOfTheWeek(1);
 		
 		$tuesday = new Day();
-		$tuesday->setDayName('Mardi');
+		$tuesday->setDayOfTheWeek(2);
 		
 		$wednesday = new Day();
-		$wednesday->setDayName('Mercredi');
+		$wednesday->setDayOfTheWeek(3);
 		
 		$thursday = new Day();
-		$thursday->setDayName('Jeudi');
+		$thursday->setDayOfTheWeek(4);
 		
 		$friday = new Day();
-		$friday->setDayName('Vendredi');
+		$friday->setDayOfTheWeek(5);
 		
 		$saturday = new Day();
-		$saturday->setDayName('Samedi');
+		$saturday->setDayOfTheWeek(6);
 		
 		$sunday = new Day();
-		$sunday->setDayName('Dimanche');
+		$sunday->setDayOfTheWeek(7);
 		
 		
 
