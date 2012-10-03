@@ -29,6 +29,20 @@ class User extends BaseUser
     }
 
     /**
+     * @var string $lastname
+     *
+     * @ORM\Column(name="lastname", type="string", nullable=true)
+     */
+    private $name;
+	
+    /**
+     * @var string $phone_number
+     *
+     * @ORM\Column(name="phone_number", type="string", nullable=true)
+     */
+    private $phone_number;
+
+    /**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
      * @ORM\JoinColumn(name="ownshop_id", referencedColumnName="id")
      **/
@@ -141,5 +155,52 @@ class User extends BaseUser
     public function getOrders()
     {
         return $this->orders;
+    }
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set phone_number
+     *
+     * @param string $phoneNumber
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phone_number = $phoneNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone_number
+     *
+     * @return string 
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
     }
 }

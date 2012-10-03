@@ -8,13 +8,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
-use PiggyBox\OrderBundle\Form\OrderType;
+use PiggyBox\OrderBundle\Form\Type\OrderType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PiggyBox\OrderBundle\Entity\Cart;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 
 /**
  * Order controller.
@@ -109,7 +110,7 @@ class OrderController extends Controller
 
     /**
      * Validate cart 
-     *
+   	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/validation/{order_id}/transaction", name="validate_order")
      */
     public function validateOrderAction(Request $req, $order_id)
@@ -139,27 +140,42 @@ class OrderController extends Controller
     /**
      * Validation Page
      *
+	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/validation", name="validation_page")
      */
 	public function validationPageAction()
 	{
-		$date = new \DateTime('now'); 
-
-		$defaultData = array('message' => 'Type your message here');
-		$form = $this->createFormBuilder($defaultData)
-        ->add('pickup_date', 'choice', array(
-    		'choices' => array(
-				$date->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-  			))
-		)
-		->getForm();
-			return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', array('form' => $form->createView()));
+		//set the user to 
+		$user = $this->get('security.context')->getToken()->getUser();
+		$cart = $this->get('piggy_box_cart.provider')->getCart();
+		$orders = $cart->getOrders();
+		
+		$data = array();
+		
+		foreach ($orders as $order) {
+			$order->setUser($user);
+			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
+//			var_dump($data['form'][$order->getId()]);die();
+		}
+		
+		// $date = new \DateTime('now'); 
+		// 
+		// $defaultData = array('message' => 'Type your message here');
+		// $form = $this->createFormBuilder($defaultData)
+		//         ->add('pickup_date', 'choice', array(
+		//     		'choices' => array(
+		// 		$date->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+		//   			))
+		// )
+		// ->getForm();
+		// 	return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', array('form' => $form->createView()));
+		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
 	}
 }
