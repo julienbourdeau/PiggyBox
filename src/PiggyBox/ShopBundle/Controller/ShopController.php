@@ -82,11 +82,38 @@ class ShopController extends Controller
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
         
-		
+		// Ajout de tous les jours de la semaine
 		$monday = new Day();
 		$monday->setDayName('Lundi');
+		
+		$tuesday = new Day();
+		$tuesday->setDayName('Mardi');
+		
+		$wednesday = new Day();
+		$wednesday->setDayName('Mercredi');
+		
+		$thursday = new Day();
+		$thursday->setDayName('Jeudi');
+		
+		$friday = new Day();
+		$friday->setDayName('Vendredi');
+		
+		$saturday = new Day();
+		$saturday->setDayName('Samedi');
+		
+		$sunday = new Day();
+		$sunday->setDayName('Dimanche');
+		
+		
 
 		$shop->addOpeningDay($monday);
+		$shop->addOpeningDay($tuesday);
+		$shop->addOpeningDay($wednesday);
+		$shop->addOpeningDay($thursday);
+		$shop->addOpeningDay($friday);
+		$shop->addOpeningDay($saturday);
+		$shop->addOpeningDay($sunday);
+		
 
 		$form = $this->createForm(new ShopType(), $shop);
 
