@@ -93,7 +93,7 @@ class Shop
 	
 	/**
 	 * @ORM\ManyToMany(targetEntity="Day", cascade={"persist"})
-     * @ORM\JoinTable(name="shops_days",
+     * @ORM\JoinTable(name="shop_days",
      *      joinColumns={@ORM\JoinColumn(name="shop_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="day_id", referencedColumnName="id", unique=true)}
      *      )
