@@ -122,19 +122,33 @@
 {{parent()}}
 <script type="text/javascript">
 (function ($) {
+
+	var allHours = {};
+
+	$(document).ready(function() {
+		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+		
+		$("select#piggybox_orderbundle_ordertype_pickup_time option").each(function()
+		{
+			allHours[$(this).val()] = $(this).text();
+		});
+	$('option', select).remove();
+	});
+	
 	$('select#piggybox_orderbundle_ordertype_pickup_date').change(function() {
 		var value = $(this).val();
- 
+		
 		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+		var newOptions = {};
 
-		var newOptions = {
-    		'red' : 'Red',
-    		'blue' : 'Blue',
-    		'green' : 'Green',
-    		'yellow' : 'Yellow'
-		};
-
-		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+		for(var i in allHours) {
+		    if (allHours.hasOwnProperty(i)) {
+				if (i.substr(0, 8) == value) {
+					newOptions[i] = allHours[i]; 	
+				};
+		    }
+		}	
+				
 		if(select.prop) {
   		  var options = select.prop('options');
 	  	}
