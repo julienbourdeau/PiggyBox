@@ -76,19 +76,19 @@ class AddOpeningHoursFieldsSubscriber implements EventSubscriberInterface
 				}
 								
 				if($day->getFromTimeMorning() !== null){
-					$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+					$opening_hour_tab[$day_of_the_week->format('Ymd').$day->getFromTimeMorning()->format('Hi')] = $day->getFromTimeMorning()->format('H:i');
 					$day->getFromTimeMorning()->modify($day->getFromTimeMorning()->format('i')+30-$day->getFromTimeMorning()->format('i').' minutes'); 
 					while ( $day->getFromTimeMorning()->format('Hi') <= $day->getToTimeMorning()->format('Hi')) {
-						$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+						$opening_hour_tab[$day_of_the_week->format('Ymd').$day->getFromTimeMorning()->format('Hi')] = $day->getFromTimeMorning()->format('H:i');
 						$day->getFromTimeMorning()->modify('30 minutes');
 					}
 				}
 				
 				if($day->getFromTimeAfternoon() !== null){
-					$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
+					$opening_hour_tab[$day_of_the_week->format('Ymd').$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
 					$day->getFromTimeAfternoon()->modify($day->getFromTimeAfternoon()->format('i')+30-$day->getFromTimeAfternoon()->format('i').' minutes');
 					while ( $day->getFromTimeAfternoon()->format('Hi') <= $day->getToTimeAfternoon()->format('Hi')) {
-						$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
+						$opening_hour_tab[$day_of_the_week->format('Ymd').$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
 						$day->getFromTimeAfternoon()->modify('30 minutes');
 					}						
 				}

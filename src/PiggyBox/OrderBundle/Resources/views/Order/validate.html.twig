@@ -1,6 +1,6 @@
 
 
-{% extends 'FOSUserBundle::layout.html.twig' %}
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
 {% block content %}
 
@@ -116,6 +116,38 @@
 
     </div>
 </div>
-
-
 {% endblock content %}
+
+{% block javascript %}
+{{parent()}}
+<script type="text/javascript">
+(function ($) {
+	$('select#piggybox_orderbundle_ordertype_pickup_date').change(function() {
+		var value = $(this).val();
+ 
+		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+
+		var newOptions = {
+    		'red' : 'Red',
+    		'blue' : 'Blue',
+    		'green' : 'Green',
+    		'yellow' : 'Yellow'
+		};
+
+		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+		if(select.prop) {
+  		  var options = select.prop('options');
+	  	}
+		
+		else {
+			var options = select.attr('options');
+		}
+		$('option', select).remove();
+
+		$.each(newOptions, function(val, text) {
+    		options[options.length] = new Option(text, val);
+		});
+	});
+})(jQuery);
+</script>
+{% endblock %}
