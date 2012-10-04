@@ -56,28 +56,50 @@ class AddOpeningHoursFieldsSubscriber implements EventSubscriberInterface
 			$date = new \DateTime('now');
 			foreach ($opening_days_tab as $day) {
 				foreach ($close_day_tab as $close_day) {
-					if($date->format('N') == $close_day){
+					if($date->format('N') == $close_day) {
 						unset($opening_days_tab[$date->format('Ymd')]);
 					}
 				}
 				$date->modify('+1 day');
 			}
 			
-			$opening_hours = array();
-			$date = new \DateTime('now');
+			$opening_days_array_keys = array_keys($opening_days_tab);
 			
-			foreach ($opening_days_tab as $day) {
-				var_dump($date->format('Ymd'));
-				var_dump($date->format('Hm'));
-				var_dump(array_key_exists($date->format('Ymd'),$opening_days_tab) );die();
-				if (array_keys($opening_days_tab,$day) === $date->format('Ymd')) {
-					var_dump("yalllaaa");die();
+			foreach ($opening_days_array_keys as $day) {
+				
+				$day_of_the_week = new \DateTime($day);
+								
+				foreach ($opening_days as $opening_day) {
+					if($opening_day->getDayOfTheWeek() == $day_of_the_week->format('N')){
+						$day = $opening_day;
+					}
 				}
-			}
+								
+				if($day->getFromTimeMorning() !== null){
+					$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+					$day->getFromTimeMorning()->modify($day->getFromTimeMorning()->format('i')+30-$day->getFromTimeMorning()->format('i').' minutes'); 
+					while ( $day->getFromTimeMorning()->format('Hi') <= $day->getToTimeMorning()->format('Hi')) {
+						$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+						$day->getFromTimeMorning()->modify('30 minutes');
+					}
+				}
+				
+				if($day->getFromTimeAfternoon() !== null){
+					$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
+					$day->getFromTimeAfternoon()->modify($day->getFromTimeAfternoon()->format('i')+30-$day->getFromTimeAfternoon()->format('i').' minutes');
+					while ( $day->getFromTimeAfternoon()->format('Hi') <= $day->getToTimeAfternoon()->format('Hi')) {
+						$opening_hour_tab[$day->getDayOfTheWeek().$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeAfternoon()->modify('30 minutes');
+					}						
+				}
+			}						
 			
 		    $form->add($this->factory->createNamed('pickup_date', 'choice','null', array(
 				'choices' => $opening_days_tab)
 			));
+			$form->add($this->factory->createNamed('pickup_time', 'choice','null', array(
+				'choices' => $opening_hour_tab)
+			));		
 				
 				
 		}
