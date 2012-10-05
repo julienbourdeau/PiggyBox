@@ -138,6 +138,41 @@ class OrderController extends Controller
 	}
 
     /**
+     * Validate Order
+     *
+	 * @PreAuthorize("hasRole('ROLE_USER')")
+     * @Route("/validation/transaction", name="validate_order")
+     * @Method("POST")
+     */
+    public function createAction(Request $request)
+    {
+        $order = new Order();
+        $form = $this->createForm(new OrderType(), $order);
+        $form->bind($request);
+		var_dump($request->request);die();
+
+        if ($form->isValid()) {
+			var_dump("success");die();
+             // retrieving the security identity of the currently logged-in user
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+			
+			// saving the DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($shop);
+			$user->setOwnshop($shop);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
+        }
+
+        return array(
+            'entity' => $order,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
      * Validation Page
      *
 	 * @PreAuthorize("hasRole('ROLE_USER')")
