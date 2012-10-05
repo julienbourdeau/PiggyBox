@@ -132,7 +132,9 @@
 		{
 			allHours[$(this).val()] = $(this).text();
 		});
-	$('option', select).remove();
+		var newOptions ={};
+		console.log($('select#piggybox_orderbundle_ordertype_pickup_date').val());
+		addOptionsToSelect($('select#piggybox_orderbundle_ordertype_pickup_date').val(), select, newOptions, allHours)
 	});
 	
 	$('select#piggybox_orderbundle_ordertype_pickup_date').change(function() {
@@ -141,6 +143,11 @@
 		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
 		var newOptions = {};
 
+		addOptionsToSelect(value, select, newOptions, allHours);
+
+	});
+	
+	function	addOptionsToSelect(value, select, newOptions, allHours){
 		for(var i in allHours) {
 		    if (allHours.hasOwnProperty(i)) {
 				if (i.substr(0, 8) == value) {
@@ -161,7 +168,8 @@
 		$.each(newOptions, function(val, text) {
     		options[options.length] = new Option(text, val);
 		});
-	});
+	}
+	
 })(jQuery);
 </script>
 {% endblock %}
