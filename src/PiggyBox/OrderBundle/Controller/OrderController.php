@@ -145,7 +145,6 @@ class OrderController extends Controller
      */
 	public function validationPageAction()
 	{
-		//set the user to 
 		$user = $this->get('security.context')->getToken()->getUser();
 		$cart = $this->get('piggy_box_cart.provider')->getCart();
 		$orders = $cart->getOrders();
@@ -155,28 +154,8 @@ class OrderController extends Controller
 		foreach ($orders as $order) {
 			$order->setUser($user);
 			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
-//			var_dump($data['form'][$order->getId()]);die();
 		}
 
-			
-		// $date = new \DateTime('now'); 
-		// 
-		// $defaultData = array('message' => 'Type your message here');
-		// $form = $this->createFormBuilder($defaultData)
-		//         ->add('pickup_date', 'choice', array(
-		//     		'choices' => array(
-		// 		$date->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		// 		$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-		//   			))
-		// )
-		// ->getForm();
-		// 	return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', array('form' => $form->createView()));
 		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
 	}
 }

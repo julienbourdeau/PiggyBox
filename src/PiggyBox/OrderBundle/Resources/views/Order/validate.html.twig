@@ -127,27 +127,60 @@
 
 	$(document).ready(function() {
 		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
+		var today = new Date();
+		var today_date_string = today.getFullYear();
+		today.setHours(today.getHours()+3);
+		
+		if ((today.getUTCMonth()+1)<10) {
+			today_date_string = today_date_string+'0'+(today.getUTCMonth()+1);
+		}
+		else{
+			today_date_string = today_date_string+''+(today.getUTCMonth()+1);
+		}
+		
+		if (today.getUTCDate()<10) {
+			today_date_string = today_date_string+'0'+today.getUTCDate();
+		}
+		else{
+			today_date_string = today_date_string+''+today.getUTCDate();
+		}
+		
+		var today_time_string = today_date_string;		
+		if (today.getHours()<10) {
+			today_time_string = today_time_string+'0'+today.getHours();
+		}
+		else{
+			today_time_string = today_time_string+''+today.getHours();
+		}
+
+		if (today.getMinutes()<10) {
+			today_time_string = today_time_string+'0'+today.getMinutes();
+		}
+		else{
+			today_time_string = today_time_string+''+today.getMinutes();
+		}
 		
 		$("select#piggybox_orderbundle_ordertype_pickup_time option").each(function()
 		{
-			allHours[$(this).val()] = $(this).text();
+			if ($(this).val() > today_time_string) {
+				allHours[$(this).val()] = $(this).text();	
+			};			
 		});
-		var newOptions ={};
-		console.log($('select#piggybox_orderbundle_ordertype_pickup_date').val());
-		addOptionsToSelect($('select#piggybox_orderbundle_ordertype_pickup_date').val(), select, newOptions, allHours)
+		addOptionsToSelect($('select#piggybox_orderbundle_ordertype_pickup_date').val(), select, allHours);
 	});
 	
 	$('select#piggybox_orderbundle_ordertype_pickup_date').change(function() {
 		var value = $(this).val();
 		
 		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
-		var newOptions = {};
 
-		addOptionsToSelect(value, select, newOptions, allHours);
+		addOptionsToSelect(value, select, allHours);
 
 	});
 	
-	function	addOptionsToSelect(value, select, newOptions, allHours){
+	function	addOptionsToSelect(value, select, allHours){
+		var newOptions = {};
+		
 		for(var i in allHours) {
 		    if (allHours.hasOwnProperty(i)) {
 				if (i.substr(0, 8) == value) {
