@@ -21,16 +21,21 @@
 
 * PiggyBoxOrderBundle
 	* Tests Unitaires
-	* Refactorisation de la classe d'ajout et de validation des produits
-	* Ajouter la quantité dans une commande
+	* Création des classes d'évenement!
+	* 5 statuts différents pour 
+	** Ordering
+	** Validated
+	** NotValidated
+	** ToPrepare
+	** Archive
 	
 * Fixer les versions de symfony2.1
+* Ajout du DoctrineMigrationBundle
 
 ## Julien
 
-* implémentation des trois catégories de prix => JULIEN
-	* prix à l'unité
-	* prix au poids
+* FAQ
+
 
 	* Comment ça marche
 	* Accueil

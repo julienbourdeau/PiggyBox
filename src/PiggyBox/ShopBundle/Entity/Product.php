@@ -58,6 +58,13 @@ class Product
      * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
     private $image_path;
+	
+    /**
+     * @var array $opening_time
+     *
+     * @ORM\Column(name="opening_time", type="array")
+     */
+    private $opening_time;
 
     /**
      * @var \DateTime $createdat

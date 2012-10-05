@@ -45,11 +45,19 @@ class Order
     private $total_price;
 
     /**
-     * @var \DateTime $pickupat
+     * @var \Date $pickup_date
      *
-     * @ORM\Column(name="pickupat", type="datetime", nullable=true)
+     * @ORM\Column(name="pickup_date", type="date", nullable=true)
      */
-    private $pickupat;
+    private $pickup_date;
+
+    /**
+     * @var \Time $pickup_time
+     *
+     * @ORM\Column(name="pickup_time", type="time", nullable=true)
+     */
+    private $pickup_time;
+	
 
     /**
      * @var integer $total_products
@@ -92,6 +100,14 @@ class Order
     private $user;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->order_detail = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -105,7 +121,7 @@ class Order
      * Set note
      *
      * @param string $note
-     * @return Orders
+     * @return Order
      */
     public function setNote($note)
     {
@@ -125,10 +141,33 @@ class Order
     }
 
     /**
+     * Set status
+     *
+     * @param string $status
+     * @return Order
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * Set total_price
      *
      * @param float $totalPrice
-     * @return Orders
+     * @return Order
      */
     public function setTotalPrice($totalPrice)
     {
@@ -148,33 +187,56 @@ class Order
     }
 
     /**
-     * Set pickupat
+     * Set pickup_date
      *
-     * @param \DateTime $pickupat
-     * @return Orders
+     * @param \DateTime $pickupDate
+     * @return Order
      */
-    public function setPickupat($pickupat)
+    public function setPickupDate($pickupDate)
     {
-        $this->pickupat = $pickupat;
+        $this->pickup_date = $pickupDate;
     
         return $this;
     }
 
     /**
-     * Get pickupat
+     * Get pickup_date
      *
      * @return \DateTime 
      */
-    public function getPickupat()
+    public function getPickupDate()
     {
-        return $this->pickupat;
+        return $this->pickup_date;
+    }
+
+    /**
+     * Set pickup_time
+     *
+     * @param \DateTime $pickupTime
+     * @return Order
+     */
+    public function setPickupTime($pickupTime)
+    {
+        $this->pickup_time = $pickupTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get pickup_time
+     *
+     * @return \DateTime 
+     */
+    public function getPickupTime()
+    {
+        return $this->pickup_time;
     }
 
     /**
      * Set total_products
      *
      * @param integer $totalProducts
-     * @return Orders
+     * @return Order
      */
     public function setTotalProducts($totalProducts)
     {
@@ -194,6 +256,19 @@ class Order
     }
 
     /**
+     * Set createdat
+     *
+     * @param \DateTime $createdat
+     * @return Order
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+    
+        return $this;
+    }
+
+    /**
      * Get createdat
      *
      * @return \DateTime 
@@ -204,6 +279,19 @@ class Order
     }
 
     /**
+     * Set updatedat
+     *
+     * @param \DateTime $updatedat
+     * @return Order
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+    
+        return $this;
+    }
+
+    /**
      * Get updatedat
      *
      * @return \DateTime 
@@ -211,13 +299,6 @@ class Order
     public function getUpdatedat()
     {
         return $this->updatedat;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->order_detail = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -251,55 +332,6 @@ class Order
     public function getOrderDetail()
     {
         return $this->order_detail;
-    }
-
-    /**
-     * Set status
-     *
-     * @param string $status
-     * @return Order
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set createdat
-     *
-     * @param \DateTime $createdat
-     * @return Order
-     */
-    public function setCreatedat($createdat)
-    {
-        $this->createdat = $createdat;
-    
-        return $this;
-    }
-
-    /**
-     * Set updatedat
-     *
-     * @param \DateTime $updatedat
-     * @return Order
-     */
-    public function setUpdatedat($updatedat)
-    {
-        $this->updatedat = $updatedat;
-    
-        return $this;
     }
 
     /**
