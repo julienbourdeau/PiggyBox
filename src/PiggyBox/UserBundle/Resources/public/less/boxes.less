@@ -1,13 +1,13 @@
 // Boxes
 // -------------------------
 @boxBackground:     #f5f5f5;
-@boxBorder:         @white;
+@boxBorder:         @grayDarker;
 
 
 .box {
 	background: none repeat scroll 0 0 @boxBackground;
 	.border-radius(4px);
-	border: 1px solid @boxBorder;
+	border: 6px solid @boxBorder;
 	*border: 0; // Remove the border to prevent IE7's black border on input:focus
 	border-bottom-color: darken(@boxBorder, 10%);
   //border: #5fd938 solid 2px; Corentin
