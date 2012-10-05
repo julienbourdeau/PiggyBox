@@ -13,6 +13,8 @@ use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PiggyBox\OrderBundle\Entity\Cart;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\AbstractType;
 
 /**
  * Order controller.
@@ -141,6 +143,23 @@ class OrderController extends Controller
      */
 	public function validationPageAction()
 	{
-		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig');
+		$date = new \DateTime('now'); 
+
+		$defaultData = array('message' => 'Type your message here');
+		$form = $this->createFormBuilder($defaultData)
+        ->add('pickup_date', 'choice', array(
+    		'choices' => array(
+				$date->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
+  			))
+		)
+		->getForm();
+			return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', array('form' => $form->createView()));
 	}
 }

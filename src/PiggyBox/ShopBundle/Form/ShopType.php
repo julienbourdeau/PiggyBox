@@ -12,8 +12,7 @@ class ShopType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('type')
-        ;
+            ->add('type');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
