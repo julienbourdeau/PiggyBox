@@ -259,52 +259,59 @@ footer#footer {
 	}
 }
 
-h1.step-number span {
-	display: block;
-	width:50px;
-	height:50px;
-	margin: 0 auto;
-	.border-radius(25px);
-	background: @linkColor;
-	font-size:26px;
-	color:#fff;
-	line-height:50px;
-	text-align:center;
+blockquote.homepage {
+	margin: 24px 0;
+	border: 0;
+	p {
+		font-size: 42px;
+		line-height: 46px;
+		font-family: "serif";
+		margin-top: 26px
+		font-style: italic;
+	}
+	img.quotes-open {
+		margin-top: -26px;
+	}
+	img.quotes-close {
+		margin-top: 64px;
+	}
+}
+
+.step-wrapper {
+
+}
+.step-container {
+	float: left;
+	width: 23%;
+	margin-left: 8%;
+}
+
+.step-number {
+	margin-bottom: 24px;
+ 	span {
+		display: block;
+		width:50px;
+		height:50px;
+		margin: 0 auto;
+		.border-radius(25px);
+		background: @grayDarker;
+		font-size:26px;
+		color:#fff;
+		line-height:50px;
+		text-align:center;
+	}
 }
 
 #launch-ribbon {
-	background: @red;
+	background: url( "@{texturePath}" ) @red;
 	color: @white;
 }
-
-
-#map {
-	#map-wrapper{
-		height: 600px;
-		border: 10px solid #262626;
-	}
-	#map-gmap {
-		float: left;
-		width: 65%;
-		height: 100%;
-		margin: 0;
-
-	}
-	#map-gmap-content {
-		width: 100%;
-		height: 100%;
-	}
-	#map-photo {
-		float: right;
-		width: 35%;
-		//height: 33%;
-	}
-	#map-content {
-		float: right;
-		width: 35%;
-		//height: 67%;
-	}
+.dash-container {
+	margin: 6px;
+	border: 3px dashed @white;
 }
+
+
 
 
 
