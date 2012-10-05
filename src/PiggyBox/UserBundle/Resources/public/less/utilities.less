@@ -37,7 +37,11 @@
 	margin: 0;
 	padding: 0;
 }
-.box-centered {
+.bottom-marged {
+  margin-bottom: 36px;
+}
+.box-centered,
+.centered {
   clear: both;
   margin: 0 auto;
 }
@@ -49,4 +53,14 @@
 }
 .text-left {
   text-align: left;
+}
+
+.black-bordered {
+  border: 6px solid @grayDarker;
+  a {
+    border: 6px solid @grayDarker;
+  }
+  a:hover {
+    border: 6px solid @red;
+  }
 }
