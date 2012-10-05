@@ -29,9 +29,9 @@ class User extends BaseUser
     }
 
     /**
-     * @var string $lastname
+     * @var string $name
      *
-     * @ORM\Column(name="lastname", type="string", nullable=true)
+     * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
 	
