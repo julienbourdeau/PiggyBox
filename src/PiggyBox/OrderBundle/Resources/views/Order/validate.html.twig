@@ -65,35 +65,48 @@
 										</div>
 
 										<div class="modal-body">
-
+											{{ form_errors(form[order.id]) }}
 											<h3>A propos de votre commande</h3>
 					                    	<p>A quelle heure souhaitez vous passez la recupérer?</p>	
 					        
-											{{ form_widget(form[order.id]) }}
+											<div class="control-group">
+												<label class="control-label">Date de retrait:</label>
+												<div class="controls">
+													{{ form_widget(form[order.id].pickup_date) }}
+												</div>
+											</div>
 											
+											<div class="control-group">
+												<label class="control-label">A partir de:</label>
+												<div class="controls">
+													{{ form_widget(form[order.id].pickup_time) }}
+												</div>
+											</div>
+
+											{% if app.user.name is null or app.user.email is null or app.user.phonenumber is null %}
 					                    	<h3>A propos de vous</h3>
-
+											
 											<div class="control-group">
-												<label class="control-label" for="yourname">Votre nom</label>
+												<label class="control-label">Votre nom</label>
 												<div class="controls">
-													<input type="text" id="" class="span3" placeholder="Ex: Antoine Dupuy">
+													{{ form_widget(form[order.id].user.name, { 'attr': {'placeholder': 'Ex: Antoine Dupuy'} }) }}
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
-												<label class="control-label" for="yourname">Votre email</label>
+												<label class="control-label">Votre email</label>
 												<div class="controls">
-													<input type="text" id="" class="span3" placeholder="Ex: antoine.dupuy@gmail.com">
+													{{ form_widget(form[order.id].user.email, { 'attr': {'placeholder': 'Ex: antoine.dupuy@gmail.com'} }) }}
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
-												<label class="control-label" for="yourname">Votre téléphone</label>
+												<label class="control-label">Votre téléphone</label>
 												<div class="controls">
-													<input type="text" id="" class="span3" placeholder="Ex: 06 11 34 23 00">
+													{{ form_widget(form[order.id].user.phone_number, { 'attr': {'placeholder': 'Ex: 06 11 34 23 00'} }) }}
 												</div>
 											</div>
-
+											{% endif %}
 					                    </div>
 
 					                    <div class="modal-footer">
