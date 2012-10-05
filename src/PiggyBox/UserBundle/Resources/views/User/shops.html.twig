@@ -1,0 +1,70 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div id="gmap-container" class="black-bordered" style="line-height: 0;">
+                    <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=nantes&amp;aq=&amp;sll=47.417262,-0.821485&amp;sspn=5.998884,11.217041&amp;t=h&amp;ie=UTF8&amp;hq=&amp;hnear=Nantes,+Loire-Atlantique,+Pays+de+la+Loire&amp;ll=47.218371,-1.553621&amp;spn=0.047044,0.087633&amp;z=14&amp;output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div id="launch-ribbon" class="text-centered clearfix">
+                    <div class="dash-container">
+                        <h2>Lancement sur Nantes en octobre 2012
+                           <br>Bientôt plus de commerces et villes disponibles</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span9">
+
+                <div class="box bottom-marged">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Boucherie de Zola</h2>
+                            <h4>Une boucherie au coeur du quartier Zola</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            <a href="#" class="btn btn-block"> <i class="icon-shopping-cart"></i> Visiter le magasin</a>
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+            </div>
+            <div class="span3">sidebar avec des trucs</div>
+        </div>
+    </div>
+
+{#
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div class="black-bordered">
+                    <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+#}
+
+
+    
+{% endblock %}
