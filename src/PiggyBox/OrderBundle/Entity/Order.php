@@ -44,20 +44,11 @@ class Order
      */
     private $total_price;
 
-    /**
-     * @var \Date $pickup_date
-     *
-     * @ORM\Column(name="pickup_date", type="date", nullable=true)
-     */
-    private $pickup_date;
-
-    /**
-     * @var \Time $pickup_time
-     *
-     * @ORM\Column(name="pickup_time", type="time", nullable=true)
-     */
-    private $pickup_time;
-	
+	/**
+	 * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Day")
+	 * @ORM\JoinColumn(name="day_id", referencedColumnName="id")
+	 */
+	 private $day;
 
     /**
      * @var integer $total_products
@@ -378,5 +369,28 @@ class Order
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set day
+     *
+     * @param PiggyBox\ShopBundle\Entity\Day $day
+     * @return Order
+     */
+    public function setDay(\PiggyBox\ShopBundle\Entity\Day $day = null)
+    {
+        $this->day = $day;
+    
+        return $this;
+    }
+
+    /**
+     * Get day
+     *
+     * @return PiggyBox\ShopBundle\Entity\Day 
+     */
+    public function getDay()
+    {
+        return $this->day;
     }
 }

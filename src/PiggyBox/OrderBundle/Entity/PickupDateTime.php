@@ -5,10 +5,10 @@ namespace PiggyBox\OrderBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * PiggyBox\OrderBundle\Entity\PickupDateTime
+ *
+ * @ORM\Table(name="piggybox_pickupdatetime")
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"day" = "PiggyBox\ShopBundle\Entity\Day", "hour" = "PiggyBox\ShopBundle\Entity\Hour"})
  */
 class PickupDateTime
 {

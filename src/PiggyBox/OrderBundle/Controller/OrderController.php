@@ -147,9 +147,9 @@ class OrderController extends Controller
     public function createAction(Request $request)
     {
         $order = new Order();
-        $form = $this->createForm(new OrderType(), $order);
+        $form = $this->createForm(new OrderType(null), $order);
         $form->bind($request);
-		var_dump($request->request);die();
+		var_dump($request->request);
 
         if ($form->isValid()) {
 			var_dump("success");die();
@@ -165,7 +165,7 @@ class OrderController extends Controller
 
             return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
-
+			var_dump("success");die();
         return array(
             'entity' => $order,
             'form'   => $form->createView(),
@@ -188,7 +188,8 @@ class OrderController extends Controller
 		
 		foreach ($orders as $order) {
 			$order->setUser($user);
-			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
+			$shop_id = $order->getShop()->getId();
+			$data['form'][$order->getId()] = $this->createForm(new OrderType($shop_id), $order)->createView();
 		}
 
 		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
