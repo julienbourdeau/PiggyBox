@@ -72,14 +72,14 @@
 											<div class="control-group">
 												<label class="control-label">Date de retrait:</label>
 												<div class="controls">
-													{{ form_widget(form[order.id].pickup_date) }}
+													{{ form_widget(form[order.id].day) }}
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">A partir de:</label>
 												<div class="controls">
-													{{ form_widget(form[order.id].pickup_time) }}
+
 												</div>
 											</div>
 
@@ -89,21 +89,21 @@
 											<div class="control-group">
 												<label class="control-label">Votre nom</label>
 												<div class="controls">
-													{{ form_widget(form[order.id].user.name, { 'attr': {'placeholder': 'Ex: Antoine Dupuy'} }) }}
+					
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
 												<label class="control-label">Votre email</label>
 												<div class="controls">
-													{{ form_widget(form[order.id].user.email, { 'attr': {'placeholder': 'Ex: antoine.dupuy@gmail.com'} }) }}
+					
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
 												<label class="control-label">Votre téléphone</label>
 												<div class="controls">
-													{{ form_widget(form[order.id].user.phone_number, { 'attr': {'placeholder': 'Ex: 06 11 34 23 00'} }) }}
+													
 												</div>
 											</div>
 											{% endif %}
