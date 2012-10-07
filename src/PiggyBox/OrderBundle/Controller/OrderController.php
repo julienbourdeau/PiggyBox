@@ -188,8 +188,7 @@ class OrderController extends Controller
 		
 		foreach ($orders as $order) {
 			$order->setUser($user);
-			$shop_id = $order->getShop()->getId();
-			$data['form'][$order->getId()] = $this->createForm(new 					OrderType($this->getDoctrine()->getEntityManager()))->createView();
+			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
 			}
 
 		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
