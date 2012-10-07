@@ -57,11 +57,17 @@ class Day
     private $to_time_afternoon;
 
     /**
-     * @var integer $$day_of_the_week
+     * @var integer $day_of_the_week
      *
      * @ORM\Column(name="day_of_the_week", type="integer")
      */
     private $day_of_the_week;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Shop", inversedBy="opening_days")
+	 * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+	 **/
+	 private $shop;
 
     /**
      * Get id
@@ -209,5 +215,28 @@ class Day
     public function getDayOfTheWeek()
     {
         return $this->day_of_the_week;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Day
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+    
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return PiggyBox\ShopBundle\Entity\Shop 
+     */
+    public function getShop()
+    {
+        return $this->shop;
     }
 }

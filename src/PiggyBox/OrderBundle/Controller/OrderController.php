@@ -149,23 +149,23 @@ class OrderController extends Controller
         $order = new Order();
         $form = $this->createForm(new OrderType(), $order);
         $form->bind($request);
-		var_dump($request->request);die();
+		var_dump($request->request);
+		var_dump($form->getErrorsAsString());
 
         if ($form->isValid()) {
-			var_dump("success");die();
+			var_dump("success");
              // retrieving the security identity of the currently logged-in user
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
 			
 			// saving the DB
             $em = $this->getDoctrine()->getManager();
-            $em->persist($shop);
-			$user->setOwnshop($shop);
+            $em->persist($order);
             $em->flush();
 
             return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
-
+			var_dump("echec");die();
         return array(
             'entity' => $order,
             'form'   => $form->createView(),
@@ -188,8 +188,9 @@ class OrderController extends Controller
 		
 		foreach ($orders as $order) {
 			$order->setUser($user);
-			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
-		}
+			$shop_id = $order->getShop()->getId();
+			$data['form'][$order->getId()] = $this->createForm(new 					OrderType($this->getDoctrine()->getEntityManager()))->createView();
+			}
 
 		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
 	}
