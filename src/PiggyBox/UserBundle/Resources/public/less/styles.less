@@ -27,6 +27,27 @@
 	background: url('../img/coming-soon.png');
 }
 
+div.image-category {
+	border: 4px solid @grayDarker;
+}
+div.image-category:hover {
+	div.title-hover {
+		display: block;
+		width: 262px;
+		text-align: center;
+		font-size: 21px;
+		line-height: 36px;
+		position: absolute;
+		margin-top: 65px;
+		background: @grayDarker;
+		color: @white;
+		z-index: 999;
+	}
+	img {
+		opacity: 0.8;
+	}
+}
+
 header#header {
 	height: 100%;
 	margin-bottom: 52px;
