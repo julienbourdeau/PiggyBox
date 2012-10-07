@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 class DateUniqueSelectorType extends AbstractType
 {
-    const DEFAULT_FORMAT = \IntlDateFormatter::MEDIUM;
+    const DEFAULT_FORMAT = \IntlDateFormatter::FULL;
 
     const HTML5_FORMAT = 'yyyy-MM-dd';
 
@@ -73,16 +73,7 @@ class DateUniqueSelectorType extends AbstractType
 
             if ('choice' === $options['widget']) {
                 // Only pass a subset of the options to children
-                //$yearOptions['choices'] = $this->formatTimestamps($formatter, '/y+/', $this->listYears($options['years']));
-				
 				$dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days']);
-                //var_dump($yearOptions['choices']);
-				$today = new \DateTime('now');
-				//var_dump($today->format('l jS F Y'));
-				//var_dump(new \DateTime($today->format('l jS F Y')));die();
-				$yearOptions['empty_value'] = $options['empty_value']['year'];
-                //$monthOptions['choices'] = $this->formatTimestamps($formatter, '/M+/', $this->listMonths($options['months']));
-                //$monthOptions['empty_value'] = $options['empty_value']['month'];
                 //$dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
                 //$dayOptions['empty_value'] = $options['empty_value']['day'];
             }
@@ -94,8 +85,6 @@ class DateUniqueSelectorType extends AbstractType
 
             $builder
                 ->add('date', $options['widget'], $dateOption)
-                //->add('month', $options['widget'], $monthOptions)
-                //->add('day', $options['widget'], $dayOptions)
                 ->addViewTransformer(new DateTimeToArrayTransformer(
 				$options['model_timezone'], $options['view_timezone'], array('date')
                 ))
