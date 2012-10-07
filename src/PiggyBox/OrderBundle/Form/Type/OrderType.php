@@ -11,7 +11,6 @@ use PiggyBox\OrderBundle\Form\Type\DateUniqueSelectorType;
 use Doctrine\ORM\EntityRepository; 
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use PiggyBox\OrderBundle\Form\DataTransformer\DayToStringTransformer;
 use Doctrine\ORM\EntityManager;
 
 class OrderType extends AbstractType
@@ -19,37 +18,37 @@ class OrderType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {		
-
-		$builder->add('createdat',new DateUniqueSelectorType());
+		$formFactory = $builder->getFormFactory();
 		
-				// $builder->addEventListener(
-				// 					FormEvents::PRE_SET_DATA,
-				// 					function (FormEvent $event) use ($formFactory) {
-				// 
-				// 						if($event->getData()){
-				// 							if($event->getData()->getId() !== null){
-				// 								$shop_id = $event->getData()->getShop()->getId();	
-				// 							}
-				// 							else{
-				// 								$shop_id = null;
-				// 							}
-				// 
-				// 							$event->getForm()->add(
-				// 								$formFactory->createNamed('day', 'entity', null, 
-				// 									array (
-				// 										'label' => 'NomDuLabel',
-				// 										'class' => 'PiggyBox\\ShopBundle\\Entity\\Day',
-				// 										'property' => 'day_of_the_week',
-				// 										'query_builder' => function(EntityRepository $er) use ($shop_id){
-				// 											return $er->createQueryBuilder('d')												
-				// 													->where('d.shop = ?1')
-				// 													->orderBy('d.id', 'ASC')
-				// 													->setParameter(1, $shop_id);;
-				// 										},)
-				// 									))->addModelTransformer($transformer);							
-				// 						}
-				// 					}
-				// 				);	
+		$builder->addEventListener(
+			FormEvents::PRE_SET_DATA,
+			function (FormEvent $event) use ($formFactory) {
+				if (null === $event->getData()) {
+         	    	return;
+        		}
+
+				if($event->getData()){
+					$closeDays = array();
+					if ($event->getData()->getShop() !== null) {
+						$openingDays = $event->getData()->getShop()->getOpeningDays();
+
+						foreach ($openingDays as $day) {
+							if(!$day->getOpen()){
+								array_push($closeDays, $day->getDayOfTheWeek());	
+							}
+						}
+					}					
+
+					$event->getForm()->add(
+						$formFactory->createNamed('createdat',new DateUniqueSelectorType(),null ,array(
+							'number_of_days' => 8,
+							'closed_days' => $closeDays,
+						))
+					);
+				}
+			}
+		);
+
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
