@@ -52,6 +52,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
         if (null === $dateTime) {
             return array_intersect_key(array(
                 'date'    => '',
+                'time'    => '',
 				'year'    => '',
                 'month'   => '',
                 'day'     => '',
@@ -76,6 +77,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
 
         $result = array_intersect_key(array(
 			'date'	  => $dateTime->format('l jS F Y'),
+			'time'	  => $dateTime->format('H:i'),
             'year'    => $dateTime->format('Y'),
             'month'   => $dateTime->format('m'),
             'day'     => $dateTime->format('d'),
@@ -107,6 +109,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
      */
     public function reverseTransform($value)
     {
+		var_dump($value);
         if (null === $value) {
             return null;
         }
@@ -145,12 +148,16 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
             throw new TransformationFailedException('This year is invalid');
         }
 
-        if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) && !empty($value['date']) && false === checkdate($value['month'], $value['day'], $value['year'])) {
+        if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) && !empty($value['time']) && !empty($value['date']) && false === checkdate($value['month'], $value['day'], $value['year'])) {
             throw new TransformationFailedException('This is an invalid date');
         }
 
         try {
-            $dateTime = new \DateTime($value['date']);
+			var_dump($value['date']);
+			var_dump($value['time']);
+            //$dateTime = new \DateTime($value['date']);
+            $dateTime = new \DateTime(empty($value['date']) ? $value['time'] : $value['date']);
+			var_dump($datetime);die();
 
             if ($this->inputTimezone !== $this->outputTimezone) {
                 $dateTime->setTimezone(new \DateTimeZone($this->inputTimezone));
