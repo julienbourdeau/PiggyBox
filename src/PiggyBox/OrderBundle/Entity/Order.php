@@ -65,6 +65,13 @@ class Order
      */
     private $createdat;
 
+	/**
+     * @var \DateTime $pickupatTime
+     *
+     * @ORM\Column(name="pickupatTime", type="time")
+     */
+    private $pickupatTime;
+
     /**
      * @var \DateTime $updatedat
      *
@@ -392,5 +399,28 @@ class Order
     public function getDay()
     {
         return $this->day;
+    }
+
+    /**
+     * Set pickupatTime
+     *
+     * @param \DateTime $pickupatTime
+     * @return Order
+     */
+    public function setPickupatTime($pickupatTime)
+    {
+        $this->pickupatTime = $pickupatTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get pickupatTime
+     *
+     * @return \DateTime 
+     */
+    public function getPickupatTime()
+    {
+        return $this->pickupatTime;
     }
 }

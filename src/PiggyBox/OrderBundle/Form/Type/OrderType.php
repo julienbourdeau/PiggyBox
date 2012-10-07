@@ -8,10 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PiggyBox\OrderBundle\Form\EventListener\AddOpeningHoursFieldsSubscriber;
 use PiggyBox\OrderBundle\Form\Type\UserType;
 use PiggyBox\OrderBundle\Form\Type\DateUniqueSelectorType;
+use PiggyBox\OrderBundle\Form\Type\TimeUniqueSelectorType;
 use Doctrine\ORM\EntityRepository; 
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Doctrine\ORM\EntityManager;
+use PiggyBox\OrderBundle\Entity\Order;
 
 class OrderType extends AbstractType
 {
@@ -29,6 +31,7 @@ class OrderType extends AbstractType
 
 				if($event->getData()){
 					$closeDays = array();
+
 					if ($event->getData()->getShop() !== null) {
 						$openingDays = $event->getData()->getShop()->getOpeningDays();
 
@@ -49,6 +52,22 @@ class OrderType extends AbstractType
 			}
 		);
 
+		$builder->addEventListener(
+			FormEvents::POST_SET_DATA,
+			function (FormEvent $event) use ($formFactory) {
+				if (null === $event->getData()) { 
+					$event->getForm()->add(
+						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
+					); 
+        		}
+
+		        if ($event->getData() instanceof Order) {  
+					$event->getForm()->add(
+						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
+					); 
+        		} 
+			}
+		);
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
