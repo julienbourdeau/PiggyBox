@@ -75,16 +75,16 @@ class DateUniqueSelectorType extends AbstractType
                 // Only pass a subset of the options to children
                 //$yearOptions['choices'] = $this->formatTimestamps($formatter, '/y+/', $this->listYears($options['years']));
 				
-				$dateOption['choices'] = $this->listUniqueDate();
+				$dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days']);
                 //var_dump($yearOptions['choices']);
 				$today = new \DateTime('now');
 				//var_dump($today->format('l jS F Y'));
 				//var_dump(new \DateTime($today->format('l jS F Y')));die();
 				$yearOptions['empty_value'] = $options['empty_value']['year'];
-                $monthOptions['choices'] = $this->formatTimestamps($formatter, '/M+/', $this->listMonths($options['months']));
-                $monthOptions['empty_value'] = $options['empty_value']['month'];
-                $dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
-                $dayOptions['empty_value'] = $options['empty_value']['day'];
+                //$monthOptions['choices'] = $this->formatTimestamps($formatter, '/M+/', $this->listMonths($options['months']));
+                //$monthOptions['empty_value'] = $options['empty_value']['month'];
+                //$dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
+                //$dayOptions['empty_value'] = $options['empty_value']['day'];
             }
 
             // Append generic carry-along options
@@ -211,6 +211,8 @@ class DateUniqueSelectorType extends AbstractType
             // this option.
             'data_class'     => null,
             'compound'       => $compound,
+			'number_of_days' => 8,
+			'closed_days'       => array(),
         ));
 
         $resolver->setNormalizers(array(
@@ -275,52 +277,19 @@ class DateUniqueSelectorType extends AbstractType
 
         return $timestamps;
     }
-
-    private function listYears(array $years)
-    {
-        $result = array();
-
-        foreach ($years as $year) {
-            $result[$year] = gmmktime(0, 0, 0, 6, 15, $year);
-        }
-
-        return $result;
-    }
-
-    private function listMonths(array $months)
-    {
-        $result = array();
-
-        foreach ($months as $month) {
-            $result[$month] = gmmktime(0, 0, 0, $month, 15);
-        }
-
-        return $result;
-    }
-
-    private function listDays(array $days)
-    {
-        $result = array();
-
-        foreach ($days as $day) {
-            $result[$day] = gmmktime(0, 0, 0, 5, $day);
-        }
-
-        return $result;
-    }
 	
-	private function listUniqueDate(){
+	private function listUniqueDate($number_of_days, $closed_days){
         $result = array();
 
-        // foreach ($days as $day) {
-        //             $result[$day] = gmmktime(0, 0, 0, 5, $day);
-        //         }
-		
 		$today = new \DateTime('now');
-		$today->format('l jS F Y');
-		$result[$today->format('l jS F Y')] = $today->format('l jS F Y');
-		$today->modify('+1 day');
-		$result[$today->format('l jS F Y')] = $today->format('l jS F Y');
+		
+        for ($i=0; $i < $number_of_days; $i++) {
+			if(!in_array($today->format('N'), $closed_days)){
+				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');				
+			}
+			$today->modify('+1 day');
+		}
+		
 		return $result;
 	}
 }
