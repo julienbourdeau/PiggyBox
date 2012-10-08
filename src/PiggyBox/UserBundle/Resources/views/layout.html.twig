@@ -50,12 +50,16 @@
                                     {% if app.user %}
                                         Connecté en tant que <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
                                         | 
-                                        <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                        <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
                                     {% else %}
                                         <a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a>
                                         |
                                         <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
                                     {% endif %}
+                                </div>
+
+                                <div class="pull-right">
+                                    <img style="margin-top: 8px;" width="220px" src="{{ asset('bundles/piggyboxuser/img/help numbers_header.png')}}" alt="">
                                 </div>
 
                             </div>
@@ -70,9 +74,10 @@
                         <div class="span12">
                             <div class="header-menu tabbable tabs-below pull-right">
                                 <ul class="access nav nav-tabs">
-                                    <li class="active"><a href="">Accueil</a></li>
-                                    <li><a href="">Les commerçants</a></li>
-                                    <li><a href="">Comment ça marche?</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Les commerçants</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Comment ça marche?</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "validation_page" %}active{% endif %}"><a href="{{ path('validation_page') }}">Panier</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -101,8 +106,8 @@
                         #}
                         <div class="help-contact">
                             <img src="{{ asset('bundles/piggyboxuser/img/help-telephone.png')}}" alt="">
-                            <img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt="">
-                            <img src="{{ asset('bundles/piggyboxuser/img/help-email.png')}}" alt="">
+                            <a href="//twitter.com/cetaf_officiel"><img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt=""></a>
+                            <a href="mailto:aide@cotelettes-tarteauxfraises.com"><img src="{{ asset('bundles/piggyboxuser/img/help-email.png')}}" alt=""></a>
                         </div>
 
                     </div>
