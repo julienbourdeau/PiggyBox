@@ -50,7 +50,7 @@
                                     {% if app.user %}
                                         Connecté en tant que <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
                                         | 
-                                        <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+                                        <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
                                     {% else %}
                                         <a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a>
                                         |
