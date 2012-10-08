@@ -45,21 +45,6 @@ class Order
     private $total_price;
 
     /**
-     * @var \Date $pickup_date
-     *
-     * @ORM\Column(name="pickup_date", type="date", nullable=true)
-     */
-    private $pickup_date;
-
-    /**
-     * @var \Time $pickup_time
-     *
-     * @ORM\Column(name="pickup_time", type="time", nullable=true)
-     */
-    private $pickup_time;
-	
-
-    /**
      * @var integer $total_products
      *
      * @ORM\Column(name="total_products", type="integer", nullable=true)
@@ -73,6 +58,20 @@ class Order
      * @ORM\Column(name="createdat", type="datetime")
      */
     private $createdat;
+
+	/**
+     * @var \DateTime $pickupatTime
+     *
+     * @ORM\Column(name="pickupatTime", type="time", nullable=true)
+     */
+    private $pickupatTime;
+
+	/**
+     * @var \DateTime $pickupatDate
+     *
+     * @ORM\Column(name="pickupatDate", type="date", nullable=true)
+     */
+    private $pickupatDate;
 
     /**
      * @var \DateTime $updatedat
@@ -378,5 +377,51 @@ class Order
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set pickupatTime
+     *
+     * @param \DateTime $pickupatTime
+     * @return Order
+     */
+    public function setPickupatTime($pickupatTime)
+    {
+        $this->pickupatTime = $pickupatTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get pickupatTime
+     *
+     * @return \DateTime 
+     */
+    public function getPickupatTime()
+    {
+        return $this->pickupatTime;
+    }
+
+    /**
+     * Set pickupatDate
+     *
+     * @param \DateTime $pickupatDate
+     * @return Order
+     */
+    public function setPickupatDate($pickupatDate)
+    {
+        $this->pickupatDate = $pickupatDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get pickupatDate
+     *
+     * @return \DateTime 
+     */
+    public function getPickupatDate()
+    {
+        return $this->pickupatDate;
     }
 }

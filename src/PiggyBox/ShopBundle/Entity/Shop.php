@@ -91,12 +91,10 @@ class Shop
      **/
     private $orders;	
 	
-    /**
-     * @var array $opening_time
-     *
-     * @ORM\Column(name="opening_time", type="array")
-     */
-    private $opening_time;
+	/**
+     * @ORM\OneToMany(targetEntity="Day", mappedBy="shop")
+     **/
+    private $opening_days;
 	
     /**
      * Constructor
@@ -106,6 +104,7 @@ class Shop
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->clients = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->opening_days = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -379,25 +378,35 @@ class Shop
     }
 
     /**
-     * Set opening_time
+     * Add opening_days
      *
-     * @param array $openingTime
+     * @param PiggyBox\ShopBundle\Entity\Day $openingDays
      * @return Shop
      */
-    public function setOpeningTime($openingTime)
+    public function addOpeningDay(\PiggyBox\ShopBundle\Entity\Day $openingDays)
     {
-        $this->opening_time = $openingTime;
+        $this->opening_days[] = $openingDays;
     
         return $this;
     }
 
     /**
-     * Get opening_time
+     * Remove opening_days
      *
-     * @return array 
+     * @param PiggyBox\ShopBundle\Entity\Day $openingDays
      */
-    public function getOpeningTime()
+    public function removeOpeningDay(\PiggyBox\ShopBundle\Entity\Day $openingDays)
     {
-        return $this->opening_time;
+        $this->opening_days->removeElement($openingDays);
+    }
+
+    /**
+     * Get opening_days
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getOpeningDays()
+    {
+        return $this->opening_days;
     }
 }
