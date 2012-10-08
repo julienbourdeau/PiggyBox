@@ -16,6 +16,7 @@ use PiggyBox\OrderBundle\Entity\Cart;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Order controller.
@@ -149,11 +150,8 @@ class OrderController extends Controller
         $order = new Order();
         $form = $this->createForm(new OrderType(), $order);
         $form->bind($request);
-		var_dump($request->request);
-		var_dump($form->getErrorsAsString());
 
         if ($form->isValid()) {
-			var_dump("success");
              // retrieving the security identity of the currently logged-in user
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
@@ -165,7 +163,7 @@ class OrderController extends Controller
 
             return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
-			var_dump("echec");die();
+
         return array(
             'entity' => $order,
             'form'   => $form->createView(),
@@ -193,4 +191,56 @@ class OrderController extends Controller
 
 		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
 	}
+
+    /**
+	 * Generate the <option> for the openingHour on each select
+	 *
+     * @Template()
+     * @Route(
+     *     "horaires/{shop_id}/{time_string}.{_format}",
+     *     name="view_opening_hours",
+	 *     requirements={"_format"="(json)"},
+	 *     options={"expose"=true},
+	 *     defaults={"_format"="json"}
+     * )
+     * @Method({"GET"})
+     */
+    public function viewOpeningHoursAction(Request $req, $shop_id, $time_string)
+    {
+        $em = $this->getDoctrine()->getManager();
+		$date = new \DateTime($time_string);
+		$day_of_the_week = $date->format('N');
+		$opening_days = $em->getRepository('PiggyBoxShopBundle:Shop')->find($shop_id)->getOpeningDays();
+		$opening_hours = array();
+
+		foreach ($opening_days as $day) {
+			if($day->getDayOfTheWeek() == $day_of_the_week){
+				
+				if($day->getFromTimeMorning() !== null){
+					$opening_hours[$day->getFromTimeMorning()->format('Hi')] = $day->getFromTimeMorning()->format('H:i');
+					$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+
+					while ( $day->getFromTimeMorning()->format('Hi') < $day->getToTimeMorning()->format('Hi')) {
+						$opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+						$day->getFromTimeMorning()->modify('30 minutes');
+					}
+				}
+
+				if($day->getFromTimeAfternoon() !== null){
+					$opening_hours[$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
+					$day->getFromTimeAfternoon()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+
+					while ( $day->getFromTimeAfternoon()->format('Hi') < $day->getToTimeAfternoon()->format('Hi')) {
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeAfternoon()->modify('30 minutes');
+					}						
+				}
+			}
+		}
+
+        $html = $this->renderView('PiggyBoxOrderBundle:Order:hoursOption.html.twig', array('opening_hours' => $opening_hours));
+        return new JsonResponse(array('content' => $html));
+    }
+
+
 }

@@ -71,15 +71,15 @@
 					        
 											<div class="control-group">
 												<label class="control-label">Date de retrait:</label>
-												<div class="controls">
-													{{ form_widget(form[order.id]) }}
+												<div class="controls data-load-shop" data-load-shop="{{order.shop.id}}">
+													{{ form_row(form[order.id].pickupatDate) }}
 												</div>
 											</div>
 											
 											<div class="control-group">
 												<label class="control-label">A partir de:</label>
 												<div class="controls">
-
+													{{ form_row(form[order.id].pickupatTime) }}
 												</div>
 											</div>
 
@@ -133,88 +133,41 @@
 
 {% block javascript %}
 {{parent()}}
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <script type="text/javascript">
 (function ($) {
+    $('select#piggybox_orderbundle_ordertype_pickupatDate_date').click(function (e) {
+        var target = $(this);
+		var shop_id =$('div.controls.data-load-shop');
 
-	var allHours = {};
+		console.log(shop_id.attr('data-load-shop'));
+        if (shop_id.attr('data-load-shop')) {
+            $.ajax({
+                url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
+                dataType: 'json',
+                success: function (data) {
+					console.log("yeahhhhhh");
+					var select = $('select#piggybox_orderbundle_ordertype_pickupatTime_time');
+					if(select.prop) {
+		  		  	  var options = select.prop('options');
+	  				}
 
-	$(document).ready(function() {
-		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
-		var today = new Date();
-		var today_date_string = today.getFullYear();
-		today.setHours(today.getHours()+3);
-		
-		if ((today.getUTCMonth()+1)<10) {
-			today_date_string = today_date_string+'0'+(today.getUTCMonth()+1);
-		}
-		else{
-			today_date_string = today_date_string+''+(today.getUTCMonth()+1);
-		}
-		
-		if (today.getUTCDate()<10) {
-			today_date_string = today_date_string+'0'+today.getUTCDate();
-		}
-		else{
-			today_date_string = today_date_string+''+today.getUTCDate();
-		}
-		
-		var today_time_string = today_date_string;		
-		if (today.getHours()<10) {
-			today_time_string = today_time_string+'0'+today.getHours();
-		}
-		else{
-			today_time_string = today_time_string+''+today.getHours();
-		}
-
-		if (today.getMinutes()<10) {
-			today_time_string = today_time_string+'0'+today.getMinutes();
-		}
-		else{
-			today_time_string = today_time_string+''+today.getMinutes();
-		}
-		
-		$("select#piggybox_orderbundle_ordertype_pickup_time option").each(function()
-		{
-			if ($(this).val() > today_time_string) {
-				allHours[$(this).val()] = $(this).text();	
-			};			
-		});
-		addOptionsToSelect($('select#piggybox_orderbundle_ordertype_pickup_date').val(), select, allHours);
-	});
-	
-	$('select#piggybox_orderbundle_ordertype_pickup_date').change(function() {
-		var value = $(this).val();
-		
-		var select = $('select#piggybox_orderbundle_ordertype_pickup_time');
-
-		addOptionsToSelect(value, select, allHours);
-
-	});
-	
-	function	addOptionsToSelect(value, select, allHours){
-		var newOptions = {};
-		
-		for(var i in allHours) {
-		    if (allHours.hasOwnProperty(i)) {
-				if (i.substr(0, 8) == value) {
-					newOptions[i] = allHours[i]; 	
-				};
-		    }
-		}	
-				
-		if(select.prop) {
-  		  var options = select.prop('options');
-	  	}
-		
-		else {
-			var options = select.attr('options');
-		}
-		$('option', select).remove();
-
-		$.each(newOptions, function(val, text) {
-    		options[options.length] = new Option(text, val);
-		});
-	}
+					else {
+						var options = select.attr('options');
+					}
+					$('option', select).remove();	
+					
+					select.append(data.content);
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+    			    alert(xhr.status);
+					alert(xhr.responseText);
+			        alert(thrownError);
+    			  }
+            });
+        }
+    });
 	
 })(jQuery);
 </script>
