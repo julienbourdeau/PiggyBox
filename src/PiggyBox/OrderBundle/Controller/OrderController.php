@@ -217,8 +217,10 @@ class OrderController extends Controller
 			if($day->getDayOfTheWeek() == $day_of_the_week){
 				
 				if($day->getFromTimeMorning() !== null){
-					$opening_hours[$day->getFromTimeMorning()->format('Hi')] = $day->getFromTimeMorning()->format('H:i');
-					$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					if($day->getToTimeMorning()->format('i')%30 != 0){
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					}
 
 					while ( $day->getFromTimeMorning()->format('Hi') < $day->getToTimeMorning()->format('Hi')) {
 						$opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
@@ -227,8 +229,10 @@ class OrderController extends Controller
 				}
 
 				if($day->getFromTimeAfternoon() !== null){
-					$opening_hours[$day->getFromTimeAfternoon()->format('Hi')] = $day->getFromTimeAfternoon()->format('H:i');
-					$day->getFromTimeAfternoon()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					if($day->getToTimeMorning()->format('i')%30 != 0){
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					}
 
 					while ( $day->getFromTimeAfternoon()->format('Hi') < $day->getToTimeAfternoon()->format('Hi')) {
 						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
