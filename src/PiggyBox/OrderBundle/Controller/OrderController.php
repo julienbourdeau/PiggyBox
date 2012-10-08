@@ -147,7 +147,9 @@ class OrderController extends Controller
      */
     public function createAction(Request $request)
     {
+		$user = $this->get('security.context')->getToken()->getUser();
         $order = new Order();
+		$order->setUser($user);
         $form = $this->createForm(new OrderType(), $order);
         $form->bind($request);
 

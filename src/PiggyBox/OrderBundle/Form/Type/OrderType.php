@@ -52,7 +52,8 @@ class OrderType extends AbstractType
 			}
 		);
 		
-		$builder->add('pickupatTime',new TimeUniqueSelectorType());
+		$builder->add('pickupatTime',new TimeUniqueSelectorType())
+				->add('user', new UserType());
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
