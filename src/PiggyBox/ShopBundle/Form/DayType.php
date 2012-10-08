@@ -16,7 +16,7 @@ class DayType extends AbstractType
             ->add('to_time_morning')
             ->add('from_time_afternoon')
             ->add('to_time_afternoon')
-            ->add('day_name')
+            ->add('day_of_the_week')
         ;
     }
 

@@ -44,12 +44,6 @@ class Order
      */
     private $total_price;
 
-	/**
-	 * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Day")
-	 * @ORM\JoinColumn(name="day_id", referencedColumnName="id")
-	 */
-	 private $day;
-
     /**
      * @var integer $total_products
      *
@@ -68,9 +62,16 @@ class Order
 	/**
      * @var \DateTime $pickupatTime
      *
-     * @ORM\Column(name="pickupatTime", type="time")
+     * @ORM\Column(name="pickupatTime", type="time", nullable=true)
      */
     private $pickupatTime;
+
+	/**
+     * @var \DateTime $pickupatDate
+     *
+     * @ORM\Column(name="pickupatDate", type="date", nullable=true)
+     */
+    private $pickupatDate;
 
     /**
      * @var \DateTime $updatedat
@@ -379,29 +380,6 @@ class Order
     }
 
     /**
-     * Set day
-     *
-     * @param PiggyBox\ShopBundle\Entity\Day $day
-     * @return Order
-     */
-    public function setDay(\PiggyBox\ShopBundle\Entity\Day $day = null)
-    {
-        $this->day = $day;
-    
-        return $this;
-    }
-
-    /**
-     * Get day
-     *
-     * @return PiggyBox\ShopBundle\Entity\Day 
-     */
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
      * Set pickupatTime
      *
      * @param \DateTime $pickupatTime
@@ -422,5 +400,28 @@ class Order
     public function getPickupatTime()
     {
         return $this->pickupatTime;
+    }
+
+    /**
+     * Set pickupatDate
+     *
+     * @param \DateTime $pickupatDate
+     * @return Order
+     */
+    public function setPickupatDate($pickupatDate)
+    {
+        $this->pickupatDate = $pickupatDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get pickupatDate
+     *
+     * @return \DateTime 
+     */
+    public function getPickupatDate()
+    {
+        return $this->pickupatDate;
     }
 }

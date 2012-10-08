@@ -43,7 +43,7 @@ class OrderType extends AbstractType
 					}					
 
 					$event->getForm()->add(
-						$formFactory->createNamed('createdat',new DateUniqueSelectorType(),null ,array(
+						$formFactory->createNamed('pickupatDate',new DateUniqueSelectorType(),null ,array(
 							'number_of_days' => 8,
 							'closed_days' => $closeDays,
 						))
