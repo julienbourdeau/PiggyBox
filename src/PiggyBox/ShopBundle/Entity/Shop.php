@@ -92,7 +92,7 @@ class Shop
     private $orders;	
 	
 	/**
-     * @ORM\OneToMany(targetEntity="Day", mappedBy="shop")
+     * @ORM\OneToMany(targetEntity="Day", mappedBy="shop", cascade={"persist"})
      **/
     private $opening_days;
 	
