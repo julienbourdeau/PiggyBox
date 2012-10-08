@@ -227,16 +227,16 @@ class TimeUniqueSelectorType extends AbstractType
 
 	private function listUniqueHours(){
         $result = array();
-
+		
 		$midnight = new \DateTime('00:00');
-		array_push($result, $midnight->format('H:i'));				
+		$result[$midnight->format('H:i')] = $midnight->format('H:i'); 
 		$midnight->modify('+30 minutes');
 
 		while($midnight->format('H:i') !== '00:00') {
 			$result[$midnight->format('H:i')] = $midnight->format('H:i'); 
 			$midnight->modify('+30 minutes');
 		}
-		
+
 		return $result;
 	}
 	
