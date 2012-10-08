@@ -57,7 +57,7 @@
 			                    </a>
 
 			                    <div id="validationModalContent-12" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<form action="{{ path('validate_order') }}" method="post" {{ form_enctype(form[order.id]) }} class="form-horizontal modal-form">
+									<form action="{{ path('validate_order', { 'id': order.id }) }}" method="post" {{ form_enctype(form[order.id]) }} class="form-horizontal modal-form">
 
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
