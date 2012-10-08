@@ -153,11 +153,13 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
         }
 
         try {
-			var_dump($value['date']);
-			var_dump($value['time']);
-            //$dateTime = new \DateTime($value['date']);
-            $dateTime = new \DateTime(empty($value['date']) ? $value['time'] : $value['date']);
-			var_dump($datetime);die();
+
+			if(empty($value['date'])){
+				$dateTime = new \DateTime($value['time']);	
+			}
+			if(empty($value['time'])){
+				$dateTime = new \DateTime($value['date']);	
+			}
 
             if ($this->inputTimezone !== $this->outputTimezone) {
                 $dateTime->setTimezone(new \DateTimeZone($this->inputTimezone));

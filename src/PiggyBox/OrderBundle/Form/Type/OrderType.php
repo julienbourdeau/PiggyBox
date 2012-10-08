@@ -51,23 +51,24 @@ class OrderType extends AbstractType
 				}
 			}
 		);
-
-		$builder->addEventListener(
-			FormEvents::POST_SET_DATA,
-			function (FormEvent $event) use ($formFactory) {
-				if (null === $event->getData()) { 
-					$event->getForm()->add(
-						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
-					); 
-        		}
-
-		        if ($event->getData() instanceof Order) {  
-					$event->getForm()->add(
-						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
-					); 
-        		} 
-			}
-		);
+		
+		$builder->add('pickupatTime',new TimeUniqueSelectorType());
+//		$builder->addEventListener(
+//			FormEvents::POST_SET_DATA,
+//			function (FormEvent $event) use ($formFactory) {
+//				if (null === $event->getData()) { 
+//					$event->getForm()->add(
+//						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
+//					); 
+//        		}
+//
+//		        if ($event->getData() instanceof Order) {  
+//					$event->getForm()->add(
+//						$formFactory->createNamed('pickupatTime',new TimeUniqueSelectorType()) 
+//					); 
+//        		} 
+//			}
+//		);
 	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
