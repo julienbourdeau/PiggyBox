@@ -89,21 +89,21 @@
 											<div class="control-group">
 												<label class="control-label">Votre nom</label>
 												<div class="controls">
-					
+													{{ form_widget(form[order.id].user.name) }}
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
 												<label class="control-label">Votre email</label>
 												<div class="controls">
-					
+													{{ form_widget(form[order.id].user.email) }}
 												</div>
 											</div>
 				                    		
 											<div class="control-group">
 												<label class="control-label">Votre téléphone</label>
 												<div class="controls">
-													
+													{{ form_widget(form[order.id].user.phone_number) }}
 												</div>
 											</div>
 											{% endif %}
