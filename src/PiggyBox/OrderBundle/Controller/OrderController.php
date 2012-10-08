@@ -8,13 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
-use PiggyBox\OrderBundle\Form\OrderType;
+use PiggyBox\OrderBundle\Form\Type\OrderType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PiggyBox\OrderBundle\Entity\Cart;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\AbstractType;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Order controller.
@@ -109,7 +111,7 @@ class OrderController extends Controller
 
     /**
      * Validate cart 
-     *
+   	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/validation/{order_id}/transaction", name="validate_order")
      */
     public function validateOrderAction(Request $req, $order_id)
@@ -137,29 +139,113 @@ class OrderController extends Controller
 	}
 
     /**
+     * Validate Order
+     *
+	 * @PreAuthorize("hasRole('ROLE_USER')")
+     * @Route("/validation/transaction/{id}", name="validate_order")
+     * @Method("POST")
+     */
+    public function createAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($id);
+		$user = $this->get('security.context')->getToken()->getUser();
+		$order->setUser($user);
+        $form = $this->createForm(new OrderType(), $order);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+             // retrieving the security identity of the currently logged-in user
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+			
+			// saving the DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($order);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
+        }
+
+        return array(
+            'entity' => $order,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
      * Validation Page
      *
+	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/validation", name="validation_page")
      */
 	public function validationPageAction()
 	{
-		$date = new \DateTime('now'); 
+		$user = $this->get('security.context')->getToken()->getUser();
+		$cart = $this->get('piggy_box_cart.provider')->getCart();
+		$orders = $cart->getOrders();
+		
+		$data = array();
+		
+		foreach ($orders as $order) {
+			$order->setUser($user);
+			$data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
+			}
 
-		$defaultData = array('message' => 'Type your message here');
-		$form = $this->createFormBuilder($defaultData)
-        ->add('pickup_date', 'choice', array(
-    		'choices' => array(
-				$date->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-				$date->modify('+1 day')->format('Ymd') => $date->format('l jS F Y'),
-  			))
-		)
-		->getForm();
-			return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', array('form' => $form->createView()));
+		return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
 	}
+
+    /**
+	 * Generate the <option> for the openingHour on each select
+	 *
+     * @Template()
+     * @Route(
+     *     "horaires/{shop_id}/{time_string}.{_format}",
+     *     name="view_opening_hours",
+	 *     requirements={"_format"="(json)"},
+	 *     options={"expose"=true},
+	 *     defaults={"_format"="json"}
+     * )
+     * @Method({"GET"})
+     */
+    public function viewOpeningHoursAction(Request $req, $shop_id, $time_string)
+    {
+        $em = $this->getDoctrine()->getManager();
+		$date = new \DateTime($time_string);
+		$day_of_the_week = $date->format('N');
+		$opening_days = $em->getRepository('PiggyBoxShopBundle:Shop')->find($shop_id)->getOpeningDays();
+		$opening_hours = array();
+
+		foreach ($opening_days as $day) {
+			if($day->getDayOfTheWeek() == $day_of_the_week){
+				
+				if($day->getFromTimeMorning() !== null){
+					if($day->getToTimeMorning()->format('i')%30 != 0){
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					}
+
+					while ( $day->getFromTimeMorning()->format('Hi') < $day->getToTimeMorning()->format('Hi')) {
+						$opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
+						$day->getFromTimeMorning()->modify('30 minutes');
+					}
+				}
+
+				if($day->getFromTimeAfternoon() !== null){
+					if($day->getToTimeMorning()->format('i')%30 != 0){
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
+					}
+
+					while ( $day->getFromTimeAfternoon()->format('Hi') < $day->getToTimeAfternoon()->format('Hi')) {
+						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$day->getFromTimeAfternoon()->modify('30 minutes');
+					}						
+				}
+			}
+		}
+
+        $html = $this->renderView('PiggyBoxOrderBundle:Order:hoursOption.html.twig', array('opening_hours' => $opening_hours));
+        return new JsonResponse(array('content' => $html));
+    }
 }

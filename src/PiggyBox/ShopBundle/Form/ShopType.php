@@ -12,7 +12,14 @@ class ShopType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('type');
+            ->add('type')
+			->add('opening_days', 'collection', array(
+				'type' => new DayType(),
+				'by_reference' => false,
+				'allow_add' => true,
+				'allow_delete' => true,
+					));
+			;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

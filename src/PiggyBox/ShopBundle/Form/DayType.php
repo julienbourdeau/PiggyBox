@@ -1,36 +1,34 @@
 <?php
 
-namespace PiggyBox\OrderBundle\Form;
+namespace PiggyBox\ShopBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OrderType extends AbstractType
+class DayType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pickup_date', 'date', array(
-				'input'  => 'datetime',
-				'widget' => 'choice',
-				'format' => 'eeee d Y',
-				'with_seconds' => false,
-				'data_timezone' => "Europe/Paris",
-				'user_timezone' => "Europe/Paris"
-				))
+            ->add('open')
+            ->add('from_time_morning')
+            ->add('to_time_morning')
+            ->add('from_time_afternoon')
+            ->add('to_time_afternoon')
+            ->add('day_of_the_week')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PiggyBox\OrderBundle\Entity\Order'
+            'data_class' => 'PiggyBox\ShopBundle\Entity\Day'
         ));
     }
 
     public function getName()
     {
-        return 'piggybox_orderbundle_ordertype';
+        return 'day';
     }
 }

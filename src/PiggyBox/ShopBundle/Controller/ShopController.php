@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
+use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -80,34 +81,45 @@ class ShopController extends Controller
 		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
 		//TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
-        $form = $this->createForm(new ShopType(), $shop);
 		
-		$defaultData = array('message' => 'Type your message here');
-		$opening_hour = $this->createFormBuilder($defaultData)
-        ->add('monday', 'choice', array(
-    		'choices' => array(
-				'test' => 'test',
-				'test' => 'test',
-  			))
-		)
-		->add('tuesday', 'choice', array(
-	    	'choices' => array(
-				'test' => 'test',
-				'test' => 'test',
-	  		))
-		)
-		->add('wedesnday', 'choice', array(
-	    	'choices' => array(
-				'test' => 'test',
-				'test' => 'test',
-	  		))
-		)								
-		->getForm();
+		// Ajout de tous les jours de la semaine
+		$monday = new Day();
+		$monday->setDayOfTheWeek(1);
+		
+		$tuesday = new Day();
+		$tuesday->setDayOfTheWeek(2);
+		
+		$wednesday = new Day();
+		$wednesday->setDayOfTheWeek(3);
+		
+		$thursday = new Day();
+		$thursday->setDayOfTheWeek(4);
+		
+		$friday = new Day();
+		$friday->setDayOfTheWeek(5);
+		
+		$saturday = new Day();
+		$saturday->setDayOfTheWeek(6);
+		
+		$sunday = new Day();
+		$sunday->setDayOfTheWeek(7);
+		
+		
+
+		$shop->addOpeningDay($monday);
+		$shop->addOpeningDay($tuesday);
+		$shop->addOpeningDay($wednesday);
+		$shop->addOpeningDay($thursday);
+		$shop->addOpeningDay($friday);
+		$shop->addOpeningDay($saturday);
+		$shop->addOpeningDay($sunday);
+		
+
+		$form = $this->createForm(new ShopType(), $shop);
 
         return array(
             'entity' => $shop,
             'form'   => $form->createView(),
-			'opening_hour' => $opening_hour->createView(),
         );
     }
 
@@ -157,7 +169,7 @@ class ShopController extends Controller
         }
 
         return array(
-            'entity' => $entity,
+            'entity' => $shop,
             'form'   => $form->createView(),
         );
     }
