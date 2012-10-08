@@ -142,13 +142,14 @@ class OrderController extends Controller
      * Validate Order
      *
 	 * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Route("/validation/transaction", name="validate_order")
+     * @Route("/validation/transaction/{id}", name="validate_order")
      * @Method("POST")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($id);
 		$user = $this->get('security.context')->getToken()->getUser();
-        $order = new Order();
 		$order->setUser($user);
         $form = $this->createForm(new OrderType(), $order);
         $form->bind($request);
@@ -247,6 +248,4 @@ class OrderController extends Controller
         $html = $this->renderView('PiggyBoxOrderBundle:Order:hoursOption.html.twig', array('opening_hours' => $opening_hours));
         return new JsonResponse(array('content' => $html));
     }
-
-
 }
