@@ -27,6 +27,7 @@ class AppKernel extends Kernel
 			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
 		    new FOS\UserBundle\FOSUserBundle(),
 	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
+			new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
 			//bundles for category in PiggyBoxShopBundle
 			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),

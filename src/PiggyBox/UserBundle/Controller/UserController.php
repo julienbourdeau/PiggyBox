@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\UserBundle\Form\UserType;
 use PiggyBox\ShopBundle\Entity\Shop;
+use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -31,6 +32,26 @@ class UserController extends Controller
 
 
     /**
+     * @Template()
+     * @Route("les-commercants", name="shops")
+     */
+    public function shopsAction()
+    {
+        return array();
+    }
+
+
+    /**
+     * @Template()
+     * @Route("comment-ca-marche", name="ccm")
+     */
+    public function ccmAction()
+    {
+        return array();
+    }
+
+
+    /**
      * Finds and displays a User entity.
      *
      * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
@@ -41,7 +62,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
-
+		
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
