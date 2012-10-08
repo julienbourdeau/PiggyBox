@@ -1,0 +1,83 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+
+    <div class="container text-centered">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div class="step-wrapper">
+                    <div class="step-container">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>1</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
+                            <h2>Recherchez</h2>
+                            <p>Recherchez votre commerce à proximité</p>
+                        </div>
+                    </div>
+                    <div class="step-container step-offset">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>2</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
+                            <h2>Commandez</h2>
+                            <p>Commandez au même tarif qu'en boutique</p>
+                        </div>
+                    </div>
+                    <div class="step-container step-offset">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>3</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
+                            <h2>Retirez</h2>
+                            <p>Retirez vos commandes sans faire la queue</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span10 offset1">
+                <div id="faq">
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Quel type de commerces je peux trouver sur <em>"Cotelettes & Tarte aux fraises"</em> ?</h4>
+                        <p>Notre but est de réunir sur un même espace tous les commerçes de tradiion qui font de la cuture et le 
+                            terroire français: Boulangeries, Boucheries, Primeurs, Fromageries, Poissonneries, Cavistes,...</p>
+                    </div>
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Quelle est l'intéret d'une telle plateforme ?</h4>
+                        <p>Lorsque vous passez votre commande, vous êtes sur d'avoir les produits demandés en temps et en heure.<p>
+                        <p>Vous ne faites pas la queue à la caisse mais vous aller toujours voir vos commerçants. Vous continuez à dire <i>bonjour</i></p>
+                    </div>
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Quelle est le délais minimum avant que ma commande soit prête ?</h4>
+                        <p>Ce délais est différent dans chaque boutique. De plus il est très différent selon la commande, en effet si tous est en stock et demande peu de préparation elle peut être prête très rapidement.</p>
+                        <p>Lorsque vous passez votre commande, <strong>votre commerçant doit la valider</strong>.</p>
+                    </div>
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Peut-on payer en ligne ?</h4>
+                        <p>La plateforme <em>"Cotelettes & Tarte aux fraises"</em> en est à sa première version, nous ne proposons pas encore le paiement en ligne.
+                            Vous payerez en boutique chez votre commerçant, ce sera l'occasion de discuter.</p>
+
+                    </div>
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Le prix annoncé est-il définitif ?</h4>
+                        <p>Le prix que nous annonçons sur le site est succeptible de changer selon les produits et la coupe.</p>
+                        <p><i>Exemple:<i> Comme vous le savez, lorsque vous commandez un rôti d'1Kg par exemple, votre boucher peut couper 960g ou bien 1,070Kg. Ainsi vous paierez en boutique le bon prix.</p>
+                    </div>
+                    <div class="faq-item bottom-marged">
+                        <h4><i class="icon-tag"></i> Ça c'est une autre question ?</h4>
+                        <p>Lorsque vous passez votre commande, vous êtes sur d'avoir les produits demandés en temps et en heure.<p>
+                        <p>Vous ne faites pas la queue à la caisse mais vous aller toujours voir vos commerçants. Vous continuez à dire <i>bonjour</i></p>
+                    </div>
+                </div>
+            </div>
+            <div class="span4"></div>
+        </div>
+    </div>
+
+
+    
+{% endblock %}
