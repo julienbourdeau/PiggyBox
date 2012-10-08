@@ -137,38 +137,34 @@
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <script type="text/javascript">
 (function ($) {
-    $('select#piggybox_orderbundle_ordertype_pickupatDate_date').click(function (e) {
-        var target = $(this);
-		var shop_id =$('div.controls.data-load-shop');
+	$(document).ready(function() {
+		$('select#piggybox_orderbundle_ordertype_pickupatDate_date').change(function (e) {
+    	    var target = $(this);
+			var shop_id =$('div.controls.data-load-shop');
 
-		console.log(shop_id.attr('data-load-shop'));
-        if (shop_id.attr('data-load-shop')) {
-            $.ajax({
-                url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
-                dataType: 'json',
-                success: function (data) {
-					console.log("yeahhhhhh");
-					var select = $('select#piggybox_orderbundle_ordertype_pickupatTime_time');
-					if(select.prop) {
-		  		  	  var options = select.prop('options');
-	  				}
+			console.log(shop_id.attr('data-load-shop'));
+    	    if (shop_id.attr('data-load-shop')) {
+    	        $.ajax({
+    	            url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
+    	            dataType: 'json',
+    	            success: function (data) {
 
-					else {
-						var options = select.attr('options');
+						var select = $('select#piggybox_orderbundle_ordertype_pickupatTime_time');
+						if(select.prop) {
+			  		  	  var options = select.prop('options');
+		  				}
+
+						else {
+							var options = select.attr('options');
+						}
+						$('option', select).remove();	
+						
+						select.append(data.content);
 					}
-					$('option', select).remove();	
-					
-					select.append(data.content);
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-    			    alert(xhr.status);
-					alert(xhr.responseText);
-			        alert(thrownError);
-    			  }
-            });
-        }
-    });
-	
+    	        });
+    	    }
+    	}).trigger('change');		
+	});
 })(jQuery);
 </script>
 {% endblock %}
