@@ -28,3 +28,10 @@
 * Fixer les versions de symfony2.1
 * Ajout du DoctrineMigrationBundle
 
+# TO FIX 
+
+* Page d'erreur => Remettre les bons liens
+* Footer => remettre le bon numéro à jour
+* Logo => prendre le logo de piggybox avec un s
+* Faire une page ACCESS DENIED
+
