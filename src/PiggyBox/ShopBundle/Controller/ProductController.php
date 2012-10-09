@@ -170,13 +170,10 @@ class ProductController extends Controller
 
 				return $this->redirect($this->generateUrl('monmagasin_mesproduits_show', array('id' => $product->getId())));
 			} catch (\Exception $e) {
-   				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
-				$this->get('session')->getFlashBag()->set('error', $product->getName().' could not be saved.');
+				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
             }
         }
-
-		$this->get('logger')->crit($e->getMessage(), array('exception', $e));
-		$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
 
         return array(
             'entity' => $product,
@@ -250,15 +247,11 @@ class ProductController extends Controller
 
 				return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
 			} catch (\Exception $e) {
-   				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
-				$this->get('session')->getFlashBag()->set('error', $product->getName().' could not be saved.');
+				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
             }
 			
         }
-
-		$this->get('logger')->crit($e->getMessage(), array('exception', $e));
-		$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
-		
 
         return array(
             'product'      => $product,
