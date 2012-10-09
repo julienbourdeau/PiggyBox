@@ -11,15 +11,12 @@
                         <div id="shopCarousel" class="carousel slide">
                             <!-- Carousel items -->
                             <div class="carousel-inner">
-                                <div class="active item">
-									<img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique.jpg')}}" alt="">
+                                {% for count in range(1, 6) %}
+                                <div class="item {% if count == 1 %}active{%endif%}">
+									{% set path = "bundles/piggyboxuser/img/carousel/boutique-" ~ count ~ ".jpg" %}
+                                    <img src="{{ asset(path) }}" alt="">
                                 </div>
-                                <div class="item">
-                                    <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-2.jpg')}}" alt="">
-                                </div>
-                                <div class="item">
-                                    <img src="{{ asset('bundles/piggyboxuser/img/carousel/boutique-3.jpg')}}" alt="">
-                                </div>
+                                {% endfor %}
                             </div>
 
                             <!-- Carousel nav -->
@@ -35,7 +32,7 @@
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
                                 <li class="{% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
-									<a href="#shop" data-toggle="tab">Produits a commander</a></li>
+									<a href="#shop" data-toggle="tab">Produits à commander</a></li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
                                     <a data-toggle="">Avis</a>
@@ -57,7 +54,8 @@
 								</div>
                             </div>
                             <div id="photos" class="tab-pane">
-                                <?php include 'tab-photos.php'; ?></div>
+                                {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' %}
+                            </div>
                         </div>
 
 

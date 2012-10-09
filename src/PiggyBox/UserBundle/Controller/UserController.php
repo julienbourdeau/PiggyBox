@@ -52,6 +52,26 @@ class UserController extends Controller
 
 
     /**
+     * @Template()
+     * @Route("mentions-legales", name="legal")
+     */
+    public function legalAction()
+    {
+        return array();
+    }
+
+
+    /**
+     * @Template()
+     * @Route("qui-sommes-nous", name="about")
+     */
+    public function aboutAction()
+    {
+        return array();
+    }
+
+
+    /**
      * Finds and displays a User entity.
      *
      * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})

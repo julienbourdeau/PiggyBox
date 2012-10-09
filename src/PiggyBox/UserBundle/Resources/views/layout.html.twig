@@ -98,12 +98,6 @@
                 <div class="row">
 
                     <div class="span4">
-                        {#
-                        <h3 class="no-margin">
-                            <img src="{{ asset('bundles/piggyboxuser/img/lifesaver.png')}}" alt="">
-                            Besoins d'aide ? <small>Contactez-nous</small>
-                        </h3> 
-                        #}
                         <div class="help-contact">
                             <img src="{{ asset('bundles/piggyboxuser/img/help-telephone.png')}}" alt="">
                             <a href="//twitter.com/cetaf_officiel"><img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt=""></a>
@@ -128,11 +122,11 @@
                     <div class="span2">
                         <h3 class="no-margin">A voir</h3>
                         <ul>
-                            <li><a href="/">Accueil</a></li>
-                            <li><a href="">Les commerçants</a></li>
-                            <li><a href="">Comment ça marche ?</a></li>
-                            <li><a href="">Qui sommes-nous ?</a></li>
-                            <li><a href="">Mentions légales</a></li>
+                            <li><a href="{{ path('home') }}">Accueil</a></li>
+                            <li><a href="{{ path('shops') }}">Les commerçants</a></li>
+                            <li><a href="{{ path('ccm') }}">Comment ça marche ?</a></li>
+                            <li><a href="{{ path('about') }}">Qui sommes-nous ?</a></li>
+                            <li><a href="{{ path('legal') }}">Mentions légales</a></li>
                         </ul>
                     </div>
 
@@ -140,11 +134,11 @@
                         <h3 class="no-margin">A propos</h3>
                         <address>
                             <strong>The Box Makers SAS</strong><br>
-                            16 imp. du stade<br>
+                            16 impasse du stade <br>
                             Raymond Durand <br>
-                            44100 Nantes<br>
-                            <abbr title="Telephone">Tel:</abbr> 02 40 37 46 57
-                            <a href="mailto:contact@theboxmake.rs">contact@theboxmake.rs</a>
+                            44120 Vertou<br>
+                            <abbr title="Telephone">Tel:</abbr> 02 40 37 46 67
+                            <a href="mailto:team@theboxmake.rs">team@theboxmake.rs</a>
                         </address>
                     </div>
 
@@ -152,16 +146,16 @@
 
                 <div class="row">
                     <div class="span12 text-centered">
-                        <p>&copy; Tous droits réservés - 2012 - Pensé et contruit à Nantes</p>
+                        <p>&copy; Tous droits réservés - 2012 - Pensé et fabriqué à Nantes</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div id="legal-line" class="span8 offset2">
                         <p>
-                            Les photos des produits ne sont pas contractuelles. Selon disponibilités des produits en magasins. Si une différence de prix est constaté, le prix en magasin fait foi. 
+                            Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi. 
                             <br>
-                            L'abus d'alcool est dangereux pour la santé. A consommer avec modération. <a href="http://www.mangerbouger.fr/">mangerboucher.fr</a>
+                            L'abus d'alcool est dangereux pour la santé. A consommer avec modération. <a href="http://www.mangerbouger.fr/">mangerbouger.fr</a>
                         </p>
                     </div>
                 </div>
