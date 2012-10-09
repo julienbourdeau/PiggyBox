@@ -3,12 +3,8 @@
 ## Baptiste
 
 * PiggyBoxShopBundle
-	* Validation des commandes
-		* Envoie de mail post commande
 	* Requête AJAX pour l'affichage des commandes
 	* Informations sur les commerces en BDD
-	* Validation des formulaires
-	* Editer les Produits
 	* Toutes les infos des magasins
 
 * PiggyBoxUserBundle
@@ -34,7 +30,6 @@
 ## FIXME 
 
 * Page d'erreur => Remettre les bons liens
-* Footer => remettre le bon numéro à jour
 * Logo => prendre le logo de piggybox avec un s
 * Faire une page ACCESS DENIED
 * Favicon to add
