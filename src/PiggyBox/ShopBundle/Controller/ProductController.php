@@ -137,38 +137,46 @@ class ProductController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-             // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-			$em = $this->getDoctrine()->getManager();
+			try{
+				 // retrieving the security identity of the currently logged-in user
+				$securityContext = $this->get('security.context');
+				$user = $securityContext->getToken()->getUser();
+				$em = $this->getDoctrine()->getManager();
 
-			// Adding Sales entity relaton to the product
-			$sales = new Sales();
-			$product->setSales($sales);
-			
-			if(false !== $product->getPrices()->first()){
-				$product->setMinPrice($product->getPrices()->first()->getPrice());
-			}
+				// Adding Sales entity relaton to the product
+				$sales = new Sales();
+				$product->setSales($sales);
+				
+				if(false !== $product->getPrices()->first()){
+					$product->setMinPrice($product->getPrices()->first()->getPrice());
+				}
 
-			// saving the DB            
-            $em->persist($product);
-			$product->setShop($user->getOwnshop());
-			//inutile à checker $user->getOwnshop()->addProduct($product);
-            $em->flush();
+				// saving the DB            
+				$em->persist($product);
+				$product->setShop($user->getOwnshop());
+				//inutile à checker $user->getOwnshop()->addProduct($product);
+				$em->flush();
 		
-			// creating the ACL
-            $aclProvider = $this->get('security.acl.provider');
-            $objectIdentity = ObjectIdentity::fromDomainObject($product);
-            $acl = $aclProvider->createAcl($objectIdentity);
+				// creating the ACL
+				$aclProvider = $this->get('security.acl.provider');
+				$objectIdentity = ObjectIdentity::fromDomainObject($product);
+				$acl = $aclProvider->createAcl($objectIdentity);
 
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+				$securityIdentity = UserSecurityIdentity::fromAccount($user);
 
-            // grant owner access
-            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-			$aclProvider->updateAcl($acl);
+				// grant owner access
+				$acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+				$aclProvider->updateAcl($acl);
 
-            return $this->redirect($this->generateUrl('monmagasin_mesproduits_show', array('id' => $product->getId())));
+				return $this->redirect($this->generateUrl('monmagasin_mesproduits_show', array('id' => $product->getId())));
+			} catch (\Exception $e) {
+   				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', $product->getName().' could not be saved.');
+            }
         }
+
+		$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+		$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
 
         return array(
             'entity' => $product,
@@ -234,11 +242,23 @@ class ProductController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($product);
-            $em->flush();
+			try{
+				$em->persist($product);
+				$em->flush();
 
-            return $this->redirect($this->generateUrl('monmagasin_mesproduits_edit', array('id' => $id)));
+				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été édité avec succès.');
+
+				return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
+			} catch (\Exception $e) {
+   				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', $product->getName().' could not be saved.');
+            }
+			
         }
+
+		$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+		$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
+		
 
         return array(
             'product'      => $product,
