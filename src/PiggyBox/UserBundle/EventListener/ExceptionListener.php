@@ -24,7 +24,7 @@ class ExceptionListener
     {
 		if (in_array($this->kernel->getEnvironment(), array('prod'))) {
 		$message = \Swift_Message::newInstance()
-		        ->setSubject('Hello Email')
+		        ->setSubject('[Exception]')
 				->setFrom('dev@babelconsulting.fr')
 				->setTo('baptiste.dupuch@babelconsulting.fr')
 		        ->setBody($event->getException())
