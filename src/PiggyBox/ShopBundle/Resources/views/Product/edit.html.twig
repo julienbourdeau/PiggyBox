@@ -15,7 +15,7 @@
 
 
 	<form class="form-horizontal" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(edit_form) }}>
-
+	{{ form_errors(edit_form) }}
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
@@ -39,10 +39,16 @@
 							</div>
 						</div>
 
-						{% if product.prices|length >0 %}
-							{% for price in product.prices %}
-								{% if price.slicenbr is null %}
+						<div class="control-group">
+							<label class="control-label" for="inputDesc">Catégorie</label>
+							<div class="controls">
+								{{ form_widget(edit_form.category, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
 
+						{% if product.prices|length >0 %}
+							{% for price in edit_form.prices %}
+								{% if price.slice_nbr.vars.value == '' %}
 									<!-- ########### DEBUT PRIX 1 ####### -->
 									<div id="unit-pricing-container" class="row-fluid">
 										<div class="span12">
@@ -59,21 +65,18 @@
 									
 												<div class="row-fluid">
 													<div class="span4 offset2">
-														<input type="number" class="span12 text-centered" placeholder="Ex: 3.59">
+														{{ form_widget(price.price, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 3.59'} }) }}
 													</div>
 													<div class="span4">
-														<input type="number" class="span12 text-centered" placeholder="Ex: 11.99">
+														{{ form_widget(edit_form.price_kg, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 11.99'} }) }}
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<!-- ########### FIN PRIX 1 ####### -->
-									
-								{% endif %}
-							{% endfor%}
-							{% for price in edit_form.prices %}
-									<!-- ########### DEBUT PRIX 3 ####### -->
+								{% else %}
+								<!-- ########### DEBUT PRIX 3 ####### -->
 									<div id="multiple-pricing-container" class="row-fluid">
 										<div class="span12">
 											<div class="form-inline">
@@ -111,8 +114,7 @@
 										</div>
 									</div>
 									<!-- ########### FIN PRIX 3 ####### -->
-        						
-							
+								{% endif %}
 							{% endfor %}
 									
 						{% else %}
@@ -150,8 +152,7 @@
 		    </div>
 		</div>
 
-
-
+{{ form_widget(edit_form._token) }}
 
 </form>
 
