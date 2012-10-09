@@ -14,6 +14,7 @@
 * PiggyBoxUserBundle
 	* Gestionnaire du cache
 	* Afficher les bonnes informations du magasin
+	* Affichage du prix au Kg
 
 * PiggyBoxOrderBundle
 	* Tests Unitaires
@@ -28,10 +29,17 @@
 * Fixer les versions de symfony2.1
 * Ajout du DoctrineMigrationBundle
 
-# TO FIX 
+# FIXME 
 
 * Page d'erreur => Remettre les bons liens
 * Footer => remettre le bon numéro à jour
 * Logo => prendre le logo de piggybox avec un s
 * Faire une page ACCESS DENIED
+* Favicon to add
+* Avis -> les bloquers
+* Nouvau produit -> placeholder 4.5
 
+# BUG
+
+* Liens sur les catégories, leur génération n'est pas bonne
+* Affichage des prix aux Kg et à l'unité pas bone
