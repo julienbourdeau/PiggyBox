@@ -64,19 +64,21 @@ class OrderController extends Controller
 		//Ajout du produit à l'OrderDetail
 		$order_detail = new OrderDetail();
         $order_detail->setProduct($product);
+        $order_detail->setOrder($order);
 		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
 		$order->addOrderDetail($order_detail);
-
-		//persist & flush
-        $em->persist($order);
-        $em->flush();
 
 		$listener = new OperationListener();
 		$dispatcher = new EventDispatcher();
 		$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
 		$event = new OrderEvent($order);
 		$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
-		
+
+		//persist & flush
+        $em->persist($order_detail);
+        $em->persist($order);
+        $em->flush();
+
         //NOTE: Set a flash message to share the success
         $this->get('session')->setFlash('success', 'Le produit a ete correctement ajouté');
 
@@ -105,6 +107,12 @@ class OrderController extends Controller
 			$em->persist($cart);
 		}
 		
+		$listener = new OperationListener();
+		$dispatcher = new EventDispatcher();
+		$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
+		$event = new OrderEvent($order);
+		$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
+
 		//Remove OrderDetail
 		$em->remove($order_detail);
 		$em->persist($order);
