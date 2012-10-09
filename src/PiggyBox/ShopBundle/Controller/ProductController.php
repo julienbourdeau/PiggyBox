@@ -168,7 +168,8 @@ class ProductController extends Controller
 				$acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
 				$aclProvider->updateAcl($acl);
 
-				return $this->redirect($this->generateUrl('monmagasin_mesproduits_show', array('id' => $product->getId())));
+				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été ajouté avec succès.');
+				return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
 			} catch (\Exception $e) {
 				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
 				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
@@ -244,7 +245,6 @@ class ProductController extends Controller
 				$em->flush();
 
 				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été édité avec succès.');
-
 				return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
 			} catch (\Exception $e) {
 				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
