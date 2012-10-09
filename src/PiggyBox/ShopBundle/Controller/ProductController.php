@@ -201,7 +201,7 @@ class ProductController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $product,
+            'product'     => $product,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
