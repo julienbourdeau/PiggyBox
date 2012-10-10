@@ -15,6 +15,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
+    const UNIT_PRICE = 'unit_price';
+    const WEIGHT_PRICE = 'weight_price';
+    const SLICE_PRICE = 'slice_price';
+	
     /**
      * @var integer $id
      *
@@ -30,6 +34,13 @@ class Product
      * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
+
+    /**
+     * @var string $price_type
+     *
+     * @ORM\Column(name="price_type", type="string", length=100)
+     */
+    private $price_type;
 
     /**
      * @var string $description
@@ -531,5 +542,28 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set price_type
+     *
+     * @param string $priceType
+     * @return Product
+     */
+    public function setPriceType($priceType)
+    {
+        $this->price_type = $priceType;
+    
+        return $this;
+    }
+
+    /**
+     * Get price_type
+     *
+     * @return string 
+     */
+    public function getPriceType()
+    {
+        return $this->price_type;
     }
 }

@@ -35,6 +35,7 @@ class OrderController extends Controller
      */
     public function addProductAction(Request $req, $product_id, $price_id)
     {
+		var_dump();die();
 //NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
