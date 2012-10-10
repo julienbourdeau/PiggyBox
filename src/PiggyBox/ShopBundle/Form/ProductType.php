@@ -22,6 +22,9 @@ class ProductType extends AbstractType
 		        'by_reference' => false,
 			))
 			->add('category')
+			->add('price_type', 'hidden', array(
+   	 			'data' => '',
+			))
         ;
     }
 

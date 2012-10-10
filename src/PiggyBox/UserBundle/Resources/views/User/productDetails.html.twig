@@ -1,29 +1,63 @@
-{# -----------  PRIX A L'UNITE  -------- #}
-{% if product.prices|length > 0 and product.prices[0].slicenbr is not defined %}
-
-<div class="row-fluid">
-    <div class="span12 text-right">
-        <form action="" class="form-inline">
-            <select name="" id=""class="span2">
-                <option value="">1</option>
-                <option value="">2</option>
-                <option value="">3</option>
-                <option value="">4</option>
-                <option value="">5</option>
-                <option value="">6</option>
-                <option value="">7</option>
-                <option value="">8</option>
-                <option value="">9</option>
-                <option value="">10</option>
-            </select>
-            <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
-        </form>
-    </div>
-</div>
-{% endif %}
-
-{# --------------------------------- #}
-{% if product.prices|length == 0 %}
+{% if product.prices|length >0 %}
+	{% for price in product.prices %}
+		{% if price.slicenbr == '' %}
+		<div class="row-fluid">
+		    <div class="span12 text-right">
+		            <select name="select price" id="select price"class="span2">
+		                <option value="">1</option>
+		                <option value="">2</option>
+		                <option value="">3</option>
+		                <option value="">4</option>
+		                <option value="">5</option>
+		                <option value="">6</option>
+		                <option value="">7</option>
+		                <option value="">8</option>
+		                <option value="">9</option>
+		                <option value="">10</option>
+		            </select>
+		            <button href="{{path('cart_add_product', {product_id : product.id, price_id : price.id})}}" class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+		    </div>
+		</div>
+		{% else %}
+		<div class="row-fluid">
+		    <div class="span12">
+		        <table class="table table-bordered pricing">
+		            <tbody>
+		                <tr>
+		                    <th class="span2">Découpe <br><small>Pièce</small></th>
+		                    <th class="span4">Poids</th>
+		                    <th class="span2">Prix</th>
+		                    <th class="span2">Prix <br><small>au Kg</small></th>
+		                    <th class="span3"></th>
+		                </tr>
+		
+		    			{% set product_id = product.id%}
+		    				{% for price in product.prices %}
+		        	        	<tr>
+		    						{% if price.slicenbr|length %}
+		    							<td>{{price.slicenbr}}</td>
+		    						{% endif %}
+		
+		    						{% if price.totalweight|length %}
+		                	    		<td>{{price.totalweight}}</td>
+		    						{% endif %}
+		                    		
+		                            <td>{{price.price}} €</td>
+		                    		<td>{{product.pricekg}} €</td>
+		
+		    						<td>
+										<a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-primary"> <i class="icon-plus icon-white"></i> Ajouter</a>
+		                            </td>
+		                		</tr>
+		    				{% endfor %}
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+		{% endif %}
+	{% endfor %}
+			
+{% else %}
 <div class="row-fluid">
     <div class="span12 text-right">
         <form action="" class="form-inline">
@@ -46,53 +80,3 @@
     </div>
 </div>
 {% endif %}
-{# -----------  PRIX AU KILO  -------- #}
-
-
-{# --------------------------------- #}
-
-
-
-{# -----------  PRIX A LA COUPE  -------- #}
-
-<div class="row-fluid">
-
-    <div class="span12">
-        <table class="table table-bordered pricing">
-            <tbody>
-                <tr>
-                    <th class="span2">Découpe <br><small>Pièce</small></th>
-                    <th class="span4">Poids</th>
-                    <th class="span2">Prix</th>
-                    <th class="span2">Prix <br><small>au Kg</small></th>
-                    <th class="span3">Quantité</th>
-                </tr>
-
-    			{% set product_id = product.id%}
-                {% if product.prices|length > 0 %}
-    				{% for price in product.prices %}
-        	        	<tr>
-    						{% if price.slicenbr|length %}
-    							<td>{{price.slicenbr}}</td>
-    						{% endif %}
-
-    						{% if price.totalweight|length %}
-                	    		<td>{{price.totalweight}}</td>
-    						{% endif %}
-                    		
-                            <td>{{price.price}} €</td>
-                    		<td>{{product.pricekg}} €</td>
-
-    						<td>
-								<a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-primary"> <i class="icon-plus icon-white"></i> Ajouter</a>
-                            </td>
-                		</tr>
-    				{% endfor %}
-    			{% endif %}
-            </tbody>
-        </table>
-    </div>
-
-</div>
-
-{# --------------------------------- #}
