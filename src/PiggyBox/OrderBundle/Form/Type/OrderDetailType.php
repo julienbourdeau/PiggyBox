@@ -68,11 +68,10 @@ class OrderDetailType extends AbstractType
 						if($product->getPriceType() == Product::SLICE_PRICE){
 							$choice_list = array('1' => '1');		
 						}
-
 					}					
 
 					$event->getForm()->add(
-						$formFactory->createNamed('quantity','choice',null , array(
+						$formFactory->createNamed('quantity','choice', array(
 								'choices' => $choice_list,
 							)
 					)

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Form\Type\OrderType;
+use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,24 +28,23 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  */
 class OrderController extends Controller
 {
-
     /**
-     * Crée ou récupère un nouvel Order grâce à la session du l'utilisateur 
+     * Validate Order
      *
+	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/ajouter/produit/{product_id}/{price_id}", name="cart_add_product")
+     * @Method("POST")
      */
-    public function addProductAction(Request $req, $product_id, $price_id)
+    public function addProductAction(Request $req, $price_id)
     {
 		var_dump();die();
 //NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-
-		//NOTE: Get the product to add
         $em = $this->getDoctrine()->getManager();
-		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
 
 		$orders = $cart->getOrders()->toArray();
 		$shop = $product->getShop();
+		$order_detail =  new 
 		$order = null;
 
 		foreach($orders as $tab){
@@ -53,6 +53,23 @@ class OrderController extends Controller
 				break;
 			}
 		}
+
+        $form = $this->createForm(new OrderDetailType(), new OrderDetail());
+        $form->bind($request);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($order);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
+        }
+
+        return array(
+            'entity' => $order,
+            'form'   => $form->createView(),
+        );
 
 		//Création d'un nouvel order si nouveau produit
 		if(null == $order){
