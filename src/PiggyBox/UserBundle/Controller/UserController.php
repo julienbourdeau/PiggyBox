@@ -88,7 +88,7 @@ class UserController extends Controller
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
-
+		
 		if($category_title == "default"){
 			$products = $shop->getProducts();
 			
