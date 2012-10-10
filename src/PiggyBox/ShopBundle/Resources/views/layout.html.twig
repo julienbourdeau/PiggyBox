@@ -33,10 +33,14 @@
 				  <div class="nav-collapse row">
 					<nav>
 						<ul class="nav">
-							<li class="active span3">
+							<li class="span3
+								{% if app.request.attributes.get('_route')|slice(0, 24) == "moncommerce_mescommandes" %}active{% endif %}
+								">
 								<a href="{{ path('moncommerce_mescommandes') }}">Commandes</a>
 							</li>
-							<li class="span2">
+							<li class="span2
+								{% if app.request.attributes.get('_route')|slice(0, 22) == "monmagasin_mesproduits" %}active{% endif %}
+								">
 								<a href="{{ path('monmagasin_mesproduits', {'category_id': 0 }) }}">Produits</a>
 							</li>
 							<li class="span2">
