@@ -566,4 +566,9 @@ class Product
     {
         return $this->price_type;
     }
+
+    public function __toString()
+    {
+        return $this->price_type;
+    }
 }
