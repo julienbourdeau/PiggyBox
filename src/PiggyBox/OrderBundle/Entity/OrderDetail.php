@@ -57,6 +57,13 @@ class OrderDetail
     private $price;
 
     /**
+     * @var integer $quantity
+     *
+     * @ORM\Column(name="quantity", type="integer")
+     */
+    private $quantity;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -179,5 +186,28 @@ class OrderDetail
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     * @return OrderDetail
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer 
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 }

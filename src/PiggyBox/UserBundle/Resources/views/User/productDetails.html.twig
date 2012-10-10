@@ -3,19 +3,10 @@
 		{% if price.slicenbr == '' %}
 		<div class="row-fluid">
 		    <div class="span12 text-right">
-		            <select name="select price" id="select price"class="span2">
-		                <option value="">1</option>
-		                <option value="">2</option>
-		                <option value="">3</option>
-		                <option value="">4</option>
-		                <option value="">5</option>
-		                <option value="">6</option>
-		                <option value="">7</option>
-		                <option value="">8</option>
-		                <option value="">9</option>
-		                <option value="">10</option>
-		            </select>
-		            <button href="{{path('cart_add_product', {product_id : product.id, price_id : price.id})}}" class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+				<form class="form-inline" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(form) }}>
+					{{form_widget(form.quantity)}}	
+		        <button href="{{path('cart_add_product', {product_id : product.id, price_id : price.id})}}" class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+				</form>
 		    </div>
 		</div>
 		{% else %}
