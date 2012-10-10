@@ -20,7 +20,7 @@
 		    <div class="row-fluid">
 
 		    	<div class="span4">
-		    		<img src="{{product.getWebPath | apply_filter('my_thumb') }}" class="img-polaroid">
+		    		<img src="{{product.getWebPath | apply_filter('large_thumb') }}" class="img240x240">
 		    	</div>
 
 				<div class="span8">
@@ -134,10 +134,17 @@
 						{% endif %}
 
 						<hr />
-						<button class="btn btn-large btn-block btn-primary">
-							<i class="icon-ok icon-white"></i>
-							Enregistrer les modifications
-						</button>
+						<div class="row-fluid">
+							<div class="span9">
+								<button class="btn btn-large btn-block btn-primary">
+									<i class="icon-ok icon-white"></i>
+									Enregistrer les modifications
+								</button>
+							</div>
+							<div class="span3">
+								<a class="btn btn-large btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer</a>
+							</div>
+						</div>
 
 
 				</div>
