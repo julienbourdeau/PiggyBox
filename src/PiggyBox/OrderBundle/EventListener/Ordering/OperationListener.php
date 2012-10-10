@@ -23,16 +23,6 @@ class OperationListener
 		}
 
 		$order->setTotalPrice($result);
-		$listener = new OperationListener();
-		$dispatcher = new EventDispatcher();
-
-
-
-		$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
-		$event = new OrderEvent($order);
-		$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
-
-	$event->getDispatcher()->dispatch(ss);
     }
 }
 

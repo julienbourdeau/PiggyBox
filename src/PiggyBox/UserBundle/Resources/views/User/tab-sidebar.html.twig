@@ -62,8 +62,8 @@
                         {% for order_detail in order.orderdetail %} 
                             <tr>
                                 <td>{{ order_detail.product.name }}</td>
-                                <td class="text-right">{{ order_detail.price.price}}</td>
-                                <td class="text-right">4,30 €</td>
+                                <td class="text-right">1</td>
+                                <td class="text-right">{{ order_detail.price.price}} €</td>
 								<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
                             </tr>
                         {% endfor %}
@@ -71,8 +71,8 @@
 
                         <tfoot>
                             <tr class="ttc-price">
-                                <td colspan="2">Total TTC</td>
-                                <td>12,67 €</td>
+								<td colspan="2">{{order.orderdetail|length}}</td>
+                                <td>{{order.totalprice}} €</td>
                             </tr>
                         </tfoot>
 
