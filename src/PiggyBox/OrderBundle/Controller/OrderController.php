@@ -20,7 +20,10 @@ use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use PiggyBox\OrderBundle\Event\OrderEvent;
 use PiggyBox\OrderBundle\EventListener\Ordering\OperationListener;
+use PiggyBox\OrderBundle\EventListener\Ordering\MailListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use \Swift_Mailer;
+
 /**
  * Order controller.
  *
@@ -74,9 +77,9 @@ class OrderController extends Controller
 			$order->setShop($product->getShop());
 			$order->addOrderDetail($order_detail);
 			
-			$listener = new OperationListener();
+			$operation_listener = new OperationListener();
 			$dispatcher = new EventDispatcher();
-			$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
+			$dispatcher->addListener('piggy_box_cart.operation_order', array($operation_listener, 'onOperationProcessed'));
 			$event = new OrderEvent($order);
 			$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
 
