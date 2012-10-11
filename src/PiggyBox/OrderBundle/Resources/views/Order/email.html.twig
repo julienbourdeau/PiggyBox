@@ -1,6 +1,7 @@
 {% set width = '800px' %}
 {% set padding_left = '80px' %}
 {% set padding_bottom = '26px' %}
+{% set ul_margin = '80px' %}
 
 
 
@@ -50,12 +51,27 @@
 			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
 				<td><img src="{{ asset('bundles/piggyboxorder/img/highlightmarker.png')}}" alt=""></td>
 				<td>
-					Votre commande 
-					<span style="font-weight: bold;">#894764</span> 
-					a été validée
+					Votre commande:
 				</td>
 			</tr>
 		</table>
+
+		<table>
+			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
+				<td>
+					<div style="padding-left: {{ ul_margin }}; ">
+						- Côte de porc - 5 pièce <br>
+						- Poulet rôti - 1 pièce <br>
+						- Lasagne - 400g
+					</div>
+				</td>
+			</tr>
+		</table>
+
+
+
+
+					
 
 		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
 		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
