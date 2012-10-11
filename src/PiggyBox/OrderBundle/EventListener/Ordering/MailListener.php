@@ -24,7 +24,7 @@ class MailListener
 		        ->setSubject('[Order]')
 				->setFrom('dev@babelconsulting.fr')
 				->setTo('baptiste.dupuch@babelconsulting.fr')
-		        ->setBody('etst')
+				->setBody($this->renderView('PiggyBoxOrderBundle:Order:email.txt.twig'))
 		    ;
 		    $this->mailer->send($message);
     }

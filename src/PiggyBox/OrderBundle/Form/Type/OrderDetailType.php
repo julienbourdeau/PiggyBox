@@ -27,7 +27,7 @@ class OrderDetailType extends AbstractType
 		$price_type = $this->price_type;
 
 
-		if($price_type == Product::WEIGHT_PRICE){
+		if($price_type != Product::WEIGHT_PRICE){
 			$builder->add('quantity', 'choice', array(
 				'choice_list' => new SimpleChoiceList(
 					array(
