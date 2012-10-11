@@ -1,10 +1,14 @@
 {% if product.pricetype == 'unit_price' %}
 <div class="row-fluid">
     <div class="span12 text-right">
-		<form class="form-inline" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(form) }}>
+	 	{% for price in product.prices %}
+		<form class="form-inline" action="{{path('cart_add_product', {product_id: product.id, price_id : price.id})}}" method="post" {{ form_enctype(form) }}>
+
 			{{form_widget(form.quantity)}}	
-        <button href="{{path('cart_add_product', {product_id : product.id, price_id : price.id})}}" class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+			{{ form_widget(form._token) }}
+        <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
 		</form>		
+		{% endfor %}
     </div>     		
 </div>         
 
@@ -19,21 +23,23 @@
                		     <th class="span4">Poids</th>
                		     <th class="span2">Prix</th>
                		     <th class="span2">Prix <br><small>au Kg</small></th>
-               		     <th class="span3"></th>
+               		     <th class="span3">Quantité</th>
                		 </tr>
                		
     		   		 {% set product_id = product.id%}
     		   		 	{% for price in product.prices %}
-						<form class="form-inline" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(form) }}>
-							<tr>
+						<form class="form-inline" action="{{path('cart_add_product', {product_id: product_id, price_id : price.id})}}" method="post" {{ form_enctype(form) }}>
+							<tr class="text-centered">
 								<td>{{price.slicenbr}}</td>
 								<td>{{price.totalweight}}</td>
 								<td>{{price.price}} €</td>
 								<td>{{product.pricekg}} €</td>
 								<td>
-									<a href="{{path('cart_add_product', {product_id : product_id, price_id : price.id})}}" class="btn btn-primary"> <i class="icon-plus icon-white"></i> Ajouter</a>
+									{{ form_widget(form.quantity, { 'attr': {'class': 'span12'}}) }}
+									<button class="btn btn-primary btn-block"> <i class="icon-plus icon-white"></i> Ajouter</button>
 								</td>
 							</tr>
+							{{ form_widget(form._token) }}
 						</form>
     		   		 	{% endfor %}
             </tbody>
@@ -45,9 +51,10 @@
 
 <div class="row-fluid">
     <div class="span12 text-right">
-		<form class="form-inline" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(form) }}>
+		<form class="form-inline" action="{{path('cart_add_product', {product_id: product.id, price_id : 0})}}" method="post" {{ form_enctype(form) }}>
+
 			{{form_widget(form.quantity)}}	
-		
+			{{ form_widget(form._token) }}	
             <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
         </form>
     </div>

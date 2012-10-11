@@ -7,79 +7,66 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\OrderBundle\Form\Type\QuantityType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
+use Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList;
 
 class OrderDetailType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    private $price_type;
+
+    public function __construct($price_type)
     {
-        $builder
-            ->add('product');
-
-
-		$formFactory = $builder->getFormFactory();
-		
-		$builder->addEventListener(
-			FormEvents::PRE_SET_DATA,
-			function (FormEvent $event) use ($formFactory) {
-				if (null === $event->getData()) {
-         	    	return;
-        		}
-
-				if($event->getData()){
-					$choice_list = array();
-
-					if ($event->getData()->getProduct() !== null) {
-						$product = $event->getData()->getProduct();
-						$price_kg = $product->getPriceKg();
-
-						if($product->getPriceType() == Product::UNIT_PRICE){
-							$choice_list = array(
-								'1' => '1',
-								'2' => '2',
-								'3' => '3',
-								'4' => '4',
-								'5' => '5',
-								'6' => '6',
-								'7' => '7',
-								'8' => '8',
-								'9' => '9',
-								'10' => '10',
-							);		
-						}
-
-						if($product->getPriceType() == Product::WEIGHT_PRICE){
-							$choice_list = array(
-								'0.05' => '  &nbsp;50g &nbsp;&nbsp; - &nbsp;  €',
-								'0.1' => ' 100g &nbsp;&nbsp; - &nbsp;  €',
-								'0.2' => ' 200g &nbsp;&nbsp; - &nbsp;  €',
-								'0.3' => ' 300g &nbsp;&nbsp; - &nbsp;  €',
-								'0.4' => ' 400g &nbsp;&nbsp; - &nbsp;  €',
-								'0.5' => ' 500g &nbsp;&nbsp; - &nbsp;  €',
-								'0.6' => ' 600g &nbsp;&nbsp; - &nbsp;  €',
-								'0.7' => ' 700g &nbsp;&nbsp; - &nbsp;  €',
-								'0.8' => ' 800g &nbsp;&nbsp; - &nbsp;  €',
-								'0.9' => ' 900g &nbsp;&nbsp; - &nbsp;  €',
-								'1' => '1000g &nbsp;&nbsp; - &nbsp;    €',
-							);		
-						}
-
-						if($product->getPriceType() == Product::SLICE_PRICE){
-							$choice_list = array('1' => '1');		
-						}
-					}					
-
-					$event->getForm()->add(
-						$formFactory->createNamed('quantity','choice', array(
-								'choices' => $choice_list,
-							)
-					)
-					);
-				}
-			}
-		);		
+        $this->price_type = $price_type;
     }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+	{		
+		$price_type = $this->price_type;
+
+
+		if($price_type == Product::WEIGHT_PRICE){
+			$builder->add('quantity', 'choice', array(
+				'choice_list' => new SimpleChoiceList(
+					array(
+						'1' => '1' ,
+						'2' => '2' ,
+						'3' => '3' ,
+						'4' => '4' ,
+						'5' => '5' ,
+						'6' => '6' ,
+						'7' => '7' ,
+						'8' => '8' ,
+						'9' => '9' ,
+						'8' => '8' ,
+						'10' =>'10',
+					)
+				)
+			));	
+		}
+
+		if($price_type == Product::WEIGHT_PRICE){
+			$builder->add('quantity', 'choice', array(
+				'choice_list' => new SimpleChoiceList(
+					array(
+						'1' => '100g' ,
+						'2' => '200g' ,
+						'3' => '300g' ,
+						'4' => '400g' ,
+						'5' => '500g' ,
+						'6' => '600g' ,
+						'7' => '700g' ,
+						'8' => '800g' ,
+						'9' => '900g' ,
+						'8' => '800g' ,
+						'10' =>'1000g',
+					)
+				)
+			));	
+		}
+	}
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
