@@ -4,6 +4,7 @@ namespace PiggyBox\OrderBundle\EventListener\Ordering;
 
 use PiggyBox\OrderBundle\Event\OrderEvent;
 use PiggyBox\OrderBundle\Entity\Order;
+use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 
 class OperationListener 
@@ -17,8 +18,11 @@ class OperationListener
 		$order_details = $order->getOrderDetail();
 
 		foreach ($order_details as $order_detail) {
-				if($order_detail->getPrice() !==null) {
-					$result = $result + $order_detail->getPrice()->getPrice();
+			if($order_detail->getProduct()->getPriceType() == Product::WEIGHT_PRICE){
+				$result = $result + $order_detail->getProduct()->getPriceKg()*$order_detail->getQuantity();	
+			}
+			if($order_detail->getProduct()->getPriceType() != Product::WEIGHT_PRICE){
+				$result = $result + $order_detail->getPrice()->getPrice()*$order_detail->getQuantity();
 			} 
 		}
 
