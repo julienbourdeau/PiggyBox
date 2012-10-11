@@ -424,4 +424,9 @@ class Order
     {
         return $this->pickupatDate;
     }
+
+    public function __toString()
+    {
+        return $this->status;
+    }
 }

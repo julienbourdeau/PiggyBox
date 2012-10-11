@@ -31,74 +31,44 @@ class OrderController extends Controller
     /**
      * Validate Order
      *
-	 * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/ajouter/produit/{product_id}/{price_id}", name="cart_add_product")
      * @Method("POST")
      */
-    public function addProductAction(Request $req, $price_id)
+    public function addProductAction(Request $req, $product_id, $price_id)
     {
-		var_dump();die();
-//NOTE: Get the CartProvider that handle the creation/retreive of the cart and session
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
-
-		$orders = $cart->getOrders()->toArray();
-		$shop = $product->getShop();
-		$order_detail =  new 
-		$order = null;
-
-		foreach($orders as $tab){
-			if($shop->getId() == $tab->getShop()->getId()){
-				$order = $tab;	
-				break;
-			}
-		}
-
-        $form = $this->createForm(new OrderDetailType(), new OrderDetail());
-        $form->bind($request);
+		$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
+		$order_detail = new OrderDetail();
+        $form = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail);
+        $form->bind($req);
+		var_dump($req->request);
+		var_dump($order_detail);
+		var_dump($form->getChildren());
+		var_dump($form->getErrorsAsString());
 
         if ($form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($order);
+			$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
+			$order_detail->setProduct($product);
+
+			if($product != Product::WEIGHT_PRICE){
+				$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
+			}
+			var_dump($order_detail);die();
+            $em->persist($order_detail);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('fos_user_security_logout'));
+        	$this->get('session')->setFlash('success', 'Le produit a ete correctement ajouté');
+
+        	return new RedirectResponse($this->get('request')->headers->get('referer'));
         }
 
-        return array(
-            'entity' => $order,
-            'form'   => $form->createView(),
-        );
-
-		//Création d'un nouvel order si nouveau produit
-		if(null == $order){
-			$order = new Order();
-			$cart->addOrder($order);
-    	    $em->persist($cart);	
-		}
-		$order->setShop($product->getShop());
-
-		//Ajout du produit à l'OrderDetail
-		$order_detail = new OrderDetail();
-        $order_detail->setProduct($product);
-        $order_detail->setOrder($order);
-		$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
-		$order->addOrderDetail($order_detail);
-
-		$listener = new OperationListener();
-		$dispatcher = new EventDispatcher();
-		$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
-		$event = new OrderEvent($order);
-		$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
-
-		//persist & flush
-        $em->persist($order_detail);
-        $em->persist($order);
-        $em->flush();
-
-        //NOTE: Set a flash message to share the success
-        $this->get('session')->setFlash('success', 'Le produit a ete correctement ajouté');
+		var_dump("echec");die();
+	//	$listener = new OperationListener();
+	//	$dispatcher = new EventDispatcher();
+	//	$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
+	//	$event = new OrderEvent($order);
+	//	$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
@@ -164,7 +134,6 @@ class OrderController extends Controller
             $user = $securityContext->getToken()->getUser();
 			
 			// saving the DB
-            $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();
 
