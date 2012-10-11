@@ -20,7 +20,10 @@ use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use PiggyBox\OrderBundle\Event\OrderEvent;
 use PiggyBox\OrderBundle\EventListener\Ordering\OperationListener;
+use PiggyBox\OrderBundle\EventListener\Ordering\MailListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use \Swift_Mailer;
+
 /**
  * Order controller.
  *
@@ -41,34 +44,53 @@ class OrderController extends Controller
 		$order_detail = new OrderDetail();
         $form = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail);
         $form->bind($req);
-		var_dump($req->request);
-		var_dump($order_detail);
-		var_dump($form->getChildren());
-		var_dump($form->getErrorsAsString());
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 			$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
-			$order_detail->setProduct($product);
+	
+			$cart = $this->get('piggy_box_cart.provider')->getCart();
+			$orders = $cart->getOrders()->toArray();
+			$shop = $product->getShop();
+			$order = null;
+
+			foreach($orders as $tab){
+				if($shop->getId() == $tab->getShop()->getId()){
+					$order = $tab;	
+					break;
+				}
+			}
+
+			if(null == $order){
+				$order = new Order();
+				$cart->addOrder($order);
+				$em->persist($cart);	
+			}
+			$order->setShop($product->getShop());
 
 			if($product != Product::WEIGHT_PRICE){
 				$order_detail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
 			}
-			var_dump($order_detail);die();
-            $em->persist($order_detail);
+
+			$order_detail->setProduct($product);			
+			$order_detail->setOrder($order);
+			$order->setShop($product->getShop());
+			$order->addOrderDetail($order_detail);
+			
+			$operation_listener = new OperationListener();
+			$dispatcher = new EventDispatcher();
+			$dispatcher->addListener('piggy_box_cart.operation_order', array($operation_listener, 'onOperationProcessed'));
+			$event = new OrderEvent($order);
+			$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
+
+			$em->persist($order);
+			$em->persist($order_detail);
             $em->flush();
 
         	$this->get('session')->setFlash('success', 'Le produit a ete correctement ajouté');
 
         	return new RedirectResponse($this->get('request')->headers->get('referer'));
         }
-
-		var_dump("echec");die();
-	//	$listener = new OperationListener();
-	//	$dispatcher = new EventDispatcher();
-	//	$dispatcher->addListener('piggy_box_cart.operation_order', array($listener, 'onOperationProcessed'));
-	//	$event = new OrderEvent($order);
-	//	$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
@@ -80,12 +102,10 @@ class OrderController extends Controller
      */
     public function removeProductAction($order_detail_id)
     {
-		//trouver le magasin du produit
         $em = $this->getDoctrine()->getManager();
 		$order_detail = $em->getRepository('PiggyBoxOrderBundle:OrderDetail')->find($order_detail_id); 
 
 		$order = $order_detail->getOrder();
-		//TODO: Check the order_detail quantity
 		$order->removeOrderDetail($order_detail);
 
 		if(0 == $order->getOrderDetail()->count()){
@@ -101,12 +121,10 @@ class OrderController extends Controller
 		$event = new OrderEvent($order);
 		$dispatcher->dispatch('piggy_box_cart.operation_order', $event);
 
-		//Remove OrderDetail
 		$em->remove($order_detail);
 		$em->persist($order);
 		$em->flush();
 
-        //NOTE: Set a flash message to share the success
         $this->get('session')->setFlash('success', 'Le produit a ete correctement retiré');
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
@@ -129,10 +147,7 @@ class OrderController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-             // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-			
+			$order->setStatus('toValidate');	
 			// saving the DB
             $em->persist($order);
             $em->flush();
