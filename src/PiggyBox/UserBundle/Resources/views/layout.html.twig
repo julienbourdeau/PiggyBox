@@ -87,7 +87,18 @@
         </header>
 
 
-
+		<div class="container">
+			{% for name, value in app.session.flashes if name in ['success', 'error'] %}
+			<div class="row">
+				<div class="span12">
+					<div class="alert alert-{{ name }}">
+						<a class="close" data-dismiss="alert" href="#">×</a>
+						{{ value|trans }}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
 		{% block content %}{% endblock %}
 
 

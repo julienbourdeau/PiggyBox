@@ -205,6 +205,7 @@
 		</div>
 
 
+{{ form_widget(form.price_type) }}
 {{ form_widget(form._token) }}
 </form>
 
@@ -242,17 +243,17 @@ var $slicePriceTotalWeightDiv = $('td#multiple-pricing-input-total-weight');
 //var $newLinkLi = $('<li></li>').append($addTagLink);
 
 jQuery(document).ready(function() {
-
+//piggybox_shopbundle_producttype_price_type
 		var i=0;
 
     $('.pricing-tab').on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
-
 		var container = '#' + $(this).attr('rel') + '-container';
 		switch($(this).attr('rel'))
 		{
 		case "kg-pricing":
+		  $('input#piggybox_shopbundle_producttype_price_type').val('weight_price');
    		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
 
@@ -275,6 +276,7 @@ jQuery(document).ready(function() {
 		  break;
 		case 'multiple-pricing':
 
+		  $('input#piggybox_shopbundle_producttype_price_type').val('slice_price');
    		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
 
@@ -311,6 +313,7 @@ jQuery(document).ready(function() {
 			
 		  break;
 		default:
+		  $('input#piggybox_shopbundle_producttype_price_type').val('unit_price');
    		  $('div#unit-pricing-input-price > input').remove();
 		  $('div#unit-pricing-input-price-kg > input').remove();
 
