@@ -144,10 +144,7 @@ class OrderController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-             // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-			
+			$order->setStatus('toValidate');	
 			// saving the DB
             $em->persist($order);
             $em->flush();
