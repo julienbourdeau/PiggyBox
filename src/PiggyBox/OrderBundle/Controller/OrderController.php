@@ -221,4 +221,14 @@ class OrderController extends Controller
         $html = $this->renderView('PiggyBoxOrderBundle:Order:hoursOption.html.twig', array('opening_hours' => $opening_hours));
         return new JsonResponse(array('content' => $html));
     }
+
+
+    /**
+     * @Template()
+     * @Route("/email", name="email")
+     */
+    public function emailAction()
+    {
+        return array();
+    }
 }
