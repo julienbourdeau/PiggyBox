@@ -1,12 +1,71 @@
+{% set width = '800px' %}
+{% set padding_left = '80px' %}
+{% set padding_bottom = '26px' %}
+
+
 
 <style type="text/css">
-	#header {
-		
-	}
+	
 </style>
 
-<div id="header" style="width: 800px;">
+<div id="header" style="width: {{ width }};">
 
 	<img src="{{ asset('bundles/piggyboxorder/img/email-banner-commande-validee.jpg')}}" alt="">
+
+</div>
+
+<div id="container">
+	<div id="content" style="padding-left: {{ padding_left }};">
+
+		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
+		
+		<table>
+			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
+				<td><img src="{{ asset('bundles/piggyboxorder/img/tick.png')}}" alt=""></td>
+				<td>
+					Votre commande 
+					<span style="font-weight: bold;">#894764</span> 
+					a été validée
+				</td>
+			</tr>
+		</table>
+
+		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
+
+		<table>
+			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
+				<td><img src="{{ asset('bundles/piggyboxorder/img/mapmarker.png')}}" alt=""></td>
+				<td>
+					Votre commande est à récupérer dans le commerce suivant: <br />
+					<span style="font-weight: bold;">
+						Boucherie de Zola, 6 place Emile Zola, 44100 Nantes
+					</span> 
+				</td>
+			</tr>
+		</table>
+
+		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
+
+		<table>
+			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
+				<td><img src="{{ asset('bundles/piggyboxorder/img/highlightmarker.png')}}" alt=""></td>
+				<td>
+					Votre commande 
+					<span style="font-weight: bold;">#894764</span> 
+					a été validée
+				</td>
+			</tr>
+		</table>
+
+		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
+		<div style="padding-bottom: {{ padding_bottom }} ;"></div>
+
+	</div>
+</div>
+
+
+<div id="footer" style="width: {{ width }};">
+	
+	<img src="{{ asset('bundles/piggyboxorder/img/email-footer.jpg')}}" alt="">
 
 </div>
