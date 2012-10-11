@@ -54,7 +54,7 @@
                                 <th>Produit</th>
                                 <th class="text-right">Qté</th>
                                 <th class="text-right">Prix</th>
-								<th class="text-right">Suppression</th>
+								<th class="text-right"></th>
                             </tr>
                         </thead>
 
@@ -62,8 +62,12 @@
                         {% for order_detail in order.orderdetail %} 
                             <tr>
                                 <td>{{ order_detail.product.name }}</td>
-                                <td class="text-right">{{ order_detail.price.price}}</td>
-                                <td class="text-right">4,30 €</td>
+								<td class="text-right">{{order_detail.quantity}}</td>
+									{% if order_detail.price|length > 0%}
+										<td class="text-right">{{ order_detail.price.price}} €</td>
+									{% else %}	
+										<td class="text-right">{{order_detail.product.pricekg}} €</td>
+									{% endif %}
 								<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
                             </tr>
                         {% endfor %}
@@ -71,8 +75,8 @@
 
                         <tfoot>
                             <tr class="ttc-price">
-                                <td colspan="2">Total TTC</td>
-                                <td>12,67 €</td>
+								<td colspan="2">Total TTC</td>
+                                <td>{{order.totalprice}} €</td>
                             </tr>
                         </tfoot>
 
