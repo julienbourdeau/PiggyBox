@@ -62,7 +62,7 @@
                         {% for order_detail in order.orderdetail %} 
                             <tr>
                                 <td>{{ order_detail.product.name }}</td>
-                                <td class="text-right">1</td>
+								<td class="text-right">{{order_detail.quantity}}</td>
 									{% if order_detail.price|length > 0%}
 										<td class="text-right">{{ order_detail.price.price}} €</td>
 									{% else %}	
