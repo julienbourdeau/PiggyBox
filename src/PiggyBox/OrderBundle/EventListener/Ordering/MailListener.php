@@ -1,0 +1,33 @@
+<?php 
+
+namespace PiggyBox\OrderBundle\EventListener\Ordering;
+
+use PiggyBox\OrderBundle\Event\OrderEvent;
+use PiggyBox\OrderBundle\Entity\Order;
+use PiggyBox\OrderBundle\Entity\OrderDetail;
+use \Swift_Mailer;
+
+class MailListener 
+{
+    protected $mailer;
+
+    public function __construct(\Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    public function onOperationProcessed(OrderEvent $event)
+	{
+		$order = $event->getOrder();
+
+		$message = \Swift_Message::newInstance()
+		        ->setSubject('[Order]')
+				->setFrom('dev@babelconsulting.fr')
+				->setTo('baptiste.dupuch@babelconsulting.fr')
+		        ->setBody('etst')
+		    ;
+		    $this->mailer->send($message);
+    }
+}
+
+

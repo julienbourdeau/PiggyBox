@@ -10,8 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\UserBundle\Form\UserType;
 use PiggyBox\ShopBundle\Entity\Shop;
+use PiggyBox\OrderBundle\Entity\OrderDetail;
+use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -86,7 +89,7 @@ class UserController extends Controller
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
-
+		
 		if($category_title == "default"){
 			$products = $shop->getProducts();
 			
@@ -132,7 +135,12 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
 
-        $html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', array('product' => $product));
+		$order_detail = new OrderDetail();
+		$order_detail->setProduct($product);
+
+		$form = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail);
+
+		$html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', array('product' => $product, 'form' => $form->createView()));
         return new JsonResponse(array('content' => $html));
     }
 	

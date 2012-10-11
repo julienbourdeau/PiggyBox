@@ -4,6 +4,7 @@ namespace PiggyBox\OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PiggyBox\OrderBundle\Entity\OrderDetail
@@ -55,6 +56,13 @@ class OrderDetail
      * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
      **/
     private $price;
+
+    /**
+     * @var string $quantity
+	 *
+     * @ORM\Column(name="quantity", type="string", nullable=true)
+     */
+    private $quantity;
 
     /**
      * Get id
@@ -179,5 +187,33 @@ class OrderDetail
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     * @return OrderDetail
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = (int) $quantity;
+    
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer 
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    public function __toString()
+    {
+        return 'order_detail';
     }
 }
