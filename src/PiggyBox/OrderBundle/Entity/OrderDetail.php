@@ -47,13 +47,13 @@ class OrderDetail
 
     /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="SET NULL")
      **/
     private $product;
 
 	/**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Price")
-     * @ORM\JoinColumn(name="price_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="price_id", referencedColumnName="id", onDelete="SET NULL")
      **/
     private $price;
 

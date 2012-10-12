@@ -275,6 +275,7 @@ class ProductController extends Controller
 			try{
 				$em = $this->getDoctrine()->getManager();
 				$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+
 				$securityContext = $this->get('security.context');		
 
 				if (!$product) {
@@ -287,9 +288,10 @@ class ProductController extends Controller
 
 				$em->remove($product);
 				$em->flush();
-				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été édité avec succès.');
+				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été supprimé avec succès.');
 
 			} catch (\Exception $e) {
+				var_dump($e);die();
 				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
 				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
 			}
