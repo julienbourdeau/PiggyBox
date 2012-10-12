@@ -272,21 +272,27 @@ class ProductController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
-	        $securityContext = $this->get('security.context');		
+			try{
+				$em = $this->getDoctrine()->getManager();
+				$product = $em->getRepository('PiggyBoxShopBundle:Product')->find($id);
+				$securityContext = $this->get('security.context');		
 
-            if (!$product) {
-                throw $this->createNotFoundException('Unable to find Product entity.');
-            }
+				if (!$product) {
+					throw $this->createNotFoundException('Unable to find Product entity.');
+				}
 
-			if(!$securityContext->isGranted('DELETE', $product)){
-				throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+				if(!$securityContext->isGranted('DELETE', $product)){
+					throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
+				}
+
+				$em->remove($product);
+				$em->flush();
+				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été édité avec succès.');
+
+			} catch (\Exception $e) {
+				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
 			}
-			
-
-            $em->remove($product);
-            $em->flush();
         }
 
         return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
