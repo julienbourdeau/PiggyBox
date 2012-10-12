@@ -1,0 +1,158 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                
+                <h1 class="text-centered">Nos commerces séléctionnés</h1>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div id="gmap-container" class="black-bordered" style="line-height: 0;">
+                    <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Boucherie+de+Zola,+6+Place+Emile+Zola,+Nantes&amp;aq=0&amp;oq=bou&amp;sll=47.417262,-0.821485&amp;sspn=5.865058,10.645752&amp;ie=UTF8&amp;hq=Boucherie+de+Zola,&amp;hnear=6+Place+Emile+Zola,+44100+Nantes,+Loire-Atlantique,+Pays+de+la+Loire&amp;ll=47.214065,-1.585381&amp;spn=0.092,0.16634&amp;t=m&amp;z=13&amp;iwloc=A&amp;cid=13406424668638377352&amp;output=embed"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div id="launch-ribbon" class="text-centered clearfix">
+                    <div class="dash-container">
+                        <h2>Lancement sur Nantes en octobre 2012
+                           <br>Bientôt plus de commerces et villes disponibles</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span9">
+
+                <div class="box bottom-marged">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Boucherie de Zola</h2>
+                            <h4>Une boucherie au coeur du quartier Zola</h4>
+                            <div class="row-fluid">
+                                <div class="span7">
+                                    <p class="small-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
+                                </div>
+                                <div class="span5">
+                                    <i class="icon-user"></i> 02 40 46 50 42 <br>
+                                    <i class="icon-envelope"></i> zola@boucherdefrance.fr
+                                    <address>
+                                        <i class="icon-home"></i>   6 place emile zola <br>
+                                        <i class="icon-"></i>       44100 Nantes
+                                    </address>
+                                </div>
+                            </div>
+                            <a href="{{ path('user_show_shop', {'slug':'boucherie-zola'}) }}" class="btn btn-block btn-primary"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="coming-soon"></div>
+                <div class="box bottom-marged box-muted">
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Boucherie de Zola</h2>
+                            <h4>Une boucherie au coeur du quartier Zola</h4>
+                            <div class="row-fluid">
+                                <div class="span7">
+                                    <p class="small-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
+                                </div>
+                                <div class="span5">
+                                    <i class="icon-user"></i> 02 40 46 50 42 <br>
+                                    <i class="icon-envelope"></i> zola@boucherdefrance.fr
+                                    <address>
+                                        <i class="icon-home"></i>   6 place emile zola <br>
+                                        <i class="icon-"></i>       44100 Nantes
+                                    </address>
+                                </div>
+                            </div>
+                            <a class="btn btn-block"> <i class="icon-shopping-cart"></i> Magasin bientôt en ligne</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="coming-soon"></div>
+                <div class="box bottom-marged box-muted">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Boucherie de Zola</h2>
+                            <h4>Une boucherie au coeur du quartier Zola</h4>
+                            <div class="row-fluid">
+                                <div class="span7">
+                                    <p class="small-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
+                                </div>
+                                <div class="span5">
+                                    <i class="icon-user"></i> 02 40 46 50 42 <br>
+                                    <i class="icon-envelope"></i> zola@boucherdefrance.fr
+                                    <address>
+                                        <i class="icon-home"></i>   6 place emile zola <br>
+                                        <i class="icon-"></i>       44100 Nantes
+                                    </address>
+                                </div>
+                            </div>
+                            <a class="btn btn-block"> <i class="icon-shopping-cart"></i> Magasin bientôt en ligne</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="span3">
+                <div class="image-category bottom-marged">
+                    <div class="title-hover hide">Boucheries</div>
+                    <img src="{{ asset('bundles/piggyboxuser/img/270px/boucherie.jpg')}}" alt="">
+                </div>
+                <div class="image-category bottom-marged">
+                    <div class="title-hover hide">Boulangeries</div>
+                    <img src="{{ asset('bundles/piggyboxuser/img/270px/boulangerie.jpg')}}" alt="">
+                </div>
+                <div class="image-category bottom-marged">
+                    <div class="title-hover hide">Primeurs</div>
+                    <img src="{{ asset('bundles/piggyboxuser/img/270px/primeur.jpg')}}" alt="">
+                </div>
+                <div class="image-category bottom-marged">
+                    <div class="title-hover hide">Fromageries</div>
+                    <img src="{{ asset('bundles/piggyboxuser/img/270px/fromagerie.jpg')}}" alt="">
+                </div>
+                <div class="image-category bottom-marged">
+                    <div class="title-hover hide">Poissonneries</div>
+                    <img src="{{ asset('bundles/piggyboxuser/img/270px/poissonnerie.jpg')}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+{% endblock %}

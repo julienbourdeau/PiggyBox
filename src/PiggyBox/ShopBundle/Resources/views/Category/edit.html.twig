@@ -1,0 +1,37 @@
+
+{% block actions %}
+<ul>
+    <li><a href="{{ path('demo_category_tree') }}">Show Tree</a></li>
+</ul>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $('button.cancel').click(function () {
+        window.history.back(-1);
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+{% form_theme form "PiggyBoxShopBundle::form.html.twig" %}
+
+<div class="row">
+    <form action="{{ path('demo_category_edit', {'id': form.vars.value.id}) }}" method="post">
+      <fieldset>
+      <legend>Edit Category</legend>
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.parent) }}
+        {{ form_rest(form) }}
+        <div class="actions">
+          <button class="btn primary" type="submit">Update</button>
+        </div>
+      </fieldset>
+    </form>
+</div>
+
+{% endblock %}

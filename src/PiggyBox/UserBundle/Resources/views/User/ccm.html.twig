@@ -1,0 +1,69 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+
+    <div class="container text-centered">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div class="step-wrapper">
+                    <div class="step-container">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>1</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
+                            <h2>Recherchez</h2>
+                            <p>Recherchez votre commerce à proximité</p>
+                        </div>
+                    </div>
+                    <div class="step-container step-offset">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>2</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
+                            <h2>Commandez</h2>
+                            <p>Commandez au même tarif qu'en boutique</p>
+                        </div>
+                    </div>
+                    <div class="step-container step-offset">
+                        <div class="box stepbox">
+                            <div class="step-number"><span>3</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
+                            <h2>Retirez</h2>
+                            <p>Retirez vos commandes sans faire la queue</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span10 offset1">
+                
+                <div id="entry-nav" class="bottom-marged">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#faq" data-toggle="tab">Foire aux Questions</a></li>
+                        <li><a href="#charte" data-toggle="tab">Notre Charte Qualité</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                
+                    <div class="tab-pane active" id="faq">
+                        {% include 'PiggyBoxUserBundle:User:tab-faq.html.twig' %}
+                    </div>
+                    
+                    <div class="tab-pane" id="charte">
+                        {% include 'PiggyBoxUserBundle:User:tab-charte.html.twig' %}
+                    </div>
+                
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    
+{% endblock %}

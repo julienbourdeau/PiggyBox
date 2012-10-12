@@ -1,0 +1,114 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+<div id="">
+        <div class="container text-centered">
+
+
+
+
+            <div class="row bottom-marged">
+                <div class="span12">
+                    <div class="step-wrapper">
+                        <div class="step-container">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>1</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
+                                <h2>Recherchez</h2>
+                                <p>Recherchez votre commerce à proximité</p>
+                            </div>
+                        </div>
+                        <div class="step-container step-offset">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>2</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
+                                <h2>Commandez</h2>
+                                <p>Commandez au même tarif qu'en boutique</p>
+                            </div>
+                        </div>
+                        <div class="step-container step-offset">
+                            <div class="box stepbox">
+                                <div class="step-number"><span>3</span></div>
+                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
+                                <h2>Retirez</h2>
+                                <p>Retirez vos commandes sans faire la queue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="action-buttons" class="row bottom-marged">
+                <div class="span12">
+                    <a href="{{ path('shops') }}" id="" class="btn btn-xlarge btn-primary"><i class="icon-map-marker icon-white"></i> Rechercher sur Nantes</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{ path('ccm') }}" class="btn btn-xlarge"><i class="icon-book"></i> Comprendre le site</a>
+                </div>
+            </div>
+
+
+            <div class="row bottom-marged">
+                <div class="span12">
+                    <div class="black-bordered">
+                        <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row big-quote bottom-marged">
+            <div class="span12">
+                <blockquote class="homepage">
+                    <img src="{{ asset('bundles/piggyboxuser/img/quotes-open.png')}}" alt="" class="pull-left quotes-open">
+                    <img src="{{ asset('bundles/piggyboxuser/img/quotes-close.png')}}" alt="" class="pull-right quotes-close">
+                    <p class="text-centered">
+                        La qualité et le service des commerces de proximité <br>
+                        avec les avantages du drive
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+
+	<div class="container">
+		<div class="row bottom-marged">
+			<div class="span12">
+                <div id="launch-ribbon" class="text-centered clearfix">
+                    <div class="dash-container">
+    				    <h2>Lancement sur Nantes en octobre 2012
+    					   <br>Bientôt plus de commerces et villes disponibles</h2>
+                    </div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div class="black-bordered">
+                    <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+{% endblock %}
+
+{% block javascript %}
+{{parent()}}
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script src="{{ asset('bundles/piggyboxuser/js/home.js')}}"></script>
+		
+{% endblock %}

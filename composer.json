@@ -17,7 +17,16 @@
         "sensio/framework-extra-bundle": "2.1.*",
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
-        "jms/di-extra-bundle": "1.1.*"
+        "jms/di-extra-bundle": "1.1.*",
+		"stof/doctrine-extensions-bundle": "dev-master",
+		"friendsofsymfony/user-bundle": "dev-master",
+		"leafo/lessphp": "dev-master",
+		"knplabs/knp-paginator-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "dev-master",
+        "knplabs/knp-time-bundle": "dev-master",
+        "knplabs/knp-markdown-bundle": "dev-master",
+		"friendsofsymfony/jsrouting-bundle" : "1.0.2",
+		"avalanche123/imagine-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
