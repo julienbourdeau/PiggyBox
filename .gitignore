@@ -10,9 +10,11 @@ web/bundles/*
 web/media/*
 bin
 composer.phar
+comploser.lock
 
 # Configuration files
 app/config/parameters.ini
+app/config/parameters.yml
 
 # Vim files
 *.swp
