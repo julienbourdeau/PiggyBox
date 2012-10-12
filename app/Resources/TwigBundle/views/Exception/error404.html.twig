@@ -1,0 +1,31 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div id="content" class="span6 offset3">
+
+        	<h1 class="text-centered">Page non trouvée</h1>
+
+			<h2 class="text-centered">La page recherchée n'existe pas</h2>
+			<br>
+			<p>Pas d'inquiétude vous pouvez retourner à la page d'accueil ou bien rechercher un commerce</p>
+			<ul>
+				<li><a href="{{ path('home') }}">Accueil du site internet</a></li>
+				<li><a href="{{ path('shops') }}">Les commerçants</a></li>
+				<li><a href="{{ path('ccm') }}">Comment ça marche ?</a></li>
+			</ul>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

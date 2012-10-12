@@ -1,0 +1,27 @@
+{% block actions %}
+<ul>
+    <li><a href="{{ path('demo_category_add') }}">Add Category</a></li>
+    {% if rootNodes %}
+    <li>
+        <span> Tree by "Title", direction: </span>
+        <a class="tree-reorder-link" href="/asc">ASC</a>
+        <span> - </span>
+        <a class="tree-reorder-link" href="/desc">DESC</a>
+    </li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+{% if tree %}
+<h3>The tree looks like:</h3>
+
+<div id="tree">
+    {{ tree|raw }}
+</div>
+{% else %}
+<div class="alert-message info"><p>There are no nodes in tree to display</p></div>
+{% endif %}
+
+{% endblock %}

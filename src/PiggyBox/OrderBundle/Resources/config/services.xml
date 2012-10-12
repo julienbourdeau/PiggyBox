@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="piggy_box_cart.example.class">PiggyBox\CartBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="piggy_box_cart.example" class="%piggy_box_cart.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+	-->
+
+    <parameters>
+        <parameter key="piggy_box_cart.provider.class">PiggyBox\OrderBundle\Provider\CartProvider</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="piggy_box_cart.provider" class="%piggy_box_cart.provider.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="piggy_box_cart.session" />
+        </service>
+
+		<service id="piggy_box_cart.twig.cart_extension" class="PiggyBox\OrderBundle\Twig\CartExtension">
+			<argument type="service" id="service_container" />
+			<tag name="twig.extension" />
+		</service>
+
+		<service id="piggy_box_cart.session" class="PiggyBox\OrderBundle\Storage\SessionCartStorage">
+			<argument type="service" id="session" />
+		</service>
+
+		<service id="piggy_box_cart.ordering.operation" class="PiggyBox\OrderBundle\EventListener\Ordering\OperationListener">
+			<tag name="kernel.event_listener" event="piggy_box_cart.operation_order" method="onOperationProcessed" />
+		</service>
+
+		<service id="piggy_box_cart.ordering.mail" class="PiggyBox\OrderBundle\EventListener\Ordering\MailListener">
+			<argument type="service" id="mailer" />
+			<tag name="kernel.event_listener" event="piggy_box_cart.operation_order" method="onOperationProcessed" />
+		</service>
+
+</services>
+</container>

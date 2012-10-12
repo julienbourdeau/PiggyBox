@@ -1,0 +1,50 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div id="content" class="span4 offset1">
+
+        	<h1 class="text-centered">Connectez-vous</h1>
+
+        	{% if error %}
+			    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+			{% endif %}
+
+			<form action="{{ path("fos_user_security_check") }}" method="post">
+			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+			    <label for="username">Nom d'utilisateur</label>
+			    <input type="text" id="username" class="span4" name="_username" value="{{ last_username }}" required="required" />
+
+			    <br />
+
+			    <label for="password">Mot de passe</label>
+			    <input type="password" id="password" class="span4" name="_password" required="required" />
+
+			    <br />
+
+			    <input type="checkbox" id="remember_me" class="pull-left" style="margin-right: 6px;" name="_remember_me" value="on" />
+			    <label for="remember_me"> Rester connecté</label>
+
+			    <input type="submit" id="_submit" class="btn btn-primary btn-block" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+			</form>
+
+        </div>
+
+        <div class="span4 offset2">
+        	<h1 class="text-centered">Pas encore inscrit ?</h1>
+        	<p>Créez un compte rapidement et simplement</p>
+        	<a href="{{ path('fos_user_registration_register') }}" class="btn btn-large btn-block btn-primary">
+        		<i class="icon-plus icon-white"></i> Créer un compte
+        	</a>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

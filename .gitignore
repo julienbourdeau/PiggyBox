@@ -7,6 +7,12 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/media/*
+bin
+composer.phar
 
 # Configuration files
 app/config/parameters.ini
+
+# Vim files
+*.swp

@@ -1,0 +1,373 @@
+@font-face {font-family: 'Museo-300';src: url('../fonts/2429BD_1_0.eot');src: url('../fonts/2429BD_1_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_1_0.woff') format('woff'),url('../fonts/2429BD_1_0.ttf') format('truetype');}
+@font-face {font-family: 'Museo-500';src: url('../fonts/2429BD_2_0.eot');src: url('../fonts/2429BD_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_2_0.woff') format('woff'),url('../fonts/2429BD_2_0.ttf') format('truetype');}
+@font-face {font-family: 'Museo-700';src: url('../fonts/2429BD_0_0.eot');src: url('../fonts/2429BD_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_0_0.woff') format('woff'),url('../fonts/2429BD_0_0.ttf') format('truetype');}  
+
+
+@import "bootstrap.less";
+@import "responsive.less";
+
+
+
+/*==========================================================================
+   Author's custom styles
+  ==========================================================================*/
+
+h4 [class^="icon-"] {
+	margin-top: 3px;
+}
+
+.red {
+	background: red;
+}
+
+.coming-soon-small {
+	z-index: 999;
+	position: absolute;
+	width: 48px;
+	height: 45px;
+	margin-top: -4px;
+	margin-left: -5px;
+	background: url('../img/coming-soon-small.png');
+}
+.coming-soon {
+	z-index: 999;
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	margin-top: -2px;
+	margin-left: -2px;
+	background: url('../img/coming-soon.png');
+}
+
+div.image-category {
+	border: 4px solid @grayDarker;
+}
+div.image-category:hover {
+	div.title-hover {
+		display: block;
+		width: 262px;
+		text-align: center;
+		font-size: 21px;
+		line-height: 36px;
+		position: absolute;
+		margin-top: 65px;
+		background: @grayDarker;
+		color: @white;
+		z-index: 999;
+	}
+	img {
+		opacity: 0.8;
+	}
+}
+
+header#header {
+	height: 100%;
+	margin-bottom: 52px;
+	#logo {
+		float: left;
+		position: absolute;
+		a {
+			display: block;
+		}
+	}
+	.header-content {
+		color: @white;
+		a {
+			color: @white;
+			padding: 0 3px;
+		}
+		a:hover {
+			background: @mainRed;
+			text-decoration: none;
+		}
+	}
+	.black-container {
+		height: 80px;
+		background: @grayDarker;
+	}
+
+	.nav-tabs li a {
+		padding: 8px 16px;
+		margin-left: 32px;
+		font-size: 21px;
+		line-height: 32px;
+		background: @mainRed;
+		color: @white;
+		border: none;
+	}
+	.nav-tabs li.active a,
+	.nav-tabs li a:hover {
+		background: @mainPink;
+		color: @grayDarker;
+	}
+
+}
+
+
+
+h1 {
+	border-bottom: 4px solid @grayDarker;
+}
+
+#content {	
+	min-height: 700px;	
+}
+#piggybox_register_content {
+	width: 356px;
+	margin: 24px auto;
+	input {
+		width: 356px;
+	}
+}
+p.small-text {
+	font-size: 14px;
+	line-height: 18px;
+}
+
+#photo-slider {
+	//.box-shadowed;
+}
+
+// ENTRY CONTAINER
+#entry-container {
+	margin: 57px 0 20px 0;
+}
+
+	#entry-nav ul.nav {
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		border: 0;
+		border-bottom: 6px solid @grayDarker;
+		li {
+			font-size: 21px;
+			line-height: 28px;
+			margin: 0 24px 0 0;
+		}
+		li.active {
+			margin-top: 2px;
+			a {
+				background: @grayDarker;
+				color: @white;
+				border: 0;
+				//.box-shadowed;
+			}
+		}
+	}
+	#entry-content {
+		padding: 26px 10px;
+		border: 0;
+		//.box-shadowed;
+	}
+
+
+// PRODUCT
+	.primary-price {
+		font-size: 24px; 
+		line-height: 40px;
+	}
+
+// SIDEBAR
+#sidebar {
+	height: 100%;
+	min-height: 1px;
+
+	h1 {
+		font-size: 30px; 
+		padding-bottom: 8px;
+		margin: 0;
+		font-family: 'Museo-300'; 
+		color: @grayDarker; 
+		text-align: center;
+	}
+}
+		
+	#shop-infos {
+		height: 300px;
+		#shop-details {
+			height: 192px;
+			margin: 8px 0;
+		}
+	}
+	
+	.shopelements{
+		margin: 10px;
+	}
+
+	#user-cart {
+		margin-top: 52px;
+		.corner-top {
+			width: 52px;
+			height: 0px;
+			border-top: 4px solid @grayDarker;
+		}
+		.corner-right {
+			width: 0px;
+			height: 52px;
+			border-right: 4px solid @grayDarker;
+		}
+		.corner-bottom {
+			width: 52px;
+			height: 0px;
+			border-bottom: 4px solid @grayDarker;
+		}
+		.corner-left {
+			width: 0px;
+			height: 52px;
+			border-left: 4px solid @grayDarker;
+		}
+
+		.user-cart-content {
+			padding: 0 4px;
+		}
+
+		th {
+		}
+	}
+
+
+table.pricing {
+	th {
+		padding: 2px 8px;
+		background: #444;
+		color: #f9f9f9;
+	}
+	td.text-right,
+	th.text-right {
+		text-align: right;
+	}
+	tfoot tr td {
+		font-weight: bold;
+		text-align: right;
+		border: 0;
+	}
+}	
+	
+footer#footer {
+	//padding-top: 12px;
+	background: @grayDarker;
+	border-top: 8px solid @black;
+	color: @white;
+	font-family: @museo300FontFamily;
+	font-size: 13px;
+	.row {
+		margin-top: 16px;
+	}
+	a {
+		color: @white;
+	}
+	ul {
+		margin: 0;
+		list-style-type: none;
+	}
+	#legal-line {
+		font-family: @sansFontFamily;
+		font-size: 12px;
+		line-height: 12px;
+		color: #666;
+		text-align: center;
+		a {
+			color: #666;
+		}
+	}
+	ul.list {
+		list-style-type: square;
+		margin-left: 52px;
+		li {
+			line-height: 16px;
+		}
+	}
+}
+
+.help-contact img {
+	margin-bottom: 12px;
+	text-align: center;
+}
+
+
+
+/*==========================================================================
+   Home page's custom styles
+  ==========================================================================*/
+
+#ribbon {
+	margin-top: -36px;
+	background: #eeeeee;
+	#action-buttons {
+		margin: 36px 0;
+		.btn-large {
+			line-height: 26px;
+			font-size: 21px;
+			padding: 12px 32px;
+			margin: 0 32px;
+			[class^="icon-"] {
+				margin-top: 4px;
+			}
+		}
+
+	}
+}
+
+blockquote.homepage {
+	margin: 24px 0;
+	border: 0;
+	p {
+		font-size: 42px;
+		line-height: 46px;
+		font-family: "serif";
+		margin-top: 26px;
+		font-style: italic;
+	}
+	img.quotes-open {
+		margin-top: -26px;
+	}
+	img.quotes-close {
+		margin-top: 64px;
+	}
+}
+
+.step-wrapper {
+
+}
+.step-container {
+	float: left;
+	width: 23%;
+	margin-left: 8%;
+}
+
+.step-number {
+	margin-bottom: 24px;
+ 	span {
+		display: block;
+		width:50px;
+		height:50px;
+		margin: 0 auto;
+		.border-radius(25px);
+		background: @grayDarker;
+		font-size:26px;
+		color:#fff;
+		line-height:50px;
+		text-align:center;
+	}
+}
+
+#launch-ribbon {
+	background: url( "@{texturePath}" ) @red;
+	color: @white;
+}
+.dash-container {
+	margin: 6px;
+	border: 3px dashed @white;
+}
+
+
+
+
+
+ul.megalist {
+	list-style-image: url('../img/tick.png');
+	font-size: 26px;
+}
+ul.megalist li {
+
+}

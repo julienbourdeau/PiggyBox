@@ -1,0 +1,50 @@
+{% extends 'FOSUserBundle::layout.html.twig' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div id="content" class="span6 offset3">
+
+        	<h1 class="text-centered">A propos de vous <small>Votre profile</small></h1>
+
+        	<p>Peu d'information sont configurables aujourd'hui mais beaucoup de nouveautés arriveront
+        		dans les jours prochains.</p>
+
+			<div class="fos_user_user_show">
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Type d'info</th>
+						<th>Vos info</th>
+					</tr>
+					<tr>
+						<td>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}</td>
+						<td>{{ user.username }}</td>
+					</tr>
+					<tr>
+						<td>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}</td>
+						<td>{{ user.email }}</td>
+					</tr>
+				</table>
+			</div>
+
+			<h1 class="text-centered">Modifier votre profil</h1>
+
+			{% render 'FOSUserBundle:Profile:edit' %}
+
+			<h1 class="text-centered">Changer votre mot de passe</h2>
+
+			{% render 'FOSUserBundle:ChangePassword:changePassword' %}
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
