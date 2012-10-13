@@ -19,13 +19,12 @@ class OperationListener
 
 		foreach ($order_details as $order_detail) {
 			if($order_detail->getProduct()->getPriceType() == Product::WEIGHT_PRICE){
-				$result = $result + $order_detail->getProduct()->getPriceKg()*$order_detail->getQuantity();	
+				$result = $result + $order_detail->getProduct()->getPriceKg()*$order_detail->getQuantity()/10;	
 			}
 			if($order_detail->getProduct()->getPriceType() != Product::WEIGHT_PRICE){
 				$result = $result + $order_detail->getPrice()->getPrice()*$order_detail->getQuantity();
 			} 
 		}
-
 		$order->setTotalPrice($result);
     }
 }
