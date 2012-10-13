@@ -25,7 +25,6 @@ class OperationListener
 				$result = $result + $order_detail->getPrice()->getPrice()*$order_detail->getQuantity();
 			} 
 		}
-
 		$order->setTotalPrice($result);
     }
 }
