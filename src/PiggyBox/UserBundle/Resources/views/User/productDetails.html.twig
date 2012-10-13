@@ -28,18 +28,18 @@
                		
     		   		 {% set product_id = product.id%}
     		   		 	{% for price in product.prices %}
-						<form class="form-inline" action="{{path('cart_add_product', {product_id: product_id, price_id : price.id})}}" method="post" {{ form_enctype(form) }}>
+						<form class="form-inline" action="{{path('cart_add_product', {product_id: product_id, price_id : price.id})}}" method="post" {{ form_enctype(form[loop.index0]) }}>
 							<tr class="text-centered">
 								<td>{{price.slicenbr}}</td>
 								<td>{{price.totalweight}}</td>
 								<td>{{price.price}} €</td>
 								<td>{{product.pricekg}} €</td>
 								<td>
-									{{ form_widget(form.quantity, { 'attr': {'class': 'span12'}}) }}
+									{{ form_widget(form[loop.index0].quantity, { 'attr': {'class': 'span12'}}) }}
 									<button class="btn btn-primary btn-block"> <i class="icon-plus icon-white"></i> Ajouter</button>
 								</td>
 							</tr>
-							{{ form_widget(form._token) }}
+							{{ form_widget(form[loop.index0]._token) }}
 						</form>
     		   		 	{% endfor %}
             </tbody>
