@@ -138,9 +138,21 @@ class UserController extends Controller
 		$order_detail = new OrderDetail();
 		$order_detail->setProduct($product);
 
-		$form = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail);
+		$data = array();
+		if($product->getPriceType() == Product::SLICE_PRICE){
+			$i =0;
+			foreach ($product->getPrices() as $price) {
+				$data['form'][$i] = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView(); 
+				$i++;
+			}
+		}
 
-		$html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', array('product' => $product, 'form' => $form->createView()));
+		if($product->getPriceType() != Product::SLICE_PRICE){
+			$data['form'] =	$this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
+		}
+
+		$data['product'] = $product;
+		$html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', $data);
         return new JsonResponse(array('content' => $html));
     }
 	
