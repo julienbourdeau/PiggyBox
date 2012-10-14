@@ -147,13 +147,20 @@ class OrderController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-			$order->setStatus('toValidate');	
-			// saving the DB
-            $em->persist($order);
-            $em->flush();
+			try{
+				$order->setStatus('toValidate');	
+				// saving the DB
+				$em->persist($order);
+				$em->flush();
 
-            return $this->redirect($this->generateUrl('fos_user_security_logout'));
-        }
+				$this->get('session')->getFlashBag()->set('success', 'La commande a été envoyé au commerçant');
+				return $this->redirect($this->generateUrl('shops'));
+			}
+			catch (\Exception $e) {
+				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
+            }
+		}
 
         return array(
             'entity' => $order,
