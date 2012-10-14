@@ -39,12 +39,10 @@ class ShopController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        $entities = $em->getRepository('PiggyBoxOrderBundle:Order')->findByShop($user->getOwnshop()->getId());
-
-		//var_dump($entities);die();
+        $orders = $em->getRepository('PiggyBoxOrderBundle:Order')->findByShop($user->getOwnshop()->getId());
 
         return array(
-            'entities' => $entities,
+            'orders' => $orders,
         );
     }
 
