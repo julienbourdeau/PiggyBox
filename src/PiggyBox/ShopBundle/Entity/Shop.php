@@ -386,6 +386,7 @@ class Shop
     public function addOpeningDay(\PiggyBox\ShopBundle\Entity\Day $openingDays)
     {
         $this->opening_days[] = $openingDays;
+		$openingDays->setShop($this);
     
         return $this;
     }
