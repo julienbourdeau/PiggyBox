@@ -5,7 +5,7 @@ jms_security_extra:
 security:
     acl: 
         connection: default
-    
+
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
@@ -27,7 +27,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/commande/validation/, role: ROLE_ADMIN}
+        - { path: ^/commande/validation/, role: ROLE_USER}
         - { path: ^/monmagasin/, role: ROLE_SHOP}
         - { path: ^/category/, role: ROLE_ADMIN}
 
