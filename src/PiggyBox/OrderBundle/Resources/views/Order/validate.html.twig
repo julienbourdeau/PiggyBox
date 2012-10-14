@@ -110,6 +110,15 @@
 												<label class="control-label">Votre téléphone</label>
 												<div class="controls">
 													{{ form_widget(form[order.id].user.phone_number) }}
+													<div class="alert alert-info">
+														<p class="small-text">
+															<strong>Votre numéro ne sera jamais divulgé à une autre personne que votre commerçant</strong> <br>
+															Votre numéro de téléphone est démandé car le commerçant peut vous contacter 
+															en cas de soucis avec votre commande. <br>
+															De plus nous souhaitons éviter les fausses commandes.<br>
+
+														</p>
+													</div>
 												</div>
 											</div>
 											{% endif %}
