@@ -37,8 +37,11 @@ class ShopController extends Controller
     public function indexAction()
 	{
         $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
 
-        $entities = $em->getRepository('PiggyBoxOrderBundle:Order')->findByStatus('toValidate');
+        $entities = $em->getRepository('PiggyBoxOrderBundle:Order')->findByShop($user->getOwnshop()->getId());
+
+		//var_dump($entities);die();
 
         return array(
             'entities' => $entities,
