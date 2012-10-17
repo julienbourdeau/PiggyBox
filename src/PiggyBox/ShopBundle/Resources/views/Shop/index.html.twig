@@ -1,7 +1,7 @@
 {% extends 'PiggyBoxShopBundle::layout.html.twig'%}
 {% block body%}
 
-{% include 'PiggyBoxShopBundle:Shop:order_sub_header.html.twig' %}
+{% include 'PiggyBoxShopBundle:Shop:order_sub_header.html.twig' with {'toValidate_count': orders_toValidate|length, 'toPrepare_count': orders_toPrepare|length, 'toArchive_count': orders_toArchive|length}%}
 
 <div id="main">
 	<div id="primary" class="site-content container">
