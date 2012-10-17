@@ -39,7 +39,9 @@ class ShopController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        $orders = $em->getRepository('PiggyBoxOrderBundle:Order')->findByShop($user->getOwnshop()->getId());
+		$orders	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE o.shop=:shop_id ORDER BY o.pickupatDate, o.pickupatTime ASC')
+								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
+								  ->getResult();
 
         return array(
             'orders' => $orders,
