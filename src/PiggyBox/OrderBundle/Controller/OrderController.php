@@ -149,7 +149,10 @@ class OrderController extends Controller
         if ($form->isValid()) {
 			try{
 				$order->setStatus('toValidate');	
-				// saving the DB
+		        $cart = $this->get('piggy_box_cart.provider')->getCart();
+				$cart->removeOrder($order);	
+
+   	            $em->persist($cart);
 				$em->persist($order);
 				$em->flush();
 
