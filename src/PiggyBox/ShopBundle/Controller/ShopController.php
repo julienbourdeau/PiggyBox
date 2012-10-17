@@ -38,14 +38,21 @@ class ShopController extends Controller
 	{
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
+		$data = array();
 
-		$orders	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE o.shop=:shop_id ORDER BY o.pickupatDate, o.pickupatTime ASC')
+		$data['orders_toValidate']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toValidate\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
 								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
 								  ->getResult();
 
-        return array(
-            'orders' => $orders,
-        );
+		$data['orders_toPrepare']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toPrepare\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
+								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
+								  ->getResult();
+
+		$data['orders_toArchive']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toArchive\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
+								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
+								  ->getResult();
+
+        return $data;
     }
 
     /**
