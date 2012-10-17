@@ -547,12 +547,20 @@ class Product
     /**
      * Set price_type
      *
-     * @param string $priceType
-     * @return Product
-     */
-    public function setPriceType($priceType)
+   	 * @ORM\PrePersist
+	 */
+    public function setPriceType()
     {
-        $this->price_type = $priceType;
+		if($this->prices->isEmpty() ){
+			$this->price_type = Product::WEIGHT_PRICE;
+			return $this;
+		}
+		if($this->prices->first()->getSliceNbr() != null){
+			$this->price_type = Product::SLICE_PRICE;
+		}
+		if($this->prices->first()->getSliceNbr() == null){
+			$this->price_type = Product::UNIT_PRICE;	
+		}
     
         return $this;
     }
