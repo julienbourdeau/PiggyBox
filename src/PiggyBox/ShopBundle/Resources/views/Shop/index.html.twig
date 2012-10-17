@@ -6,7 +6,7 @@
 <div id="main">
 	<div id="primary" class="site-content container">
 
-		<h2 id="to_validate">Commandes à valider <sup class="badge badge-success">{{orders_toValidate|length}}</sup></h2>
+		<h2 id="to_validate">Commandes à valider <sup id="super-badge" class="badge badge-success">{{orders_toValidate|length}}</sup></h2>
 
 		<div data-load-more="{{path('moncommerce_mescommandes', {'_format': 'json'})}}" class="to_validate_ajax">
 		{% include 'PiggyBoxShopBundle:Shop:orders_to_validate.html.twig' with {'orders_toValidate': orders_toValidate} %}
@@ -120,5 +120,12 @@
 
 {% block javascript %}
 	{{parent()}}
+	<script src="{{ asset('bundles/piggyboxshop/js/vendor/humane.min.js')}}"></script>
 	<script src="{{ asset('bundles/piggyboxshop/js/orders_to_validate.js')}}"></script>
 {% endblock %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/vendor/bigbox.css')}}">
+{% endblock %}
+
