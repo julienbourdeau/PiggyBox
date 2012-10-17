@@ -41,11 +41,11 @@
 				<div class="span2">
 
 					<div class="order-toolbox">
-						<a href="#" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'toPrepare'})}}" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
 
 						<hr class="divider" />
 
-						<a href="#" class="btn btn-block btn-danger"> Refuser </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'refused'})}}" class="btn btn-block btn-danger"> Refuser </a>
 					</div>
 
 				</div>
@@ -106,7 +106,7 @@
 					<div class="order-toolbox">
 						<hr class="divider" />
 
-						<a href="#" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'toArchive'})}}" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
 
 						<hr class="divider" />
 					</div>
@@ -158,7 +158,7 @@
 					<div class="order-toolbox">
 						<hr class="divider" />
 
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'archived'})}}" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
 
 						<hr class="divider" />
 					</div>

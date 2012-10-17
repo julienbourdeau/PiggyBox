@@ -253,4 +253,22 @@ class OrderController extends Controller
     {
         return array();
     }
+
+    /**
+     * Validate Order for Shp
+     *
+	 * @PreAuthorize("hasRole('ROLE_SHOP')")
+     * @Route("/change/status/{order_id}/{status}", name="change_status")
+     */
+    public function changeStatusOrderAction(Request $request, $order_id, $status)
+	{
+        $em = $this->getDoctrine()->getManager();		
+		$order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($order_id);
+
+		$order->setStatus($status);
+		$em->persist($order);
+		$em->flush();
+
+		return new RedirectResponse($this->get('request')->headers->get('referer'));		
+	}	
 }
