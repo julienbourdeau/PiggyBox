@@ -18,6 +18,7 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use JMS\SecurityExtraBundle\Annotation\SecureReturn;
 use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Shop controller.
@@ -31,7 +32,7 @@ class ShopController extends Controller
      * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page 
 	 * 
 	 * @SecureReturn(permissions="VIEW")
-     * @Route("/", name="moncommerce_mescommandes")
+     * @Route("/.{_format}", name="moncommerce_mescommandes", requirements={"_format"="(html|json)"}, defaults={"_format"="html"})
      * @Template()
      */
     public function indexAction()
@@ -43,6 +44,11 @@ class ShopController extends Controller
 		$data['orders_toValidate']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toValidate\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
 								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
 								  ->getResult();
+
+		if($this->get('request')->getRequestFormat() == 'json'){
+			$html = $this->renderView('PiggyBoxShopBundle:Shop:orders_to_validate.html.twig', $data);
+			return new JsonResponse(array('content' => $html));
+		}
 
 		$data['orders_toPrepare']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toPrepare\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
 								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
