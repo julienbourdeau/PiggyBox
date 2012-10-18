@@ -20,6 +20,7 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/styles-prod.css')}}">
         {% endif %}
 
+		{% block stylesheets %}{% endblock %}
     </head>
 
     <body>
@@ -93,7 +94,9 @@
 		</script>
 		{% endif %}
 
-		{% block javascript %}{% endblock %}
+		{% block javascript %}
+        <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery-1.8.1.min.js')}}"></script>
+		{% endblock %}
     </body>
 
 </html>
