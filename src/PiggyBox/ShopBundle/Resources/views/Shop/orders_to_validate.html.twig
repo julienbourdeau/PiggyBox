@@ -1,0 +1,59 @@
+{% for order in orders_toValidate%}
+	<div class="box box-margined box-success">
+	    <div class="row-fluid">
+
+	    	<div class="span2">
+	    		<div class="collect-date text-centered">
+					<h4 class="no-margin">{{order.pickupatDate|date("l")}} <br /> {{order.pickupatDate|date("d/m")}}</h4>
+					<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
+    			</div>
+	    	</div>
+
+			<div class="entry-description span5">
+				<ul class="orderlist">
+					{% for order_detail in order.orderdetail %}
+						<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+					{% endfor %}
+				</ul>
+
+			</div>
+
+			<div class="span3 text-centered">
+				<h4 class="no-margin">{{order.user.name}}</h4>
+				<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
+				<span class="label label-success">Première Commande</span>
+
+				<hr class="divider" />
+
+				<div class="order-price text-centered">{{order.totalprice}}€</div>
+			</div>
+
+			<div class="span2">
+
+				<div class="order-toolbox">
+					<a href="{{path('change_status', {'order_id': order.id, 'status': 'toPrepare'})}}" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
+
+					<hr class="divider" />
+
+					<a href="{{path('change_status', {'order_id': order.id, 'status': 'refused'})}}" class="btn btn-block btn-danger"> Refuser </a>
+				</div>
+
+			</div>
+
+	    </div>
+
+		{% if order.note is not null%}
+	    <hr />
+
+	    <div class="row-fluid">
+	    	<div class="span12">
+	    		<div class="alert">
+	    		<div class="label label-warning">Note du client</div>
+	    		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac ipsum et risus vulputate euismod. Duis vehicula mattis libero sed elementum. Vestibulum semper lacus quis lectus vestibulum id mollis nisl euismod. In hac habitasse platea dictumst. Maecenas dictum mi ut nisl malesuada euismod.
+	    		</div>
+	    	</div>
+	    </div>
+		{% endif %}
+	</div>  
+{% endfor %}
+
