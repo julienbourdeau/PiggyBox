@@ -109,7 +109,6 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
      */
     public function reverseTransform($value)
     {
-		var_dump($value);
         if (null === $value) {
             return null;
         }
