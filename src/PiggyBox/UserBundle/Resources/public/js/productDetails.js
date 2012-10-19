@@ -8,6 +8,7 @@
             $.ajax({
                 url: target.attr('data-load-more'),
                 dataType: 'json',
+				ifModified: true,
                 success: function (data) {
                     target.attr('data-load-more', '')
                         .prev().html(data.content);

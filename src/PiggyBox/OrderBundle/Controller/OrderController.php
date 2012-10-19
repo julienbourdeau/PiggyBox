@@ -147,16 +147,23 @@ class OrderController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-			$order->setStatus('toValidate');	
-	        $cart = $this->get('piggy_box_cart.provider')->getCart();
-			$cart->removeOrder($order);	
+			try{
+				$order->setStatus('toValidate');	
+		        $cart = $this->get('piggy_box_cart.provider')->getCart();
+				$cart->removeOrder($order);	
 
-            $em->persist($cart);
-            $em->persist($order);
-            $em->flush();
+   	            $em->persist($cart);
+				$em->persist($order);
+				$em->flush();
 
-            return $this->redirect($this->generateUrl('home'));
-        }
+				$this->get('session')->getFlashBag()->set('success', 'La commande a été envoyé au commerçant');
+				return $this->redirect($this->generateUrl('shops'));
+			}
+			catch (\Exception $e) {
+				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
+				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
+            }
+		}
 
         return array(
             'entity' => $order,
@@ -249,4 +256,22 @@ class OrderController extends Controller
     {
         return array();
     }
+
+    /**
+     * Validate Order for Shp
+     *
+	 * @PreAuthorize("hasRole('ROLE_SHOP')")
+     * @Route("/change/status/{order_id}/{status}", name="change_status")
+     */
+    public function changeStatusOrderAction(Request $request, $order_id, $status)
+	{
+        $em = $this->getDoctrine()->getManager();		
+		$order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($order_id);
+
+		$order->setStatus($status);
+		$em->persist($order);
+		$em->flush();
+
+		return new RedirectResponse($this->get('request')->headers->get('referer'));		
+	}	
 }

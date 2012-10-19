@@ -1,200 +1,49 @@
 {% extends 'PiggyBoxShopBundle::layout.html.twig'%}
 {% block body%}
 
-{% include 'PiggyBoxShopBundle:Shop:order_sub_header.html.twig' %}
+{% include 'PiggyBoxShopBundle:Shop:order_sub_header.html.twig' with {'toValidate_count': orders_toValidate|length, 'toPrepare_count': orders_toPrepare|length, 'toArchive_count': orders_toArchive|length}%}
 
 <div id="main">
 	<div id="primary" class="site-content container">
 
+		<h2 id="to_validate">Commandes à valider <sup id="super-badge" class="badge badge-success">{{orders_toValidate|length}}</sup></h2>
 
-	<h2 id="to_validate">Commandes à valider <sup class="badge badge-success">3</sup></h2>
-
-		<div class="box box-margined box-success">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<a href="#" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
-
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-block btn-danger"><i class="icon-remove icon-white"></i> Refuser </a>
-					</div>
-
-				</div>
-
-		    </div>
-
-		</div>  
-
-		
-		<div class="box box-margined box-success">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-					<span class="label label-success">Première Commande</span>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<a href="#" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
-
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-block btn-danger"> Refuser </a>
-					</div>
-
-				</div>
-
-		    </div>
-
-		    <hr />
-
-		    <div class="row-fluid">
-		    	<div class="span12">
-		    		<div class="alert">
-		    		<div class="label label-warning">Note du client</div>
-		    		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac ipsum et risus vulputate euismod. Duis vehicula mattis libero sed elementum. Vestibulum semper lacus quis lectus vestibulum id mollis nisl euismod. In hac habitasse platea dictumst. Maecenas dictum mi ut nisl malesuada euismod.
-		    		</div>
-		    	</div>
-		    </div>
-
-		</div>  
-
-
-
-		<div class="box box-margined box-success">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boefge ghrhthtfj tjjjt ttt4y uf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x160</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-					<span class="label label-success">Première Commande</span>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<a href="#" class="btn btn-large btn-block btn-success"> <i class="icon-thumbs-up icon-white"></i> Valider </a>
-
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-block btn-danger"> Refuser </a>
-					</div>
-
-				</div>
-
-		    </div>
-
-		  </div>  
-
-
-
-
+		<div data-load-more="{{path('moncommerce_mescommandes', {'_format': 'json'})}}" class="to_validate_ajax">
+		{% include 'PiggyBoxShopBundle:Shop:orders_to_validate.html.twig' with {'orders_toValidate': orders_toValidate} %}
+		</div>
 
 		<hr class="divider">
-		<h2 id="to_prepare">Commandes à préparer <sup class="badge badge-warning">4</sup></h2>
+		<h2 id="to_prepare">Commandes à préparer <sup class="badge badge-warning">{{orders_toPrepare|length}}</sup></h2>
 
-		
+	{% for order in orders_toPrepare %}	
 		<div class="box box-margined box-warning">
 		    <div class="row-fluid">
 
 		    	<div class="span2">
 		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
+					<h4 class="no-margin">{{order.pickupatDate|localizeddate('full','none')}} </h4>
+
+	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
 	    			</div>
 		    	</div>
-
+                                                                                                                              
 				<div class="entry-description span5">
 					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
+						{% for order_detail in order.orderdetail %}
+							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+						{% endfor %}
 					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
+				                                                                                                              
+                </div>
+				                                                                                                              
+                <div class="span3 text-centered">
+					<h4 class="no-margin">{{order.user.name}}</h4>
+					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
 					<span class="label label-success">Première Commande</span>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
+				                                                                                                              
+                	<hr class="divider" />
+				                                                                                                              
+                	<div class="order-price text-centered">{{order.totalprice}}€</div>
 				</div>
 
 				<div class="span2">
@@ -202,7 +51,7 @@
 					<div class="order-toolbox">
 						<hr class="divider" />
 
-						<a href="#" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'toArchive'})}}" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
 
 						<hr class="divider" />
 					</div>
@@ -211,186 +60,42 @@
 
 		    </div>
 		</div>
-
+	{% endfor %}
 		
-
-		<div class="box box-margined box-warning">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-		
-
-		<div class="box box-margined box-warning">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-		 
-		<div class="box box-margined box-warning">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-
-			
 
 		<hr class="divider">
-		<h2 id="to_collect">Commandes à retirer <sup class="badge">5</sup></h2>
+		<h2 id="to_collect">Commandes à retirer <sup class="badge">{{orders_toArchive|length}}</sup></h2>
 
-		
+	{% for order in orders_toArchive %}	
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
 		    	<div class="span2">
 		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
+					<h4 class="no-margin">{{order.pickupatDate|localizeddate('full','none')}} </h4>
+	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
 	    			</div>
 		    	</div>
-
+                                                                                                                              
 				<div class="entry-description span5">
 					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
+						{% for order_detail in order.orderdetail %}
+							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+						{% endfor %}
 					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
+				                                                                                                              
+                </div>
+				                                                                                                              
+                <div class="span3 text-centered">
 					<h3 class="no-margin">No 45-345-11</h3>
 					<hr />
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
+					<h4 class="no-margin">{{order.user.name}}</h4>
+					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
 					<span class="label label-success">Première Commande</span>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
+				                                                                                                              
+                	<hr class="divider" />
+				                                                                                                              
+                	<div class="order-price text-centered">{{order.totalprice}}€</div>
 				</div>
 
 				<div class="span2">
@@ -398,7 +103,7 @@
 					<div class="order-toolbox">
 						<hr class="divider" />
 
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
+						<a href="{{path('change_status', {'order_id': order.id, 'status': 'archived'})}}" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
 
 						<hr class="divider" />
 					</div>
@@ -407,198 +112,21 @@
 
 		    </div>
 		</div>
-
-		
-		<div class="box box-margined">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h3 class="no-margin">No 45-345-11</h3>
-					<hr />
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-		
-		<div class="box box-margined">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">22:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3">
-					<h3 class="no-margin  text-centered">No 45-345-11</h3>
-					<hr />
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-		
-		<div class="box box-margined">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Rôti de porc - 1,2Kg</li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h3 class="no-margin">No 45-345-11</h3>
-					<hr />
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-					<span class="label label-success">Première Commande</span>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
-		
-		<div class="box box-margined">
-		    <div class="row-fluid">
-
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-	    				<h4 class="no-margin">Mercredi <br /> 25/09</h4>
-	    				<h3 class="no-margin">18:00</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Cote de Boeuf - x4 </li>
-						<li><i class="icon-ok"></i> Merguez - x16</li>
-					</ul>
-
-				</div>
-
-				<div class="span3 text-centered">
-					<h3 class="no-margin">No 45-345-11</h3>
-					<hr />
-					<h4 class="no-margin">Mr Julien Bourdeau</h4>
-					<div><i class="icon-user"></i> 06.11.89.53.66</div>
-
-					<hr class="divider" />
-
-					<div class="order-price text-centered">32,40€</div>
-				</div>
-
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="#" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-
+	{% endfor %}
 
 	</div>
 </div>	
 
 {% endblock %}
+
+{% block javascript %}
+	{{parent()}}
+	<script src="{{ asset('bundles/piggyboxshop/js/vendor/humane.min.js')}}"></script>
+	<script src="{{ asset('bundles/piggyboxshop/js/orders_to_validate.js')}}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/vendor/bigbox.css')}}">
+{% endblock %}
+
