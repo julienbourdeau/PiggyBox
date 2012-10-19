@@ -271,14 +271,44 @@ class DateUniqueSelectorType extends AbstractType
         $result = array();
 
 		$today = new \DateTime('now');
-		
+
         for ($i=0; $i < $number_of_days; $i++) {
 			if(!in_array($today->format('N'), $closed_days)){
-				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');				
+//				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');				
+				$result[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');				
 			}
 			$today->modify('+1 day');
 		}
-		
+
 		return $result;
+	}
+
+	private function twig_localized_date_filter($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null)
+	{
+		$formatValues = array(
+			'none'   => \IntlDateFormatter::NONE,
+			'short'  => \IntlDateFormatter::SHORT,
+			'medium' => \IntlDateFormatter::MEDIUM,
+			'long'   => \IntlDateFormatter::LONG,
+			'full'   => \IntlDateFormatter::FULL,
+		);
+
+		$formatter = \IntlDateFormatter::create(
+			$locale !== null ? $locale : \Locale::getDefault(),
+			$formatValues[$dateFormat],
+			$formatValues[$timeFormat],
+			date_default_timezone_get()
+		);
+
+		if (!$date instanceof \DateTime) {
+			if (ctype_digit((string) $date)) {
+				$date = new \DateTime('@'.$date);
+				$date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+			} else {
+				$date = new \DateTime($date);
+			}
+		}
+
+		return $formatter->format($date->getTimestamp());
 	}
 }
