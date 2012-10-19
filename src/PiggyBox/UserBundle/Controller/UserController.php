@@ -30,7 +30,9 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        return array();
+		$today = new \DateTime('now');
+		//setlocale(LC_TIME, 'fr_FR');
+        return array('today' => $today);
     }
 
 
