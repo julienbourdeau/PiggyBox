@@ -40,4 +40,7 @@
 ## BUG
 
 * Liens sur les catégories, leur génération n'est pas bonne
-* Affichage des prix aux Kg et à l'unité pas bone
+* Affichage des prix aux Kg et à l'unité pas bonne
+* Pô possible de valider la commande parce que pas d'heure et jour en anglais
+* Les produits ont parfois une interface a l'unité alors que c'est des poid a la coupe
+ 
