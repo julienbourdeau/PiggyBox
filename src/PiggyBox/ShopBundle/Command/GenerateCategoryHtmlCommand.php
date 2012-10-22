@@ -27,7 +27,6 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
      */     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-	/*
 		$em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
 		$shops = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
 		
@@ -65,7 +64,6 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
 			$em->persist($shop);
 			$em->flush();
 		}
-	*/
     }
 }
 
