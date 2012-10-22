@@ -27,7 +27,6 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
      */     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-	/*
 		$em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
 		$shops = $em->getRepository('PiggyBoxShopBundle:Shop')->findAll();
 		
@@ -46,15 +45,16 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
 						$category = $category->getParent();
 					}
 				
-					$html.='<li class=""><a href="$this->getContainer()->get(\'router\')->generate(\'user_show_shop\',array(\'slug\' => $shop->getSlug(), \'category_title\' => $category->getTitle())).'" class="category-item'.$category->getTitle().'">'.$category->getTitle().'</a></li>';
+					$html.='<li class=""><a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $category->getTitle())).'" class="category-item'.$category->getTitle().'">'.$category->getTitle().'</a></li>';
+
 					$children_categories = $category->getChildren();
 					$html.='<ul class="nav nav-list">';
 
 					foreach ($children_categories as $children_category) {
 						if(in_array($children_category, $categories) and !$categories_buffer->contains($children_category))
 						{
-								$html.='<li class=""><a href="$this->getContainer()->get(\'router\')->generate(\'user_show_shop\',array(\'slug\' => $shop->getSlug(), \'category_title\' => $children_category->getTitle())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a></li>';
-								$categories_buffer->add($children_category);
+							$html.='<li class=""><a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $children_category->getTitle())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a></li>';
+							$categories_buffer->add($children_category);
 						}
 					}
 					$categories_buffer->add($category);
@@ -65,7 +65,6 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
 			$em->persist($shop);
 			$em->flush();
 		}
-	*/
     }
 }
 
