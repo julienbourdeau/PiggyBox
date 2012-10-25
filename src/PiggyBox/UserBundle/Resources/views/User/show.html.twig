@@ -11,12 +11,47 @@
                         <div id="shopCarousel" class="carousel slide">
                             <!-- Carousel items -->
                             <div class="carousel-inner">
-                                {% for count in range(1, 6) %}
-                                <div class="item {% if count == 1 %}active{%endif%}">
-									{% set path = "bundles/piggyboxuser/img/carousel/boutique-" ~ count ~ ".jpg" %}
-                                    <img src="{{ asset(path) }}" alt="">
-                                </div>
-                                {% endfor %}
+                                {% if (shop.slug == 'boucherie-zola') %}
+                                    {% for count in range(1, 6) %}
+                                    <div class="item {% if count == 1 %}active{%endif%}">
+    									{% set path = "bundles/piggyboxuser/img/carousel/boutique-" ~ count ~ ".jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    {% endfor %}
+                                {% elseif (shop.slug == 'boucherie-des-gourmets') %}
+                                    <div class="item active">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau-charcuterie.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-des-gourmets-jauneau.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-des-gourmets.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-preparation.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucher-jauneau.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/sarl-bruno-jauneau-boucherie.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                    <div class="item">
+                                        {% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-cuisine.jpg" %}
+                                        <img src="{{ asset(path) }}" alt="">
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <!-- Carousel nav -->
@@ -28,10 +63,10 @@
                     <div id="entry-container">
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
-                                <li class="{% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
+                                <li class="{% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
-                                <li class="{% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+                                <li class="{% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
 									<a href="#shop" data-toggle="tab">Produits à commander</a></li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
@@ -42,10 +77,10 @@
                         </div>
 
                         <div id="entry-content" class="tab-content">
-                            <div id="fiche" class="tab-pane {% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
-                                {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' %}
+                            <div id="fiche" class="tab-pane {% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+                                {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                             </div>
-                            <div id="shop" class="tab-pane {% if app.request.get('_route') == 'user_show_shop' %}active{% endif %}">
+                            <div id="shop" class="tab-pane {% if app.request.get('_route') != 'user_show_shop' %}active{% endif %}">
 								<div class="row-fluid">
 									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
 									<div class="product-list span9">
@@ -54,7 +89,7 @@
 								</div>
                             </div>
                             <div id="photos" class="tab-pane">
-                                {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' %}
+                                {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' with {'shop': shop} %}
                             </div>
                         </div>
 
