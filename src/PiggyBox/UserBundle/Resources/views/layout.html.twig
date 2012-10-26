@@ -54,11 +54,17 @@
                                         Connecté en tant que <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
                                         | 
                                         <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+
+                                        {% if "ROLE_SHOP" in app.user.roles %}
+                                             | <a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a>
+                                        {% endif %}
+
                                     {% else %}
                                         <a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a>
                                         |
                                         <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
                                     {% endif %}
+
                                 </div>
 
                                 <div class="pull-right">
@@ -202,6 +208,9 @@
 		{% endif %}
 
 		{% endblock %}
+        
+        {% block javascript_custom_code %} {% endblock %}
+
     </body>
 </html>
 

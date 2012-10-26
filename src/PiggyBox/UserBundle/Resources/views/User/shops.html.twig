@@ -34,7 +34,9 @@
                 <div class="box bottom-marged">
                     <div class="row-fluid">
                         <div class="span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+                            <a href="{{ path('user_show_shop', {'slug':'boucherie-zola'}) }}">
+                                <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
+                            </a>
 
                         </div>
                         <div class="span8">
@@ -43,7 +45,7 @@
                             <div class="row-fluid">
                                 <div class="span6">
                                     <p class="small-text">
-                                        Stéphane et Myriam ont le plaisir de vous accueillir à Zola depuis 2003. Après avoir entièrement refait le magasin en 2010, profitez d'un espace convivial et dans grand parking gratuit.
+                                        Stéphane et Myriam ont le plaisir de vous accueillir à Zola depuis 2003.Profitez d'un espace convivial entièrement refait en 2010 et d'un grand parking gratuit.
                                     </p>
                                 </div>
                                 <div class="span6">
@@ -61,12 +63,13 @@
                 </div>
 
 
-                <div class="coming-soon"></div>
-                <div class="box bottom-marged box-muted">
+                <div class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/boucherie-jauneau.jpg')}}" alt="">
+                            <a href="{{ path('user_show_shop', {'slug':'boucherie-des-gourmets'}) }}">
+                                <img src="{{ asset('bundles/piggyboxuser/img/boucherie-jauneau.jpg')}}" alt="">
+                            </a>
 
                         </div>
                         <div class="span8">
@@ -74,13 +77,45 @@
                             <h4>Boucherie traditionelle aux Hauts Pavés</h4>
                             <div class="row-fluid">
                                 <div class="span6">
-                                    <p class="small-text"><em>Bientôt disponible pour la commande en ligne</em></p>
+                                    <p class="small-text">
+                                        Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.
+                                    </p>
                                 </div>
                                 <div class="span6">
                                     <i class="icon-user"></i> 02 40 40 85 68 <br>
                                     <i class="icon-envelope"></i> boucherie.jauneau@hotmail.fr
                                     <address>
                                         <i class="icon-home"></i>   136 rue des Hauts Pavés <br>
+                                        <i class="icon-"></i>       44000 Nantes
+                                    </address>
+                                </div>
+                            </div>
+                            <a class="btn btn-block btn-primary" href="{{ path('user_show_shop', {'slug':'boucherie-des-gourmets'}) }}"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="coming-soon"></div>
+                <div class="box bottom-marged box-muted">
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <img src="{{ asset('bundles/piggyboxuser/img/copernic.jpg')}}" alt="">
+
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Boucherie Copernic</h2>
+                            <h4>Chez mon Boucher rue Copernic</h4>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <p class="small-text"><em>Bientôt disponible pour la commande en ligne</em></p>
+                                </div>
+                                <div class="span6">
+                                    <i class="icon-user"></i> 02 40 48 51 17 <br>
+                                    <i class="icon-envelope"></i> 
+                                    <address>
+                                        <i class="icon-home"></i>   1 rue Copernic <br>
                                         <i class="icon-"></i>       44000 Nantes
                                     </address>
                                 </div>

@@ -1,4 +1,6 @@
 
+{% if (shop.slug == 'boucherie-zola') %}
+
 <h2>Boucherie de Zola - Nantes</h2>
 
 <div class="row-fluid">
@@ -17,4 +19,29 @@
 
 </div>
 
-{% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' %}
+{% elseif ('boucherie-des-gourmets') %}
+
+<h2>Boucherie des Gourmets - Nantes</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>Une boucherie chaleureuse rue des Hauts Pavé depuis 1996</h4>
+		<p>
+			Marie-Noëlle & Bruno sont installés depuis 1996. <br>
+			En 1999, le laboratoire, pour la préparation des produits, a été agrandi et renovér. Puis en 2005 le magasin a été refait à neuf.
+		</p>
+		<p>
+			Nos produits sont de pure races, nous travaillons le Boeuf Parthenais, l’Agneau Baronet du Limousin, le Veau fermier Bretanin et la Vollailes des Landes.
+		</p>
+		<p>
+			Les plats cuisinés change selon les jours, par exemple chaque mercredi vous pouvez retrouver la Brandade de Morue. Les vendredi nous proposons soit le Couscous, soit la Paëlla.
+			Nous préparons également toutes les semaines des Nems au porc et des Samoussas de Boeuf de fabrication maison.
+		</p>
+	</div>
+
+</div>
+
+{% endif %}
+
+{% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' with {'shop': shop} %}
