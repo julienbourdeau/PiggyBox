@@ -147,8 +147,11 @@ class ProductController extends Controller
 				$sales = new Sales();
 				$product->setSales($sales);
 				
-				if(false !== $product->getPrices()->first()){
+				if(false != $product->getPrices()->first()){
 					$product->setMinPrice($product->getPrices()->first()->getPrice());
+				}
+				if(false == $product->getPrices()->first()){
+					$product->setMinPrice($product->getPriceKg());
 				}
 
 				// saving the DB            
@@ -241,6 +244,14 @@ class ProductController extends Controller
 
         if ($editForm->isValid()) {
 			try{
+				if($product->getPriceType() != Product::WEIGHT_PRICE){
+					$product->setMinPrice($product->getPrices()->first()->getPrice());
+				}
+
+				if($product->getPriceType() == Product::WEIGHT_PRICE){
+					$product->setMinPrice($product->getPriceKg());
+				}
+
 				$em->persist($product);
 				$em->flush();
 
@@ -291,7 +302,6 @@ class ProductController extends Controller
 				$this->get('session')->getFlashBag()->set('success', 'Le produit '.$product->getName().' a été supprimé avec succès.');
 
 			} catch (\Exception $e) {
-				var_dump($e);die();
 				$this->get('logger')->crit($e->getMessage(), array('exception', $e));
 				$this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
 			}

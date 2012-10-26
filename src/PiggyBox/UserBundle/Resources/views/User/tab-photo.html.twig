@@ -1,3 +1,4 @@
+{% if (shop.slug == 'boucherie-zola') %}
 
 {% for count in range(0, 6) %}
 	<div class="">
@@ -6,3 +7,48 @@
 		<hr />
 	</div>
 {% endfor %}
+
+{% elseif ('boucherie-des-gourmets') %}
+
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau-charcuterie.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-des-gourmets-jauneau.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-des-gourmets.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-preparation.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucher-jauneau.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/sarl-bruno-jauneau-boucherie.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-cuisine.jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+
+{% endif %}

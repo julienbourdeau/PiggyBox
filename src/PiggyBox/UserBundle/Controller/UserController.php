@@ -96,6 +96,7 @@ class UserController extends Controller
 	        return array(
 	            'shop'      => $shop,
 				'products'	  => $products,
+                'category_title' => null,
 	        );
 		}
 		
@@ -118,6 +119,7 @@ class UserController extends Controller
         return array(
             'shop'      => $shop,
 			'products'	  => $products,
+            'category_title' => $category_title,
         );
     }
 
