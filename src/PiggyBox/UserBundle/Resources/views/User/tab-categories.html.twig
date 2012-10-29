@@ -1,15 +1,6 @@
 <div class="span3">
 	<ul class="nav nav-list">
-		<li class="category-item Tous"><a href="{{ path('user_show_shop',{slug: shop.slug})}}">Tous</a></li>
+		<li id="tous" class="category-item tous"><a href="{{ path('user_show_shop',{slug: shop.slug})}}">Tous</a></li>
 		{{shop.categoryhtml|raw}}
 	</ul>
 </div>
-
-{% block javascript_custom_code %}
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.('li#{{category_title}}').addClass('active');
-	});
-</script>
-{% endblock %}
-

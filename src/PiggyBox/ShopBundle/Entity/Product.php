@@ -115,7 +115,7 @@ class Product
     private $path;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\Image(maxSize="6000000")
      */
     public $file;
 	
@@ -161,7 +161,7 @@ class Product
     {
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
-            $this->path = uniqid().'.'.$this->file->guessExtension();
+            $this->path = $this->name.'-'.uniqid().'.'.$this->file->guessExtension();
         }
     }
 
