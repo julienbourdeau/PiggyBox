@@ -30,6 +30,8 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+		$seoPage = $this->get('sonata.seo.page');
+		//$seoPage->setTitle("Test");
         return array();
     }
 
@@ -86,6 +88,18 @@ class UserController extends Controller
 
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
 		
+		$seoPage = $this->container->get('sonata.seo.page');
+
+		$seoPage
+			->setTitle($shop->getName()." - Côtelettes & Tarte aux Fraises")
+			->addMeta('property', 'og:title', $shop->getName()." - Côtelettes & Tarte aux Fraises")
+			->addMeta('property', 'og:url',  $this->generateUrl('user_show_shop', array(
+				'slug'  => $slug,
+				'category_title' => $category_title,
+			), true))
+			;
+		
+
 		if (!$shop) {
             throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
         }
@@ -96,7 +110,7 @@ class UserController extends Controller
 	        return array(
 	            'shop'      => $shop,
 				'products'	  => $products,
-                'category_title' => null,
+                'category_title' => 'tous',
 	        );
 		}
 		

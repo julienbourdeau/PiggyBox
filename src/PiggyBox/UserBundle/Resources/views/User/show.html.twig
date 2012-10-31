@@ -63,10 +63,10 @@
                     <div id="entry-container">
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
-                                <li class="{% if category_title == null %}active{% endif %}">
+                                <li class="{% if category_title == 'tous' %}active{% endif %}">
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
-                                <li class="{% if category_title != null %}active{% endif %}">
+                                <li class="{% if category_title != 'tous' %}active{% endif %}">
 									<a href="#shop" data-toggle="tab">Produits à commander</a></li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
@@ -77,10 +77,10 @@
                         </div>
 
                         <div id="entry-content" class="tab-content">
-                            <div id="fiche" class="tab-pane {% if category_title == null %}active{% endif %}">
+                            <div id="fiche" class="tab-pane {% if category_title == 'tous' %}active{% endif %}">
                                 {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                             </div>
-                            <div id="shop" class="tab-pane {% if category_title != null %}active{% endif %}">
+                            <div id="shop" class="tab-pane {% if category_title != 'tous' %}active{% endif %}">
 								<div class="row-fluid">
 									{% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
 									<div class="product-list span9">
@@ -112,5 +112,11 @@
 {{parent()}}
 
 		<script src="{{ asset('bundles/piggyboxuser/js/productDetails.js')}}"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('li#{{category_title}}').addClass('active');
+            });
+        </script>
 
 {% endblock %}
