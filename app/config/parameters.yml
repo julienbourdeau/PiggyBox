@@ -3,8 +3,8 @@ parameters:
     database_host:     localhost
     database_port:     ~
     database_name:     piggybox_prod 
-    database_user:     piggyboxer
-    database_password: 66ln8^VeOwnLD8&Vk8
+    database_user:     root 
+    database_password: root
 
     mailer_transport:  smtp
     mailer_host:       localhost
