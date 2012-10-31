@@ -46,6 +46,13 @@
 							</div>
 						</div>
 
+						<div class="control-group">
+							<label class="control-label" for="inputDesc">Changer la photo</label>
+							<div class="controls">
+								{{ form_widget(edit_form.file, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
 						{% if product.prices|length >0 %}
 							{% for price in edit_form.prices %}
 								{% if price.slice_nbr.vars.value == '' %}
