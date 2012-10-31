@@ -219,7 +219,7 @@ class OrderController extends Controller
 				
 				if($day->getFromTimeMorning() !== null){
 					if($day->getToTimeMorning()->format('i')%30 != 0){
-						$opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
+						$opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
 						$day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes'); 
 					}
 
