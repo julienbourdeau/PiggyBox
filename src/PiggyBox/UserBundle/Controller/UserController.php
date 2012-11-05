@@ -91,7 +91,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);
 
-        if ($category->getLevel() == 0) {
+        if ($category->getLevel() == 0 && $category->getChildren()->count()!=0) {
             $children_categories = $category->getChildren();
             $products = array();
 
