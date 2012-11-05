@@ -28,8 +28,8 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-		$seoPage = $this->get('sonata.seo.page');
-		//$seoPage->setTitle("Test");
+        $seoPage = $this->get('sonata.seo.page');
+        //$seoPage->setTitle("Test");
         return array();
     }
 

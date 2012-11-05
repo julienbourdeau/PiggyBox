@@ -42,36 +42,36 @@ class OrderDetailType extends AbstractType
             ));
         }
 
-		if($price_type == Product::WEIGHT_PRICE){
-			$builder->add('quantity', 'choice', array(
-				'choice_list' => new SimpleChoiceList(
-					array(
-						'1' => '100g' ,
-						'2' => '200g' ,
-						'3' => '300g' ,
-						'4' => '400g' ,
-						'5' => '500g' ,
-						'6' => '600g' ,
-						'7' => '700g' ,
-						'8' => '800g' ,
-						'9' => '900g' ,
-						'8' => '800g' ,
-						'10' =>'1000g',
-						'12' =>'1,2Kg',
-						'14' =>'1,4Kg',
-						'16' =>'1,6Kg',
-						'18' =>'1,8Kg',
-						'20' =>'2,0Kg',
-						'22' =>'2,2Kg',
-						'24' =>'2,4Kg',
-						'26' =>'2,6Kg',
-						'28' =>'2,8Kg',
-						'30' =>'3,0Kg',
-					)
-				)
-			));	
-		}
-	}
+        if ($price_type == Product::WEIGHT_PRICE) {
+            $builder->add('quantity', 'choice', array(
+                'choice_list' => new SimpleChoiceList(
+                    array(
+                        '1' => '100g' ,
+                        '2' => '200g' ,
+                        '3' => '300g' ,
+                        '4' => '400g' ,
+                        '5' => '500g' ,
+                        '6' => '600g' ,
+                        '7' => '700g' ,
+                        '8' => '800g' ,
+                        '9' => '900g' ,
+                        '8' => '800g' ,
+                        '10' =>'1000g',
+                        '12' =>'1,2Kg',
+                        '14' =>'1,4Kg',
+                        '16' =>'1,6Kg',
+                        '18' =>'1,8Kg',
+                        '20' =>'2,0Kg',
+                        '22' =>'2,2Kg',
+                        '24' =>'2,4Kg',
+                        '26' =>'2,6Kg',
+                        '28' =>'2,8Kg',
+                        '30' =>'3,0Kg',
+                    )
+                )
+            ));
+        }
+    }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
