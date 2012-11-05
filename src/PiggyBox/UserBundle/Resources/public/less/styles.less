@@ -108,12 +108,12 @@ div.image-category {
 div.image-category:hover {
 	div.title-hover {
 		display: block;
-		width: 262px;
+		width: 215px;
 		text-align: center;
 		font-size: 21px;
 		line-height: 36px;
 		position: absolute;
-		margin-top: 65px;
+      	margin-top: 50px;
 		background: @grayDarker;
 		color: @white;
 		z-index: 999;
@@ -191,6 +191,10 @@ h1 {
 	//.box-shadowed;
 }
 
+.shop-thumbnail {
+	.text-centered;
+}
+
 // ENTRY CONTAINER
 #entry-container {
 	margin: 57px 0 20px 0;
@@ -246,7 +250,7 @@ h1 {
 }
 		
 	#shop-infos {
-		height: 300px;
+		min-height: 300px;
 		#shop-details {
 			height: 192px;
 			margin: 8px 0;
@@ -255,37 +259,6 @@ h1 {
 	
 	.shopelements{
 		margin: 10px;
-	}
-
-	#user-cart {
-		margin-top: 52px;
-		.corner-top {
-			width: 52px;
-			height: 0px;
-			border-top: 4px solid @grayDarker;
-		}
-		.corner-right {
-			width: 0px;
-			height: 52px;
-			border-right: 4px solid @grayDarker;
-		}
-		.corner-bottom {
-			width: 52px;
-			height: 0px;
-			border-bottom: 4px solid @grayDarker;
-		}
-		.corner-left {
-			width: 0px;
-			height: 52px;
-			border-left: 4px solid @grayDarker;
-		}
-
-		.user-cart-content {
-			padding: 0 4px;
-		}
-
-		th {
-		}
 	}
 
 
@@ -390,12 +363,7 @@ blockquote.homepage {
 }
 
 .step-wrapper {
-
-}
-.step-container {
-	float: left;
-	width: 23%;
-	margin-left: 8%;
+	padding-left: 50px;
 }
 
 .step-number {
@@ -477,7 +445,7 @@ label[for="piggybox_orderbundle_ordertype_pickupatDate_date"] {
 @import "responsive-1200px-min.less";
 
 // Tablets to regular desktops
-@import "responsive-768px-979px.less";
+//@import "responsive-768px-979px.less";
 
 // Phones to portrait tablets and narrow desktops
 @import "responsive-767px-max.less";
