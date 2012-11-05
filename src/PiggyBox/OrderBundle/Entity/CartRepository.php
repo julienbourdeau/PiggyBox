@@ -14,14 +14,22 @@ class CartRepository extends EntityRepository
 {
     public function getOrderByShop($shopId)
     {
-	$query = $this->getEntityManager()
+    $query = $this->getEntityManager()
             ->createQuery('SELECT o FROM PiggyBoxOrderBundle:Order o JOIN o.shop s WHERE s.id = :shopId')
-			->setParameter('shopId', $shopId);
-	try {
+            ->setParameter('shopId', $shopId);
+    try {
         return $query->getSingleResult();
     } catch (\Doctrine\ORM\NoResultException $e) {
         return null;
     }
-	}
-}
+    }
 
+    public function getDetailCartByShopAndCart($shopId,$cartId)
+    {
+    return $this->getEntityManager()
+            ->createQuery('SELECT c, o, s FROM PiggyBoxOrderBundle:Cart c LEFT JOIN c.orders o LEFT JOIN o.shop s WHERE (s.id=:shopId AND c.id=:cartId)')
+            ->setParameter('shopId', $shopId)
+            ->setParameter('cartId', $cartId)
+            ->getResult();
+    }
+}

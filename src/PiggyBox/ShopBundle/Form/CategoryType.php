@@ -4,7 +4,6 @@ namespace PiggyBox\ShopBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityChoiceList;
 
 class CategoryType extends AbstractType

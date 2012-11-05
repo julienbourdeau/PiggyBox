@@ -29,23 +29,23 @@ class Price
      */
     private $price;
 
-	/**
+    /**
      * @var integer $total_weight
      *
      * @ORM\Column(name="total_weight", type="string", length=100, nullable=true)
      */
     private $total_weight;
 
-	/**
+    /**
      * @var integer $slice_nbr
      *
      * @ORM\Column(name="slice_nbr", type="string", length=100, nullable=true)
      */
     private $slice_nbr;
-	
+
     /**
      * @var \DateTime $createdat
-	 *
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -59,11 +59,10 @@ class Price
      */
     private $updatedat;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,20 +72,20 @@ class Price
     /**
      * Set price
      *
-     * @param float $price
+     * @param  float $price
      * @return Price
      */
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -96,20 +95,20 @@ class Price
     /**
      * Set createdat
      *
-     * @param \DateTime $createdat
+     * @param  \DateTime $createdat
      * @return Price
      */
     public function setCreatedat($createdat)
     {
         $this->createdat = $createdat;
-    
+
         return $this;
     }
 
     /**
      * Get createdat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedat()
     {
@@ -119,20 +118,20 @@ class Price
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Price
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {
@@ -142,20 +141,20 @@ class Price
     /**
      * Set total_weight
      *
-     * @param integer $totalWeight
+     * @param  integer $totalWeight
      * @return Price
      */
     public function setTotalWeight($totalWeight)
     {
         $this->total_weight = $totalWeight;
-    
+
         return $this;
     }
 
     /**
      * Get total_weight
      *
-     * @return integer 
+     * @return integer
      */
     public function getTotalWeight()
     {
@@ -165,20 +164,20 @@ class Price
     /**
      * Set slice_nbr
      *
-     * @param integer $sliceNbr
+     * @param  integer $sliceNbr
      * @return Price
      */
     public function setSliceNbr($sliceNbr)
     {
         $this->slice_nbr = $sliceNbr;
-    
+
         return $this;
     }
 
     /**
      * Get slice_nbr
      *
-     * @return integer 
+     * @return integer
      */
     public function getSliceNbr()
     {

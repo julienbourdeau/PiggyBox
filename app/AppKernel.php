@@ -29,6 +29,7 @@ class AppKernel extends Kernel
 	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
 			new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 			new Sonata\SeoBundle\SonataSeoBundle(),
+			new BCC\CronManagerBundle\BCCCronManagerBundle(),
 
 			//bundles for category in PiggyBoxShopBundle
 			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),

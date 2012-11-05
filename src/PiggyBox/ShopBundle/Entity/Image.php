@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * PiggyBox\ShopBundle\Entity\Image
  *
  * @ORM\Table(name="piggybox_image")
- * @ORM\HasLifecycleCallbacks 
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity
  */
 class Image
@@ -30,20 +30,20 @@ class Image
      * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
     private $image_path;
-	
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $path;
-	
+
     /**
      * @Assert\File(maxSize="6000000")
      */
-    public $file;	
+    public $file;
 
     /**
      * @var \DateTime $updatedat
-	 *
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
@@ -51,22 +51,22 @@ class Image
 
     /**
      * @var \DateTime $createdat
-	 *
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
     private $createdat;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Shop")
-	 * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
-	 **/
-	private $shop;	
+    /**
+     * @ORM\ManyToOne(targetEntity="Shop")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     **/
+    private $shop;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,20 +76,20 @@ class Image
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Image
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {
@@ -99,26 +99,26 @@ class Image
     /**
      * Set createdat
      *
-     * @param \DateTime $createdat
+     * @param  \DateTime $createdat
      * @return Image
      */
     public function setCreatedat($createdat)
     {
         $this->createdat = $createdat;
-    
+
         return $this;
     }
 
     /**
      * Get createdat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedat()
     {
         return $this->createdat;
     }
-	
+
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -184,20 +184,20 @@ class Image
     /**
      * Set image_path
      *
-     * @param string $imagePath
+     * @param  string $imagePath
      * @return Image
      */
     public function setImagePath($imagePath)
     {
         $this->image_path = $imagePath;
-    
+
         return $this;
     }
 
     /**
      * Get image_path
      *
-     * @return string 
+     * @return string
      */
     public function getImagePath()
     {
@@ -207,20 +207,20 @@ class Image
     /**
      * Set path
      *
-     * @param string $path
+     * @param  string $path
      * @return Image
      */
     public function setPath($path)
     {
         $this->path = $path;
-    
+
         return $this;
     }
 
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -230,20 +230,20 @@ class Image
     /**
      * Set shop
      *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @param  PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Image
      */
     public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
         $this->shop = $shop;
-    
+
         return $this;
     }
 
     /**
      * Get shop
      *
-     * @return PiggyBox\ShopBundle\Entity\Shop 
+     * @return PiggyBox\ShopBundle\Entity\Shop
      */
     public function getShop()
     {

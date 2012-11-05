@@ -44,6 +44,7 @@ class CategoryController extends Controller
                 if ($node['level'] !== 0) {
                     $linkNode .= '&nbsp;&nbsp;&nbsp;' . $linkEdit . '&nbsp;' . $linkDelete . '&nbsp;' . $linkUp . '&nbsp;' . $linkDown;
                 }
+
                 return $linkNode;
             }
         );
@@ -74,6 +75,7 @@ class CategoryController extends Controller
         ;
 
         $repo->moveUp($node);
+
         return $this->redirect($this->generateUrl('demo_category_tree'));
     }
 
@@ -88,6 +90,7 @@ class CategoryController extends Controller
         ;
 
         $repo->moveDown($node);
+
         return $this->redirect($this->generateUrl('demo_category_tree'));
     }
 
@@ -132,7 +135,7 @@ ____SQL;
     public function deleteAction($id)
     {
         $node = $this->findNodeOr404($id);
-		$em = $this->get('doctrine.orm.entity_manager');
+        $em = $this->get('doctrine.orm.entity_manager');
         $em->remove($node);
         $em->flush();
         $this->get('session')->setFlash('message', 'Category '.$node->getTitle().' was removed');
@@ -163,12 +166,14 @@ ____SQL;
                 $em->persist($node);
                 $em->flush();
                 $this->get('session')->setFlash('message', 'Category was updated');
+
                 return $this->redirect($this->generateUrl('demo_category_tree'));
             } else {
                 $this->get('session')->setFlash('error', 'Fix the following errors');
             }
         }
         $form = $form->createView();
+
         return compact('form');
     }
 
@@ -179,6 +184,7 @@ ____SQL;
     public function addAction()
     {
         $form = $this->createForm(new CategoryType, new Category)->createView();
+
         return compact('form');
     }
 
@@ -196,15 +202,17 @@ ____SQL;
             $em->persist($node);
             $em->flush();
             $this->get('session')->setFlash('message', 'Category was added');
+
             return $this->redirect($this->generateUrl('demo_category_tree'));
         } else {
             $this->get('session')->setFlash('error', 'Fix the following errors');
         }
         $form = $form->createView();
+
         return $this->render('PiggyBoxShopBundle:Category:add.html.twig', compact('form'));
     }
 
-	private function findNodeOr404($id)
+    private function findNodeOr404($id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $q = $em->createQuery('SELECT c FROM PiggyBoxShopBundle:Category c WHERE c.id = :id');
@@ -217,6 +225,7 @@ ____SQL;
                 $id
             ));
         }
+
         return current($node);
     }
 }

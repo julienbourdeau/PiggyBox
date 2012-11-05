@@ -44,7 +44,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
      *
      * @return array Localized date.
      *
-     * @throws UnexpectedTypeException if the given value is not an instance of \DateTime
+     * @throws UnexpectedTypeException       if the given value is not an instance of \DateTime
      * @throws TransformationFailedException if the output timezone is not supported
      */
     public function transform($dateTime)
@@ -53,7 +53,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
             return array_intersect_key(array(
                 'date'    => '',
                 'time'    => '',
-				'year'    => '',
+                'year'    => '',
                 'month'   => '',
                 'day'     => '',
                 'hour'    => '',
@@ -76,8 +76,8 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
         }
 
         $result = array_intersect_key(array(
-			'date'	  => $this->twig_localized_date_filter($dateTime,'full','none','en_EN'),
-			'time'	  => $dateTime->format('H:i'),
+            'date'	  => $this->twig_localized_date_filter($dateTime,'full','none','en_EN'),
+            'time'	  => $dateTime->format('H:i'),
             'year'    => $dateTime->format('Y'),
             'month'   => $dateTime->format('m'),
             'day'     => $dateTime->format('d'),
@@ -103,7 +103,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
      *
      * @return DateTime Normalized date
      *
-     * @throws UnexpectedTypeException if the given value is not an array
+     * @throws UnexpectedTypeException       if the given value is not an array
      * @throws TransformationFailedException if the value could not be transformed
      * @throws TransformationFailedException if the input timezone is not supported
      */
@@ -153,12 +153,12 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
 
         try {
 
-			if(empty($value['date'])){
-				$dateTime = new \DateTime($value['time']);	
-			}
-			if(empty($value['time'])){
-				$dateTime = new \DateTime($value['date']);	
-			}
+            if (empty($value['date'])) {
+                $dateTime = new \DateTime($value['time']);
+            }
+            if (empty($value['time'])) {
+                $dateTime = new \DateTime($value['date']);
+            }
 
             if ($this->inputTimezone !== $this->outputTimezone) {
                 $dateTime->setTimezone(new \DateTimeZone($this->inputTimezone));
@@ -170,33 +170,33 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
         return $dateTime;
     }
 
-	private function twig_localized_date_filter($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null)
-	{
-		$formatValues = array(
-			'none'   => \IntlDateFormatter::NONE,
-			'short'  => \IntlDateFormatter::SHORT,
-			'medium' => \IntlDateFormatter::MEDIUM,
-			'long'   => \IntlDateFormatter::LONG,
-			'full'   => \IntlDateFormatter::FULL,
-		);
+    private function twig_localized_date_filter($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null)
+    {
+        $formatValues = array(
+            'none'   => \IntlDateFormatter::NONE,
+            'short'  => \IntlDateFormatter::SHORT,
+            'medium' => \IntlDateFormatter::MEDIUM,
+            'long'   => \IntlDateFormatter::LONG,
+            'full'   => \IntlDateFormatter::FULL,
+        );
 
-		$formatter = \IntlDateFormatter::create(
-			$locale !== null ? $locale : \Locale::getDefault(),
-			$formatValues[$dateFormat],
-			$formatValues[$timeFormat],
-			date_default_timezone_get()
-		);
+        $formatter = \IntlDateFormatter::create(
+            $locale !== null ? $locale : \Locale::getDefault(),
+            $formatValues[$dateFormat],
+            $formatValues[$timeFormat],
+            date_default_timezone_get()
+        );
 
-		if (!$date instanceof \DateTime) {
-			if (ctype_digit((string) $date)) {
-				$date = new \DateTime('@'.$date);
-				$date->setTimezone(new DateTimeZone(date_default_timezone_get()));
-			} else {
-				$date = new \DateTime($date);
-			}
-		}
+        if (!$date instanceof \DateTime) {
+            if (ctype_digit((string) $date)) {
+                $date = new \DateTime('@'.$date);
+                $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            } else {
+                $date = new \DateTime($date);
+            }
+        }
 
-		return $formatter->format($date->getTimestamp());
-	}
-	
+        return $formatter->format($date->getTimestamp());
+    }
+
 }

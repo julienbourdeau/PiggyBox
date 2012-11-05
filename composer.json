@@ -27,7 +27,8 @@
         "knplabs/knp-markdown-bundle": "dev-master",
 		"friendsofsymfony/jsrouting-bundle" : "1.0.2",
 		"avalanche123/imagine-bundle": "dev-master",
-        "sonata-project/seo-bundle": "*"
+        "sonata-project/seo-bundle": "*",
+        "bcc/cron-manager-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

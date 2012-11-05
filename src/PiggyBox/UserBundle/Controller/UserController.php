@@ -8,14 +8,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
-use PiggyBox\UserBundle\Form\UserType;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
-use PiggyBox\OrderBundle\Entity\Order;
-use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * User controller.
@@ -35,7 +33,6 @@ class UserController extends Controller
         return array();
     }
 
-
     /**
      * @Template()
      * @Route("les-commercants", name="shops")
@@ -44,7 +41,6 @@ class UserController extends Controller
     {
         return array();
     }
-
 
     /**
      * @Template()
@@ -55,7 +51,6 @@ class UserController extends Controller
         return array();
     }
 
-
     /**
      * @Template()
      * @Route("mentions-legales", name="legal")
@@ -64,7 +59,6 @@ class UserController extends Controller
     {
         return array();
     }
-
 
     /**
      * @Template()
@@ -75,101 +69,76 @@ class UserController extends Controller
         return array();
     }
 
-
     /**
-     * Finds and displays a User entity.
+     * Récupère les produits d'un magasin selon la catégorie
      *
      * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
+     * @ParamConverter("shop", options={"mapping": {"slug": "slug"}})
      * @Template()
      */
-    public function showAction(Request $req, $slug, $category_title)
-    {	
-        $em = $this->getDoctrine()->getManager();
+    public function showShopAction(Request $req, Shop $shop, $category_title)
+    {
+        if ($category_title == "default") {
+            $products = $shop->getProducts();
 
-        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
-		
-		$seoPage = $this->container->get('sonata.seo.page');
-
-		$seoPage
-			->setTitle($shop->getName()." - Côtelettes & Tarte aux Fraises")
-			->addMeta('property', 'og:title', $shop->getName()." - Côtelettes & Tarte aux Fraises")
-			->addMeta('property', 'og:url',  $this->generateUrl('user_show_shop', array(
-				'slug'  => $slug,
-				'category_title' => $category_title,
-			), true))
-			;
-		
-
-		if (!$shop) {
-            throw $this->createNotFoundException('Le magasin que vous demandez est introuvable');
-        }
-		
-		if($category_title == "default"){
-			$products = $shop->getProducts();
-			
-	        return array(
-	            'shop'      => $shop,
-				'products'	  => $products,
+            return array(
+                'shop'      => $shop,
+                'products'	  => $products,
                 'category_title' => 'tous',
-	        );
-		}
-		
-		$category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);	
-		
-		if($category->getLevel() == 0){
-			$children_categories = $category->getChildren();
-			$products = array();
-			
-			foreach($children_categories as $children_category){
-				$products = array_merge($products, 
-				$em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $children_category->getId())
-				);
-			}
-		}
-		else{
-			$products = $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $category->getId());
-		}	
+            );
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);
+
+        if ($category->getLevel() == 0) {
+            $children_categories = $category->getChildren();
+            $products = array();
+
+            foreach ($children_categories as $children_category) {
+                $products = array_merge($products,
+                $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $children_category->getId())
+                );
+            }
+        } else {
+            $products = $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $category->getId());
+        }
 
         return array(
             'shop'      => $shop,
-			'products'	  => $products,
+            'products'	  => $products,
             'category_title' => $category_title,
         );
     }
 
     /**
      * @Template()
-     * @Route(
-     *     "product/{product_id}.{_format}",
-     *     name="view_product",
-     *     requirements={"_format"="(json)"}
-     * )
+     * @Route("product/{product_id}.{_format}", name="view_product", requirements={"_format"="(json)"})
+     * @ParamConverter("product", class="PiggyBoxShopBundle:Product", options={"id" = "product_id"})
      * @Method({"GET"})
      */
-    public function viewProductPriceAction(Request $req, $product_id)
+    public function viewProductPriceAction(Request $req, Product $product)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('PiggyBoxShopBundle:Product')->find($product_id);
+        $order_detail = new OrderDetail();
+        $order_detail->setProduct($product);
 
-		$order_detail = new OrderDetail();
-		$order_detail->setProduct($product);
+        $data = array();
+        if ($product->getPriceType() == Product::SLICE_PRICE) {
+            $i =0;
+            foreach ($product->getPrices() as $price) {
+                $data['form'][$i] = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
+                $i++;
+            }
+        }
 
-		$data = array();
-		if($product->getPriceType() == Product::SLICE_PRICE){
-			$i =0;
-			foreach ($product->getPrices() as $price) {
-				$data['form'][$i] = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView(); 
-				$i++;
-			}
-		}
+        if ($product->getPriceType() != Product::SLICE_PRICE) {
+            $data['form'] =	$this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
+        }
 
-		if($product->getPriceType() != Product::SLICE_PRICE){
-			$data['form'] =	$this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
-		}
+        $data['product'] = $product;
+        $html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', $data);
 
-		$data['product'] = $product;
-		$html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', $data);
         return new JsonResponse(array('content' => $html));
     }
-	
+
 }

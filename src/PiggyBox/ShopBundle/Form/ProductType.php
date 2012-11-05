@@ -13,15 +13,15 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-			->add('price_kg')
-			->add('file')
-			->add('prices', 'collection', array(
-       		 	'type' => new PriceType(),
-        		'allow_add' => true,
-				'allow_delete' => true,
-		        'by_reference' => false,
-			))
-			->add('category')
+            ->add('price_kg')
+            ->add('file')
+            ->add('prices', 'collection', array(
+                    'type' => new PriceType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ))
+            ->add('category')
         ;
     }
 

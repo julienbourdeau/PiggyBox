@@ -6,23 +6,9 @@
     <div class="container">
         <div class="row bottom-marged">
             <div class="span12">
-                
+
                 <h1 class="text-centered">Nos commerces sélectionnés</h1>
 
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span12">
-                <div id="launch-ribbon" class="text-centered clearfix">
-                    <div class="dash-container">
-                        <h2>Lancement sur Nantes en octobre 2012
-                           <br>Bientôt encore plus de commerces et villes disponibles</h2>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -31,13 +17,10 @@
         <div class="row">
             <div class="span9">
 
-                <div class="box bottom-marged">
+                <a href="{{ path('user_show_shop', {'slug':'boucherie-zola'}) }}" class="box bottom-marged">
                     <div class="row-fluid">
                         <div class="span4">
-                            <a href="{{ path('user_show_shop', {'slug':'boucherie-zola'}) }}">
                                 <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
-                            </a>
-
                         </div>
                         <div class="span8">
                             <h2 class="no-margin">Boucherie de Zola</h2>
@@ -57,20 +40,17 @@
                                     </address>
                                 </div>
                             </div>
-                            <a href="{{ path('user_show_shop', {'slug':'boucherie-zola'}) }}" class="btn btn-block btn-primary"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</a>
+                            <div class="btn btn-block btn-primary"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</div>
                         </div>
                     </div>
-                </div>
+                </a>
 
 
-                <div class="box bottom-marged">
+                <a href="{{ path('user_show_shop', {'slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="span4">
-                            <a href="{{ path('user_show_shop', {'slug':'boucherie-des-gourmets'}) }}">
                                 <img src="{{ asset('bundles/piggyboxuser/img/boucherie-jauneau.jpg')}}" alt="">
-                            </a>
-
                         </div>
                         <div class="span8">
                             <h2 class="no-margin">Boucherie des Gourmets</h2>
@@ -90,10 +70,10 @@
                                     </address>
                                 </div>
                             </div>
-                            <a class="btn btn-block btn-primary" href="{{ path('user_show_shop', {'slug':'boucherie-des-gourmets'}) }}"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</a>
+                            <div class="btn btn-block btn-primary"> <i class="icon-shopping-cart icon-white"></i> Visiter le magasin</div>
                         </div>
                     </div>
-                </div>
+                </a>
 
 
                 <div class="coming-soon"></div>
@@ -113,7 +93,7 @@
                                 </div>
                                 <div class="span6">
                                     <i class="icon-user"></i> 02 40 48 51 17 <br>
-                                    <i class="icon-envelope"></i> 
+                                    <i class="icon-envelope"></i>
                                     <address>
                                         <i class="icon-home"></i>   1 rue Copernic <br>
                                         <i class="icon-"></i>       44000 Nantes
@@ -155,64 +135,38 @@
                     </div>
                 </div>
 
-{#
-                <div class="coming-soon"></div>
-                <div class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
-
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie de Zola</h2>
-                            <h4>Une boucherie au coeur du quartier Zola</h4>
-                            <div class="row-fluid">
-                                <div class="span7">
-                                    <p class="small-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
-                                </div>
-                                <div class="span5">
-                                    <i class="icon-user"></i> 02 40 46 50 42 <br>
-                                    <i class="icon-envelope"></i> zola@boucherdefrance.fr
-                                    <address>
-                                        <i class="icon-home"></i>   6 place emile zola <br>
-                                        <i class="icon-"></i>       44100 Nantes
-                                    </address>
-                                </div>
-                            </div>
-                            <a class="btn btn-block"> <i class="icon-shopping-cart"></i> Magasin bientôt en ligne</a>
-                        </div>
-                    </div>
-                </div>
-#}
-
             <h3>Et bien d'autres dans les jours à venir...</h3>
 
             </div>
+
+
             <div class="span3">
-                <div class="image-category bottom-marged black-bordered">
+                <div class="image-category bottom-marged black-bordered black-bordered-links">
                     <div class="title-hover hide">Boucheries</div>
                     <img src="{{ asset('bundles/piggyboxuser/img/270px/boucherie.jpg')}}" alt="">
                 </div>
-                <div class="image-category bottom-marged black-bordered">
+                <div class="image-category bottom-marged black-bordered black-bordered-links">
                     <div class="title-hover hide">Boulangeries</div>
                     <img src="{{ asset('bundles/piggyboxuser/img/270px/boulangerie.jpg')}}" alt="">
                 </div>
-                <div class="image-category bottom-marged black-bordered">
+                <div class="image-category bottom-marged black-bordered black-bordered-links">
                     <div class="title-hover hide">Primeurs</div>
                     <img src="{{ asset('bundles/piggyboxuser/img/270px/primeur.jpg')}}" alt="">
                 </div>
-                <div class="image-category bottom-marged black-bordered">
+                <div class="image-category bottom-marged black-bordered black-bordered-links">
                     <div class="title-hover hide">Fromageries</div>
                     <img src="{{ asset('bundles/piggyboxuser/img/270px/fromagerie.jpg')}}" alt="">
                 </div>
-                <div class="image-category bottom-marged black-bordered">
+                <div class="image-category bottom-marged black-bordered black-bordered-links">
                     <div class="title-hover hide">Poissonneries</div>
                     <img src="{{ asset('bundles/piggyboxuser/img/270px/poissonnerie.jpg')}}" alt="">
                 </div>
             </div>
+
+            
         </div>
     </div>
 
 
-    
+
 {% endblock %}

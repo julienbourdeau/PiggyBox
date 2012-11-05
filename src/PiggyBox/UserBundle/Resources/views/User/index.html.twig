@@ -9,28 +9,28 @@
                 <div class="span12">
                     <div class="step-wrapper">
                         <div class="step-container">
-                            <div class="box stepbox">
+                            <a href="{{ path('shops') }}" class="box stepbox">
                                 <div class="step-number"><span>1</span></div>
                                 <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
                                 <h2>Recherchez</h2>
-                                <p>Trouvez votre commerce à proximité</p>
-                            </div>
+                                {# <p>Trouvez votre commerce à proximité</p> #}
+                            </a>
                         </div>
                         <div class="step-container step-offset">
-                            <div class="box stepbox">
+                            <a class="box stepbox">
                                 <div class="step-number"><span>2</span></div>
                                 <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
                                 <h2>Commandez</h2>
-                                <p>Passez votre commande au même tarif qu'en boutique</p>
-                            </div>
+                                {# <p>Passez votre commande au même tarif qu'en boutique</p> #}
+                            </a>
                         </div>
                         <div class="step-container step-offset">
-                            <div class="box stepbox">
+                            <a class="box stepbox">
                                 <div class="step-number"><span>3</span></div>
                                 <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
                                 <h2>Retirez</h2>
-                                <p>Allez chercher votre commande sans faire la queue</p>
-                            </div>
+                                {# <p>Allez chercher votre commande sans faire la queue</p> #}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,9 @@
             <div class="row bottom-marged">
                 <div class="span12">
                     <div class="black-bordered">
-                        <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
+                        <a href="{{ path('shops') }}">
+                            <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -80,7 +82,7 @@
 			<div class="span12">
                 <div id="launch-ribbon" class="text-centered clearfix">
                     <div class="dash-container">
-    				    <h2>Lancement sur Nantes en octobre 2012
+    				    <h2>Déjà plusieurs partenaires sur Nantes
     					   <br>Bientôt encore plus de commerces et villes disponibles</h2>
                     </div>
     			</div>
@@ -93,7 +95,9 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <div class="black-bordered">
-                    <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
+                    <a href="{{ path('shops') }}">
+                        <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
+                    </a>
                 </div>
             </div>
         </div>
@@ -101,12 +105,12 @@
 
 
 
-    
+
 {% endblock %}
 
 {% block javascript %}
 {{parent()}}
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script src="{{ asset('bundles/piggyboxuser/js/home.js')}}"></script>
-		
+
 {% endblock %}

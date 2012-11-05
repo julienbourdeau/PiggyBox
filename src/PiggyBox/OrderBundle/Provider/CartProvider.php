@@ -44,7 +44,7 @@ class CartProvider
     public function getCart()
     {
         //NOTE: Check if there is a session or and cart associate to the session
-        if (null == $this->storage->getCurrentCartIdentifier()){
+        if (null == $this->storage->getCurrentCartIdentifier()) {
             //NOTE: Create the Cart and save it in the DB
             $cart  = new Cart();
 
@@ -61,5 +61,3 @@ class CartProvider
         return $this->em->getRepository('PiggyBoxOrderBundle:Cart')->find($this->storage->getCurrentCartIdentifier());
     }
 }
-
-

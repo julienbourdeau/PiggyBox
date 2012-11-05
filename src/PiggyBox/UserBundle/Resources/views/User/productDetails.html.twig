@@ -4,15 +4,15 @@
 	 	{% for price in product.prices %}
 		<form class="form-inline" action="{{path('cart_add_product', {product_id: product.id, price_id : price.id})}}" method="post" {{ form_enctype(form) }}>
 
-			{{form_widget(form.quantity)}}	
+			{{form_widget(form.quantity)}}
 			{{ form_widget(form._token) }}
         <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
-		</form>		
+		</form>
 		{% endfor %}
-    </div>     		
-</div>         
+    </div>
+</div>
 
-{% elseif product.pricetype == 'slice_price' %}               		
+{% elseif product.pricetype == 'slice_price' %}
 
 <div class="row-fluid">
     <div class="span12">
@@ -25,7 +25,7 @@
                		     <th class="span2">Prix <br><small>au Kg</small></th>
                		     <th class="span3">Quantité</th>
                		 </tr>
-               		
+
     		   		 {% set product_id = product.id%}
     		   		 	{% for price in product.prices %}
 							<tr class="text-centered">
@@ -44,7 +44,7 @@
     		   		 	{% endfor %}
             </tbody>
         </table>
-    </div>     		
+    </div>
 </div>
 
 {% else %}
@@ -53,8 +53,8 @@
     <div class="span12 text-right">
 		<form class="form-inline" action="{{path('cart_add_product', {product_id: product.id, price_id : 0})}}" method="post" {{ form_enctype(form) }}>
 
-			{{form_widget(form.quantity)}}	
-			{{ form_widget(form._token) }}	
+			{{form_widget(form.quantity)}}
+			{{ form_widget(form._token) }}
             <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
         </form>
     </div>

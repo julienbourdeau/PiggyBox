@@ -52,6 +52,7 @@ class CategoryEntityLoader implements EntityLoaderInterface
             ));
         }
         $q = $qb->getQuery();
+
         return $q->getResult();
     }
 
@@ -71,6 +72,7 @@ class CategoryEntityLoader implements EntityLoaderInterface
             ->setParameter('ids', $values, Connection::PARAM_INT_ARRAY)
             ->getQuery()
         ;
+
         return $q->getResult();
     }
 }

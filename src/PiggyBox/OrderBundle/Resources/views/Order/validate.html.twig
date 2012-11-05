@@ -18,7 +18,7 @@
 
 					{% set orders  = piggybox_orders_get() %}
 
-						{% for order in orders %}	
+						{% for order in orders %}
 		    			 	<div class="span10 offset1">
 
 		    			 		<h3>{{order.shop.name}}</h3>
@@ -34,13 +34,13 @@
 			                        </thead>
 
 			                        <tbody>
-			                        {% for order_detail in order.orderdetail %} 
+			                        {% for order_detail in order.orderdetail %}
 			                            <tr>
 			                                <td>{{ order_detail.product.name }}</td>
 											<td class="text-right">{{order_detail.quantity}}{% if order_detail.product.pricetype == 'weight_price'%}00g{% endif %}</td>
 										{% if order_detail.price|length > 0%}
 											<td class="text-right">{{ order_detail.price.price}} €</td>
-										{% else %}	
+										{% else %}
 											<td class="text-right">{{order_detail.product.pricekg}} €</td>
 										{% endif %}
 											<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
@@ -55,10 +55,10 @@
 			                            </tr>
 			                        </tfoot>
 
-			                    </table>	
+			                    </table>
 
 			                    <a href="#validationModalContent-12" role="button" class="btn btn-primary pull-right" data-toggle="modal">
-			                    	<i class="icon-time icon-white"></i> 
+			                    	<i class="icon-time icon-white"></i>
 			                    	Finaliser ma commande
 			                    </a>
 
@@ -73,15 +73,15 @@
 										<div class="modal-body">
 											{{ form_errors(form[order.id]) }}
 											<h3>A propos de votre commande</h3>
-					                    	<p>A quelle heure souhaitez vous passez la recupérer?</p>	
-					        
+					                    	<p>A quelle heure souhaitez vous passez la recupérer?</p>
+
 											<div class="control-group">
 												<label class="control-label">Date de retrait:</label>
 												<div class="controls data-load-shop" data-load-shop="{{order.shop.id}}">
 													{{ form_widget(form[order.id].pickupatDate) }}
 												</div>
 											</div>
-											
+
 											<div class="control-group">
 												<label class="control-label">A partir de:</label>
 												<div class="controls">
@@ -91,21 +91,21 @@
 
 											{% if app.user.name is null or app.user.email is null or app.user.phonenumber is null %}
 					                    	<h3>A propos de vous</h3>
-											
+
 											<div class="control-group">
 												<label class="control-label">Votre nom</label>
 												<div class="controls">
 													{{ form_widget(form[order.id].user.name) }}
 												</div>
 											</div>
-				                    		
+
 											<div class="control-group">
 												<label class="control-label">Votre email</label>
 												<div class="controls">
 													{{ form_widget(form[order.id].user.email) }}
 												</div>
 											</div>
-				                    		
+
 											<div class="control-group">
 												<label class="control-label">Votre téléphone</label>
 												<div class="controls">
@@ -113,7 +113,7 @@
 													<div class="alert alert-info">
 														<p class="small-text">
 															<strong>Votre numéro ne sera jamais divulgé à une autre personne que votre commerçant</strong> <br>
-															Votre numéro de téléphone est démandé car le commerçant peut vous contacter 
+															Votre numéro de téléphone est démandé car le commerçant peut vous contacter
 															en cas de soucis avec votre commande. <br>
 															De plus nous souhaitons éviter les fausses commandes.<br>
 
@@ -127,7 +127,7 @@
 					                    <div class="modal-footer">
 					                    	<button class="btn btn-small" data-dismiss="modal" aria-hidden="true">Annuler et revenir au panier</button>
 					                    	<button class="btn btn-large btn-primary"><i class="icon-ok icon-white"></i> Valider la commande</button>
-					                    </div>		
+					                    </div>
 										{{ form_rest(form[order.id]) }}
 				                    </form>
 			                    </div>
@@ -172,13 +172,13 @@
 						else {
 							var options = select.attr('options');
 						}
-						$('option', select).remove();	
-						
+						$('option', select).remove();
+
 						select.append(data.content);
 					}
     	        });
     	    }
-    	}).trigger('change');		
+    	}).trigger('change');
 	});
 })(jQuery);
 </script>

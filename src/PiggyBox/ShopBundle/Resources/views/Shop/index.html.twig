@@ -15,7 +15,7 @@
 		<hr class="divider">
 		<h2 id="to_prepare">Commandes à préparer <sup class="badge badge-warning">{{orders_toPrepare|length}}</sup></h2>
 
-	{% for order in orders_toPrepare %}	
+	{% for order in orders_toPrepare %}
 		<div class="box box-margined box-warning">
 		    <div class="row-fluid">
 
@@ -26,23 +26,24 @@
 	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
 	    			</div>
 		    	</div>
-                                                                                                                              
+
 				<div class="entry-description span5">
 					<ul class="orderlist">
 						{% for order_detail in order.orderdetail %}
-							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+						<li><i class="icon-ok"></i> {{order_detail.product.name}} -
+						{% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}</li>
 						{% endfor %}
 					</ul>
-				                                                                                                              
+
                 </div>
-				                                                                                                              
+
                 <div class="span3 text-centered">
 					<h4 class="no-margin">{{order.user.name}}</h4>
 					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
 					<span class="label label-success">Première Commande</span>
-				                                                                                                              
+
                 	<hr class="divider" />
-				                                                                                                              
+
                 	<div class="order-price text-centered">{{order.totalprice}}€</div>
 				</div>
 
@@ -61,12 +62,12 @@
 		    </div>
 		</div>
 	{% endfor %}
-		
+
 
 		<hr class="divider">
 		<h2 id="to_collect">Commandes à retirer <sup class="badge">{{orders_toArchive|length}}</sup></h2>
 
-	{% for order in orders_toArchive %}	
+	{% for order in orders_toArchive %}
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
@@ -76,25 +77,25 @@
 	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
 	    			</div>
 		    	</div>
-                                                                                                                              
+
 				<div class="entry-description span5">
 					<ul class="orderlist">
 						{% for order_detail in order.orderdetail %}
-							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}</li>
 						{% endfor %}
 					</ul>
-				                                                                                                              
+
                 </div>
-				                                                                                                              
+
                 <div class="span3 text-centered">
 					<h3 class="no-margin">No 45-345-11</h3>
 					<hr />
 					<h4 class="no-margin">{{order.user.name}}</h4>
 					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
 					<span class="label label-success">Première Commande</span>
-				                                                                                                              
+
                 	<hr class="divider" />
-				                                                                                                              
+
                 	<div class="order-price text-centered">{{order.totalprice}}€</div>
 				</div>
 
@@ -115,7 +116,7 @@
 	{% endfor %}
 
 	</div>
-</div>	
+</div>
 
 {% endblock %}
 
@@ -129,4 +130,3 @@
 	{{parent()}}
 	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/vendor/bigbox.css')}}">
 {% endblock %}
-

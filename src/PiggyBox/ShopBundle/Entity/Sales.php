@@ -31,7 +31,7 @@ class Sales
 
     /**
      * @var \DateTime $updatedat
-	 *
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
@@ -40,7 +40,7 @@ class Sales
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -50,20 +50,20 @@ class Sales
     /**
      * Set sales_nbr
      *
-     * @param integer $salesNbr
+     * @param  integer $salesNbr
      * @return Sales
      */
     public function setSalesNbr($salesNbr)
     {
         $this->sales_nbr = $salesNbr;
-    
+
         return $this;
     }
 
     /**
      * Get sales_nbr
      *
-     * @return integer 
+     * @return integer
      */
     public function getSalesNbr()
     {
@@ -73,20 +73,20 @@ class Sales
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Sales
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {

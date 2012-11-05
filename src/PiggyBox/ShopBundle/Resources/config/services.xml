@@ -17,4 +17,11 @@
         </service>
     </services>
     -->
+	<services>
+		<service id="piggy_box_shop.listener.product_acl"	class="PiggyBox\ShopBundle\EventListener\ProductAcl">
+			<argument type="service" id="service_container"/>
+			<tag name="doctrine.event_listener" event="postPersist" />
+		 </service>
+	</services>
+
 </container>
