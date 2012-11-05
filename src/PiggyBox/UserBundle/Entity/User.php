@@ -34,7 +34,7 @@ class User extends BaseUser
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
-	
+
     /**
      * @var string $phone_number
      *
@@ -47,13 +47,13 @@ class User extends BaseUser
      * @ORM\JoinColumn(name="ownshop_id", referencedColumnName="id")
      **/
     private $ownshop;
-    
+
      /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Shop", mappedBy="clients")
      **/
     private $shops;
-	
-	/**
+
+    /**
      * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="user")
      **/
     private $orders;
@@ -61,7 +61,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +71,20 @@ class User extends BaseUser
     /**
      * Set ownshop
      *
-     * @param PiggyBox\ShopBundle\Entity\Shop $ownshop
+     * @param  PiggyBox\ShopBundle\Entity\Shop $ownshop
      * @return User
      */
     public function setOwnshop(\PiggyBox\ShopBundle\Entity\Shop $ownshop = null)
     {
         $this->ownshop = $ownshop;
-    
+
         return $this;
     }
 
     /**
      * Get ownshop
      *
-     * @return PiggyBox\ShopBundle\Entity\Shop 
+     * @return PiggyBox\ShopBundle\Entity\Shop
      */
     public function getOwnshop()
     {
@@ -94,13 +94,13 @@ class User extends BaseUser
     /**
      * Add shops
      *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shops
+     * @param  PiggyBox\ShopBundle\Entity\Shop $shops
      * @return User
      */
     public function addShop(\PiggyBox\ShopBundle\Entity\Shop $shops)
     {
         $this->shops[] = $shops;
-    
+
         return $this;
     }
 
@@ -117,7 +117,7 @@ class User extends BaseUser
     /**
      * Get shops
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getShops()
     {
@@ -127,13 +127,13 @@ class User extends BaseUser
     /**
      * Add orders
      *
-     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     * @param  PiggyBox\OrderBundle\Entity\Order $orders
      * @return User
      */
     public function addOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
     {
         $this->orders[] = $orders;
-    
+
         return $this;
     }
 
@@ -150,31 +150,30 @@ class User extends BaseUser
     /**
      * Get orders
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getOrders()
     {
         return $this->orders;
     }
 
-
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return User
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -184,20 +183,20 @@ class User extends BaseUser
     /**
      * Set phone_number
      *
-     * @param string $phoneNumber
+     * @param  string $phoneNumber
      * @return User
      */
     public function setPhoneNumber($phoneNumber)
     {
         $this->phone_number = $phoneNumber;
-    
+
         return $this;
     }
 
     /**
      * Get phone_number
      *
-     * @return string 
+     * @return string
      */
     public function getPhoneNumber()
     {

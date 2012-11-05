@@ -63,16 +63,16 @@ class Day
      */
     private $day_of_the_week;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Shop", inversedBy="opening_days")
-	 * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
-	 **/
-	 private $shop;
+    /**
+     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="opening_days")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     **/
+     private $shop;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,20 +82,20 @@ class Day
     /**
      * Set open
      *
-     * @param boolean $open
+     * @param  boolean $open
      * @return Day
      */
     public function setOpen($open)
     {
         $this->open = $open;
-    
+
         return $this;
     }
 
     /**
      * Get open
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOpen()
     {
@@ -105,20 +105,20 @@ class Day
     /**
      * Set from_time_morning
      *
-     * @param \DateTime $fromTimeMorning
+     * @param  \DateTime $fromTimeMorning
      * @return Day
      */
     public function setFromTimeMorning($fromTimeMorning)
     {
         $this->from_time_morning = $fromTimeMorning;
-    
+
         return $this;
     }
 
     /**
      * Get from_time_morning
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFromTimeMorning()
     {
@@ -128,20 +128,20 @@ class Day
     /**
      * Set to_time_morning
      *
-     * @param \DateTime $toTimeMorning
+     * @param  \DateTime $toTimeMorning
      * @return Day
      */
     public function setToTimeMorning($toTimeMorning)
     {
         $this->to_time_morning = $toTimeMorning;
-    
+
         return $this;
     }
 
     /**
      * Get to_time_morning
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getToTimeMorning()
     {
@@ -151,20 +151,20 @@ class Day
     /**
      * Set from_time_afternoon
      *
-     * @param \DateTime $fromTimeAfternoon
+     * @param  \DateTime $fromTimeAfternoon
      * @return Day
      */
     public function setFromTimeAfternoon($fromTimeAfternoon)
     {
         $this->from_time_afternoon = $fromTimeAfternoon;
-    
+
         return $this;
     }
 
     /**
      * Get from_time_afternoon
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFromTimeAfternoon()
     {
@@ -174,20 +174,20 @@ class Day
     /**
      * Set to_time_afternoon
      *
-     * @param \DateTime $toTimeAfternoon
+     * @param  \DateTime $toTimeAfternoon
      * @return Day
      */
     public function setToTimeAfternoon($toTimeAfternoon)
     {
         $this->to_time_afternoon = $toTimeAfternoon;
-    
+
         return $this;
     }
 
     /**
      * Get to_time_afternoon
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getToTimeAfternoon()
     {
@@ -197,20 +197,20 @@ class Day
     /**
      * Set day_of_the_week
      *
-     * @param integer $dayOfTheWeek
+     * @param  integer $dayOfTheWeek
      * @return Day
      */
     public function setDayOfTheWeek($dayOfTheWeek)
     {
         $this->day_of_the_week = $dayOfTheWeek;
-    
+
         return $this;
     }
 
     /**
      * Get day_of_the_week
      *
-     * @return integer 
+     * @return integer
      */
     public function getDayOfTheWeek()
     {
@@ -220,20 +220,20 @@ class Day
     /**
      * Set shop
      *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @param  PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Day
      */
     public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
         $this->shop = $shop;
-    
+
         return $this;
     }
 
     /**
      * Get shop
      *
-     * @return PiggyBox\ShopBundle\Entity\Shop 
+     * @return PiggyBox\ShopBundle\Entity\Shop
      */
     public function getShop()
     {

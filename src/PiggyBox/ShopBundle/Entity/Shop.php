@@ -35,7 +35,7 @@ class Shop
      * @ORM\Column(name="type", type="string", length=100)
      */
     private $type;
- 
+
     /**
      * @var text $category_html
      *
@@ -51,10 +51,9 @@ class Shop
      */
     private $slug;
 
-
     /**
      * @var \DateTime $createdat
-	 *
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -68,7 +67,6 @@ class Shop
      */
     private $updatedat;
 
-	
     /**
      * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", mappedBy="shop")
      **/
@@ -79,23 +77,23 @@ class Shop
      * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
      **/
     private $sales;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="shops")
      * @ORM\JoinTable(name="shops_clients")
      **/
     private $clients;
 
-	/**
+    /**
      * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="shop")
      **/
-    private $orders;	
-	
-	/**
+    private $orders;
+
+    /**
      * @ORM\OneToMany(targetEntity="Day", mappedBy="shop", cascade={"persist"})
      **/
     private $opening_days;
-	
+
     /**
      * Constructor
      */
@@ -104,13 +102,13 @@ class Shop
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
         $this->clients = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->opening_days = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->opening_days = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,20 +118,20 @@ class Shop
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Shop
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -143,20 +141,20 @@ class Shop
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return Shop
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -166,20 +164,20 @@ class Shop
     /**
      * Set category_html
      *
-     * @param string $categoryHtml
+     * @param  string $categoryHtml
      * @return Shop
      */
     public function setCategoryHtml($categoryHtml)
     {
         $this->category_html = $categoryHtml;
-    
+
         return $this;
     }
 
     /**
      * Get category_html
      *
-     * @return string 
+     * @return string
      */
     public function getCategoryHtml()
     {
@@ -189,20 +187,20 @@ class Shop
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Shop
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -212,20 +210,20 @@ class Shop
     /**
      * Set createdat
      *
-     * @param \DateTime $createdat
+     * @param  \DateTime $createdat
      * @return Shop
      */
     public function setCreatedat($createdat)
     {
         $this->createdat = $createdat;
-    
+
         return $this;
     }
 
     /**
      * Get createdat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedat()
     {
@@ -235,20 +233,20 @@ class Shop
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Shop
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {
@@ -258,13 +256,13 @@ class Shop
     /**
      * Add products
      *
-     * @param PiggyBox\ShopBundle\Entity\Product $products
+     * @param  PiggyBox\ShopBundle\Entity\Product $products
      * @return Shop
      */
     public function addProduct(\PiggyBox\ShopBundle\Entity\Product $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -281,7 +279,7 @@ class Shop
     /**
      * Get products
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {
@@ -291,20 +289,20 @@ class Shop
     /**
      * Set sales
      *
-     * @param PiggyBox\ShopBundle\Entity\Sales $sales
+     * @param  PiggyBox\ShopBundle\Entity\Sales $sales
      * @return Shop
      */
     public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
     {
         $this->sales = $sales;
-    
+
         return $this;
     }
 
     /**
      * Get sales
      *
-     * @return PiggyBox\ShopBundle\Entity\Sales 
+     * @return PiggyBox\ShopBundle\Entity\Sales
      */
     public function getSales()
     {
@@ -314,13 +312,13 @@ class Shop
     /**
      * Add clients
      *
-     * @param PiggyBox\UserBundle\Entity\User $clients
+     * @param  PiggyBox\UserBundle\Entity\User $clients
      * @return Shop
      */
     public function addClient(\PiggyBox\UserBundle\Entity\User $clients)
     {
         $this->clients[] = $clients;
-    
+
         return $this;
     }
 
@@ -337,7 +335,7 @@ class Shop
     /**
      * Get clients
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getClients()
     {
@@ -347,13 +345,13 @@ class Shop
     /**
      * Add orders
      *
-     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     * @param  PiggyBox\OrderBundle\Entity\Order $orders
      * @return Shop
      */
     public function addOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
     {
         $this->orders[] = $orders;
-    
+
         return $this;
     }
 
@@ -370,7 +368,7 @@ class Shop
     /**
      * Get orders
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getOrders()
     {
@@ -380,14 +378,14 @@ class Shop
     /**
      * Add opening_days
      *
-     * @param PiggyBox\ShopBundle\Entity\Day $openingDays
+     * @param  PiggyBox\ShopBundle\Entity\Day $openingDays
      * @return Shop
      */
     public function addOpeningDay(\PiggyBox\ShopBundle\Entity\Day $openingDays)
     {
         $this->opening_days[] = $openingDays;
-		$openingDays->setShop($this);
-    
+        $openingDays->setShop($this);
+
         return $this;
     }
 
@@ -404,7 +402,7 @@ class Shop
     /**
      * Get opening_days
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getOpeningDays()
     {

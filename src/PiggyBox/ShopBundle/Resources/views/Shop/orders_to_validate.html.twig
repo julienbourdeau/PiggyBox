@@ -12,7 +12,7 @@
 			<div class="entry-description span5">
 				<ul class="orderlist">
 					{% for order_detail in order.orderdetail %}
-						<li><i class="icon-ok"></i> {{order_detail.product.name}} - {{order_detail.quantity}}</li>
+					<li><i class="icon-ok"></i> {{order_detail.product.name}} - {% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}</li>
 					{% endfor %}
 				</ul>
 
@@ -54,6 +54,5 @@
 	    	</div>
 	    </div>
 		{% endif %}
-	</div>  
+	</div>
 {% endfor %}
-

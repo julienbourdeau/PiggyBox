@@ -7,10 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
-use PiggyBox\OrderBundle\Form\Type\QuantityType;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStringTransformer;
 use Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList;
 
 class OrderDetailType extends AbstractType
@@ -23,29 +19,28 @@ class OrderDetailType extends AbstractType
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
-	{		
-		$price_type = $this->price_type;
+    {
+        $price_type = $this->price_type;
 
-
-		if($price_type != Product::WEIGHT_PRICE){
-			$builder->add('quantity', 'choice', array(
-				'choice_list' => new SimpleChoiceList(
-					array(
-						'1' => '1' ,
-						'2' => '2' ,
-						'3' => '3' ,
-						'4' => '4' ,
-						'5' => '5' ,
-						'6' => '6' ,
-						'7' => '7' ,
-						'8' => '8' ,
-						'9' => '9' ,
-						'8' => '8' ,
-						'10' =>'10',
-					)
-				)
-			));	
-		}
+        if ($price_type != Product::WEIGHT_PRICE) {
+            $builder->add('quantity', 'choice', array(
+                'choice_list' => new SimpleChoiceList(
+                    array(
+                        '1' => '1' ,
+                        '2' => '2' ,
+                        '3' => '3' ,
+                        '4' => '4' ,
+                        '5' => '5' ,
+                        '6' => '6' ,
+                        '7' => '7' ,
+                        '8' => '8' ,
+                        '9' => '9' ,
+                        '8' => '8' ,
+                        '10' =>'10',
+                    )
+                )
+            ));
+        }
 
 		if($price_type == Product::WEIGHT_PRICE){
 			$builder->add('quantity', 'choice', array(

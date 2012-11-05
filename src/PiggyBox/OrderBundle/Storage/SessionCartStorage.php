@@ -43,5 +43,3 @@ class SessionCartStorage
         $this->session->remove('_piggybox.cart-id');
     }
 }
-
-

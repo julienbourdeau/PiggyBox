@@ -1,5 +1,9 @@
 {
+<<<<<<< .merge_file_Px6BQy
     "hash": "9d4a517b9088391e66665ae052909268",
+=======
+    "hash": "d9fcb8941df7dea043dcc32a73615243",
+>>>>>>> .merge_file_6RyGaZ
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -46,6 +50,48 @@
             "keywords": [
                 "image manipulation",
                 "imagine"
+            ]
+        },
+        {
+            "name": "bcc/cron-manager-bundle",
+            "version": "dev-master",
+            "target-dir": "BCC/CronManagerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelsalib/BCCCronManagerBundle",
+                "reference": "192a06ff84be295faf8f1cf7d99eb60af56671dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/michelsalib/BCCCronManagerBundle/zipball/192a06ff84be295faf8f1cf7d99eb60af56671dc",
+                "reference": "192a06ff84be295faf8f1cf7d99eb60af56671dc",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/symfony": "<=2.2.x-dev"
+            },
+            "time": "1351693663",
+            "type": "symfony-bundle",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "BCC\\CronManagerBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Salib",
+                    "email": "michelsalib@hotmail.com",
+                    "homepage": "http://www.michelsalib.com"
+                }
+            ],
+            "description": "A cron table manager bundle for Symfony2",
+            "homepage": "http://github.com/michelsalib/BCCCronManagerBundle",
+            "keywords": [
+                "cron management"
             ]
         },
         {
@@ -160,7 +206,11 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
+<<<<<<< .merge_file_Px6BQy
                     "name": "Johannes Schmitt",
+=======
+                    "name": "Johannes M. Schmitt",
+>>>>>>> .merge_file_6RyGaZ
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -397,7 +447,11 @@
                 "symfony/framework-bundle": ">=2.0,<2.2-dev",
                 "symfony/serializer": ">=2.0,<2.2-dev"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "2012-08-30 21:07:35",
+=======
+            "time": "2012-08-31 01:07:35",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -415,7 +469,11 @@
             ],
             "authors": [
                 {
+<<<<<<< .merge_file_Px6BQy
                     "name": "William Durand",
+=======
+                    "name": "William DURAND",
+>>>>>>> .merge_file_6RyGaZ
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 },
@@ -437,12 +495,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "49ab3721c609e485c7031b2bd63f33309bde17b6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/49ab3721c609e485c7031b2bd63f33309bde17b6",
                 "reference": "49ab3721c609e485c7031b2bd63f33309bde17b6",
+=======
+                "reference": "8bf4e54322e5560f44c12841d913a90a3400314d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/zipball/8bf4e54322e5560f44c12841d913a90a3400314d",
+                "reference": "8bf4e54322e5560f44c12841d913a90a3400314d",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
@@ -463,7 +530,11 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1351510888",
+=======
+            "time": "1351626424",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -506,12 +577,21 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "8c181a582ec0cc145cbdadbc98de12ad85ec632f"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/8c181a582ec0cc145cbdadbc98de12ad85ec632f",
                 "reference": "8c181a582ec0cc145cbdadbc98de12ad85ec632f",
+=======
+                "reference": "473210190cf196674da2304c30bc98906800fed7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/zipball/473210190cf196674da2304c30bc98906800fed7",
+                "reference": "473210190cf196674da2304c30bc98906800fed7",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
@@ -522,7 +602,11 @@
                 "doctrine/orm": ">=2.1",
                 "doctrine/mongodb-odm": "*"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1351536185",
+=======
+            "time": "1351837444",
+>>>>>>> .merge_file_6RyGaZ
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -626,7 +710,11 @@
                 "symfony/framework-bundle": "2.*",
                 "jms/cg": "1.0.0"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "2012-01-02 11:50:26",
+=======
+            "time": "2012-01-02 12:50:26",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -668,7 +756,11 @@
             "require": {
                 "php": ">=5.3.0"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "2012-01-02 11:40:52",
+=======
+            "time": "2012-01-02 12:40:52",
+>>>>>>> .merge_file_6RyGaZ
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -770,7 +862,11 @@
             "require": {
                 "php": ">=5.3.0"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "2012-01-02 12:32:49",
+=======
+            "time": "2012-01-02 13:32:49",
+>>>>>>> .merge_file_6RyGaZ
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1040,19 +1136,32 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/KnpLabs/KnpMenuBundle.git",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "6040c533f561da285e38e8bda271d7aaaf62fd10"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle/zipball/6040c533f561da285e38e8bda271d7aaaf62fd10",
                 "reference": "6040c533f561da285e38e8bda271d7aaaf62fd10",
+=======
+                "reference": "471ad25ea4fcc469f901a85bc5ca530b0bc68624"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle/zipball/471ad25ea4fcc469f901a85bc5ca530b0bc68624",
+                "reference": "471ad25ea4fcc469f901a85bc5ca530b0bc68624",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
                 "knplabs/knp-menu": "2.0.*",
                 "symfony/framework-bundle": ">=2.0,<2.3-dev"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1350241999",
+=======
+            "time": "1351767907",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1549,12 +1658,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "92a087a8d1bf82c22d7528e448ddcf47c6f26c20"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle/zipball/92a087a8d1bf82c22d7528e448ddcf47c6f26c20",
                 "reference": "92a087a8d1bf82c22d7528e448ddcf47c6f26c20",
+=======
+                "reference": "9a1931f9c9d8a1d045008142b275239c0160b95a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle/zipball/9a1931f9c9d8a1d045008142b275239c0160b95a",
+                "reference": "9a1931f9c9d8a1d045008142b275239c0160b95a",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
@@ -1566,7 +1684,11 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "2.1.*"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1351535256",
+=======
+            "time": "1351778487",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1606,6 +1728,7 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
+<<<<<<< .merge_file_Px6BQy
             "version": "dev-master",
             "source": {
                 "type": "git",
@@ -1616,16 +1739,36 @@
                 "type": "zip",
                 "url": "https://github.com/swiftmailer/swiftmailer/zipball/60536978cf1803e4562cbcdd59b67591dd01041e",
                 "reference": "60536978cf1803e4562cbcdd59b67591dd01041e",
+=======
+            "version": "v4.2.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/swiftmailer/swiftmailer.git",
+                "reference": "v4.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/swiftmailer/swiftmailer/zipball/v4.2.2",
+                "reference": "v4.2.2",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1351173729",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "4.3-dev"
+=======
+            "time": "2012-10-25 01:30:40",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+>>>>>>> .merge_file_6RyGaZ
                 }
             },
             "installation-source": "source",
@@ -1660,12 +1803,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "4eea8571954132e4715a5e756fe6a90a7e2d90f6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/symfony/AsseticBundle/zipball/4eea8571954132e4715a5e756fe6a90a7e2d90f6",
                 "reference": "4eea8571954132e4715a5e756fe6a90a7e2d90f6",
+=======
+                "reference": "3aa58aed64e6ddb1ea65176fff7814b212a6ed77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/AsseticBundle/zipball/3aa58aed64e6ddb1ea65176fff7814b212a6ed77",
+                "reference": "3aa58aed64e6ddb1ea65176fff7814b212a6ed77",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
@@ -1685,7 +1837,11 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1350864366",
+=======
+            "time": "1351619963",
+>>>>>>> .merge_file_6RyGaZ
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1972,18 +2128,31 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
+<<<<<<< .merge_file_Px6BQy
                 "reference": "18810458067445b3f02b75d16a84ff78042b3824"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/fabpot/Twig/zipball/18810458067445b3f02b75d16a84ff78042b3824",
                 "reference": "18810458067445b3f02b75d16a84ff78042b3824",
+=======
+                "reference": "0879472d7ecfd6b5714b066da152e005d7781b5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Twig/zipball/0879472d7ecfd6b5714b066da152e005d7781b5b",
+                "reference": "0879472d7ecfd6b5714b066da152e005d7781b5b",
+>>>>>>> .merge_file_6RyGaZ
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
+<<<<<<< .merge_file_Px6BQy
             "time": "1351589246",
+=======
+            "time": "1351620822",
+>>>>>>> .merge_file_6RyGaZ
             "type": "library",
             "extra": {
                 "branch-alias": {

@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrderRepository extends EntityRepository
 {
+    public function getCartAndOrderByShop($shop_id, $cart_id)
+    {
+    return $this->getEntityManager()
+            ->createQuery('SELECT DISTINCT o, s FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.shop s  WHERE EXISTS (SELECT c FROM PiggyBoxOrderBundle:Cart c WHERE (c.id=:cart_id AND s.id=:shop_id))')
+            ->setParameter('shop_id', $shop_id)
+            ->setParameter('cart_id', $cart_id)
+            ->getResult();
+    }
 }

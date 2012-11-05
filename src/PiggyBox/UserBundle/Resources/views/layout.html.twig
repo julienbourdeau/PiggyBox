@@ -9,8 +9,8 @@
 		{{ sonata_seo_title() }}
 		{{ sonata_seo_metadatas() }}
         <meta name="viewport" content="width=device-width">
-        
-		{#        
+
+		{#
         {% stylesheets filter='cssrewrite, lessphp'
             'bundles/piggyboxuser/less/styles.less'
                 output='css/mainuser.css'
@@ -53,35 +53,34 @@
                             </div>
 
                             <div class="header-content">
-                                
-                                <div class="user-bar text-right">
-                                    {% if app.user %}
-                                        Connecté en tant que <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
-                                        | 
-                                        <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
 
-                                        {% if "ROLE_SHOP" in app.user.roles %}
-                                             | <a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a>
+                                <div class="user-bar text-right clearfix">
+                                    <ul class="nav nav-pills no-margin pull-right">
+                                        {% if app.user %}
+                                            <li><a href="{{ path('fos_user_profile_show') }}"><small>Connecté en tant que</small> <strong>{{ app.user.username }}</strong></a></li>
+                                            <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+
+                                            {% if "ROLE_SHOP" in app.user.roles %}
+                                                 <li><a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <li><a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a></li>
+                                            <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
                                         {% endif %}
-
-                                    {% else %}
-                                        <a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a>
-                                        |
-                                        <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
-                                    {% endif %}
-
+                                    </ul>
                                 </div>
 
-                                <div class="pull-right">
-                                    <img style="margin-top: 8px;" width="220px" src="{{ asset('bundles/piggyboxuser/img/help numbers_header.png')}}" alt="">
+                                <div class="text-right">
+                                    <img style="margin-top: 9px;" width="220px" src="{{ asset('bundles/piggyboxuser/img/help numbers_header.png')}}" alt="">
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     </div>
-                </div> 
-            </div>  
+                </div>
+            </div>
 
                 <div class="container visible-desktop">
                     <div class="row">
@@ -119,7 +118,6 @@
                         </div>
                     </div>
                 </div>
- 
         </header>
 
 
@@ -141,7 +139,7 @@
 
 		<footer id="footer" class="">
             <div class="container">
-                
+
                 <div class="row">
 
                     <div class="span4">
@@ -200,7 +198,7 @@
                 <div class="row">
                     <div id="legal-line" class="span8 offset2">
                         <p>
-                            Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi. 
+                            Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi.
                             <br>
                             L'abus d'alcool est dangereux pour la santé. A consommer avec modération. <a href="http://www.mangerbouger.fr/">mangerbouger.fr</a>
                         </p>
@@ -209,7 +207,7 @@
 
             </div>
         </footer>
-		
+
 		{% block javascript %}
 
         <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery-1.8.1.min.js')}}"></script>
@@ -245,7 +243,6 @@
 		{% endif %}
 
 		{% endblock %}
-        
         {% block javascript_custom_code %} {% endblock %}
 
 		<!-- ClickTale Bottom part -->
@@ -260,4 +257,3 @@
 		<!-- ClickTale end of Bottom part -->
     </body>
 </html>
-

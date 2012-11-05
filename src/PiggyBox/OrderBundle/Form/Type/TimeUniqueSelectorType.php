@@ -46,7 +46,7 @@ class TimeUniqueSelectorType extends AbstractType
                 }
 
                 // Only pass a subset of the options to children
-				$timeOptions['choices'] = $this->listUniqueHours();		
+                $timeOptions['choices'] = $this->listUniqueHours();
                 $hourOptions['choices'] = $hours;
                 $hourOptions['empty_value'] = $options['empty_value']['hour'];
                 $minuteOptions['choices'] = $minutes;
@@ -81,9 +81,9 @@ class TimeUniqueSelectorType extends AbstractType
             }
 
              $builder->addViewTransformer(new DateTimeToArrayTransformer(
-				$options['model_timezone'], $options['view_timezone'], array('time')
+                $options['model_timezone'], $options['view_timezone'], array('time')
                 ));
-			
+
         }
 
         if ('string' === $options['input']) {
@@ -216,19 +216,20 @@ class TimeUniqueSelectorType extends AbstractType
         return 'time_unique_selector';
     }
 
-	private function listUniqueHours(){
+    private function listUniqueHours()
+    {
         $result = array();
-		
-		$midnight = new \DateTime('00:00');
-		$result[$midnight->format('H:i')] = $midnight->format('H:i'); 
-		$midnight->modify('+30 minutes');
 
-		while($midnight->format('H:i') !== '00:00') {
-			$result[$midnight->format('H:i')] = $midnight->format('H:i'); 
-			$midnight->modify('+30 minutes');
-		}
+        $midnight = new \DateTime('00:00');
+        $result[$midnight->format('H:i')] = $midnight->format('H:i');
+        $midnight->modify('+30 minutes');
 
-		return $result;
-	}
-	
+        while ($midnight->format('H:i') !== '00:00') {
+            $result[$midnight->format('H:i')] = $midnight->format('H:i');
+            $midnight->modify('+30 minutes');
+        }
+
+        return $result;
+    }
+
 }

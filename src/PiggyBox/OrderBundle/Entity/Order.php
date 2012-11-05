@@ -35,14 +35,13 @@ class Order
      * @ORM\Column(name="status", type="text")
      */
     private $status = "ordering";
-	
 
     /**
      * @var float $total_price
      *
      * @ORM\Column(name="total_price", type="float", nullable=true)
      */
-    private $total_price;
+    private $total_price = 0;
 
     /**
      * @var integer $total_products
@@ -59,14 +58,14 @@ class Order
      */
     private $createdat;
 
-	/**
+    /**
      * @var \DateTime $pickupatTime
      *
      * @ORM\Column(name="pickupatTime", type="time", nullable=true)
      */
     private $pickupatTime;
 
-	/**
+    /**
      * @var \DateTime $pickupatDate
      *
      * @ORM\Column(name="pickupatDate", type="date", nullable=true)
@@ -86,13 +85,13 @@ class Order
      **/
     private $order_detail;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop", inversedBy="orders")
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="orders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
@@ -105,11 +104,11 @@ class Order
     {
         $this->order_detail = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,20 +118,20 @@ class Order
     /**
      * Set note
      *
-     * @param string $note
+     * @param  string $note
      * @return Order
      */
     public function setNote($note)
     {
         $this->note = $note;
-    
+
         return $this;
     }
 
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -142,20 +141,20 @@ class Order
     /**
      * Set status
      *
-     * @param string $status
+     * @param  string $status
      * @return Order
      */
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -165,20 +164,20 @@ class Order
     /**
      * Set total_price
      *
-     * @param float $totalPrice
+     * @param  float $totalPrice
      * @return Order
      */
     public function setTotalPrice($totalPrice)
     {
         $this->total_price = $totalPrice;
-    
+
         return $this;
     }
 
     /**
      * Get total_price
      *
-     * @return float 
+     * @return float
      */
     public function getTotalPrice()
     {
@@ -188,20 +187,20 @@ class Order
     /**
      * Set pickup_date
      *
-     * @param \DateTime $pickupDate
+     * @param  \DateTime $pickupDate
      * @return Order
      */
     public function setPickupDate($pickupDate)
     {
         $this->pickup_date = $pickupDate;
-    
+
         return $this;
     }
 
     /**
      * Get pickup_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPickupDate()
     {
@@ -211,20 +210,20 @@ class Order
     /**
      * Set pickup_time
      *
-     * @param \DateTime $pickupTime
+     * @param  \DateTime $pickupTime
      * @return Order
      */
     public function setPickupTime($pickupTime)
     {
         $this->pickup_time = $pickupTime;
-    
+
         return $this;
     }
 
     /**
      * Get pickup_time
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPickupTime()
     {
@@ -234,20 +233,20 @@ class Order
     /**
      * Set total_products
      *
-     * @param integer $totalProducts
+     * @param  integer $totalProducts
      * @return Order
      */
     public function setTotalProducts($totalProducts)
     {
         $this->total_products = $totalProducts;
-    
+
         return $this;
     }
 
     /**
      * Get total_products
      *
-     * @return integer 
+     * @return integer
      */
     public function getTotalProducts()
     {
@@ -257,20 +256,20 @@ class Order
     /**
      * Set createdat
      *
-     * @param \DateTime $createdat
+     * @param  \DateTime $createdat
      * @return Order
      */
     public function setCreatedat($createdat)
     {
         $this->createdat = $createdat;
-    
+
         return $this;
     }
 
     /**
      * Get createdat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedat()
     {
@@ -280,20 +279,20 @@ class Order
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Order
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {
@@ -303,13 +302,13 @@ class Order
     /**
      * Add order_detail
      *
-     * @param PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
+     * @param  PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
      * @return Order
      */
     public function addOrderDetail(\PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail)
     {
         $this->order_detail[] = $orderDetail;
-    
+
         return $this;
     }
 
@@ -326,7 +325,7 @@ class Order
     /**
      * Get order_detail
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getOrderDetail()
     {
@@ -336,20 +335,20 @@ class Order
     /**
      * Set shop
      *
-     * @param PiggyBox\ShopBundle\Entity\Shop $shop
+     * @param  PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Order
      */
     public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
         $this->shop = $shop;
-    
+
         return $this;
     }
 
     /**
      * Get shop
      *
-     * @return PiggyBox\ShopBundle\Entity\Shop 
+     * @return PiggyBox\ShopBundle\Entity\Shop
      */
     public function getShop()
     {
@@ -359,20 +358,20 @@ class Order
     /**
      * Set user
      *
-     * @param PiggyBox\UserBundle\Entity\User $user
+     * @param  PiggyBox\UserBundle\Entity\User $user
      * @return Order
      */
     public function setUser(\PiggyBox\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return PiggyBox\UserBundle\Entity\User 
+     * @return PiggyBox\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -382,20 +381,20 @@ class Order
     /**
      * Set pickupatTime
      *
-     * @param \DateTime $pickupatTime
+     * @param  \DateTime $pickupatTime
      * @return Order
      */
     public function setPickupatTime($pickupatTime)
     {
         $this->pickupatTime = $pickupatTime;
-    
+
         return $this;
     }
 
     /**
      * Get pickupatTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPickupatTime()
     {
@@ -405,20 +404,20 @@ class Order
     /**
      * Set pickupatDate
      *
-     * @param \DateTime $pickupatDate
+     * @param  \DateTime $pickupatDate
      * @return Order
      */
     public function setPickupatDate($pickupatDate)
     {
         $this->pickupatDate = $pickupatDate;
-    
+
         return $this;
     }
 
     /**
      * Get pickupatDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPickupatDate()
     {

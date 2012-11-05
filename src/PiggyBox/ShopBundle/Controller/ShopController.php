@@ -12,12 +12,10 @@ use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use JMS\SecurityExtraBundle\Annotation\SecureReturn;
-use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -29,109 +27,86 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ShopController extends Controller
 {
     /**
-     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page 
-	 * 
-	 * @SecureReturn(permissions="VIEW")
+     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page
+     *
+     * @SecureReturn(permissions="VIEW")
      * @Route("/.{_format}", name="moncommerce_mescommandes", requirements={"_format"="(html|json)"}, defaults={"_format"="html"})
      * @Template()
      */
     public function indexAction()
-	{
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-		$data = array();
+        $data = array();
 
-		$data['orders_toValidate']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toValidate\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
-								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
-								  ->getResult();
+        $data['orders_toValidate']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toValidate\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
+                                  ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                  ->getResult();
 
-		if($this->get('request')->getRequestFormat() == 'json'){
-			$html = $this->renderView('PiggyBoxShopBundle:Shop:orders_to_validate.html.twig', $data);
-			return new JsonResponse(array('content' => $html));
-		}
+        if ($this->get('request')->getRequestFormat() == 'json') {
+            $html = $this->renderView('PiggyBoxShopBundle:Shop:orders_to_validate.html.twig', $data);
 
-		$data['orders_toPrepare']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toPrepare\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
-								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
-								  ->getResult();
+            return new JsonResponse(array('content' => $html));
+        }
 
-		$data['orders_toArchive']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toArchive\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
-								  ->setParameter('shop_id', $user->getOwnShop()->getId())	
-								  ->getResult();
+        $data['orders_toPrepare']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toPrepare\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
+                                  ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                  ->getResult();
+
+        $data['orders_toArchive']	= $em->createQuery('SELECT o, u, d , p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.user u LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.shop=:shop_id AND o.status=\'toArchive\') ORDER BY o.pickupatDate, o.pickupatTime ASC')
+                                  ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                  ->getResult();
 
         return $data;
     }
 
     /**
-     * Finds and displays a Shop entity.
-     *
-     * @Route("/{id}/show", name="moncommerce_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Shop entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
      * Displays a form to create a new Shop entity.
      *
-	 * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/new", name="moncommerce_new")
      * @Template()
      */
     public function newAction()
     {
-		//NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
-		//TODO: Ajouter plus de détails au magasin que le nom et type...
+        //NOTE: Méthode permettant de créer un nouveau magasin avec les ACL de l'utilisateur avec le ROLE_ADMIN
+        //TODO: Ajouter plus de détails au magasin que le nom et type...
         $shop = new Shop();
-		
-		// Ajout de tous les jours de la semaine
-		$monday = new Day();
-		$monday->setDayOfTheWeek(1);
-		
-		$tuesday = new Day();
-		$tuesday->setDayOfTheWeek(2);
-		
-		$wednesday = new Day();
-		$wednesday->setDayOfTheWeek(3);
-		
-		$thursday = new Day();
-		$thursday->setDayOfTheWeek(4);
-		
-		$friday = new Day();
-		$friday->setDayOfTheWeek(5);
-		
-		$saturday = new Day();
-		$saturday->setDayOfTheWeek(6);
-		
-		$sunday = new Day();
-		$sunday->setDayOfTheWeek(7);
-		
-		
 
-		$shop->addOpeningDay($monday);
-		$shop->addOpeningDay($tuesday);
-		$shop->addOpeningDay($wednesday);
-		$shop->addOpeningDay($thursday);
-		$shop->addOpeningDay($friday);
-		$shop->addOpeningDay($saturday);
-		$shop->addOpeningDay($sunday);
-		
+        // Ajout de tous les jours de la semaine
+        $monday = new Day();
+        $monday->setDayOfTheWeek(1);
 
-		$form = $this->createForm(new ShopType(), $shop);
+        $tuesday = new Day();
+        $tuesday->setDayOfTheWeek(2);
+
+        $wednesday = new Day();
+        $wednesday->setDayOfTheWeek(3);
+
+        $thursday = new Day();
+        $thursday->setDayOfTheWeek(4);
+
+        $friday = new Day();
+        $friday->setDayOfTheWeek(5);
+
+        $saturday = new Day();
+        $saturday->setDayOfTheWeek(6);
+
+        $sunday = new Day();
+        $sunday->setDayOfTheWeek(7);
+
+
+
+        $shop->addOpeningDay($monday);
+        $shop->addOpeningDay($tuesday);
+        $shop->addOpeningDay($wednesday);
+        $shop->addOpeningDay($thursday);
+        $shop->addOpeningDay($friday);
+        $shop->addOpeningDay($saturday);
+        $shop->addOpeningDay($sunday);
+
+
+        $form = $this->createForm(new ShopType(), $shop);
 
         return array(
             'entity' => $shop,
@@ -142,14 +117,14 @@ class ShopController extends Controller
     /**
      * Creates a new Shop entity.
      *
-	 * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      * @Route("/create", name="moncommerce_create")
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Shop:new.html.twig")
      */
     public function createAction(Request $request)
     {
-		//NOTE: Vérification de la validité du formulaire > Ajout du Shop à l'utilisateur > création des ACL à l'objet $user > Ajout du ROLE_SHOP et suppression du ROLE_ADMIN > Redirection vers la route logout
+        //NOTE: Vérification de la validité du formulaire > Ajout du Shop à l'utilisateur > création des ACL à l'objet $user > Ajout du ROLE_SHOP et suppression du ROLE_ADMIN > Redirection vers la route logout
         $shop = new Shop();
         $form = $this->createForm(new ShopType(), $shop);
         $form->bind($request);
@@ -158,14 +133,14 @@ class ShopController extends Controller
              // retrieving the security identity of the currently logged-in user
             $securityContext = $this->get('security.context');
             $user = $securityContext->getToken()->getUser();
-			
-			// saving the DB
+
+            // saving the DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($shop);
-			$user->setOwnshop($shop);
+            $user->setOwnshop($shop);
             $em->flush();
-		
-			// creating the ACL
+
+            // creating the ACL
             $aclProvider = $this->get('security.acl.provider');
             $objectIdentity = ObjectIdentity::fromDomainObject($shop);
             $acl = $aclProvider->createAcl($objectIdentity);
@@ -174,12 +149,12 @@ class ShopController extends Controller
 
             // grant owner access
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-			$aclProvider->updateAcl($acl);
+            $aclProvider->updateAcl($acl);
 
-			// Ajout du ROLE_SHOP et suppression du ROLE_ADMIN
-			$manipulator = $this->get('fos_user.util.user_manipulator');
-			$manipulator->addRole($user,"ROLE_SHOP");
-			$manipulator->removeRole($user,"ROLE_ADMIN");
+            // Ajout du ROLE_SHOP et suppression du ROLE_ADMIN
+            $manipulator = $this->get('fos_user.util.user_manipulator');
+            $manipulator->addRole($user,"ROLE_SHOP");
+            $manipulator->removeRole($user,"ROLE_ADMIN");
 
             return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
@@ -188,111 +163,5 @@ class ShopController extends Controller
             'entity' => $shop,
             'form'   => $form->createView(),
         );
-    }
-
-    /**
-     * Displays a form to edit an existing Shop entity.
-	 *
-     * @Route("/{id}/edit", name="moncommerce_edit")
-     * @Template()
-     */
-    public function editAction($id)
-	{
-		//NOTE: Vérification de l'autorisation 'VIEW' > Présentation du formulaire d'édition du Shop > Création de la vue	
-        $em = $this->getDoctrine()->getManager();
-
-        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
-        $securityContext = $this->get('security.context');		
-
-        if (!$shop) {
-            throw $this->createNotFoundException('Unable to find Shop entity.');
-        }
-
-		if(!$securityContext->isGranted('VIEW', $shop)){
-			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
-		}
-
-        $editForm = $this->createForm(new ShopType(), $shop);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $shop,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Edits an existing Shop entity.
-     *
-     * @Route("/{id}/update", name="moncommerce_update")
-     * @Method("POST")
-     * @Template("PiggyBoxShopBundle:Shop:edit.html.twig")
-     */
-    public function updateShopAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
-        $securityContext = $this->get('security.context');		
-
-        if (!$shop) {
-            throw $this->createNotFoundException('Unable to find Shop entity.');
-        }
-
-		if(!$securityContext->isGranted('EDIT', $shop)){
-			throw new AccessDeniedException('Vous n\'avez pas les autorisations nécessaires.');
-		}
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ShopType(), $shop);
-        $editForm->bind($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($shop);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('moncommerce_edit', array('id' => $id)));
-        }
-
-        return array(
-            'entity'      => $shop,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Deletes a Shop entity.
-     *
-     * @Route("/{id}/delete", name="moncommerce_delete")
-     * @Method("POST")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PiggyBoxShopBundle:Shop')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Shop entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('moncommerce'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
     }
 }

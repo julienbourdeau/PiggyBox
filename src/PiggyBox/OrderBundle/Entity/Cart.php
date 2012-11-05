@@ -24,7 +24,7 @@ class Cart
 
     /**
      * @var \DateTime $createdat
-	 *
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
@@ -32,14 +32,14 @@ class Cart
 
     /**
      * @var \DateTime $updatedat
-	 *
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedat", type="datetime")
      */
     private $updatedat;
 
-	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order")
+    /**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", cascade={"persist"})
      * @ORM\JoinTable(name="cart_orders",
      *      joinColumns={@ORM\JoinColumn(name="cart_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="orders_id", referencedColumnName="id", unique=true)}
@@ -50,7 +50,7 @@ class Cart
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -60,20 +60,20 @@ class Cart
     /**
      * Set createdat
      *
-     * @param \DateTime $createdat
+     * @param  \DateTime $createdat
      * @return Cart
      */
     public function setCreatedat($createdat)
     {
         $this->createdat = $createdat;
-    
+
         return $this;
     }
 
     /**
      * Get createdat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedat()
     {
@@ -83,20 +83,20 @@ class Cart
     /**
      * Set updatedat
      *
-     * @param \DateTime $updatedat
+     * @param  \DateTime $updatedat
      * @return Cart
      */
     public function setUpdatedat($updatedat)
     {
         $this->updatedat = $updatedat;
-    
+
         return $this;
     }
 
     /**
      * Get updatedat
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedat()
     {
@@ -109,17 +109,17 @@ class Cart
     {
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add orders
      *
-     * @param PiggyBox\OrderBundle\Entity\Order $orders
+     * @param  PiggyBox\OrderBundle\Entity\Order $orders
      * @return Cart
      */
     public function addOrder(\PiggyBox\OrderBundle\Entity\Order $orders)
     {
         $this->orders[] = $orders;
-    
+
         return $this;
     }
 
@@ -136,7 +136,7 @@ class Cart
     /**
      * Get orders
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getOrders()
     {

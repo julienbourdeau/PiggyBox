@@ -8,7 +8,7 @@
 	</div>
 {% endfor %}
 
-{% elseif ('boucherie-des-gourmets') %}
+{% elseif (shop.slug == 'boucherie-des-gourmets') %}
 
 	<div class="">
 		{% set path = "bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau-charcuterie.jpg" %}
@@ -50,5 +50,21 @@
 		<img src="{{ asset(path) }}" alt="">
 		<hr />
 	</div>
+
+{% elseif (shop.slug == 'boucherie-copernic') %}
+
+<div class="">
+	{% set path = "bundles/piggyboxuser/img/carousel/copernic/boutique.jpg" %}
+	<img src="{{ asset(path) }}" alt="">
+	<hr />
+</div>
+
+{% for count in range(1, 7) %}
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/copernic/boucherie-nantes-copernic-" ~ count ~ ".jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+{% endfor %}
 
 {% endif %}

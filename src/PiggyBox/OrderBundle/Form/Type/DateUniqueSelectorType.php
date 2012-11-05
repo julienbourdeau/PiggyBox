@@ -5,7 +5,6 @@ namespace PiggyBox\OrderBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Exception\CreationException;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToLocalizedStringTransformer;
 use PiggyBox\OrderBundle\Form\DataTransformer\DateTimeToArrayTransformer;
@@ -73,7 +72,7 @@ class DateUniqueSelectorType extends AbstractType
 
             if ('choice' === $options['widget']) {
                 // Only pass a subset of the options to children
-				$dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days']);
+                $dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days']);
                 //$dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
                 //$dayOptions['empty_value'] = $options['empty_value']['day'];
             }
@@ -86,7 +85,7 @@ class DateUniqueSelectorType extends AbstractType
             $builder
                 ->add('date', $options['widget'], $dateOption)
                 ->addViewTransformer(new DateTimeToArrayTransformer(
-				$options['model_timezone'], $options['view_timezone'], array('date')
+                $options['model_timezone'], $options['view_timezone'], array('date')
                 ))
                 ->setAttribute('formatter', $formatter)
             ;
@@ -200,8 +199,8 @@ class DateUniqueSelectorType extends AbstractType
             // this option.
             'data_class'     => null,
             'compound'       => $compound,
-			'number_of_days' => 8,
-			'closed_days'       => array(),
+            'number_of_days' => 8,
+            'closed_days'       => array(),
         ));
 
         $resolver->setNormalizers(array(
@@ -266,49 +265,50 @@ class DateUniqueSelectorType extends AbstractType
 
         return $timestamps;
     }
-	
-	private function listUniqueDate($number_of_days, $closed_days){
+
+    private function listUniqueDate($number_of_days, $closed_days)
+    {
         $result = array();
 
-		$today = new \DateTime('now');
+        $today = new \DateTime('now');
 
         for ($i=0; $i < $number_of_days; $i++) {
-			if(!in_array($today->format('N'), $closed_days)){
-//				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');				
-				$result[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');				
-			}
-			$today->modify('+1 day');
-		}
+            if (!in_array($today->format('N'), $closed_days)) {
+//				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');
+                $result[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');
+            }
+            $today->modify('+1 day');
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	private function twig_localized_date_filter($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null)
-	{
-		$formatValues = array(
-			'none'   => \IntlDateFormatter::NONE,
-			'short'  => \IntlDateFormatter::SHORT,
-			'medium' => \IntlDateFormatter::MEDIUM,
-			'long'   => \IntlDateFormatter::LONG,
-			'full'   => \IntlDateFormatter::FULL,
-		);
+    private function twig_localized_date_filter($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null)
+    {
+        $formatValues = array(
+            'none'   => \IntlDateFormatter::NONE,
+            'short'  => \IntlDateFormatter::SHORT,
+            'medium' => \IntlDateFormatter::MEDIUM,
+            'long'   => \IntlDateFormatter::LONG,
+            'full'   => \IntlDateFormatter::FULL,
+        );
 
-		$formatter = \IntlDateFormatter::create(
-			$locale !== null ? $locale : \Locale::getDefault(),
-			$formatValues[$dateFormat],
-			$formatValues[$timeFormat],
-			date_default_timezone_get()
-		);
+        $formatter = \IntlDateFormatter::create(
+            $locale !== null ? $locale : \Locale::getDefault(),
+            $formatValues[$dateFormat],
+            $formatValues[$timeFormat],
+            date_default_timezone_get()
+        );
 
-		if (!$date instanceof \DateTime) {
-			if (ctype_digit((string) $date)) {
-				$date = new \DateTime('@'.$date);
-				$date->setTimezone(new DateTimeZone(date_default_timezone_get()));
-			} else {
-				$date = new \DateTime($date);
-			}
-		}
+        if (!$date instanceof \DateTime) {
+            if (ctype_digit((string) $date)) {
+                $date = new \DateTime('@'.$date);
+                $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            } else {
+                $date = new \DateTime($date);
+            }
+        }
 
-		return $formatter->format($date->getTimestamp());
-	}
+        return $formatter->format($date->getTimestamp());
+    }
 }
