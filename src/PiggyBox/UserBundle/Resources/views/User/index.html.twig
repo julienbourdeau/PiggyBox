@@ -6,32 +6,27 @@
 
 
             <div class="row bottom-marged">
-                <div class="span12">
-                    <div class="step-wrapper">
-                        <div class="step-container">
-                            <a href="{{ path('shops') }}" class="box stepbox">
-                                <div class="step-number"><span>1</span></div>
-                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
-                                <h2>Recherchez</h2>
-                                {# <p>Trouvez votre commerce à proximité</p> #}
-                            </a>
-                        </div>
-                        <div class="step-container step-offset">
-                            <a class="box stepbox">
-                                <div class="step-number"><span>2</span></div>
-                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
-                                <h2>Commandez</h2>
-                                {# <p>Passez votre commande au même tarif qu'en boutique</p> #}
-                            </a>
-                        </div>
-                        <div class="step-container step-offset">
-                            <a class="box stepbox">
-                                <div class="step-number"><span>3</span></div>
-                                <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
-                                <h2>Retirez</h2>
-                                {# <p>Allez chercher votre commande sans faire la queue</p> #}
-                            </a>
-                        </div>
+                <div class="step-wrapper">
+                    <div class="span3">
+                        <a href="{{ path('shops') }}" class="box stepbox">
+                            <div class="step-number"><span>1</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step1.png')}}" alt="">
+                            <h2>Recherchez</h2>
+                        </a>
+                    </div>
+                    <div class="span3 offset1">
+                        <a href="{{ path('shops') }}" class="box stepbox">
+                            <div class="step-number"><span>2</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step2.png')}}" alt="">
+                            <h2>Commandez</h2>
+                        </a>
+                    </div>
+                    <div class="span3 offset1">
+                        <a href="{{ path('shops') }}" class="box stepbox">
+                            <div class="step-number"><span>3</span></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/pictos/step3.png')}}" alt="">
+                            <h2>Retirez</h2>
+                        </a>
                     </div>
                 </div>
             </div>
