@@ -41,3 +41,14 @@
   // Hide
   .hidden-phone      { display: none !important; }
 }
+
+// Phones only
+@media (max-width: 580px) {
+  // Hide everything else
+  .hidden-desktop    { display: inherit !important; }
+  .visible-desktop   { display: none !important; }
+  // Show
+  .visible-small-phone     { display: inherit !important; } // Use inherit to restore previous behavior
+  // Hide
+  .hidden-small-phone      { display: none !important; }
+}
