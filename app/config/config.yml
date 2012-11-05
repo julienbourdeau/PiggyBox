@@ -56,8 +56,8 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: gmail
-    username:  dev@babelconsulting.fr
-    password:  boutdecaca
+    username:  lifo@cotelettes-tarteauxfraises.com
+    password:  doubleanal?
 
 # StofDoctrineExtensionBundle Configuration
 stof_doctrine_extensions:
