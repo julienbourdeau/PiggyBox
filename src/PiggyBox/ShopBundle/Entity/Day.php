@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * PiggyBox\ShopBundle\Entity\Day
  *
  * @ORM\Table(name="piggybox_day")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\DayRepository")
  */
 class Day
 {
