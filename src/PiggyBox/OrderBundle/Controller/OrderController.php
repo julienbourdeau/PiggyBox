@@ -17,7 +17,8 @@ use PiggyBox\OrderBundle\Entity\Cart;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use PiggyBox\OrderBundle\Event\OrderEvent;
+use PiggyBox\OrderBundle\OrderEvents;
 /**
  * Order controller.
  *
@@ -98,13 +99,8 @@ class OrderController extends Controller
 
         if ($form->isValid()) {
             try {
-                $order->setStatus('toValidate');
-                $cart = $this->get('piggy_box_cart.provider')->getCart();
-                $cart->removeOrder($order);
-
-                   $em->persist($cart);
-                $em->persist($order);
-                $em->flush();
+                $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+                $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order, 'toValidate');
 
                 $this->get('session')->getFlashBag()->set('success', 'La commande a été envoyé au commerçant');
 
@@ -199,28 +195,20 @@ class OrderController extends Controller
     }
 
     /**
-     * @Template()
-     * @Route("/email", name="email")
-     */
-    public function emailAction()
-    {
-        return array();
-    }
-
-    /**
-     * Validate Order for Shp
+     * Validation process for orders
      *
      * @PreAuthorize("hasRole('ROLE_SHOP')")
      * @Route("/change/status/{order_id}/{status}", name="change_status")
+     * @ParamConverter("order", options={"mapping": {"order_id": "id"}})
      */
-    public function changeStatusOrderAction(Request $request, $order_id, $status)
+    public function changeOrderStatusAction(Request $request, Order $order, $status)
     {
-        $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($order_id);
+        $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order, $status);
 
-        $order->setStatus($status);
-        $em->persist($order);
-        $em->flush();
+        if ($status == 'toPrepare') {
+            $dispatcher = $this->get('event_dispatcher');
+               $dispatcher->dispatch(OrderEvents::ORDER_VALIDATED, new OrderEvent($order));
+        }
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }

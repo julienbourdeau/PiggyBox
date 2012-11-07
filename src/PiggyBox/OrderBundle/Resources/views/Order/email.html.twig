@@ -11,7 +11,7 @@
 
 <div id="header" style="width: {{ width }};">
 
-	<img src="{{ asset('bundles/piggyboxorder/img/email-banner-commande-validee.jpg')}}" alt="">
+	<img src="{{header}}" alt="">
 
 </div>
 
@@ -22,10 +22,10 @@
 
 		<table>
 			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
-				<td><img src="{{ asset('bundles/piggyboxorder/img/tick.png')}}" alt=""></td>
+				<td><img src="{{ tick }}" alt=""></td>
 				<td>
 					Votre commande
-					<span style="font-weight: bold;">#894764</span>
+					<span style="font-weight: bold;">#{{order.ordernumber}}</span>
 					a été validée
 				</td>
 			</tr>
@@ -35,11 +35,11 @@
 
 		<table>
 			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
-				<td><img src="{{ asset('bundles/piggyboxorder/img/mapmarker.png')}}" alt=""></td>
+				<td><img src="{{ mapmarker }}" alt=""></td>
 				<td>
 					Votre commande est à récupérer dans le commerce suivant: <br />
 					<span style="font-weight: bold;">
-						Boucherie de Zola, 6 place Emile Zola, 44100 Nantes
+						{{order.shop.name}}
 					</span>
 				</td>
 			</tr>
@@ -49,7 +49,7 @@
 
 		<table>
 			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
-				<td><img src="{{ asset('bundles/piggyboxorder/img/highlightmarker.png')}}" alt=""></td>
+				<td><img src="{{ highlightmarker }}" alt=""></td>
 				<td>
 					Votre commande:
 				</td>
@@ -60,9 +60,10 @@
 			<tr style="font-size: 21px; padding-bottom: {{ padding_bottom }}; ">
 				<td>
 					<div style="padding-left: {{ ul_margin }}; ">
-						- Côte de porc - 5 pièce <br>
-						- Poulet rôti - 1 pièce <br>
-						- Lasagne - 400g
+						{% for order_detail in order.orderdetail %}
+						{{order_detail.product.name}} - {% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}
+						{% endfor %}
+
 					</div>
 				</td>
 			</tr>
@@ -82,6 +83,6 @@
 
 <div id="footer" style="width: {{ width }};">
 
-	<img src="{{ asset('bundles/piggyboxorder/img/email-footer.jpg')}}" alt="">
+	<img src="{{ footer }}" alt="">
 
 </div>

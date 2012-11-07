@@ -98,11 +98,19 @@ class Order
     private $user;
 
     /**
+     * @var integer $order_number
+     *
+     * @ORM\Column(name="order_number", type="integer",nullable=true)
+     */
+    private $order_number;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->order_detail = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->order_number = mt_rand(100000, 999999);
     }
 
     /**
@@ -427,5 +435,28 @@ class Order
     public function __toString()
     {
         return $this->status;
+    }
+
+    /**
+     * Set order_number
+     *
+     * @param  integer $orderNumber
+     * @return Order
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->order_number = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get order_number
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->order_number;
     }
 }

@@ -38,14 +38,14 @@
 			<argument type="service" id="session" />
 		</service>
 
-		<service id="piggy_box_cart.ordering.mail" class="PiggyBox\OrderBundle\EventListener\Ordering\MailListener">
-			<argument type="service" id="mailer" />
-			<tag name="kernel.event_listener" event="piggy_box_cart.operation_order" method="onOperationProcessed" />
-		</service>
-
 		<service id="piggy_box_cart.manager.order" class="PiggyBox\OrderBundle\Manager\OrderManager">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="piggy_box_cart.provider" />
+		</service>
+
+		<service id="piggy_box_cart.listener.order_email" class="PiggyBox\OrderBundle\EventListener\OrderEmailler">
+			<argument type="service" id="service_container"/>
+			<tag name="kernel.event_listener" event="order.validated" method="onOrderValidation" />
 		</service>
 
 	</services>
