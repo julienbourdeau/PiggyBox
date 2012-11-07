@@ -12,6 +12,7 @@ use PiggyBox\OrderBundle\Form\Type\OrderType;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\Shop;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PiggyBox\OrderBundle\Entity\Cart;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
@@ -150,44 +151,14 @@ class OrderController extends Controller
      *     options={"expose"=true},
      *     defaults={"_format"="json"}
      * )
+     * @ParamConverter("shop", options={"mapping": {"shop_id": "id"}})
      * @Method({"GET"})
      */
-    public function viewOpeningHoursAction(Request $req, $shop_id, $time_string)
+    public function viewOpeningHoursAction(Request $req, Shop $shop, $time_string)
     {
-        $em = $this->getDoctrine()->getManager();
         $date = new \DateTime($time_string);
-        $day_of_the_week = $date->format('N');
-        $opening_days = $em->getRepository('PiggyBoxShopBundle:Shop')->find($shop_id)->getOpeningDays();
-        $opening_hours = array();
 
-        foreach ($opening_days as $day) {
-            if ($day->getDayOfTheWeek() == $day_of_the_week) {
-
-                if ($day->getFromTimeMorning() !== null) {
-                    if ($day->getToTimeMorning()->format('i')%30 != 0) {
-                        $opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
-                        $day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes');
-                    }
-
-                    while ( $day->getFromTimeMorning()->format('Hi') < $day->getToTimeMorning()->format('Hi')) {
-                        $opening_hours[$day->getFromTimeMorning()->format('H:i')] = $day->getFromTimeMorning()->format('H:i');
-                        $day->getFromTimeMorning()->modify('30 minutes');
-                    }
-                }
-
-                if ($day->getFromTimeAfternoon() !== null) {
-                    if ($day->getToTimeMorning()->format('i')%30 != 0) {
-                        $opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
-                        $day->getFromTimeMorning()->modify(abs(30-$day->getFromTimeMorning()->format('i')).' minutes');
-                    }
-
-                    while ( $day->getFromTimeAfternoon()->format('Hi') < $day->getToTimeAfternoon()->format('Hi')) {
-                        $opening_hours[$day->getFromTimeAfternoon()->format('H:i')] = $day->getFromTimeAfternoon()->format('H:i');
-                        $day->getFromTimeAfternoon()->modify('30 minutes');
-                    }
-                }
-            }
-        }
+        $opening_hours  = $this->get('piggy_box_cart.manager.order')->getOpeningHoursFromShopForDay($shop, $date);
 
         $html = $this->renderView('PiggyBoxOrderBundle:Order:hoursOption.html.twig', array('opening_hours' => $opening_hours));
 
