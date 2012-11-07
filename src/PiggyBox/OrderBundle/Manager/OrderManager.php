@@ -96,6 +96,54 @@ class OrderManager
         $order->setTotalPrice($result);
     }
 
+    private function getTimeInterval($start, $end, $openingHours)
+    {
+        if ($start !== null) {
+            if ($start->format('i')%30 != 0) {
+                if ($start->format('i')>30) {
+                    $start->modify(abs(60-$start->format('i')).' minutes');
+                } elseif ($start->format('i')<30) {
+                    $start->modify(abs(30-$start->format('i')).' minutes');
+                }
+                $openingHours[$start->format('H:i')] = $start->format('H:i');
+            }
+            while ( $start->format('Hi') < $end->format('Hi')) {
+                $openingHours[$start->format('H:i')] = $start->format('H:i');
+                $start->modify('30 minutes');
+            }
+        }
+
+        return $openingHours;
+    }
+
+    public function getOpeningHoursFromShopForDay(Shop $shop, $date)
+    {
+        $day = $this->em->getRepository('PiggyBoxShopBundle:Day')->getDayDetailsFromShop($shop->getId(), $date->format('N'));
+        $openingHours = array();
+        $today = new \DateTime('now');
+
+        if ($today->format('YYYY/mm/dd') == $date->format('YYYY/mm/dd')) {
+            if ($today->format('H:i') > $day->getFromTimeMorning()->format('H:i') && $today->format('H:i') < $day->getToTimeMorning()->format('H:i')) {
+                $openingHours = $this->getTimeInterval($today, $day->getToTimeMorning(), $openingHours);
+                $openingHours = $this->getTimeInterval($day->getFromTimeAfternoon(), $day->getToTimeAfternoon(), $openingHours);
+
+                return $openingHours;
+            }
+
+            if ($today->format('H:i') > $day->getToTimeMorning()->format('H:i') && $today->format('H:i') < $day->getToTimeAfternoon()->format('H:i')) {
+                $openingHours = $this->getTimeInterval($today, $day->getToTimeAfternoon(), $openingHours);
+
+                return $openingHours;
+            }
+
+            return null;
+        }
+        $openingHours = $this->getTimeInterval($day->getFromTimeMorning(), $day->getToTimeMorning(), $openingHours);
+        $openingHours = $this->getTimeInterval($day->getFromTimeAfternoon(), $day->getToTimeAfternoon(), $openingHours);
+
+        return $openingHours;
+    }
+
     protected function persistAndFlush($entity)
     {
         $this->em->persist($entity);
