@@ -34,6 +34,12 @@ class OrderManager
         return $order;
     }
 
+    public function changeOrderStatus(Order $order, $status)
+    {
+        $order->setStatus($status);
+        $this->persistAndFlush($order);
+    }
+
     public function addOrderDetailToOrder(Order $order, OrderDetail $orderDetail)
     {
         $order->addOrderDetail($orderDetail);
