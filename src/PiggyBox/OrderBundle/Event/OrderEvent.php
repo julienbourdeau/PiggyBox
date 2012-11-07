@@ -8,8 +8,6 @@ use Symfony\Component\EventDispatcher\Event;
 class OrderEvent extends Event
 {
 
-    const OPERATION_ORDER = 'piggy_box_cart.operation_order';
-
     /**
      * @var PiggyBox\OrderBundle\Entity\Order
      */
