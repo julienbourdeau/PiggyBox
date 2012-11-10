@@ -19,3 +19,7 @@ app/config/parameters.yml
 
 # Vim files
 *.swp
+
+# Misc
+composer.lock
+
