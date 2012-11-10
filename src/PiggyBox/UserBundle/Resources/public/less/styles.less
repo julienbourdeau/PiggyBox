@@ -197,45 +197,75 @@ h1 {
 
 // ENTRY CONTAINER
 #entry-container {
-	margin: 57px 0 20px 0;
 }
 
-	#entry-nav ul.nav {
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-		border: 0;
-		border-bottom: 6px solid @grayDarker;
-		li {
-			font-size: 21px;
-			line-height: 28px;
-			margin: 0 24px 0 0;
-		}
-		li.active {
-			margin-top: 2px;
-			a {
-				background: @grayDarker;
-				color: @white;
-				border: 0;
-				//.box-shadowed;
-			}
+#entry-nav ul.nav {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	border-bottom: 6px solid @grayDarker;
+	li {
+		font-size: 21px;
+		line-height: 28px;
+		margin: 0 24px 0 0;
+	}
+	li.active {
+		margin-top: 2px;
+		a {
+			background: @grayDarker;
+			color: @white;
+			border: 0;
+			//.box-shadowed;
 		}
 	}
-	#entry-content {
-		padding: 26px 10px;
-		border: 0;
-		//.box-shadowed;
-	}
+}
+#entry-content {
+	padding: 26px 0px;
+	border: 0;
+	//.box-shadowed;
+}
 
 
 // PRODUCT
-	.primary-price {
-		font-size: 24px; 
-		line-height: 40px;
+.product-item {
+	width: 220px;
+	margin: 0 23px 46px 0;
+	padding: 12px;
+	text-align: center;
+	.pull-left;
+	.clearfix;
+
+	.product-name {
+		min-height: 42px; //2 lines
+		font-size: 21px;
+		line-height: 21px;
+		font-weight: normal;
+		margin: 0 0 12px 0;
 	}
+	.product-toolbar {
+		font-size: 18px;
+		line-height: 18px;
+		input[type="text"] {
+			width: 30px;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		.btn.left {
+			margin-right: -5px;
+		}
+		.btn.right {
+			margin-left: -5px;
+		}
+	}
+}
+.product-item-last {
+	margin-right: 0;
+}
 
 // SIDEBAR
-#sidebar {
+.sidebar {
 	height: 100%;
 	min-height: 1px;
 
@@ -248,19 +278,14 @@ h1 {
 		text-align: center;
 	}
 }
-		
-	#shop-infos {
-		min-height: 300px;
-		#shop-details {
-			height: 192px;
-			margin: 8px 0;
-		}
-	}
 	
-	.shopelements{
-		margin: 10px;
+#shop-infos {
+	height: 300px;
+	#shop-details {
+		height: 192px;
+		margin: 8px 0;
 	}
-
+}
 
 table.pricing {
 	th {
@@ -435,24 +460,31 @@ label[for="piggybox_orderbundle_ordertype_pickupatDate_date"] {
 // RESPONSIVE CLASSES
 // ------------------
 
-@import "responsive-utilities.less";
+//@import "responsive-utilities.less";
 
 
 // MEDIA QUERIES
 // ------------------
 
 // Large desktops
+<<<<<<< HEAD
  @import "responsive-1200px-min.less";
 
 // Tablets to regular desktops
 // @import "responsive-768px-979px.less";
+=======
+//@import "responsive-1200px-min.less";
+
+// Tablets to regular desktops
+//@import "responsive-768px-979px.less";
+>>>>>>> 967c5b408385020a614a2a39cf3411b625b83fd4
 
 // Phones to portrait tablets and narrow desktops
-@import "responsive-767px-max.less";
+//@import "responsive-767px-max.less";
 
 
 // RESPONSIVE NAVBAR
 // ------------------
 
 // From 979px and below, show a button to toggle navbar contents
- @import "responsive-navbar.less";
+//@import "responsive-navbar.less";
