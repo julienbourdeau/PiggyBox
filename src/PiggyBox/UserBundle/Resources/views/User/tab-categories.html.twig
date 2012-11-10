@@ -1,6 +1,4 @@
-<div class="span3">
-	<ul class="nav nav-list">
-		<li id="tous" class="category-item tous"><a href="{{ path('user_show_shop',{slug: shop.slug})}}">Tous</a></li>
-		{{shop.categoryhtml|raw}}
-	</ul>
-</div>
+<ul class="nav nav-list">
+	<li id="tous" class="category-item tous"><a href="{{ path('user_show_shop',{slug: shop.slug})}}">Tous</a></li>
+	{{shop.categoryhtml|raw}}
+</ul>
