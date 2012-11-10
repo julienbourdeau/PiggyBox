@@ -79,10 +79,10 @@
                     <div id="entry-container">
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
-                                <li class="{% if category_title != 'tous' %}active{% endif %}">
+                                <li class="active">
                                     <a href="#shop" data-toggle="tab">Produits à commander</a>
                                 </li>
-                                <li class="{% if category_title == 'tous' %}active{% endif %}">
+                                <li class="">
                                     <a href="#fiche" data-toggle="tab">Fiche</a>
                                 </li>
                                 <li class="disabled">
@@ -94,10 +94,10 @@
                         </div>
 
                         <div id="entry-content" class="tab-content">
-                            <div id="fiche" class="tab-pane {% if category_title == 'tous' %}active{% endif %}">
+                            <div id="fiche" class="tab-pane">
                                 {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                             </div>
-                            <div id="shop" class="tab-pane {% if category_title != 'tous' %}active{% endif %}">
+                            <div id="shop" class="tab-pane active">
                                 <div class="row-fluid">
                                     {% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
                                     <div class="product-list span9">
