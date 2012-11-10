@@ -74,67 +74,18 @@
                 </div>
             </div>
 
-            <div class="container visible-desktop">
-                <div class="row">
-                    <div class="span12">
-                        <div class="header-menu tabbable tabs-below pull-right">
-                            <ul class="access nav nav-tabs">
-                                <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
-                                <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Les commerçants</a></li>
-                                <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Comment ça marche?</a></li>
-                                <li class="{% if app.request.attributes.get('_route') == "validation_page" %}active{% endif %}"><a href="{{ path('validation_page') }}">Panier</a></li>
-                            </ul>
+                <div class="container">
+                    <div class="row">
+                        <div class="span12">
+                            <div class="header-menu tabbable tabs-below pull-right">
+                                <ul class="access nav nav-tabs">
+                                    <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Les commerçants</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Comment ça marche?</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "validation_page" %}active{% endif %}"><a href="{{ path('validation_page') }}">Panier</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container visible-tablet visible-phone hidden-small-phone">
-                <div class="row">
-                    <div class="span12">
-                        <div class="header-menu tabbable tabs-below pull-right">
-                            <ul class="access nav nav-tabs">
-                                <li class="">
-                                    <a>
-                                        <select name="" id="" class="menu span4">
-                                            <option value="">Menu - Séléctionnez une page</option>
-                                            <option value="{{ path('home') }}">Accueil</option>
-                                            <option value="{{ path('shops') }}">Les commerçants</option>
-                                            <option value="{{ path('ccm') }}">Comment ça marche?</option>
-                                            <option value="{{ path('validation_page') }}">Panier</option>
-                                        </select>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container small-menu-access-container hidden-desktop hidden-tablet hidden-phone visible-small-phone">
-                <div class="row">
-                    <div class="span12">
-                        <select name="" id="" class="menu span4">
-                            <option value="">Menu - Séléctionnez une page</option>
-                            <option disabled="disabled" class="disabled"># Les Pages</option>
-                                <option value="{{ path('home') }}">Accueil</option>
-                                <option value="{{ path('shops') }}">Les commerçants</option>
-                                <option value="{{ path('ccm') }}">Comment ça marche?</option>
-                                <option value="{{ path('validation_page') }}">Panier</option>
-                            <option disabled="disabled" class="disabled"># Mon compte</option>
-                                {% if app.user %}
-                                    <option value="{{ path('fos_user_profile_show') }}"><small>Connecté en tant que</small> <strong>{{ app.user.username }}</strong></option>
-                                    <option value="{{ path('fos_user_security_logout') }}">Se déconnecter</option>
-
-                                    {% if "ROLE_SHOP" in app.user.roles %}
-                                         <option value="{{ path('moncommerce_mescommandes') }}">Mon Magasin</option>
-                                    {% endif %}
-
-                                {% else %}
-                                    <option value="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</option>
-                                    <option value="{{ path('fos_user_security_login') }}">Se connecter</option>
-                                {% endif %}
-                        </select>
                     </div>
                 </div>
             </div>
