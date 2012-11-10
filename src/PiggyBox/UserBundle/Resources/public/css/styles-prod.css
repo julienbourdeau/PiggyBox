@@ -3845,9 +3845,9 @@ h1 {
   border: 0;
 }
 .product-item {
-  width: 200px;
-  margin: 0 22px 0 0;
-  padding: 12px 0;
+  width: 220px;
+  margin: 0 23px 46px 0;
+  padding: 12px;
   text-align: center;
   float: left;
   *zoom: 1;
@@ -3866,10 +3866,23 @@ h1 {
   font-size: 21px;
   line-height: 21px;
   font-weight: normal;
+  margin: 0 0 12px 0;
 }
-.product-item .product-price {
+.product-item .product-toolbar {
   font-size: 18px;
-  line-height: 21px;
+  line-height: 18px;
+}
+.product-item .product-toolbar input[type="text"] {
+  width: 30px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.product-item .product-toolbar .btn.left {
+  margin-right: -5px;
+}
+.product-item .product-toolbar .btn.right {
+  margin-left: -5px;
 }
 .product-item-last {
   margin-right: 0;
