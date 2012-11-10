@@ -1,26 +1,36 @@
+
 {% for product in products %}
 
-   		<div class="product-item Tous {{product.category.title}} {% if product.category.level > 0 %}{{product.category.parent.title}}{% endif %}">
-			<div class="row-fluid product-infos">
+	<div class="product-item
+					{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+					tous 
+					{{product.category.slug}} 
+					{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
+		
+		<div class="product-infos">
 
-				<div class="text-centered">
-					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
-				</div>
-
-				<div id="product-details" class="">
-
-						<h6 class="no-margin">{{product.name}}</h6>
-						<div id="prices" class="span4 text-right">
-							<span class="primary-price">{{product.minprice}} €</span> <br />
-						</div>
-				</div>
-
+			<div class="product-thumbnail">
+				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
 			</div>
 
-				<div class="btn" data-load-more="{{ path('view_product', {product_id: product.id, _format: 'json'}) }}">
-					<i class="icon-plus"></i> Ajouter
-				</div>
+			<div class="product-details">
+
+					<h4 class="product-name">{{product.name}}</h4>
+					<div id="product-price" class="">
+						{{product.minprice}} €
+					</div>
+			</div>
 
 		</div>
 
-	{% endfor %}
+		<div class="btn">
+			<i class="icon-plus"></i> Ajouter
+		</div>
+
+	</div>
+
+{% if loop.index is divisibleby(3) %}
+	<hr class="clear" />
+{% endif %}
+
+{% endfor %}
