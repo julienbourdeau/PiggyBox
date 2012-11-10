@@ -3847,11 +3847,11 @@ h1 {
   font-size: 24px;
   line-height: 40px;
 }
-#sidebar {
+.sidebar {
   height: 100%;
   min-height: 1px;
 }
-#sidebar h1 {
+.sidebar h1 {
   font-size: 30px;
   padding-bottom: 8px;
   margin: 0;
