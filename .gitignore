@@ -10,6 +10,7 @@ web/bundles/*
 web/adminer-3.6.1-mysql.php
 web/adminer.php
 web/media/*
+web/.htaccess
 bin
 composer.phar
 comploser.lock
