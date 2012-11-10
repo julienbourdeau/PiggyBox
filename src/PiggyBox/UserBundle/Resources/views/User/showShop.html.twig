@@ -74,7 +74,7 @@
         <div class="container">
             <div class="row">
     
-                <div id="content" class="span8">
+                <div id="content" class="span10">
                 
                     <div id="entry-container">
                         <div id="entry-nav">
@@ -94,29 +94,41 @@
                         </div>
 
                         <div id="entry-content" class="tab-content">
+
                             <div id="fiche" class="tab-pane">
                                 {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                             </div>
+
                             <div id="shop" class="tab-pane active">
                                 <div class="row-fluid">
-                                    {% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
+
+                                    <div class="span3">
+                                        {% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
+                                    </div>
+                                    
                                     <div class="product-list span9">
                                         {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}    
                                     </div>
+
                                 </div>
                             </div>
+
                             <div id="photos" class="tab-pane">
                                 {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' with {'shop': shop} %}
                             </div>
+
                         </div>
                     </div>
                 
                 </div>
 
 
-                <div id="" class="sidebar span4">
+                <div id="" class="sidebar span2">
 
                     {% include 'PiggyBoxUserBundle:User:tab-sidebar.html.twig' with {'shop': shop} %}
+                    <div class="red">
+                        test
+                    </div>
 
                 </div>
 
