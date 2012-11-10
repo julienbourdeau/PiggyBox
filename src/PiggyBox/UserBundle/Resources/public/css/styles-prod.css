@@ -2295,6 +2295,10 @@ a.box:hover h2 {
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
+.box-light {
+  background: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
 .box-margined {
   margin: 12px 0;
 }
@@ -3842,7 +3846,8 @@ h1 {
 }
 .product-item {
   width: 200px;
-  margin-right: 25px;
+  margin: 0 22px 0 0;
+  padding: 12px 0;
   text-align: center;
   float: left;
   *zoom: 1;
@@ -3857,12 +3862,14 @@ h1 {
   clear: both;
 }
 .product-item .product-name {
+  min-height: 42px;
   font-size: 21px;
   line-height: 21px;
   font-weight: normal;
 }
 .product-item .product-price {
   font-size: 18px;
+  line-height: 21px;
 }
 .product-item-last {
   margin-right: 0;
