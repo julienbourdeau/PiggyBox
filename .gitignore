@@ -18,6 +18,7 @@ comploser.lock
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+.vagrant
 
 # Vim files
 *.swp
