@@ -2,10 +2,12 @@
 {% for product in products %}
 
 	<div class="product-item
-					{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
-					tous 
-					{{product.category.slug}} 
-					{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
+				box 
+				box-light
+				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+				tous 
+				{{product.category.slug}} 
+				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
 		
 		<div class="product-infos">
 
@@ -30,7 +32,8 @@
 	</div>
 
 {% if loop.index is divisibleby(3) %}
-	<hr class="clear" />
+	<div class="clear"></div>
+	<hr />
 {% endif %}
 
 {% endfor %}
