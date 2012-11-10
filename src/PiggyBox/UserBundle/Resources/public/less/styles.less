@@ -225,9 +225,9 @@ h1 {
 
 // PRODUCT
 .product-item {
-	width: 200px;
-	margin: 0 22px 0 0;
-	padding: 12px 0;
+	width: 220px;
+	margin: 0 23px 46px 0;
+	padding: 12px;
 	text-align: center;
 	.pull-left;
 	.clearfix;
@@ -237,10 +237,23 @@ h1 {
 		font-size: 21px;
 		line-height: 21px;
 		font-weight: normal;
+		margin: 0 0 12px 0;
 	}
-	.product-price {
+	.product-toolbar {
 		font-size: 18px;
-		line-height: 21px
+		line-height: 18px;
+		input[type="text"] {
+			width: 30px;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		.btn.left {
+			margin-right: -5px;
+		}
+		.btn.right {
+			margin-left: -5px;
+		}
 	}
 }
 .product-item-last {
