@@ -8,6 +8,7 @@ vendor/*
 web/uploads/*
 web/bundles/*
 web/adminer-3.6.1-mysql.php
+web/adminer.php
 web/media/*
 bin
 composer.phar
