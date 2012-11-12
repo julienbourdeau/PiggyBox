@@ -22,6 +22,17 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
  */
 class ProductController extends Controller
 {
+
+
+    /**
+     * @Template()
+     * @Route("/temp-add", name="temp_add")
+     */
+    public function tempAddAction()
+    {
+        return array();
+    }
+
     /**
      * Lister les produits du magasin, les linker vers le CRUD
      *
