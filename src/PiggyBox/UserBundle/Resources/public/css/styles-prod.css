@@ -3895,17 +3895,20 @@ h1 {
   font-size: 18px;
   line-height: 18px;
 }
-.product-item .product-toolbar input[type="text"] {
-  width: 30px;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
 .product-item .product-toolbar .btn.left {
   margin-right: -5px;
 }
 .product-item .product-toolbar .btn.right {
   margin-left: -5px;
+}
+.product-item input[type="text"].inline-quantity {
+  width: 30px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.product-item input[type="text"].inline-quantity-person {
+  width: 70px;
 }
 .product-list .product-item {
   float: left;
@@ -3935,7 +3938,7 @@ h1 {
 .product-item-single .product-toolbar {
   margin-top: 24px;
 }
-.product-item-single input[type="text"].inline-quatity {
+.product-item-single input[type="text"].inline-quantity {
   padding: 4px;
 }
 .sidebar {
