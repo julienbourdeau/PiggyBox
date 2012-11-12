@@ -2224,6 +2224,21 @@ table [class*=span],
   width: 16px;
   height: 16px;
 }
+.icon-meat24 {
+  background: url('../img/meat24.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.icon-meat16 {
+  background: url('../img/meat16.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.icon-meat12 {
+  background: url('../img/meat12.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
 .well {
   min-height: 20px;
   padding: 19px;
@@ -3856,7 +3871,6 @@ h1 {
   width: 220px;
   margin: 0 23px 46px 0;
   padding: 12px;
-  float: left;
   *zoom: 1;
 }
 .product-item:before,
@@ -3869,7 +3883,7 @@ h1 {
   clear: both;
 }
 .product-item .product-name {
-  font-weight: normal;
+  font-weight: normal !important;
   margin: 0 0 12px 0;
 }
 .product-item .product-name h4 {
@@ -3893,6 +3907,9 @@ h1 {
 .product-item .product-toolbar .btn.right {
   margin-left: -5px;
 }
+.product-list .product-item {
+  float: left;
+}
 .product-item-last {
   margin-right: 0;
 }
@@ -3906,6 +3923,7 @@ h1 {
   margin-top: 18px;
 }
 .product-item-single .product-details {
+  margin: 24px 0;
   line-height: 32px;
 }
 .product-item-single .primary-price {
@@ -3914,8 +3932,8 @@ h1 {
 .product-item-single .kilo-price {
   font-size: 13px;
 }
-.product-item-single .product-toobar {
-  margin: 24px 0;
+.product-item-single .product-toolbar {
+  margin-top: 24px;
 }
 .product-item-single input[type="text"].inline-quatity {
   padding: 4px;
@@ -3952,6 +3970,21 @@ table.pricing tfoot tr td {
   font-weight: bold;
   text-align: right;
   border: 0;
+}
+table.pricing .select-quantity {
+  padding-top: 42px;
+}
+table.pricing .select-size label.radio {
+  line-height: 32px;
+}
+table.pricing .select-size label.radio input[type="radio"] {
+  margin-top: 12px;
+}
+table.pricing .select-size label.radio i {
+  margin: 0 8px;
+}
+table.pricing .select-add {
+  padding-top: 42px;
 }
 footer#footer {
   background: #222222;
