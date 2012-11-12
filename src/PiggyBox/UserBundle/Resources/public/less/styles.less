@@ -232,11 +232,10 @@ h1 {
 	width: 220px;
 	margin: 0 23px 46px 0;
 	padding: 12px;
-	.pull-left;
 	.clearfix;
 
 	.product-name {
-		font-weight: normal;
+		font-weight: normal !important;
 		margin: 0 0 12px 0;
 		h4 {
 			min-height: 42px; //2 lines so it bugs for 3 lines
@@ -261,6 +260,9 @@ h1 {
 		}
 	}
 }
+.product-list .product-item {
+	.pull-left;
+}
 .product-item-last {
 	margin-right: 0;
 }
@@ -273,6 +275,7 @@ h1 {
 		margin-top: 18px;
 	}
 	.product-details {
+		margin: 24px 0;
 		line-height: 32px;
 	}
 	.primary-price {
@@ -281,8 +284,8 @@ h1 {
 	.kilo-price {
 		font-size: 13px;
 	}
-	.product-toobar {
-		margin: 24px 0;
+	.product-toolbar {
+		margin-top: 24px;
 	}
 	input[type="text"].inline-quatity {
 		padding: 4px;
@@ -326,6 +329,23 @@ table.pricing {
 		font-weight: bold;
 		text-align: right;
 		border: 0;
+	}
+	.select-quantity {
+		padding-top: 42px;
+	}
+	.select-size {
+		label.radio {
+			line-height: 32px;
+			input[type="radio"]{
+				margin-top: 12px;
+			}
+			i {
+				margin: 0 8px;
+			}
+		}
+	}
+	.select-add {
+		padding-top: 42px;
 	}
 }	
 	
