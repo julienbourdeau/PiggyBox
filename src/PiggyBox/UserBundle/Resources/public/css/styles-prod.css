@@ -3989,6 +3989,9 @@ table.pricing .select-size label.radio i {
 table.pricing .select-add {
   padding-top: 42px;
 }
+#shopping-cart-progess-bar {
+  margin: 18px 0 52px 0;
+}
 .cart-progress-item {
   float: left;
   width: 19.7%;
