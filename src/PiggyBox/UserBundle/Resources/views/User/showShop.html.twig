@@ -42,28 +42,30 @@
                             </ul> 
                         </div>
 
-                        <div id="entry-content" class="tab-content">
+                        <div id="entry-content" class="row-fluid">
 
-                            <div id="fiche" class="tab-pane">
-                                {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
+                            <div class="span3">
+                                {% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
                             </div>
 
-                            <div id="shop" class="tab-pane active">
-                                <div class="row-fluid">
+                            <div class="span9">
+                                <div id="" class="tab-content">
 
-                                    <div class="span3">
-                                        {% include 'PiggyBoxUserBundle:User:tab-categories.html.twig' with {'shop': shop} %}
+                                    <div id="fiche" class="tab-pane">
+                                        {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                                     </div>
-                                    
-                                    <div class="product-list span9">
-                                        {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}    
+
+                                    <div id="shop" class="tab-pane active">
+                                        <div class="product-list">
+                                            {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}    
+                                        </div>
+                                    </div>
+
+                                    <div id="photos" class="tab-pane">
+                                        {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' with {'shop': shop} %}
                                     </div>
 
                                 </div>
-                            </div>
-
-                            <div id="photos" class="tab-pane">
-                                {% include 'PiggyBoxUserBundle:User:tab-photo.html.twig' with {'shop': shop} %}
                             </div>
 
                         </div>
