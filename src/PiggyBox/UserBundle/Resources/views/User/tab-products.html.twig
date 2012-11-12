@@ -4,6 +4,7 @@
 	<div class="product-item
 				box 
 				box-light
+				text-centered
 				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
 				tous 
 				{{product.category.slug}} 
@@ -12,9 +13,9 @@
 		<div class="product-infos">
 
 			<div class="product-details">
-					<h4 class="product-name">
-						{{product.name}}
-					</h4>
+					<div class="product-name">
+						<h4>{{product.name}}</h4>
+					</div>
 			</div>
 			
 			<div class="product-thumbnail">
