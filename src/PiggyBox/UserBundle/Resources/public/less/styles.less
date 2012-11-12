@@ -236,11 +236,13 @@ h1 {
 	.clearfix;
 
 	.product-name {
-		min-height: 42px; //2 lines
-		font-size: 21px;
-		line-height: 21px;
 		font-weight: normal;
 		margin: 0 0 12px 0;
+		h4 {
+			min-height: 42px; //2 lines so it bugs for 3 lines
+			font-size: 21px;
+			line-height: 21px;
+		}
 	}
 	.product-toolbar {
 		font-size: 18px;
@@ -264,6 +266,27 @@ h1 {
 }
 .product-item-single {
 	width: 95%;
+	p {
+		line-height: 21px;
+	}
+	h4 {
+		margin-top: 18px;
+	}
+	.product-details {
+		line-height: 32px;
+	}
+	.primary-price {
+		font-size: 24px;
+	}
+	.kilo-price {
+		font-size: 13px;
+	}
+	.product-toobar {
+		margin: 24px 0;
+	}
+	input[type="text"].inline-quatity {
+		padding: 4px;
+	}
 }
 
 // SIDEBAR
