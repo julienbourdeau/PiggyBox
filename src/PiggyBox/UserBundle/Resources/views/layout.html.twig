@@ -44,7 +44,7 @@
                                 </a>
                             </div>
 
-                            <div class="header-content hidden-small-phone">
+                            <div class="header-content">
 
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills no-margin pull-right">
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="container visible-desktop">
+            <div class="container">
                 <div class="row">
                     <div class="span12">
                         <div class="header-menu tabbable tabs-below pull-right">
@@ -89,55 +89,6 @@
                 </div>
             </div>
 
-            <div class="container visible-tablet visible-phone hidden-small-phone">
-                <div class="row">
-                    <div class="span12">
-                        <div class="header-menu tabbable tabs-below pull-right">
-                            <ul class="access nav nav-tabs">
-                                <li class="">
-                                    <a>
-                                        <select name="" id="" class="menu span4">
-                                            <option value="">Menu - Séléctionnez une page</option>
-                                            <option value="{{ path('home') }}">Accueil</option>
-                                            <option value="{{ path('shops') }}">Les commerçants</option>
-                                            <option value="{{ path('ccm') }}">Comment ça marche?</option>
-                                            <option value="{{ path('validation_page') }}">Panier</option>
-                                        </select>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container small-menu-access-container hidden-desktop hidden-tablet hidden-phone visible-small-phone">
-                <div class="row">
-                    <div class="span12">
-                        <select name="" id="" class="menu span4">
-                            <option value="">Menu - Séléctionnez une page</option>
-                            <option disabled="disabled" class="disabled"># Les Pages</option>
-                                <option value="{{ path('home') }}">Accueil</option>
-                                <option value="{{ path('shops') }}">Les commerçants</option>
-                                <option value="{{ path('ccm') }}">Comment ça marche?</option>
-                                <option value="{{ path('validation_page') }}">Panier</option>
-                            <option disabled="disabled" class="disabled"># Mon compte</option>
-                                {% if app.user %}
-                                    <option value="{{ path('fos_user_profile_show') }}"><small>Connecté en tant que</small> <strong>{{ app.user.username }}</strong></option>
-                                    <option value="{{ path('fos_user_security_logout') }}">Se déconnecter</option>
-
-                                    {% if "ROLE_SHOP" in app.user.roles %}
-                                         <option value="{{ path('moncommerce_mescommandes') }}">Mon Magasin</option>
-                                    {% endif %}
-
-                                {% else %}
-                                    <option value="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</option>
-                                    <option value="{{ path('fos_user_security_login') }}">Se connecter</option>
-                                {% endif %}
-                        </select>
-                    </div>
-                </div>
-            </div>
 
         </header>
 
@@ -173,7 +124,7 @@
 
                     </div>
 
-                    <div class="span4 hidden-phone">
+                    <div class="span4">
                         <h3 class="no-margin">Lancement <sup class="label label-important">Beta</sup> </h3>
                         <p><em>Cotelettes & tarte aux fraises</em> vient d'être lancé sur Nantes, bientot d'autres commerces seront disponibles: </p>
                             <ul class="list">
@@ -186,7 +137,7 @@
                             </ul>
                     </div>
 
-                    <div class="span2 hidden-phone hidden-tablet">
+                    <div class="span2">
                         <h3 class="no-margin">A voir</h3>
                         <ul>
                             <li><a href="{{ path('home') }}">Accueil</a></li>
@@ -197,7 +148,7 @@
                         </ul>
                     </div>
 
-                    <div class="span2 hidden-phone hidden-tablet">
+                    <div class="span2">
                         <h3 class="no-margin">A propos</h3>
                         <address>
                             <strong>The Box Makers SAS</strong><br>
