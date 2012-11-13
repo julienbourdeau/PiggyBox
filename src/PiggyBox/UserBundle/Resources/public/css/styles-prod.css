@@ -2219,6 +2219,26 @@ table [class*=span],
 .icon-fullscreen {
   background-position: -456px -144px;
 }
+.icon-flag-fr {
+  background: url('../img/flag_fr.png');
+  width: 16px;
+  height: 16px;
+}
+.icon-meat24 {
+  background: url('../img/meat24.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.icon-meat16 {
+  background: url('../img/meat16.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
+.icon-meat12 {
+  background: url('../img/meat12.png') center no-repeat;
+  width: 24px;
+  height: 24px;
+}
 .well {
   min-height: 20px;
   padding: 19px;
@@ -2294,6 +2314,10 @@ a.box:hover h2 {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
+}
+.box-light {
+  background: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 .box-margined {
   margin: 12px 0;
@@ -3819,9 +3843,6 @@ h1 {
 .shop-thumbnail {
   text-align: center;
 }
-#entry-container {
-  margin: 57px 0 20px 0;
-}
 #entry-nav ul.nav {
   margin: 0;
   padding: 0;
@@ -3843,18 +3864,88 @@ h1 {
   border: 0;
 }
 #entry-content {
-  padding: 26px 10px;
+  padding: 26px 0px;
   border: 0;
 }
-.primary-price {
-  font-size: 24px;
-  line-height: 40px;
+.product-item {
+  width: 220px;
+  margin: 0 23px 46px 0;
+  padding: 12px;
+  *zoom: 1;
 }
-#sidebar {
+.product-item:before,
+.product-item:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.product-item:after {
+  clear: both;
+}
+.product-item .product-name {
+  font-weight: normal !important;
+  margin: 0 0 12px 0;
+}
+.product-item .product-name h4 {
+  min-height: 42px;
+  font-size: 21px;
+  line-height: 21px;
+}
+.product-item .product-toolbar {
+  font-size: 18px;
+  line-height: 18px;
+}
+.product-item .product-toolbar .btn.left {
+  margin-right: -5px;
+}
+.product-item .product-toolbar .btn.right {
+  margin-left: -5px;
+}
+.product-item input[type="text"].inline-quantity {
+  width: 30px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.product-item input[type="text"].inline-quantity-person {
+  width: 70px;
+}
+.product-list .product-item {
+  float: left;
+}
+.product-item-last {
+  margin-right: 0;
+}
+.product-item-single {
+  width: 95%;
+}
+.product-item-single p {
+  line-height: 21px;
+}
+.product-item-single h4 {
+  margin-top: 18px;
+}
+.product-item-single .product-details {
+  margin: 24px 0;
+  line-height: 32px;
+}
+.product-item-single .primary-price {
+  font-size: 24px;
+}
+.product-item-single .kilo-price {
+  font-size: 13px;
+}
+.product-item-single .product-toolbar {
+  margin-top: 24px;
+}
+.product-item-single input[type="text"].inline-quantity {
+  padding: 4px;
+}
+.sidebar {
   height: 100%;
   min-height: 1px;
 }
-#sidebar h1 {
+.sidebar h1 {
   font-size: 30px;
   padding-bottom: 8px;
   margin: 0;
@@ -3863,14 +3954,11 @@ h1 {
   text-align: center;
 }
 #shop-infos {
-  min-height: 300px;
+  height: 300px;
 }
 #shop-infos #shop-details {
   height: 192px;
   margin: 8px 0;
-}
-.shopelements {
-  margin: 10px;
 }
 table.pricing th {
   padding: 2px 8px;
@@ -3885,6 +3973,61 @@ table.pricing tfoot tr td {
   font-weight: bold;
   text-align: right;
   border: 0;
+}
+table.pricing .select-quantity {
+  padding-top: 42px;
+}
+table.pricing .select-size label.radio {
+  line-height: 32px;
+}
+table.pricing .select-size label.radio input[type="radio"] {
+  margin-top: 12px;
+}
+table.pricing .select-size label.radio i {
+  margin: 0 8px;
+}
+table.pricing .select-add {
+  padding-top: 42px;
+}
+#shopping-cart-progess-bar {
+  margin: 18px 0 52px 0;
+}
+.cart-progress-item {
+  float: left;
+  width: 19.7%;
+  margin-right: 0.3%;
+  padding-bottom: 6px;
+  color: #222222;
+  text-transform: uppercase;
+  border-bottom: 4px solid #222222;
+}
+.cart-progress-item .step-number {
+  margin-bottom: 6px;
+}
+.cart-progress-item .step-number span {
+  display: block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 auto;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  background: #222222;
+}
+.cart-progress-item.muted {
+  opacity: 0.4;
+}
+.cart-progress-item.current {
+  color: #ed2b2a;
+  padding-bottom: 4px;
+  border-bottom: 6px solid #ed2b2a;
+}
+.cart-progress-item.current .step-number span {
+  background: #ed2b2a;
 }
 #footer {
   background: #222222;

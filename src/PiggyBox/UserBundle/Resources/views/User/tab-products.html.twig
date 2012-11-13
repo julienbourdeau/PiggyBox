@@ -1,44 +1,49 @@
+
 {% for product in products %}
 
-   		<div class="product-item Tous {{product.category.title}} {% if product.category.level > 0 %}{{product.category.parent.title}}{% endif %}">
-			<div class="row-fluid product-infos">
+	<div class="product-item
+				box 
+				box-light
+				text-centered
+				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+				tous 
+				{{product.category.slug}} 
+				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
+		
+		<div class="product-infos">
 
-				<div class="span4">
-					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
-				</div>
-
-				<div id="product-details" class="span8">
-					<div class="row-fluid">
-						<div class=" span8">
-							<h3 class="no-margin">{{product.name}}</h3>
-							<p class="small-text">{{product.description}}</p>
-			            </div>
-
-						<div id="prices" class="span4 text-right">
-							<span class="primary-price">{{product.minprice}} €</span> <br />
-							<span class="secondary-price">{{product.pricekg}} €<sub>/Kg</sub></span>
-						</div>
+			<div class="product-details">
+					<div class="product-name">
+						<h4>{{product.name}}</h4>
 					</div>
-				</div>
-
+			</div>
+			
+			<div class="product-thumbnail">
+				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
 			</div>
 
-
-			<div class="row-fluid product-toolbar">
-
-				<div class="span12">
-					<div class="details"></div>
-					<div class="btn btn-primary details-toggler pull-right" data-load-more="{{ path('view_product', {product_id: product.id, _format: 'json'}) }}">
-						<i class="icon-shopping-cart icon-white"></i> Commandez
-					</div>
-				</div>
-
-			</div>
-
-			<div class="clear"></div>
-
-			<hr />
 
 		</div>
 
-	{% endfor %}
+		<div class="product-toolbar row-fluid">
+			
+			<div class="product-price span6">
+				{{product.minprice}} €
+			</div>
+
+			<div class="span6">
+				<a href="#" class="btn-mini">Voir en détail</a>
+			</div>
+
+			<div class="span12">
+				<span class="btn btn-mini left"><i class="icon-minus"></i></span>
+				<input type="text" class="inline-quantity">
+				<span class="btn btn-mini right"><i class="icon-plus"></i></span>
+				<a href="" class="btn btn-mini">Ajouter</a>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endfor %}
