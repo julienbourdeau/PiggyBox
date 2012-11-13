@@ -30,7 +30,7 @@
         <![endif]-->
 
 
-        <header id="header" class="clearfix">
+        <div id="header" class="clearfix">
 
             <div class="black-container">
                 <div class="container">
@@ -90,7 +90,7 @@
             </div>
 
 
-        </header>
+        </div>
 
 
 		{% for name, value in app.session.flashes if name in ['success', 'error'] %}
@@ -110,7 +110,7 @@
 		{% block content %}{% endblock %}
 
 
-		<footer id="footer" class="">
+		<div id="footer" class="">
             <div class="container">
 
                 <div class="row">
@@ -169,7 +169,7 @@
                 </div>
 
                 <div class="row">
-                    <div id="legal-line" class="span8 offset2">
+                    <div id="legal-line" class="span12">
                         <p>
                             Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi.
                             <br>
@@ -179,7 +179,7 @@
                 </div>
 
             </div>
-        </footer>
+        </div>
 
 		{% block javascript %}
 

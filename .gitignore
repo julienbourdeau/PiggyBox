@@ -10,6 +10,7 @@ web/bundles/*
 web/adminer-3.6.1-mysql.php
 web/media/*
 web/adminer.php
+web/.htaccess
 bin
 composer.phar
 
