@@ -3989,6 +3989,46 @@ table.pricing .select-size label.radio i {
 table.pricing .select-add {
   padding-top: 42px;
 }
+#shopping-cart-progess-bar {
+  margin: 18px 0 52px 0;
+}
+.cart-progress-item {
+  float: left;
+  width: 19.7%;
+  margin-right: 0.3%;
+  padding-bottom: 6px;
+  color: #222222;
+  text-transform: uppercase;
+  border-bottom: 4px solid #222222;
+}
+.cart-progress-item .step-number {
+  margin-bottom: 6px;
+}
+.cart-progress-item .step-number span {
+  display: block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 auto;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  background: #222222;
+}
+.cart-progress-item.muted {
+  opacity: 0.4;
+}
+.cart-progress-item.current {
+  color: #ed2b2a;
+  padding-bottom: 4px;
+  border-bottom: 6px solid #ed2b2a;
+}
+.cart-progress-item.current .step-number span {
+  background: #ed2b2a;
+}
 footer#footer {
   background: #222222;
   border-top: 8px solid #000000;
