@@ -3770,7 +3770,7 @@ h4 [class^="icon-"] {
 }
 div.image-category:hover div.title-hover {
   display: block;
-  width: 215px;
+  width: 237px;
   text-align: center;
   font-size: 21px;
   line-height: 36px;
@@ -3783,33 +3783,33 @@ div.image-category:hover div.title-hover {
 div.image-category:hover img {
   opacity: 0.8;
 }
-header#header {
+#header {
   height: 100%;
   margin-bottom: 52px;
 }
-header#header #logo {
+#header #logo {
   float: left;
   position: absolute;
 }
-header#header #logo a {
+#header #logo a {
   display: block;
   width: 220px;
 }
-header#header .header-content {
+#header .header-content {
   color: #ffffff;
 }
-header#header .header-content a {
+#header .header-content a {
   color: #ffffff;
 }
-header#header .header-content a:hover {
+#header .header-content a:hover {
   background: #ed2b2a;
   text-decoration: none;
 }
-header#header .black-container {
+#header .black-container {
   height: 80px;
   background: #222222;
 }
-header#header .nav-tabs li a {
+#header .nav-tabs li a {
   padding: 8px 12px;
   margin-left: 16px;
   font-size: 21px;
@@ -3818,8 +3818,8 @@ header#header .nav-tabs li a {
   color: #ffffff;
   border: none;
 }
-header#header .nav-tabs li.active a,
-header#header .nav-tabs li a:hover {
+#header .nav-tabs li.active a,
+#header .nav-tabs li a:hover {
   background: #f9b1a6;
   color: #222222;
 }
@@ -4029,38 +4029,38 @@ table.pricing .select-add {
 .cart-progress-item.current .step-number span {
   background: #ed2b2a;
 }
-footer#footer {
+#footer {
   background: #222222;
   border-top: 8px solid #000000;
   color: #ffffff;
   font-family: "Museo-300", Georgia, "Times New Roman", Times, serif;
   font-size: 13px;
 }
-footer#footer .row {
+#footer .row {
   margin-top: 16px;
 }
-footer#footer a {
+#footer a {
   color: #ffffff;
 }
-footer#footer ul {
+#footer ul {
   margin: 0;
   list-style-type: none;
 }
-footer#footer #legal-line {
+#footer #legal-line {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 12px;
   color: #666;
   text-align: center;
 }
-footer#footer #legal-line a {
+#footer #legal-line a {
   color: #666;
 }
-footer#footer ul.list {
+#footer ul.list {
   list-style-type: square;
   margin-left: 52px;
 }
-footer#footer ul.list li {
+#footer ul.list li {
   line-height: 16px;
 }
 .help-contact img {

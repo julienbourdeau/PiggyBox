@@ -29,7 +29,7 @@
         <![endif]-->
 
 
-        <header id="header" class="clearfix">
+        <div id="header" class="clearfix">
 
             <div class="black-container">
                 <div class="container">
@@ -43,7 +43,7 @@
                                 </a>
                             </div>
 
-                            <div class="header-content hidden-small-phone">
+                            <div class="header-content">
 
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills no-margin pull-right">
@@ -73,6 +73,7 @@
                 </div>
             </div>
 
+
                 <div class="container">
                     <div class="row">
                         <div class="span12">
@@ -89,7 +90,8 @@
                 </div>
             </div>
 
-        </header>
+
+        </div>
 
 
 		{% for name, value in app.session.flashes if name in ['success', 'error'] %}
@@ -109,7 +111,7 @@
 		{% block content %}{% endblock %}
 
 
-		<footer id="footer" class="">
+		<div id="footer" class="">
             <div class="container">
 
                 <div class="row">
@@ -123,7 +125,7 @@
 
                     </div>
 
-                    <div class="span4 hidden-phone">
+                    <div class="span4">
                         <h3 class="no-margin">Lancement <sup class="label label-important">Beta</sup> </h3>
                         <p><em>Cotelettes & tarte aux fraises</em> vient d'être lancé sur Nantes, bientot d'autres commerces seront disponibles: </p>
                             <ul class="list">
@@ -136,7 +138,7 @@
                             </ul>
                     </div>
 
-                    <div class="span2 hidden-phone hidden-tablet">
+                    <div class="span2">
                         <h3 class="no-margin">A voir</h3>
                         <ul>
                             <li><a href="{{ path('home') }}">Accueil</a></li>
@@ -147,7 +149,7 @@
                         </ul>
                     </div>
 
-                    <div class="span2 hidden-phone hidden-tablet">
+                    <div class="span2">
                         <h3 class="no-margin">A propos</h3>
                         <address>
                             <strong>The Box Makers SAS</strong><br>
@@ -168,7 +170,7 @@
                 </div>
 
                 <div class="row">
-                    <div id="legal-line" class="span8 offset2">
+                    <div id="legal-line" class="span12">
                         <p>
                             Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi.
                             <br>
@@ -178,7 +180,7 @@
                 </div>
 
             </div>
-        </footer>
+        </div>
 
 		{% block javascript %}
 

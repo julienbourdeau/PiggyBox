@@ -13,7 +13,6 @@ web/media/*
 web/.htaccess
 bin
 composer.phar
-comploser.lock
 
 # Configuration files
 app/config/parameters.ini
