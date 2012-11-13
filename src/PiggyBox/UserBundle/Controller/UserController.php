@@ -70,6 +70,24 @@ class UserController extends Controller
     }
 
     /**
+     * @Template()
+     * @Route("temp", name="temp")
+     */
+    public function tempAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Template()
+     * @Route("temp-cart", name="temp_cart")
+     */
+    public function tempCartAction()
+    {
+        return array();
+    }
+
+    /**
      * Récupère les produits d'un magasin selon la catégorie
      *
      * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
