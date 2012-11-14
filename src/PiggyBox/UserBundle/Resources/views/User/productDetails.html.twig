@@ -26,8 +26,8 @@
                		     <th class="span3">Quantité</th>
                		 </tr>
 
-    		   		 {% set product_id = product.id%}
-    		   		 	{% for price in product.prices %}
+    		   		{% set product_id = product.id%}
+    		   		{% for price in product.prices %}
 							<tr class="text-centered">
 								<td>{{price.slicenbr}}</td>
 								<td>{{price.totalweight}}</td>
@@ -41,7 +41,7 @@
 									</form>
 								</td>
 							</tr>
-    		   		 	{% endfor %}
+    		   		{% endfor %}
             </tbody>
         </table>
     </div>
