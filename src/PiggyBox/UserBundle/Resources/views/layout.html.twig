@@ -54,7 +54,6 @@
                                             {% if "ROLE_SHOP" in app.user.roles %}
                                                  <li><a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
                                             {% endif %}
-
                                         {% else %}
                                             <li><a href="{{ path('fos_user_registration_register') }}">Créer rapidement un compte</a></li>
                                             <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
@@ -62,8 +61,12 @@
                                     </ul>
                                 </div>
 
-                                <div class="text-right">
-                                    <img style="margin-top: 9px;" width="220px" src="{{ asset('bundles/piggyboxuser/img/help numbers_header.png')}}" alt="">
+                                <div class="clearfix">
+                                    <a id="shopping-cart-button" href="{{ path('validation_page') }}" class="pull-right">
+                                        <strong><i class="icon-shopping-cart"></i> Panier</strong>
+                                        <br>
+                                        <small>Actuellement vide</small>
+                                    </a>
                                 </div>
 
                             </div>
@@ -82,7 +85,6 @@
                                     <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
                                     <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Les commerçants</a></li>
                                     <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Comment ça marche?</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == "validation_page" %}active{% endif %}"><a href="{{ path('validation_page') }}">Panier</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -134,7 +134,7 @@ div.image-category:hover {
 			width: 220px;
 		}
 	}
-	.header-content {
+	.header-content ul.nav {
 		color: @white;
 		a {
 			color: @white;
@@ -166,7 +166,26 @@ div.image-category:hover {
 
 }
 
-
+a#shopping-cart-button {
+	display: block;
+	background: @grayLighter;
+	color: @grayDarker;
+	line-height: @baseFontSize;
+	padding: 4px 16px;
+	.border-radius(5px);
+	small {
+		font-size: 12px;
+		font-style: italic;
+	}
+}
+a#shopping-cart-button:hover {
+	background: #444;
+	color: @white;
+	text-decoration: none;
+	i.icon-shopping-cart {
+		background-image: url("@{iconWhiteSpritePath}");
+	}
+}
 
 h1 {
 	border-bottom: 4px solid @grayDarker;
