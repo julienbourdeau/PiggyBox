@@ -3891,23 +3891,23 @@ h1 {
   font-size: 21px;
   line-height: 21px;
 }
-.product-item .product-toolbar {
+.product-toolbar {
   font-size: 18px;
   line-height: 18px;
 }
-.product-item .product-toolbar .btn.left {
+.product-toolbar .btn.left {
   margin-right: -5px;
 }
-.product-item .product-toolbar .btn.right {
+.product-toolbar .btn.right {
   margin-left: -5px;
 }
-.product-item input[type="text"].inline-quantity {
+.product-toolbar input[type="text"].inline-quantity {
   width: 30px;
   margin: 0;
   padding: 0;
   text-align: center;
 }
-.product-item input[type="text"].inline-quantity-person {
+.product-toolbar input[type="text"].inline-quantity-person {
   width: 70px;
 }
 .product-list .product-item {
@@ -4028,6 +4028,25 @@ table.pricing .select-add {
 }
 .cart-progress-item.current .step-number span {
   background: #ed2b2a;
+}
+table.cart-large .col1 {
+  width: 25%;
+}
+table.cart-large .col2 {
+  width: 25%;
+  text-align: center;
+}
+table.cart-large .col3 {
+  width: 15%;
+  text-align: right;
+}
+table.cart-large .col4 {
+  width: 15%;
+  text-align: right;
+}
+table.cart-large .col5 {
+  width: 15%;
+  text-align: right;
 }
 #footer {
   background: #222222;
