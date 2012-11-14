@@ -3794,13 +3794,13 @@ div.image-category:hover img {
   display: block;
   width: 220px;
 }
-#header .header-content {
+#header .header-content ul.nav {
   color: #ffffff;
 }
-#header .header-content a {
+#header .header-content ul.nav a {
   color: #ffffff;
 }
-#header .header-content a:hover {
+#header .header-content ul.nav a:hover {
   background: #ed2b2a;
   text-decoration: none;
 }
@@ -3821,6 +3821,28 @@ div.image-category:hover img {
 #header .nav-tabs li a:hover {
   background: #f9b1a6;
   color: #222222;
+}
+a#shopping-cart-button {
+  display: block;
+  background: #eeeeee;
+  color: #222222;
+  line-height: 16px;
+  padding: 4px 16px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+a#shopping-cart-button small {
+  font-size: 12px;
+  font-style: italic;
+}
+a#shopping-cart-button:hover {
+  background: #444;
+  color: #ffffff;
+  text-decoration: none;
+}
+a#shopping-cart-button:hover i.icon-shopping-cart {
+  background-image: url("../img/glyphicons-halflings-white.png");
 }
 h1 {
   border-bottom: 4px solid #222222;
