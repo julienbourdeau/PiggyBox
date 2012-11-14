@@ -36,18 +36,46 @@ class Product
     private $name;
 
     /**
-     * @var string $price_type
-     *
-     * @ORM\Column(name="price_type", type="string", length=100)
-     */
-    private $price_type;
-
-    /**
      * @var string $description
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var string $origin
+     *
+     * @ORM\Column(name="origin", type="string", length=255, nullable=true)
+     */
+    private $origin;
+
+    /**
+     * @var string $preservation
+     *
+     * @ORM\Column(name="preservation", type="string", length=255, nullable=true)
+     */
+    private $preservation;
+
+    /**
+     * @var decimal $price
+     *
+     * @ORM\Column(name="price", type="decimal", precision=2)
+     */
+    private $price;
+
+    /**
+     * @var decimal $weightPrice
+     *
+     * @ORM\Column(name="weightPrice", type="decimal", precision=2)
+     */
+    private $weightPrice;
+	
+    /**
+     * @var string $priceType
+     *
+     * @ORM\Column(name="priceType", type="string", length=100)
+     */
+    private $priceType;
 
     /**
      * @var boolean $active
@@ -57,11 +85,32 @@ class Product
     private $active;
 
     /**
-     * @var float $price_kg
+     * @var integer $minWeight
      *
-     * @ORM\Column(name="price_kg", type="float",nullable=true)
+     * @ORM\Column(name="minWeight", type="integer", nullable=true)
      */
-    private $price_kg;
+    private $minWeight;
+
+    /**
+     * @var integer $maxWeight
+     *
+     * @ORM\Column(name="maxWeight", type="integer", nullable=true)
+     */
+    private $maxWeight;
+
+    /**
+     * @var integer $minPerson
+     *
+     * @ORM\Column(name="minPerson", type="integer", nullable=true)
+     */
+    private $minPerson;
+
+    /**
+     * @var integer $maxPerson
+     *
+     * @ORM\Column(name="maxPerson", type="integer", nullable=true)
+     */
+    private $maxPerson;
 
     /**
      * @var string $image_path
@@ -79,13 +128,6 @@ class Product
     private $createdat;
 
     /**
-     * @var float $min_price
-     *
-     * @ORM\Column(name="min_price", type="float", nullable=true)
-     */
-    private $min_price;
-
-    /**
      * @var \DateTime $updatedat
      *
      * @Gedmo\Timestampable(on="update")
@@ -98,15 +140,6 @@ class Product
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price", cascade={"persist"})
-     * @ORM\JoinTable(name="product_prices",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-    private $prices;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -190,395 +223,5 @@ class Product
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param  string  $name
-     * @return Product
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param  string  $description
-     * @return Product
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set active
-     *
-     * @param  boolean $active
-     * @return Product
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get active
-     *
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * Set image_path
-     *
-     * @param  string  $imagePath
-     * @return Product
-     */
-    public function setImagePath($imagePath)
-    {
-        $this->image_path = $imagePath;
-
-        return $this;
-    }
-
-    /**
-     * Get image_path
-     *
-     * @return string
-     */
-    public function getImagePath()
-    {
-        return $this->image_path;
-    }
-
-    /**
-     * Set createdat
-     *
-     * @param  \DateTime $createdat
-     * @return Product
-     */
-    public function setCreatedat($createdat)
-    {
-        $this->createdat = $createdat;
-
-        return $this;
-    }
-
-    /**
-     * Get createdat
-     *
-     * @return \DateTime
-     */
-    public function getCreatedat()
-    {
-        return $this->createdat;
-    }
-
-    /**
-     * Set updatedat
-     *
-     * @param  \DateTime $updatedat
-     * @return Product
-     */
-    public function setUpdatedat($updatedat)
-    {
-        $this->updatedat = $updatedat;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedat
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedat()
-    {
-        return $this->updatedat;
-    }
-
-    /**
-     * Set path
-     *
-     * @param  string  $path
-     * @return Product
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Set shop
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Shop $shop
-     * @return Product
-     */
-    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
-    {
-        $this->shop = $shop;
-
-        return $this;
-    }
-
-    /**
-     * Get shop
-     *
-     * @return PiggyBox\ShopBundle\Entity\Shop
-     */
-    public function getShop()
-    {
-        return $this->shop;
-    }
-
-    /**
-     * Add prices
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Product
-     */
-    public function addPrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Get prices
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getPrices()
-    {
-        return $this->prices;
-    }
-
-    /**
-     * Set sales
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Sales $sales
-     * @return Product
-     */
-    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
-    {
-        $this->sales = $sales;
-
-        return $this;
-    }
-
-    /**
-     * Get sales
-     *
-     * @return PiggyBox\ShopBundle\Entity\Sales
-     */
-    public function getSales()
-    {
-        return $this->sales;
-    }
-
-    /**
-     * Set price_kg
-     *
-     * @param  boolean $priceKg
-     * @return Product
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return boolean
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
-    }
-
-    /**
-     * Add prices
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Product
-     */
-    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Set min_price
-     *
-     * @param  float   $minPrice
-     * @return Product
-     */
-    public function setMinPrice($minPrice)
-    {
-        $this->min_price = $minPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get min_price
-     *
-     * @return float
-     */
-    public function getMinPrice()
-    {
-        return $this->min_price;
-    }
-
-    /**
-     * Set category
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Category $category
-     * @return Product
-     */
-    public function setCategory(\PiggyBox\ShopBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return PiggyBox\ShopBundle\Entity\Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set price_type
-     *
-        * @ORM\PrePersist
-     */
-    public function setPriceType()
-    {
-        if ($this->prices->isEmpty() ) {
-            $this->price_type = Product::WEIGHT_PRICE;
-            $this->setMinPrice($this->price_kg);
-
-            return $this;
-        }
-        if ($this->prices->first()->getSliceNbr() != null) {
-            $this->price_type = Product::SLICE_PRICE;
-        }
-        if ($this->prices->first()->getSliceNbr() == null) {
-            $this->price_type = Product::UNIT_PRICE;
-        }
-
-        $this->setMinPrice($this->prices->first()->getPrice());
-
-        return $this;
-    }
-
-    /**
-     * Get price_type
-     *
-     * @return string
-     */
-    public function getPriceType()
-    {
-        return $this->price_type;
-    }
-
-    public function __toString()
-    {
-        return $this->price_type;
     }
 }
