@@ -598,7 +598,6 @@ h4 small {
 .page-header {
   padding-bottom: 11.5px;
   margin: 25px 0 37.5px;
-  border-bottom: 1px solid #eeeeee;
 }
 ul,
 ol {
@@ -3891,24 +3890,37 @@ h1 {
   font-size: 21px;
   line-height: 21px;
 }
-.product-item .product-toolbar {
+.product-toolbar {
   font-size: 18px;
   line-height: 18px;
 }
-.product-item .product-toolbar .btn.left {
+.product-toolbar .btn.left {
   margin-right: -5px;
 }
-.product-item .product-toolbar .btn.right {
+.product-toolbar .btn.right {
   margin-left: -5px;
 }
-.product-item input[type="text"].inline-quantity {
+.product-toolbar input[type="text"].inline-quantity {
   width: 30px;
   margin: 0;
   padding: 0;
   text-align: center;
 }
-.product-item input[type="text"].inline-quantity-person {
+.product-toolbar input[type="text"].inline-quantity-person {
   width: 70px;
+}
+.product-toolbar-large .product-details {
+  margin: 24px 0;
+  line-height: 32px;
+}
+.product-toolbar-large .primary-price {
+  font-size: 24px;
+}
+.product-toolbar-large .kilo-price {
+  font-size: 13px;
+}
+.product-toolbar-large input[type="text"].inline-quantity {
+  padding: 4px;
 }
 .product-list .product-item {
   float: left;
@@ -3925,21 +3937,8 @@ h1 {
 .product-item-single h4 {
   margin-top: 18px;
 }
-.product-item-single .product-details {
-  margin: 24px 0;
-  line-height: 32px;
-}
-.product-item-single .primary-price {
-  font-size: 24px;
-}
-.product-item-single .kilo-price {
-  font-size: 13px;
-}
 .product-item-single .product-toolbar {
   margin-top: 24px;
-}
-.product-item-single input[type="text"].inline-quantity {
-  padding: 4px;
 }
 .sidebar {
   height: 100%;
@@ -3989,6 +3988,19 @@ table.pricing .select-size label.radio i {
 table.pricing .select-add {
   padding-top: 42px;
 }
+.toolbar {
+  margin: 32px 0;
+  *zoom: 1;
+}
+.toolbar:before,
+.toolbar:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.toolbar:after {
+  clear: both;
+}
 #shopping-cart-progess-bar {
   margin: 18px 0 52px 0;
 }
@@ -4028,6 +4040,31 @@ table.pricing .select-add {
 }
 .cart-progress-item.current .step-number span {
   background: #ed2b2a;
+}
+table.cart-large tr th {
+  background: #222222;
+  color: #ffffff;
+}
+table.cart-large .col1 {
+  width: 40%;
+}
+table.cart-large .col2 {
+  width: 19%;
+}
+table.cart-large .col3 {
+  width: 12%;
+  text-align: right;
+}
+table.cart-large .col4 {
+  width: 12%;
+  text-align: right;
+}
+table.cart-large .col5 {
+  width: 12%;
+  text-align: right;
+}
+table.cart-total tr td {
+  text-align: right;
 }
 #footer {
   background: #222222;
