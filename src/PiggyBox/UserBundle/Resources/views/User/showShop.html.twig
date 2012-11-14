@@ -6,25 +6,25 @@
             <div class="row">
 
                 <div id="" class="span8">
-                    
+
                     {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
 
                 </div>
 
                 <div class="sidebar span4">
-                    
+
                     {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop} %}
 
                 </div>
-      
+
             </div>
         </div>
 
         <div class="container">
             <div class="row">
-    
+
                 <div id="content" class="span12">
-                
+
                     <div id="entry-container">
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
@@ -39,7 +39,7 @@
                                     <a data-toggle="">Avis</a>
                                 </li>
                                 <li><a href="#photos" data-toggle="tab">Photos</a></li>
-                            </ul> 
+                            </ul>
                         </div>
 
                         <div id="entry-content" class="row-fluid">
@@ -56,8 +56,13 @@
                                     </div>
 
                                     <div id="shop" class="tab-pane active">
+										{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
                                         <div class="product-list">
-                                            {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}    
+											{% if app.request.attributes.get('_route') == 'view_product_details' %}
+											{% include 'PiggyBoxUserBundle:User:tab-product-details.html.twig' with {'shop': shop, 'product': product} %}
+											{% else %}
+                                            	{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}
+											{% endif %}
                                         </div>
                                     </div>
 
@@ -70,7 +75,7 @@
 
                         </div>
                     </div>
-                
+
                 </div>
 
             </div><!-- /row -->
@@ -83,11 +88,20 @@
 {{parent()}}
 
         <script src="{{ asset('bundles/piggyboxuser/js/productDetails.js')}}"></script>
+        <script src="{{ asset('bundles/piggyboxuser/js/tab-products.js')}}"></script>
 
         <script type="text/javascript">
             $(document).ready(function(){
                 $('li#{{category_title}}').addClass('active');
             });
         </script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('span#quantity').click(function() {
+			alert("cool");
+		});
+	}
+</script>
 
 {% endblock %}

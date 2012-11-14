@@ -31,6 +31,7 @@ class Product
     /**
      * @var string $name
      *
+     * @Assert\NotBlank(message = "Le nom du produit est obligatoire.")
      * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
@@ -57,21 +58,31 @@ class Product
     private $preservation;
 
     /**
-     * @var decimal $price
+     * @var float $price
      *
-     * @ORM\Column(name="price", type="decimal", precision=2)
+     * @Assert\Min(limit = "0", message = "Le prix du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
     /**
-     * @var decimal $weightPrice
+     * @var float $weightPrice
      *
-     * @ORM\Column(name="weightPrice", type="decimal", precision=2)
+     * @Assert\Min(limit = "0", message = "Le prix au poids du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="weightPrice", type="float")
      */
     private $weightPrice;
-	
+
     /**
-     * @var string $priceType
+     * @var float $productWeightPerSlice
+     *
+     * @Assert\Min(limit = "0", message = "Le poids du produit doit être supérieur à 0Kg.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="productWeightPerSlice", type="decimal", precision=2, nullable=true)
+     */
+    private $productWeightPerSlice;
+
+    /**
+     * @var float $priceType
      *
      * @ORM\Column(name="priceType", type="string", length=100)
      */
@@ -87,6 +98,7 @@ class Product
     /**
      * @var integer $minWeight
      *
+     * @Assert\Min(limit = "0", message = "Un poids supérieur à 0 gramme doit être indiqué.", invalidMessage = "Un nombre doit être indiqué.")
      * @ORM\Column(name="minWeight", type="integer", nullable=true)
      */
     private $minWeight;
@@ -101,6 +113,7 @@ class Product
     /**
      * @var integer $minPerson
      *
+     * @Assert\Min(limit = "1", message = "Au moins une personne doit pouvoir commander votre produit.", invalidMessage = "Un nombre doit être indiqué.")
      * @ORM\Column(name="minPerson", type="integer", nullable=true)
      */
     private $minPerson;
@@ -118,6 +131,13 @@ class Product
      * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
     private $image_path;
+
+    /**
+     *
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=255, unique=false)
+     */
+    private $slug;
 
     /**
      * @var \DateTime $createdat
@@ -223,5 +243,498 @@ class Product
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string  $name
+     * @return Product
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param  string  $description
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set origin
+     *
+     * @param  string  $origin
+     * @return Product
+     */
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    /**
+     * Get origin
+     *
+     * @return string
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * Set preservation
+     *
+     * @param  string  $preservation
+     * @return Product
+     */
+    public function setPreservation($preservation)
+    {
+        $this->preservation = $preservation;
+
+        return $this;
+    }
+
+    /**
+     * Get preservation
+     *
+     * @return string
+     */
+    public function getPreservation()
+    {
+        return $this->preservation;
+    }
+
+    /**
+     * Set price
+     *
+     * @param  float   $price
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set weightPrice
+     *
+     * @param  float   $weightPrice
+     * @return Product
+     */
+    public function setWeightPrice($weightPrice)
+    {
+        $this->weightPrice = $weightPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get weightPrice
+     *
+     * @return float
+     */
+    public function getWeightPrice()
+    {
+        return $this->weightPrice;
+    }
+
+    /**
+     * Set priceType
+     *
+     * @param  string  $priceType
+     * @return Product
+     */
+    public function setPriceType($priceType)
+    {
+        $this->priceType = $priceType;
+
+        return $this;
+    }
+
+    /**
+     * Get priceType
+     *
+     * @return string
+     */
+    public function getPriceType()
+    {
+        return $this->priceType;
+    }
+
+    /**
+     * Set active
+     *
+     * @param  boolean $active
+     * @return Product
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set minWeight
+     *
+     * @param  integer $minWeight
+     * @return Product
+     */
+    public function setMinWeight($minWeight)
+    {
+        $this->minWeight = $minWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get minWeight
+     *
+     * @return integer
+     */
+    public function getMinWeight()
+    {
+        return $this->minWeight;
+    }
+
+    /**
+     * Set maxWeight
+     *
+     * @param  integer $maxWeight
+     * @return Product
+     */
+    public function setMaxWeight($maxWeight)
+    {
+        $this->maxWeight = $maxWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get maxWeight
+     *
+     * @return integer
+     */
+    public function getMaxWeight()
+    {
+        return $this->maxWeight;
+    }
+
+    /**
+     * Set minPerson
+     *
+     * @param  integer $minPerson
+     * @return Product
+     */
+    public function setMinPerson($minPerson)
+    {
+        $this->minPerson = $minPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get minPerson
+     *
+     * @return integer
+     */
+    public function getMinPerson()
+    {
+        return $this->minPerson;
+    }
+
+    /**
+     * Set maxPerson
+     *
+     * @param  integer $maxPerson
+     * @return Product
+     */
+    public function setMaxPerson($maxPerson)
+    {
+        $this->maxPerson = $maxPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get maxPerson
+     *
+     * @return integer
+     */
+    public function getMaxPerson()
+    {
+        return $this->maxPerson;
+    }
+
+    /**
+     * Set image_path
+     *
+     * @param  string  $imagePath
+     * @return Product
+     */
+    public function setImagePath($imagePath)
+    {
+        $this->image_path = $imagePath;
+
+        return $this;
+    }
+
+    /**
+     * Get image_path
+     *
+     * @return string
+     */
+    public function getImagePath()
+    {
+        return $this->image_path;
+    }
+
+    /**
+     * Set createdat
+     *
+     * @param  \DateTime $createdat
+     * @return Product
+     */
+    public function setCreatedat($createdat)
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    /**
+     * Get createdat
+     *
+     * @return \DateTime
+     */
+    public function getCreatedat()
+    {
+        return $this->createdat;
+    }
+
+    /**
+     * Set updatedat
+     *
+     * @param  \DateTime $updatedat
+     * @return Product
+     */
+    public function setUpdatedat($updatedat)
+    {
+        $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedat
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedat()
+    {
+        return $this->updatedat;
+    }
+
+    /**
+     * Set path
+     *
+     * @param  string  $path
+     * @return Product
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Product
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
+    {
+        $this->shop = $shop;
+
+        return $this;
+    }
+
+    /**
+     * Get shop
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+    /**
+     * Set sales
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Sales $sales
+     * @return Product
+     */
+    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
+    {
+        $this->sales = $sales;
+
+        return $this;
+    }
+
+    /**
+     * Get sales
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Sales
+     */
+    public function getSales()
+    {
+        return $this->sales;
+    }
+
+    /**
+     * Set category
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Category $category
+     * @return Product
+     */
+    public function setCategory(\PiggyBox\ShopBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set productWeightPerSlice
+     *
+     * @param  float   $productWeightPerSlice
+     * @return Product
+     */
+    public function setProductWeightPerSlice($productWeightPerSlice)
+    {
+        $this->productWeightPerSlice = $productWeightPerSlice;
+
+        return $this;
+    }
+
+    /**
+     * Get productWeightPerSlice
+     *
+     * @return float
+     */
+    public function getProductWeightPerSlice()
+    {
+        return $this->productWeightPerSlice;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param  string  $slug
+     * @return Product
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

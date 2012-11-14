@@ -22,4 +22,40 @@ class ProductRepository extends EntityRepository
                 ))
             ->getResult();
     }
+
+    public function findOneByShopAndProductSlug($shop_id, $product_slug)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p, c FROM PiggyBoxShopBundle:Product p  LEFT JOIN p.category c WHERE (p.shop=:shop_id AND p.slug=:product_slug)')
+            ->setParameters(array(
+                'shop_id' => $shop_id,
+                'product_slug' => $product_slug,
+                ))
+            ->getSingleResult();
+    }
+
+    public function findBySimilarProductByShopAndByCategory($shop_id, $product_id, $category_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.category=:category_id AND p.shop=:shop_id AND NOT p.id=:product_id) ORDER BY s.sales_nbr DESC')
+            ->setParameters(array(
+                'shop_id' => $shop_id,
+                'category_id' => $category_id,
+                'product_id' => $product_id,
+                ))
+            ->setMaxResults(3)
+            ->getResult();
+    }
+
+    public function findByShopExcludeByCategory($shop_id, $category_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.shop=:shop_id AND NOT p.category=:category_id) ORDER BY s.sales_nbr DESC')
+            ->setParameters(array(
+                'shop_id' => $shop_id,
+                'category_id' => $category_id,
+                ))
+            ->setMaxResults(3)
+            ->getResult();
+    }
 }
