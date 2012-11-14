@@ -266,6 +266,21 @@ h1 {
 	}
 }
 
+.product-toolbar-large {
+	.product-details {
+		margin: 24px 0;
+		line-height: 32px;
+	}
+	.primary-price {
+		font-size: 24px;
+	}
+	.kilo-price {
+		font-size: 13px;
+	}
+	input[type="text"].inline-quantity {
+		padding: 4px;
+	}
+}
 
 
 .product-list .product-item {
@@ -282,21 +297,8 @@ h1 {
 	h4 {
 		margin-top: 18px;
 	}
-	.product-details {
-		margin: 24px 0;
-		line-height: 32px;
-	}
-	.primary-price {
-		font-size: 24px;
-	}
-	.kilo-price {
-		font-size: 13px;
-	}
 	.product-toolbar {
 		margin-top: 24px;
-	}
-	input[type="text"].inline-quantity {
-		padding: 4px;
 	}
 }
 
@@ -357,6 +359,11 @@ table.pricing {
 	}
 }	
 
+.toolbar {
+	margin: 32px 0;
+	.clearfix;
+}
+
 #shopping-cart-progess-bar {
 	margin: 18px 0 52px 0;
 }
@@ -396,24 +403,32 @@ table.pricing {
 	}
 }
 table.cart-large {
+	tr th {
+		background: @grayDarker;
+		color: @white;
+	}
 	.col1 {
-		width: 25%;
+		width: 40%;
 	}
 	.col2 {
-		width: 25%;
-		.text-centered;
+		width: 19%;
 	}
 	.col3 {
-		width: 15%;
+		width: 12%;
 		.text-right;
 	}
 	.col4 {
-		width: 15%;
+		width: 12%;
 		.text-right;
 	}
 	.col5 {
-		width: 15%;
+		width: 12%;
 		.text-right;
+	}
+}
+table.cart-total {
+	tr td {
+		text-align: right;
 	}
 }
 	

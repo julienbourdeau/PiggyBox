@@ -129,133 +129,305 @@
                             
     </section>
 
+
+
+    {# ----------------------------------------------------------------------------------- #}
+    {#                ETAPE 1
+    {# ----------------------------------------------------------------------------------- #}
+
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>Votre panier <small>Vos commandes en cours</small> </h1>
+                
+                <div class="page-header">
+                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
+                </div>
 
-                <table class="table table-bordered table-striped cart-large">
+                <table class="table table-striped cart-large">
+                    <thead>
+                        <tr>
+                            <th class="col1">Désignation Produit</th>
+                            <th class="col2">Quantité</th>
+                            <th class="col3">Prix Unitaire</th>
+                            <th class="col4">Prix au Kilo</th>
+                            <th class="col5">Prix Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="col1">
+                                <strong>
+                                    Côte d'Agneau Première
+                                </strong>
+                            </td>
+                            <td class="col2">
+                                <div class="product-toolbar product-toolbar-large form-inline">
+
+                                    <div class="select-quantity">
+                                        <span class="btn left"><i class="icon-minus"></i></span>
+                                        <input type="text" class="inline-quantity">
+                                        <span class="btn right"><i class="icon-plus"></i></span>
+                                    </div>
+
+                                    <div class="select-size text-left">
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                            <i class="icon-meat24"></i> <span>Bon mangeur</span>
+                                        </label>
+                                        <br />
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
+                                            <i class="icon-meat16"></i> <span>Normal</span>
+                                        </label>
+                                        <br />
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
+                                            <i class="icon-meat12"></i> <span>Petite faim</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td class="col3">8,39 €</td>
+                            <td class="col4">15,99 €</td>
+                            <td class="col5">150,00 €</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col1">
+                                <strong>
+                                    Côte de Boeuf
+                                </strong>
+                            </td>
+                            <td class="col2">
+                                <div class="product-toolbar product-toolbar-large form-inline">
+                                    <div class="select-quantity">
+                                        <span class="btn left"><i class="icon-minus"></i></span>
+                                        <input type="text" class="inline-quantity inline-quantity-person" value="1 pers.">
+                                        <span class="btn right"><i class="icon-plus"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col3">8,39 €</td>
+                            <td class="col4">15,99 €</td>
+                            <td class="col5">150,00 €</td>
+                        </tr>
+
+                        <tr>
+                            <td class="col1">
+                                <strong>
+                                    Boite de conserve
+                                </strong>
+                            </td>
+                            <td class="col2">
+                                <div class="product-toolbar product-toolbar-large form-inline">
+                                    <div class="select-quantity">
+                                        <span class="btn left"><i class="icon-minus"></i></span>
+                                        <input type="text" class="inline-quantity">
+                                        <span class="btn right"><i class="icon-plus"></i></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col3">3,99 €</td>
+                            <td class="col4">9,59 €</td>
+                            <td class="col5">7,98 €</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span4 offset8">
+                <table class="table table-bordered table-striped cart-total">
                     <tr>
-                        <th>Désignation Produit</th>
-                        <th>Quantité</th>
-                        <th>Prix Unitaire</th>
-                        <th>Prix au Kilo</th>
-                        <th>Prix Total</th>
-                    </tr>
-
-                    <tr>
-                        <td class="col1">
-                            Côte d'Agneau Première
-                        </td>
-                        <td class="col2">
-                            <div class="product-toolbar">
-                                <form action="" class="form-inline">
-
-                                    <table class="table pricing">
-                                        <tr>
-                                            <td class="select-quantity">
-                                                <span class="btn left"><i class="icon-minus"></i></span>
-                                                <input type="text" class="inline-quantity">
-                                                <span class="btn right"><i class="icon-plus"></i></span>
-                                            </td>
-
-                                            <td class="select-size">
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                                    <i class="icon-meat24"></i> <span>Bon mangeur</span>
-                                                </label>
-                                                <br />
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
-                                                    <i class="icon-meat16"></i> <span>Normal</span>
-                                                </label>
-                                                <br />
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
-                                                    <i class="icon-meat12"></i> <span>Petite faim</span>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                    </table> 
-
-                                </form>
-                            </div>
-                        </td>
-                        <td class="col3">8,39 €</td>
-                        <td class="col4">15,99 €</td>
-                        <td class="col5">150,00 €</td>
-                    </tr>
-
-                    <tr>
-                        <td class="col1">
-                            Côte de Boeuf
-                        </td>
-                        <td class="col2">
-                            <div class="product-toolbar">
-                                <form action="" class="form-inline">
-
-                                    <table class="table pricing">
-                                        <tr>
-                                            <td class="select-quantity">
-                                                <span class="btn left"><i class="icon-minus"></i></span>
-                                                <input type="text" class="inline-quantity inline-quantity-person" value="1 pers.">
-                                                <span class="btn right"><i class="icon-plus"></i></span>
-                                            </td>
-
-                                            <td class="select-size">
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                                    <i class="icon-meat24"></i> <span>Bon mangeur</span>
-                                                </label>
-                                                <br />
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
-                                                    <i class="icon-meat16"></i> <span>Normal</span>
-                                                </label>
-                                                <br />
-                                                <label class="radio">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
-                                                    <i class="icon-meat12"></i> <span>Petite faim</span>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                    </table> 
-
-                                </form>
-                            </div>
-                        </td>
-                        <td class="col3">8,39 €</td>
-                        <td class="col4">15,99 €</td>
-                        <td class="col5">150,00 €</td>
-                    </tr>
-
-                    <tr>
-                        <td class="col1">
-                            Boite de conserve
-                        </td>
-                        <td class="col2">
-                            <div class="product-toolbar">
-                                <form action="" class="form-inline">
-
-                                    <table class="table pricing">
-                                        <tr>
-                                            <td class="select-quantity">
-                                                <span class="btn left"><i class="icon-minus"></i></span>
-                                                <input type="text" class="inline-quantity">
-                                                <span class="btn right"><i class="icon-plus"></i></span>
-                                            </td>
-                                        </tr>
-                                    </table> 
-
-                                </form>
-                            </div>
-                        </td>
-                        <td class="col3">3,99 €</td>
-                        <td class="col4">9,59 €</td>
-                        <td class="col5">7,98 €</td>
+                        <td class=""><strong>Total TTC:</strong></td>
+                        <td class=""><strong>235,99 €</strong></td>
                     </tr>
                 </table>
-                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {# ----------------------------------------------------------------------------------- #}
+    {#                ETAPE 2
+    {# ----------------------------------------------------------------------------------- #}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Quand voulez-vous recupérer votre commande ?</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6 offset3">
+                <form action="" class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="pickup_date">Jour</label>
+                        <div class="controls">
+                            <select name="" id="">
+                                <option value="">Mercredi 14 Novembre</option>
+                                <option value="">Jeudi 15 Novembre</option>
+                                <option value="">Vendredi 16 Novembre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="pickup_date">Heure</label>
+                        <div class="controls">
+                            <select name="" id="">
+                                <option value="">10:30</option>
+                                <option value="">11:00</option>
+                                <option value="">11:30</option>
+                                <option value="">12:00</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Identifiez-vous  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {# ----------------------------------------------------------------------------------- #}
+    {#                ETAPE 3
+    {# ----------------------------------------------------------------------------------- #}
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Identifiez-vous <small>ou bien inscrivez-vous, c'est gratuit et instantané</small></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="span4">
+                <h2>Connectez-vous</h2>
+
+                <form action="" method="">
+
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" class="span4" name="_username" value="" required="required" />
+
+                    <br />
+
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" class="span4" name="_password" required="required" />
+
+                    <br />
+
+                    <input type="checkbox" id="remember_me" class="pull-left" style="margin-right: 6px;" name="_remember_me" value="on" checked />
+                    <label for="remember_me"> Rester connecté</label>
+
+                    <input type="submit" id="_submit" class="btn btn-inverse btn-block" name="_submit" value="Connexion" />
+                </form>
+            </div>
+
+            <div class="span6 offset2">
+                <h2>Çréez un compte</h2>
+
+                <form action="/register/"  method="POST" class="fos_user_registration_register">
+
+                    <label for="fos_user_registration_form_email" class="required">Adresse e-mail :</label><input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" class="span6" required="required" /><label for="fos_user_registration_form_plainPassword_first" class="required">Mot de passe :</label><input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" class="span6" required="required" />
+
+                    <label for="remember_me">&nbsp;</label>
+
+                    <input type="submit" class="btn btn-inverse btn-block" value="Créez mon compte" />
+                    
+                </form>
+            </div>     
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Vérifiez et payez  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {# ----------------------------------------------------------------------------------- #}
+    {#                ETAPE 4
+    {# ----------------------------------------------------------------------------------- #}
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Validation</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Identifiez-vous  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
             </div>
         </div>
     </div>
