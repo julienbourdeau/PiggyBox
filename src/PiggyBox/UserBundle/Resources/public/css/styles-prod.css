@@ -14,6 +14,16 @@
   src: url('../fonts/2429BD_0_0.eot');
   src: url('../fonts/2429BD_0_0.eot?#iefix') format('embedded-opentype'), url('../fonts/2429BD_0_0.woff') format('woff'), url('../fonts/2429BD_0_0.ttf') format('truetype');
 }
+::selection {
+  background: #222222;
+  /* Safari */
+
+  color: #ffffff;
+}
+::-moz-selection {
+  background: #222222;
+  color: #ffffff;
+}
 /*!
  * Bootstrap v2.1.1
  *
