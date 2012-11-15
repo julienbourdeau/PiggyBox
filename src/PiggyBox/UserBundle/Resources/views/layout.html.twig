@@ -48,7 +48,7 @@
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills no-margin pull-right">
                                         {% if app.user %}
-                                            <li><a href="{{ path('fos_user_profile_show') }}"><small>Connecté en tant que</small> <strong>{{ app.user.username }}</strong></a></li>
+                                            <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
 
                                             {% if "ROLE_SHOP" in app.user.roles %}
