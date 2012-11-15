@@ -2,6 +2,14 @@
 @font-face {font-family: 'Museo-500';src: url('../fonts/2429BD_2_0.eot');src: url('../fonts/2429BD_2_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_2_0.woff') format('woff'),url('../fonts/2429BD_2_0.ttf') format('truetype');}
 @font-face {font-family: 'Museo-700';src: url('../fonts/2429BD_0_0.eot');src: url('../fonts/2429BD_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/2429BD_0_0.woff') format('woff'),url('../fonts/2429BD_0_0.ttf') format('truetype');}  
 
+::selection {
+	background: @grayDarker; /* Safari */
+	color: @white;
+}
+::-moz-selection {
+	background: @grayDarker; 
+	color: @white;
+}
 
 /*!
  * Bootstrap v2.1.1
