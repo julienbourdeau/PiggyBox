@@ -4162,8 +4162,10 @@ blockquote.homepage img.quotes-open {
 blockquote.homepage img.quotes-close {
   margin-top: 64px;
 }
-.step-wrapper {
-  padding-left: 50px;
+.step-item {
+  float: left;
+  width: 33%;
+  text-align: center;
 }
 .step-number {
   margin-bottom: 24px;
