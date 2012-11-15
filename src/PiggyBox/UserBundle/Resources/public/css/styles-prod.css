@@ -3894,6 +3894,11 @@ h1 {
   color: #ffffff;
   border: 0;
 }
+#category_tree > li {
+  margin-bottom: 4px;
+  border-bottom: 2px dashed #999999;
+  padding-bottom: 4px;
+}
 #entry-content {
   padding: 26px 0px;
   border: 0;
