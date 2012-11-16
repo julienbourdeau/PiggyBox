@@ -13,13 +13,16 @@
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}" />
 
-        {% if app.debug %}
-            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/styles-prod.css')}}">
-        {% else %}
-            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/styles-prod.css')}}">
-        {% endif %}
+		{% block stylesheets %}
+	        {% if app.debug %}
+	            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/styles-prod.css')}}">
+	        {% else %}
+	            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/styles-prod.css')}}">
+	        {% endif %}
 
-		{% block stylesheets %}{% endblock %}
+	        <link rel="stylesheet" type="text/css" media="print" href="{{ asset('bundles/piggyboxshop/css/print.css')}}">
+
+		{% endblock %}
     </head>
 
     <body>

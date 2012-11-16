@@ -21,7 +21,19 @@
 #}
 	        	<ul class="nav pull-right">
 	        		<li><a href="#">Archives</a></li>
+
 	        		<li class="divider-vertical"></li>
+
+	        		<li class="return-home">
+	        			<a href="javascript:window.print()"> 
+	        				<img src="{{ asset('bundles/piggyboxshop/img/print.png')}}" alt="">
+	        				<br>
+	        				<small style="font-size: 45%;">Imprimer</small>
+	        			</a>
+	        		</li>
+
+	        		<li class="divider-vertical"></li>
+
 	        		<li class="return-home">
 	        			<a href="{{ path('home') }}"> 
 	        				<img src="{{ asset('bundles/piggyboxshop/img/home-button.png')}}" alt="">
@@ -29,6 +41,7 @@
 	        				<small style="font-size: 45%;">Retour au site</small>
 	        			</a>
 	        		</li>
+	        		
 	        	</ul>
 
 	        </nav>
