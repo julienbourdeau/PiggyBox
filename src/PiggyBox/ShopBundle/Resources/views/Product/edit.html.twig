@@ -160,11 +160,45 @@
 
 </form>
 <form class="form-horizontal" action="{{ path('monmagasin_mesproduits_delete', {'id': delete_form.vars.value.id}) }}" method="post" {{ form_enctype(delete_form) }}>
-	<div class="span3">
-		{{ form_widget(delete_form) }}
-		<button class="btn btn-large btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer</button>
+	<div class="row-fluid">
+		<div class="span3">
+			<a id="show-delete-product-confirmation" class="btn btn-large btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer</a>
+		</div>
+
+		<div id="delete-product-confirmation-container" class="span9 hide">
+			<div class="row-fluid">
+				{{ form_widget(delete_form) }}
+				<div class="span12">
+					<h4 style="margin-top: 0;">Etes-vous certain de vouloir supprimer le produit <em>"{{product.name}}"</em></h4>
+				</div>
+				<div class="span4">
+					<a id="hide-delete-product-confirmation" class="btn btn-block"><i class="icon-remove"></i> Annuler</a>
+				</div>
+				<div class="span7">
+					<button class="btn btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer définitivement</button>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </form>
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+{{parent()}}
+
+<script type="text/javascript">
+	// Delete: ask for confirmation
+	$("#show-delete-product-confirmation").click(function() {
+	  $('#delete-product-confirmation-container').show(400);
+	});
+
+	// Cancel: hide confirmation
+	$("#hide-delete-product-confirmation").click(function() {
+	  $('#delete-product-confirmation-container').hide('fast');
+	});
+</script>
+
 {% endblock %}
