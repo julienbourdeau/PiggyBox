@@ -28,7 +28,7 @@
 
 // Components: common
 @import "sprites.less";
-//@import "dropdowns.less";
+@import "dropdowns.less";
 @import "wells.less";
 @import "boxes.less";
 @import "component-animations.less";
@@ -62,8 +62,19 @@
 // Utility classes
 @import "utilities.less"; // Has to be last to override when necessary
 
+#masterhead ul.nav {
+	clear: both;
+	width: 100%;
+}
 
+.navbar .nav li.return-home a {
+	padding: 9px 10px 0px;
+	text-align: center;
+}
 
+#main {
+	padding-bottom: @gridColumnWidth;
+}
 
 /* ORDER */
 
