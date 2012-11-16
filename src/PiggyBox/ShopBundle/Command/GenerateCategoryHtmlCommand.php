@@ -40,24 +40,35 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
                         $category = $category->getParent();
                     }
 
-                    $html.='<li id="'.$category->getSlug().'" class=""><a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $category->getTitle())).'" class="category-item '.$category->getTitle().'">'.$category->getTitle().'</a></li>';
+                    $html.="\t".'<li id="'.$category->getSlug().'" class="">'."\r\n";
+                    $html.="\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $category->getTitle())).'" class="category-item '.$category->getTitle().'">'.$category->getTitle().'</a>'."\r\n";
 
                     $children_categories = $category->getChildren();
-                    $html.='<ul class="nav nav-list">';
+                    if (count($children_categories) > 0) {
+                        $html.="\t\t".'<ul class="nav nav-list subnav">'."\r\n";
 
-                    foreach ($children_categories as $children_category) {
-                        if (in_array($children_category, $categories) and !$categories_buffer->contains($children_category)) {
-                            $html.='<li id="'.$children_category->getSlug().'" class=""><a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $children_category->getTitle())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a></li>';
-                            $categories_buffer->add($children_category);
+                        foreach ($children_categories as $children_category) {
+                            if (in_array($children_category, $categories) and !$categories_buffer->contains($children_category)) {
+                                $html.="\t\t\t".'<li id="'.$children_category->getSlug().'" class="">'."\r\n";
+                                    $html.="\t\t\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $children_category->getTitle())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a>'."\r\n";
+                                $html.="\t\t\t".'</li>'."\r\n";
+                                $categories_buffer->add($children_category);
+                            }
                         }
+
+                        $categories_buffer->add($category);
+                        $html.="\t\t".'</ul>'."\r\n";
                     }
-                    $categories_buffer->add($category);
-                    $html.='</ul>';
+
+                    $html.="\t".'</li>'."\r\n";
+
                 }
             }
             $shop->setCategoryHtml($html);
             $em->persist($shop);
             $em->flush();
         }
+
+        $output->writeln('<info>Categories generated for all shops</info>');
     }
 }

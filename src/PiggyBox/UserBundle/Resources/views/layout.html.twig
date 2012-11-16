@@ -48,7 +48,7 @@
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills no-margin pull-right">
                                         {% if app.user %}
-                                            <li><a href="{{ path('fos_user_profile_show') }}"><small>Connecté en tant que</small> <strong>{{ app.user.username }}</strong></a></li>
+                                            <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
 
                                             {% if "ROLE_SHOP" in app.user.roles %}
@@ -83,8 +83,8 @@
                             <div class="header-menu tabbable tabs-below pull-right">
                                 <ul class="access nav nav-tabs">
                                     <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Les commerçants</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Comment ça marche?</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Rechercher des commerces</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Nos engagements</a></li>
                                 </ul>
                             </div>
                         </div>
