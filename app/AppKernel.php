@@ -20,16 +20,18 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new PiggyBox\OrderBundle\PiggyBoxOrderBundle(),
+            new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
+			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
 
 	    	//third-party bundle
 		    new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
-			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
 		    new FOS\UserBundle\FOSUserBundle(),
 	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
 			new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 			new Sonata\SeoBundle\SonataSeoBundle(),
 			new BCC\CronManagerBundle\BCCCronManagerBundle(),
+			new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
+			new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
 			//bundles for category in PiggyBoxShopBundle
 			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),

@@ -2,14 +2,14 @@
 {% for product in products %}
 
 	<div class="product-item
-				box 
+				box
 				box-light
 				text-centered
 				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
-				tous 
-				{{product.category.slug}} 
+				tous
+				{{product.category.slug}}
 				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
-		
+
 		<div class="product-infos">
 
 			<div class="product-details">
@@ -17,7 +17,7 @@
 						<h4>{{product.name}}</h4>
 					</div>
 			</div>
-			
+
 			<div class="product-thumbnail">
 				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
 			</div>
@@ -26,20 +26,24 @@
 		</div>
 
 		<div class="product-toolbar row-fluid">
-			
+
 			<div class="product-price span6">
-				{{product.minprice}} €
+				{{product.price}} €
 			</div>
 
 			<div class="span6">
-				<a href="#" class="btn-mini">Voir en détail</a>
+				<a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" class="btn-mini">Voir en détail</a>
 			</div>
 
 			<div class="span12">
-				<span class="btn btn-mini left"><i class="icon-minus"></i></span>
-				<input type="text" class="inline-quantity">
-				<span class="btn btn-mini right"><i class="icon-plus"></i></span>
-				<a href="" class="btn btn-mini">Ajouter</a>
+				{% set myFormInstance = craue_cloneForm(form) %}
+				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
+					<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+					{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+					<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+					<button class="btn btn-mini">Ajouter</button>
+					{{ form_widget(myFormInstance._token) }}
+				</form>
 			</div>
 		</div>
 
@@ -47,3 +51,17 @@
 
 
 {% endfor %}
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Vous venez d’ajouter à votre panier :</h3>
+  </div>
+  <div class="modal-body row-fluid"></div>
+  <div class="modal-footer clearfix">
+    <button class="btn btn-small pull-left" data-dismiss="modal" aria-hidden="true">Continuer le shopping</button>
+	<a href="{{ path('validation_page') }}" class="btn btn-primary">Afficher le panier</a>
+  </div>
+</div>

@@ -4,7 +4,6 @@ namespace PiggyBox\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
@@ -12,7 +11,6 @@ use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
@@ -88,6 +86,40 @@ class UserController extends Controller
     }
 
     /**
+     * Affiche le détail par produit
+     *
+     * @Route("commerce/{shop_slug}/{category_slug}/{product_slug}", name="view_product_details")
+     * @ParamConverter("shop", options={"mapping": {"shop_slug": "slug"}})
+     * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
+     */
+    public function viewProductDetailsAction(Shop $shop, $category_slug, $product_slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
+
+        $similarProducts = $em->getRepository('PiggyBoxShopBundle:Product')->findBySimilarProductByShopAndByCategory($shop->getId(), $product->getId(), $product->getCategory());
+
+        $randomProducts = $em->getRepository('PiggyBoxShopBundle:Product')->findByShopExcludeByCategory($shop->getId(), $product->getCategory());
+
+        $orderDetail = new OrderDetail();
+        $form = $this->createForm(new OrderDetailType(), $orderDetail);
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
+        $breadcrumbs->addItem($product->getCategory()->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_slug)));
+        $breadcrumbs->addItem($product->getName(), $this->get("router")->generate('view_product_details', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug, 'product_slug' => $product_slug)));
+
+        return array(
+            'shop' => $shop,
+            'category_title' => $category_slug,
+            'product' => $product,
+            'similar_products' => $similarProducts,
+            'random_products' => $randomProducts,
+            'form' => $form,
+        );
+    }
+
+    /**
      * Récupère les produits d'un magasin selon la catégorie
      *
      * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
@@ -96,18 +128,26 @@ class UserController extends Controller
      */
     public function showShopAction(Request $req, Shop $shop, $category_title)
     {
+        $orderDetail = new OrderDetail();
+        $form = $this->createForm(new OrderDetailType(), $orderDetail);
+
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
+
         if ($category_title == "default") {
             $products = $shop->getProducts();
 
             return array(
                 'shop'      => $shop,
                 'products'	  => $products,
+                'form'	  => $form,
                 'category_title' => 'tous',
             );
         }
 
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);
+        $breadcrumbs->addItem($category->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_title)));
 
         if ($category->getLevel() == 0 && $category->getChildren()->count()!=0) {
             $children_categories = $category->getChildren();
@@ -125,38 +165,8 @@ class UserController extends Controller
         return array(
             'shop'      => $shop,
             'products'	  => $products,
+            'form'	  => $form,
             'category_title' => $category_title,
         );
     }
-
-    /**
-     * @Template()
-     * @Route("product/{product_id}.{_format}", name="view_product", requirements={"_format"="(json)"})
-     * @ParamConverter("product", class="PiggyBoxShopBundle:Product", options={"id" = "product_id"})
-     * @Method({"GET"})
-     */
-    public function viewProductPriceAction(Request $req, Product $product)
-    {
-        $order_detail = new OrderDetail();
-        $order_detail->setProduct($product);
-
-        $data = array();
-        if ($product->getPriceType() == Product::SLICE_PRICE) {
-            $i =0;
-            foreach ($product->getPrices() as $price) {
-                $data['form'][$i] = $this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
-                $i++;
-            }
-        }
-
-        if ($product->getPriceType() != Product::SLICE_PRICE) {
-            $data['form'] =	$this->createForm(new OrderDetailType($product->getPriceType()), $order_detail)->createView();
-        }
-
-        $data['product'] = $product;
-        $html = $this->renderView('PiggyBoxUserBundle:User:productDetails.html.twig', $data);
-
-        return new JsonResponse(array('content' => $html));
-    }
-
 }

@@ -13,14 +13,14 @@
 		<h1>{{product.name}}</h1>
 	</div>
 
+	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal">
+    {{ form_errors(edit_form) }}
 
-	<form class="form-horizontal" action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{ form_enctype(edit_form) }}>
-	{{ form_errors(edit_form) }}
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
 		    	<div class="span4">
-		    		<img src="{{product.getWebPath | apply_filter('large_thumb') }}" class="img240x240">
+		    		<img src="" class="img240x240">
 		    	</div>
 
 				<div class="span8">
@@ -35,118 +35,93 @@
 						<div class="control-group">
 							<label class="control-label" for="inputDesc">Description</label>
 							<div class="controls">
-								{{ form_widget(edit_form.description, { 'attr': {'class': 'span12', 'rows': '3'} }) }}
+								{{ form_widget(edit_form.description, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label" for="inputDesc">Catégorie</label>
+							<label class="control-label" for="inputDesc">Origine</label>
+							<div class="controls">
+								{{ form_widget(edit_form.origin, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputDesc">Conservation</label>
+							<div class="controls">
+								{{ form_widget(edit_form.preservation, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<hr>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Changer la photo</label>
+							<div class="controls">
+								{{ form_widget(edit_form.file, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Choisir une Catégorie</label>
 							<div class="controls">
 								{{ form_widget(edit_form.category, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label" for="inputDesc">Changer la photo</label>
+							<label class="control-label" for="inputName">Prix au Kilogramme</label>
 							<div class="controls">
-								{{ form_widget(edit_form.file, { 'attr': {'class': 'span12'} }) }}
+								{{ form_widget(edit_form.weightPrice) }}
 							</div>
 						</div>
 
-						{% if product.prices|length >0 %}
-							{% for price in edit_form.prices %}
-								{% if price.slice_nbr.vars.value == '' %}
-									<!-- ########### DEBUT PRIX 1 ####### -->
-									<div id="unit-pricing-container" class="row-fluid">
-										<div class="span12">
-											<div class="form-inline form-huge">
-												<div class="row-fluid">
-													<div class="span4 offset2">
-														<h3 class="no-margin text-centered">Prix Unitaire</h3>
-													</div>
-
-													<div class="span4">
-														<h3 class="no-margin text-centered">Prix au Kilo</h3>
-													</div>
-												</div>
-
-												<div class="row-fluid">
-													<div class="span4 offset2">
-														{{ form_widget(price.price, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 3.59'} }) }}
-													</div>
-													<div class="span4">
-														{{ form_widget(edit_form.price_kg, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 11.99'} }) }}
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- ########### FIN PRIX 1 ####### -->
-								{% else %}
-								<!-- ########### DEBUT PRIX 3 ####### -->
-									<div id="multiple-pricing-container" class="row-fluid">
-										<div class="span12">
-											<div class="form-inline">
-												<table class="table table-bordered">
-													<tr>
-														<th>Coupe / pièce</th>
-														<th>Poids total</th>
-														<th>Prix</th>
-														<th>Prix / Kg</th>
-													</tr>
-													<tr>
-														<td>
-															{{ form_widget(price.slice_nbr, { 'attr': {'class': 'input-small','placeholder':'Nom du produit...'} }) }}
-														</td>
-														<td>
-															{{ form_widget(price.total_weight, { 'attr': {'class': '','placeholder':'Nom du produit...'} }) }}
-
-														</td>
-														<td>
-															{{ form_widget(price.price, { 'attr': {'class': 'input-small','placeholder':'Nom du produit...'} }) }}
-														</td>
-														<td>
-															{{ form_widget(edit_form.price_kg, { 'attr': {'class': 'input-small','placeholder':'Nom du produit...'} }) }}
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</div>
-									<!-- ########### FIN PRIX 3 ####### -->
-								{% endif %}
-							{% endfor %}
-
-						{% else %}
-
-						<!-- ########### DEBUT PRIX 2 ####### -->
-						<div id="kg-pricing-container" class="row-fluid">
-							<div class="span12">
-								<div class="form-inline form-huge">
-									<div class="row-fluid">
-										<div class="span4 offset4">
-											<h3 class="no-margin text-centered">Prix au Kg</h3>
-										</div>
-									</div>
-
-									<div class="row-fluid">
-										<div class="span4 offset4">
-											{{ form_widget(edit_form.price_kg, { 'attr': {'class': 'span12 text-centered','placeholder':'Ex: 3.59'} }) }}
-										</div>
-									</div>
-								</div>
+						<div class="control-group">
+							<label class="control-label" for="inputName">Prix</label>
+							<div class="controls">
+								{{ form_widget(edit_form.price) }}
 							</div>
 						</div>
-						<!-- ########### FIN PRIX 2 ####### -->
-						{% endif %}
 
-						<hr />
-						<div class="row-fluid">
-							<div class="span9">
-								<button class="btn btn-large btn-block btn-primary">
-									<i class="icon-ok icon-white"></i>
-									Enregistrer les modifications
-								</button>
+						<div class="control-group">
+							<label class="control-label" for="inputName">Type de Prix</label>
+							<div class="controls">
+								{{ form_widget(edit_form.priceType) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Poids par tranche</label>
+							<div class="controls">
+								{{ form_widget(edit_form.productWeightPerSlice, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Poid minimum</label>
+							<div class="controls">
+								{{ form_widget(edit_form.minWeight, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Poid maximum</label>
+							<div class="controls">
+								{{ form_widget(edit_form.maxWeight, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Minimum de personnes</label>
+							<div class="controls">
+								{{ form_widget(edit_form.minPerson, { 'attr': {'class': 'span12'} }) }}
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="inputName">Maximum de personnes</label>
+							<div class="controls">
+								{{ form_widget(edit_form.maxPerson, { 'attr': {'class': 'span12'} }) }}
 							</div>
 						</div>
 
@@ -156,9 +131,18 @@
 		    </div>
 		</div>
 
-{{ form_widget(edit_form._token) }}
+		<div class="row-fluid box-margined">
+			<div class="span2">
+				<button type="submit" class="btn btn-large btn-block">Annuler</button>
+			</div>
+			<div class="span10">
+				<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Ajouter ce produit</button>
+			</div>
+		</div>
 
+{{ form_widget(edit_form._token) }}
 </form>
+
 <form class="form-horizontal" action="{{ path('monmagasin_mesproduits_delete', {'id': delete_form.vars.value.id}) }}" method="post" {{ form_enctype(delete_form) }}>
 	<div class="row-fluid">
 		<div class="span3">

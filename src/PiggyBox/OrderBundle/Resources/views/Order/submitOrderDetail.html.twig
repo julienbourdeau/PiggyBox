@@ -1,0 +1,8 @@
+{# Helper to generate modal on each add action#}
+<div class="span4">
+  	<img src="{{orderDetail.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
+</div>
+<div class="span8">
+	<h3>{{orderDetail.product.name}}</h3>
+	<p>Quantité: {{orderDetail.quantity}}</p>
+</div>

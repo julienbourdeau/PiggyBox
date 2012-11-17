@@ -13,15 +13,24 @@ class ProductType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('price_kg')
-            ->add('file')
-            ->add('prices', 'collection', array(
-                    'type' => new PriceType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('origin')
+            ->add('preservation')
+            ->add('price', 'money')
+            ->add('weightPrice', 'money')
+            ->add('priceType', 'choice', array(
+                'choices'   => array(
+                    'unit_fixed_price' => 'Unit Fixed Price',
+                    'unit_variable_price' => 'Unit Variable Price',
+                    'chunk_price' => 'Chunk Price'),
+                'required'  => true,
             ))
+            ->add('productWeightPerSlice')
+            ->add('file')
             ->add('category')
+            ->add('minWeight')
+            ->add('maxWeight')
+            ->add('minPerson')
+            ->add('maxPerson')
         ;
     }
 
