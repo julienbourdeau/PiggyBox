@@ -16,6 +16,7 @@ framework:
     default_locale:  %locale%
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
+    ide: macvim
 
 # Twig Configuration
 twig:
@@ -78,12 +79,18 @@ fos_user:
 # AvalancheImagineBundle Configuration
 avalanche_imagine:
     filters:
+        little_thumb:
+            type:    thumbnail
+            options: { size: [100, 100], mode: outbound, quality: 100}
         my_thumb:
             type:    thumbnail
             options: { size: [160, 160], mode: outbound, quality: 100}
         large_thumb:
             type:    thumbnail
             options:  { size: [240, 240], mode: outbound, quality: 100}
+        huge_thumb:
+            type:    thumbnail
+            options:  { size: [300, 300], mode: outbound, quality: 100}
 #
 # Knp Menu Configuration
 knp_menu:
@@ -136,3 +143,10 @@ sonata_seo:
         'xmlns':              http://www.w3.org/1999/xhtml
         'xmlns:og':           http://opengraphprotocol.org/schema/
         #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+
+# CraueTwigExtensionsBundle configuration
+craue_twig_extensions: ~
+
+
+# WhiteOctoberBreadcrumbsBundle configuration
+white_october_breadcrumbs: ~

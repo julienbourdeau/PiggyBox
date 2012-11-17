@@ -30,35 +30,26 @@ class OrderController extends Controller
     /**
      * Validate Order
      *
-     * @Route("/ajouter/produit/{product_id}/{price_id}", name="cart_add_product")
+     * @Route("/checkout/{product_id}", name="cart_add_product", defaults={"_format"="json"})
      * @ParamConverter("product", options={"mapping": {"product_id": "id"}})
      * @Method("POST")
      */
-    public function addProductToCartAction(Request $req, Product $product, $price_id)
+    public function submitOrderDetailAction(Request $req, Product $product)
     {
         $orderDetail = new OrderDetail();
         $orderDetail->setProduct($product);
-        $em = $this->getDoctrine()->getManager();
-        if ($product != Product::WEIGHT_PRICE) {
-            $orderDetail->setPrice($em->getRepository('PiggyBoxShopBundle:Price')->find($price_id));
-        }
 
-        $form = $this->createForm(new OrderDetailType($product->getPriceType()), $orderDetail);
+        $form = $this->createForm(new OrderDetailType(), $orderDetail);
         $form->bind($req);
 
         if ($form->isValid()) {
             $order = $this->get('piggy_box_cart.manager.order')->addOrGetOrderFromCart($product->getShop());
             $this->get('piggy_box_cart.manager.order')->addOrderDetailToOrder($order, $orderDetail);
 
-            $em->persist($orderDetail);
-            $em->flush();
-
-            $this->get('session')->setFlash('success', 'Le produit a ete correctement ajouté');
-
-            return new RedirectResponse($this->get('request')->headers->get('referer'));
         }
+        $html = $this->renderView('PiggyBoxOrderBundle:Order:submitOrderDetail.html.twig', array('orderDetail' => $orderDetail));
 
-        return new RedirectResponse($this->get('request')->headers->get('referer'));
+        return new JsonResponse(array('content' => $html));
     }
 
     /**

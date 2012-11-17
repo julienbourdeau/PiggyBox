@@ -38,11 +38,7 @@
 			                            <tr>
 			                                <td>{{ order_detail.product.name }}</td>
 											<td class="text-right">{{order_detail.quantity}}{% if order_detail.product.pricetype == 'weight_price'%}00g{% endif %}</td>
-										{% if order_detail.price|length > 0%}
-											<td class="text-right">{{ order_detail.price.price}} €</td>
-										{% else %}
-											<td class="text-right">{{order_detail.product.pricekg}} €</td>
-										{% endif %}
+											<td class="text-right">X €</td>
 											<td class="text-right"><a href="{{ path('cart_remove_product', {'order_detail_id' : order_detail.id}) }}">X</a></td>
 			                            </tr>
 			                        {% endfor %}

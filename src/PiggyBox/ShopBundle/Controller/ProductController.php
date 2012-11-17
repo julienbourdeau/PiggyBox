@@ -23,7 +23,6 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 class ProductController extends Controller
 {
 
-
     /**
      * @Template()
      * @Route("/temp-add", name="temp_add")

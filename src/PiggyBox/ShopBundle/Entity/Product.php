@@ -31,16 +31,10 @@ class Product
     /**
      * @var string $name
      *
+     * @Assert\NotBlank(message = "Le nom du produit est obligatoire.")
      * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
-
-    /**
-     * @var string $price_type
-     *
-     * @ORM\Column(name="price_type", type="string", length=100)
-     */
-    private $price_type;
 
     /**
      * @var string $description
@@ -50,6 +44,51 @@ class Product
     private $description;
 
     /**
+     * @var string $origin
+     *
+     * @ORM\Column(name="origin", type="string", length=255, nullable=true)
+     */
+    private $origin;
+
+    /**
+     * @var string $preservation
+     *
+     * @ORM\Column(name="preservation", type="string", length=255, nullable=true)
+     */
+    private $preservation;
+
+    /**
+     * @var float $price
+     *
+     * @Assert\Min(limit = "0", message = "Le prix du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="price", type="float")
+     */
+    private $price;
+
+    /**
+     * @var float $weightPrice
+     *
+     * @Assert\Min(limit = "0", message = "Le prix au poids du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="weightPrice", type="float")
+     */
+    private $weightPrice;
+
+    /**
+     * @var float $productWeightPerSlice
+     *
+     * @Assert\Min(limit = "0", message = "Le poids du produit doit être supérieur à 0Kg.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="productWeightPerSlice", type="decimal", precision=2, nullable=true)
+     */
+    private $productWeightPerSlice;
+
+    /**
+     * @var float $priceType
+     *
+     * @ORM\Column(name="priceType", type="string", length=100)
+     */
+    private $priceType;
+
+    /**
      * @var boolean $active
      *
      * @ORM\Column(name="active", type="boolean",nullable=true)
@@ -57,11 +96,34 @@ class Product
     private $active;
 
     /**
-     * @var float $price_kg
+     * @var integer $minWeight
      *
-     * @ORM\Column(name="price_kg", type="float",nullable=true)
+     * @Assert\Min(limit = "0", message = "Un poids supérieur à 0 gramme doit être indiqué.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="minWeight", type="integer", nullable=true)
      */
-    private $price_kg;
+    private $minWeight;
+
+    /**
+     * @var integer $maxWeight
+     *
+     * @ORM\Column(name="maxWeight", type="integer", nullable=true)
+     */
+    private $maxWeight;
+
+    /**
+     * @var integer $minPerson
+     *
+     * @Assert\Min(limit = "1", message = "Au moins une personne doit pouvoir commander votre produit.", invalidMessage = "Un nombre doit être indiqué.")
+     * @ORM\Column(name="minPerson", type="integer", nullable=true)
+     */
+    private $minPerson;
+
+    /**
+     * @var integer $maxPerson
+     *
+     * @ORM\Column(name="maxPerson", type="integer", nullable=true)
+     */
+    private $maxPerson;
 
     /**
      * @var string $image_path
@@ -71,19 +133,19 @@ class Product
     private $image_path;
 
     /**
+     *
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=255, unique=false)
+     */
+    private $slug;
+
+    /**
      * @var \DateTime $createdat
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdat", type="datetime")
      */
     private $createdat;
-
-    /**
-     * @var float $min_price
-     *
-     * @ORM\Column(name="min_price", type="float", nullable=true)
-     */
-    private $min_price;
 
     /**
      * @var \DateTime $updatedat
@@ -98,15 +160,6 @@ class Product
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Price", cascade={"persist"})
-     * @ORM\JoinTable(name="product_prices",
-     *      joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="price_id", referencedColumnName="id", unique=true)}
-     *      )
-     **/
-    private $prices;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -193,14 +246,6 @@ class Product
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -257,6 +302,121 @@ class Product
     }
 
     /**
+     * Set origin
+     *
+     * @param  string  $origin
+     * @return Product
+     */
+    public function setOrigin($origin)
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    /**
+     * Get origin
+     *
+     * @return string
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * Set preservation
+     *
+     * @param  string  $preservation
+     * @return Product
+     */
+    public function setPreservation($preservation)
+    {
+        $this->preservation = $preservation;
+
+        return $this;
+    }
+
+    /**
+     * Get preservation
+     *
+     * @return string
+     */
+    public function getPreservation()
+    {
+        return $this->preservation;
+    }
+
+    /**
+     * Set price
+     *
+     * @param  float   $price
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set weightPrice
+     *
+     * @param  float   $weightPrice
+     * @return Product
+     */
+    public function setWeightPrice($weightPrice)
+    {
+        $this->weightPrice = $weightPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get weightPrice
+     *
+     * @return float
+     */
+    public function getWeightPrice()
+    {
+        return $this->weightPrice;
+    }
+
+    /**
+     * Set priceType
+     *
+     * @param  string  $priceType
+     * @return Product
+     */
+    public function setPriceType($priceType)
+    {
+        $this->priceType = $priceType;
+
+        return $this;
+    }
+
+    /**
+     * Get priceType
+     *
+     * @return string
+     */
+    public function getPriceType()
+    {
+        return $this->priceType;
+    }
+
+    /**
      * Set active
      *
      * @param  boolean $active
@@ -277,6 +437,98 @@ class Product
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set minWeight
+     *
+     * @param  integer $minWeight
+     * @return Product
+     */
+    public function setMinWeight($minWeight)
+    {
+        $this->minWeight = $minWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get minWeight
+     *
+     * @return integer
+     */
+    public function getMinWeight()
+    {
+        return $this->minWeight;
+    }
+
+    /**
+     * Set maxWeight
+     *
+     * @param  integer $maxWeight
+     * @return Product
+     */
+    public function setMaxWeight($maxWeight)
+    {
+        $this->maxWeight = $maxWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get maxWeight
+     *
+     * @return integer
+     */
+    public function getMaxWeight()
+    {
+        return $this->maxWeight;
+    }
+
+    /**
+     * Set minPerson
+     *
+     * @param  integer $minPerson
+     * @return Product
+     */
+    public function setMinPerson($minPerson)
+    {
+        $this->minPerson = $minPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get minPerson
+     *
+     * @return integer
+     */
+    public function getMinPerson()
+    {
+        return $this->minPerson;
+    }
+
+    /**
+     * Set maxPerson
+     *
+     * @param  integer $maxPerson
+     * @return Product
+     */
+    public function setMaxPerson($maxPerson)
+    {
+        $this->maxPerson = $maxPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get maxPerson
+     *
+     * @return integer
+     */
+    public function getMaxPerson()
+    {
+        return $this->maxPerson;
     }
 
     /**
@@ -374,7 +626,7 @@ class Product
     /**
      * Set shop
      *
-     * @param  PiggyBox\ShopBundle\Entity\Shop $shop
+     * @param  \PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Product
      */
     public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
@@ -387,7 +639,7 @@ class Product
     /**
      * Get shop
      *
-     * @return PiggyBox\ShopBundle\Entity\Shop
+     * @return \PiggyBox\ShopBundle\Entity\Shop
      */
     public function getShop()
     {
@@ -395,42 +647,9 @@ class Product
     }
 
     /**
-     * Add prices
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Product
-     */
-    public function addPrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrix(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Get prices
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getPrices()
-    {
-        return $this->prices;
-    }
-
-    /**
      * Set sales
      *
-     * @param  PiggyBox\ShopBundle\Entity\Sales $sales
+     * @param  \PiggyBox\ShopBundle\Entity\Sales $sales
      * @return Product
      */
     public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
@@ -443,7 +662,7 @@ class Product
     /**
      * Get sales
      *
-     * @return PiggyBox\ShopBundle\Entity\Sales
+     * @return \PiggyBox\ShopBundle\Entity\Sales
      */
     public function getSales()
     {
@@ -451,78 +670,9 @@ class Product
     }
 
     /**
-     * Set price_kg
-     *
-     * @param  boolean $priceKg
-     * @return Product
-     */
-    public function setPriceKg($priceKg)
-    {
-        $this->price_kg = $priceKg;
-
-        return $this;
-    }
-
-    /**
-     * Get price_kg
-     *
-     * @return boolean
-     */
-    public function getPriceKg()
-    {
-        return $this->price_kg;
-    }
-
-    /**
-     * Add prices
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Price $prices
-     * @return Product
-     */
-    public function addPrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices[] = $prices;
-
-        return $this;
-    }
-
-    /**
-     * Remove prices
-     *
-     * @param PiggyBox\ShopBundle\Entity\Price $prices
-     */
-    public function removePrice(\PiggyBox\ShopBundle\Entity\Price $prices)
-    {
-        $this->prices->removeElement($prices);
-    }
-
-    /**
-     * Set min_price
-     *
-     * @param  float   $minPrice
-     * @return Product
-     */
-    public function setMinPrice($minPrice)
-    {
-        $this->min_price = $minPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get min_price
-     *
-     * @return float
-     */
-    public function getMinPrice()
-    {
-        return $this->min_price;
-    }
-
-    /**
      * Set category
      *
-     * @param  PiggyBox\ShopBundle\Entity\Category $category
+     * @param  \PiggyBox\ShopBundle\Entity\Category $category
      * @return Product
      */
     public function setCategory(\PiggyBox\ShopBundle\Entity\Category $category = null)
@@ -535,7 +685,7 @@ class Product
     /**
      * Get category
      *
-     * @return PiggyBox\ShopBundle\Entity\Category
+     * @return \PiggyBox\ShopBundle\Entity\Category
      */
     public function getCategory()
     {
@@ -543,42 +693,48 @@ class Product
     }
 
     /**
-     * Set price_type
+     * Set productWeightPerSlice
      *
-        * @ORM\PrePersist
+     * @param  float   $productWeightPerSlice
+     * @return Product
      */
-    public function setPriceType()
+    public function setProductWeightPerSlice($productWeightPerSlice)
     {
-        if ($this->prices->isEmpty() ) {
-            $this->price_type = Product::WEIGHT_PRICE;
-            $this->setMinPrice($this->price_kg);
-
-            return $this;
-        }
-        if ($this->prices->first()->getSliceNbr() != null) {
-            $this->price_type = Product::SLICE_PRICE;
-        }
-        if ($this->prices->first()->getSliceNbr() == null) {
-            $this->price_type = Product::UNIT_PRICE;
-        }
-
-        $this->setMinPrice($this->prices->first()->getPrice());
+        $this->productWeightPerSlice = $productWeightPerSlice;
 
         return $this;
     }
 
     /**
-     * Get price_type
+     * Get productWeightPerSlice
+     *
+     * @return float
+     */
+    public function getProductWeightPerSlice()
+    {
+        return $this->productWeightPerSlice;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param  string  $slug
+     * @return Product
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
      *
      * @return string
      */
-    public function getPriceType()
+    public function getSlug()
     {
-        return $this->price_type;
-    }
-
-    public function __toString()
-    {
-        return $this->price_type;
+        return $this->slug;
     }
 }
