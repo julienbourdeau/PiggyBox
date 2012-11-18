@@ -1,0 +1,140 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+<div id="content" class="">
+
+    <section id="shopping-cart-progess-bar" class="clearfix">
+       
+        <div id="" class="container cart-progress">
+            <div class="row">
+                <div class="span10 offset1 text-centered">
+
+                    <div class="cart-progress-item">
+                        <div class="step-number"><span>1</span></div>
+                        Commande
+                    </div>
+                    <div class="cart-progress-item current">
+                        <div class="step-number"><span>2</span></div>
+                        Date & Heure
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>3</span></div>
+                        Identification
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>4</span></div>
+                        Validation
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>5</span></div>
+                        Confirmation
+                    </div>
+
+                </div>
+            </div>
+        </div>            
+                            
+    </section>
+
+
+
+    {# ----------------------------------------------------------------------------------- #}
+	{#                ETAPE 1 															   #}
+    {# ----------------------------------------------------------------------------------- #}
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                
+				{% for order in orders %}
+                <div class="page-header">
+                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
+                </div>
+
+                <table class="table table-striped cart-large">
+                    <thead>
+                        <tr>
+                            <th class="col1">Désignation Produit</th>
+                            <th class="col2">Quantité</th>
+                            <th class="col3">Prix Unitaire</th>
+                            <th class="col4">Prix au Kilo</th>
+                            <th class="col5">Prix Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+						{% for  orderDetail in order.orderdetail%}
+                        <tr>
+                            <td class="col1">
+                                <strong>
+									{{orderDetail.product.name}}
+                                </strong>
+                            </td>
+                            <td class="col2">
+                                <div class="product-toolbar product-toolbar-large form-inline">
+
+                                    <div class="select-quantity">
+                                        <span class="btn left"><i class="icon-minus"></i></span>
+                                        <input type="text" class="inline-quantity">
+                                        <span class="btn right"><i class="icon-plus"></i></span>
+                                    </div>
+
+                                    <div class="select-size text-left">
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                            <i class="icon-meat24"></i> <span>Bon mangeur</span>
+                                        </label>
+                                        <br />
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
+                                            <i class="icon-meat16"></i> <span>Normal</span>
+                                        </label>
+                                        <br />
+                                        <label class="radio">
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
+                                            <i class="icon-meat12"></i> <span>Petite faim</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td class="col3">8,39 €</td>
+                            <td class="col4">15,99 €</td>
+                            <td class="col5">150,00 €</td>
+                        </tr>
+						{% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span4 offset8">
+                <table class="table table-bordered table-striped cart-total">
+                    <tr>
+                        <td class=""><strong>Total TTC:</strong></td>
+                        <td class=""><strong>235,99 €</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+		{% endfor %}
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

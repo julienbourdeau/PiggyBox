@@ -23,14 +23,14 @@ use PiggyBox\OrderBundle\OrderEvents;
 /**
  * Order controller.
  *
- * @Route("/commande")
+ * @Route("/checkout")
  */
 class OrderController extends Controller
 {
     /**
      * Validate Order
      *
-     * @Route("/checkout/{product_id}", name="cart_add_product", defaults={"_format"="json"})
+     * @Route("/{product_id}", name="cart_add_product", defaults={"_format"="json"})
      * @ParamConverter("product", options={"mapping": {"product_id": "id"}})
      * @Method("POST")
      */
@@ -72,6 +72,31 @@ class OrderController extends Controller
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
+
+    /**
+     * Show the cart to the people
+	 *
+     * @Template()
+     * @Route("/", name="view_order")
+     */
+	public function viewOrderAction(){
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
+
+		$data['orders'] = $orders = $cart->getOrders();
+
+		foreach ($orders as $order) {
+			foreach ($order->getOrderDetail() as $orderDetail) {
+        		$data['form'][$orderDetail->getProduct()->getId()] = $form = $this->createForm(new OrderDetailType(), $orderDetail);
+			}
+		}
+
+		return $data;
+
+	//public function findBySession($cartId)
+		
+	}
 
     /**
      * Validate Order
