@@ -49,12 +49,12 @@ class OrderType extends AbstractType
         );
 
         $builder->add('pickupatTime',new TimeUniqueSelectorType())
-			->add('order_detail', 'collection', array(
-					'type' => new OrderDetailType(),
-					'allow_delete' => true,
-			        'by_reference' => false,
-				)
-			);
+            ->add('order_detail', 'collection', array(
+                    'type' => new OrderDetailType(),
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
