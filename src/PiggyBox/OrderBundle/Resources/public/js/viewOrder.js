@@ -1,20 +1,11 @@
 (function ($) {
-	$('form#checkout').submit(function(e) {
 
-		var url = $(this).attr("action");
+	$('a#remove-order-detail').on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
 
-		$.ajax({
-			type: "POST",
-			url: url, // Or your url generator like Routing.generate('discussion_create')
-			data: $(this).serialize(),
-			dataType: "json",
-			success: function(data){
-				$('div.modal-body.row-fluid').html(data.content);
-				$('#myModal').modal();
-			}
-		});
-		return false;
-	});
+        $(this).parent().parent().remove();
+    });
 
 	$('div#quantity-minus.btn').click(function () { 
 		var quantity = parseInt($(this).next().val());	
