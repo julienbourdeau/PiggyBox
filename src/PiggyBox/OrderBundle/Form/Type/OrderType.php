@@ -50,7 +50,6 @@ class OrderType extends AbstractType
         );
 
         $builder->add('pickupatTime',new TimeUniqueSelectorType())
-                ->add('user', new UserType())
                 ->add('order_detail', 'collection', array('type' => new OrderDetailType()));
     }
 

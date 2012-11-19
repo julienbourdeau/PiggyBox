@@ -56,10 +56,11 @@ class OrderController extends Controller
     /**
      * Remove a product from the cart
      *
-     * @Route("/enlever/{order_detail_id}", name="cart_remove_product")
+     * @Route("/{order_detail_id}", name="delete_order_detail")
      * @ParamConverter("orderDetail", options={"mapping": {"order_detail_id": "id"}})
+     * @Method("DELETE")
      */
-    public function removeProductAction(OrderDetail $orderDetail)
+    public function deleteOrderDetailAction(Request $req, OrderDetail $orderDetail)
     {
         $order = $orderDetail->getOrder();
         $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($order, $orderDetail);
@@ -95,7 +96,7 @@ class OrderController extends Controller
     /**
      * Submit OrderDetail
      *
-     * @Route("/cart", name="submit_cart")
+     * @Route("/cart/test", name="submit_cart")
      * @Method("POST")
      */
     public function submitCartAction(Request $req)
