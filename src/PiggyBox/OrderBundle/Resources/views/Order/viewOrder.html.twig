@@ -3,7 +3,7 @@
 {% block content %}
 
 <div id="content" class="">
-	<form id="checkout" action="{{path('submit_cart')}}" method="post" {{form_enctype(form)}}>
+	<form action="{{path('submit_cart')}}" method="post" {{form_enctype(form)}}>
 
     <section id="shopping-cart-progess-bar" class="clearfix">
 
@@ -31,7 +31,6 @@
                         <div class="step-number"><span>5</span></div>
                         Confirmation
                     </div>
-
                 </div>
             </div>
         </div>
@@ -58,6 +57,7 @@
                             <th class="col3">Prix Unitaire</th>
                             <th class="col4">Prix au Kilo</th>
                             <th class="col5">Prix Total</th>
+							<th class="col6"><i class="icon-trash icon-white"></i></th>
                         </tr>
                     </thead>
 
@@ -101,6 +101,7 @@
                             <td class="col3">8,39 €</td>
                             <td class="col4">15,99 €</td>
                             <td class="col5">150,00 €</td>
+							<td class="col6"><i class="icon-trash"><</i></td>
                         </tr>
 						{% endfor %}
                     </tbody>
@@ -138,6 +139,19 @@
 
 	{{ form_widget(form._token) }}
 </form>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Etes-vous sur de vouloir supprimer le produit ?</h3>
+  </div>
+  <div class="modal-body row-fluid"></div>
+  <div class="modal-footer clearfix">
+    <button class="btn btn-small pull-left" data-dismiss="modal" aria-hidden="true">Annuler</button>
+	<a href="{{ path('view_order') }}" class="btn btn-primary">Retour au panier</a>
+  </div>
 </div>
 
 {% endblock %}
