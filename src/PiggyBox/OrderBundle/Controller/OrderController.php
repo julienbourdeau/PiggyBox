@@ -54,12 +54,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the cart to the people
+     * 
      *
      * @Template()
-     * @Route("/", name="view_order")
+	 * @Route("/", defaults={"step" = "step-one"})
+	 * @Route("/{step}", name="view_order", requirements={"step" = "step-one|step-two|step-three"})
      */
-    public function viewOrderAction()
+    public function viewOrderAction($step)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
@@ -67,6 +68,7 @@ class OrderController extends Controller
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+		$data['step'] = $step;
 
         return $data;
     }
@@ -74,6 +76,7 @@ class OrderController extends Controller
     /**
      * Submit OrderDetail
      *
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
      * @Route("/cart/test", name="submit_cart")
      * @Method("POST")
      */
@@ -115,7 +118,7 @@ class OrderController extends Controller
             $em->flush();
         }
 
-        return new RedirectResponse($this->get('request')->headers->get('referer'));
+        return array('step' => 'step-two');;
     }
 
     /**
