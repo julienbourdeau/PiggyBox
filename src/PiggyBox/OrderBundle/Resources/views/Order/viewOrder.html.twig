@@ -37,22 +37,20 @@
 
     </section>
 
-
-
     {# ----------------------------------------------------------------------------------- #}
 	{#                ETAPE 1 															   #}
     {# ----------------------------------------------------------------------------------- #}
 
+	{% for order in orders %}
     <div class="container">
+		<form id="checkout" method="post" {{form_enctype(form[order.id])}}>
+		
         <div class="row">
             <div class="span12">
 
-				{% for order in orders %}
                 <div class="page-header">
                     <h1>Votre panier <small>Vos commandes en cours</small> </h1>
                 </div>
-
-				<h2>{{order.shop.name}}</h2>
 
                 <table class="table table-striped cart-large">
                     <thead>
@@ -62,28 +60,26 @@
                             <th class="col3">Prix Unitaire</th>
                             <th class="col4">Prix au Kilo</th>
                             <th class="col5">Prix Total</th>
-							<th class="col6"><i class="icon-trash icon-white"></i></th>
                         </tr>
                     </thead>
 
                     <tbody>
-						{% for  orderDetail in order.orderdetail%}
+						{% for orderDetail in form[order.id].order_detail %}
                         <tr>
                             <td class="col1">
-								<img src="{{orderDetail.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
+								<img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
                                 <strong>
-									{{orderDetail.product.name}}
+									{{orderDetail.vars.value.product.name}}
                                 </strong>
                             </td>
                             <td class="col2">
                                 <div class="product-toolbar product-toolbar-large form-inline">
 
-								<form id="checkout"  method="post" {{form_enctype(form[orderDetail.id])}}>
-									<div id="quantity-minus" class="btn left minus"><i class="icon-minus"></i></div>
-									{{ form_widget(form[orderDetail.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-									<div id="quantity-plus" class="btn right plus"><i class="icon-plus"></i></div>
-									{{ form_widget(form[orderDetail.id]._token) }}
-								</form>
+                                    <div class="select-quantity">
+										<div id="quantity-minus" class="btn left minus"><i class="icon-minus"></i></div>
+										{{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+										<div id="quantity-plus" class="btn right plus"><i class="icon-plus"></i></div>
+                                    </div>
 
                                     <div class="select-size text-left">
                                         <label class="radio">
@@ -107,7 +103,6 @@
                             <td class="col3">8,39 €</td>
                             <td class="col4">15,99 €</td>
                             <td class="col5">150,00 €</td>
-                            <td class="col6"><i class="icon-trash"></i></td>
                         </tr>
 						{% endfor %}
                     </tbody>
@@ -126,7 +121,7 @@
                 </table>
             </div>
         </div>
-		{% endfor %}
+	{% endfor %}
     </div>
 
 
@@ -143,4 +138,12 @@
         </div>
     </div>
 
+</div>
+
 {% endblock %}
+
+{% block javascript %}
+{{parent()}}
+	<script src="{{ asset('bundles/piggyboxuser/js/tab-products.js')}}"></script>
+{% endblock %}
+
