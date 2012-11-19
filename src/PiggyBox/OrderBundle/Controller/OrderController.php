@@ -75,28 +75,25 @@ class OrderController extends Controller
 
     /**
      * Show the cart to the people
-	 *
+     *
      * @Template()
      * @Route("/", name="view_order")
      */
-	public function viewOrderAction(){
+    public function viewOrderAction()
+    {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
-		$data['orders'] = $orders = $cart->getOrders();
+        $data['orders'] = $orders = $cart->getOrders();
 
-		foreach ($orders as $order) {
-			foreach ($order->getOrderDetail() as $orderDetail) {
-        		$data['form'][$orderDetail->getProduct()->getId()] = $form = $this->createForm(new OrderDetailType(), $orderDetail);
-			}
-		}
-
-		return $data;
-
-	//public function findBySession($cartId)
-		
-	}
+        foreach ($orders as $order) {
+            foreach ($order->getOrderDetail() as $orderDetail) {
+                $data['form'][$orderDetail->getId()] =  $this->createForm(new OrderDetailType(), $orderDetail)->createView();
+            }
+        }
+        return $data;
+    }
 
     /**
      * Validate Order
