@@ -5,7 +5,6 @@ namespace PiggyBox\OrderBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use PiggyBox\OrderBundle\Form\Type\UserType;
 use PiggyBox\OrderBundle\Form\Type\DateUniqueSelectorType;
 use PiggyBox\OrderBundle\Form\Type\TimeUniqueSelectorType;
 use Symfony\Component\Form\FormEvents;
@@ -50,7 +49,12 @@ class OrderType extends AbstractType
         );
 
         $builder->add('pickupatTime',new TimeUniqueSelectorType())
-                ->add('order_detail', 'collection', array('type' => new OrderDetailType()));
+			->add('order_detail', 'collection', array(
+					'type' => new OrderDetailType(),
+					'allow_delete' => true,
+			        'by_reference' => false,
+				)
+			);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

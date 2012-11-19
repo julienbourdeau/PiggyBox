@@ -101,7 +101,7 @@
                             <td class="col3">8,39 €</td>
                             <td class="col4">15,99 €</td>
                             <td class="col5">150,00 €</td>
-							<td class="col6"><i class="icon-trash"><</i></td>
+							<td class="col6"><a id="remove-order-detail" href="#"><i class="icon-trash"></i></a></td>
                         </tr>
 						{% endfor %}
                     </tbody>
@@ -158,5 +158,5 @@
 
 {% block javascript %}
 {{parent()}}
-	<script src="{{ asset('bundles/piggyboxuser/js/tab-products.js')}}"></script>
+	<script src="{{ asset('bundles/piggyboxorder/js/viewOrder.js')}}"></script>
 {% endblock %}

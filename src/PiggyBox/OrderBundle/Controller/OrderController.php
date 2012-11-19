@@ -58,7 +58,7 @@ class OrderController extends Controller
      *
      * @Route("/{order_detail_id}", name="delete_order_detail")
      * @ParamConverter("orderDetail", options={"mapping": {"order_detail_id": "id"}})
-     * @Method("DELETE")
+     * @Method("GET|POST")
      */
     public function deleteOrderDetailAction(Request $req, OrderDetail $orderDetail)
     {
@@ -73,6 +73,14 @@ class OrderController extends Controller
         $this->get('session')->setFlash('success', 'Le produit a ete correctement retiré');
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
     }
 
     /**
@@ -102,14 +110,41 @@ class OrderController extends Controller
     public function submitCartAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
+
+		foreach ($cart->getOrders() as $order) {
+    		foreach ($order->getOrderDetail() as $orderDetail) $originalOrderDetails[] = $orderDetail;
+		}
+
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
-
+		
         if ($form->isValid()) {
-			$em = $this->getDoctrine()->getManager();
-    		$em->persist($cart);
-    		$em->flush();
+
+			foreach ($cart->getOrders() as $order) {
+				foreach ($order->getOrderDetail() as $orderDetail) {
+					foreach ($originalOrderDetails as $key => $toDel) {
+						if ($toDel->getId() === $orderDetail->getId()) {
+							unset($originalOrderDetails[$key]);
+						}
+					}
+				}
+			}
+
+            foreach ($originalOrderDetails as $orderDetail) {
+		        $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($orderDetail->getOrder(), $orderDetail);
+
+		        if (0 == $orderDetail->getOrder()->getOrderDetail()->count()) {
+        		    $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($orderDetail->getOrder());
+         		   	$this->get('piggy_box_cart.manager.order')->removeOrder($orderDetail->getOrder());
+        		}
+				
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cart);
+            $em->flush();
         }
+
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
 
