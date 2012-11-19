@@ -3,6 +3,7 @@
 {% block content %}
 
 <div id="content" class="">
+	<form id="checkout" action="{{path('submit_cart')}}" method="post" {{form_enctype(form)}}>
 
     <section id="shopping-cart-progess-bar" class="clearfix">
 
@@ -37,20 +38,17 @@
 
     </section>
 
-    {# ----------------------------------------------------------------------------------- #}
-	{#                ETAPE 1 															   #}
-    {# ----------------------------------------------------------------------------------- #}
-
-	{% for order in orders %}
+	{% for order in form.orders %}
     <div class="container">
-		<form id="checkout" method="post" {{form_enctype(form[order.id])}}>
-		
+
         <div class="row">
             <div class="span12">
 
                 <div class="page-header">
                     <h1>Votre panier <small>Vos commandes en cours</small> </h1>
                 </div>
+
+				<h2>{{order.vars.value.shop.name}}</h2>
 
                 <table class="table table-striped cart-large">
                     <thead>
@@ -64,7 +62,7 @@
                     </thead>
 
                     <tbody>
-						{% for orderDetail in form[order.id].order_detail %}
+						{% for orderDetail in order.order_detail %}
                         <tr>
                             <td class="col1">
 								<img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
@@ -132,12 +130,14 @@
                     <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+                    <button class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
+	{{ form_widget(form._token) }}
+</form>
 </div>
 
 {% endblock %}
@@ -146,4 +146,3 @@
 {{parent()}}
 	<script src="{{ asset('bundles/piggyboxuser/js/tab-products.js')}}"></script>
 {% endblock %}
-

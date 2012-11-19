@@ -14,37 +14,37 @@ class OrderDetailType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$formFactory = $builder->getFormFactory();
+        $formFactory = $builder->getFormFactory();
 
-		$builder->addEventListener(
-			FormEvents::PRE_SET_DATA,
-			function (FormEvent $event) use ($formFactory) {
-				$data = $event->getData();
-				$form = $event->getForm();
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formFactory) {
+                $data = $event->getData();
+                $form = $event->getForm();
 
-				if (null === $data) {
-            		return;
-        		}
+                if (null === $data) {
+                    return;
+                }
 
-		        // check if the product object is "new"
-        		if (!$data->getId()) {
-					$form->add(
-						$formFactory->createNamed('quantity', 'number', null, array(
-							'data' => 1,
-							'read_only' => true,
-						))
-					);
-        		}
+                // check if the product object is "new"
+                if (!$data->getId()) {
+                    $form->add(
+                        $formFactory->createNamed('quantity', 'number', null, array(
+                            'data' => 1,
+                            'read_only' => true,
+                        ))
+                    );
+                }
 
-				if ($data->getId()) {
-					$form->add(
-						$formFactory->createNamed('quantity', 'number', null, array(
-							'read_only' => true,
-						))
-					);
-				}
-			}
-		);
+                if ($data->getId()) {
+                    $form->add(
+                        $formFactory->createNamed('quantity', 'number', null, array(
+                            'read_only' => true,
+                        ))
+                    );
+                }
+            }
+        );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
