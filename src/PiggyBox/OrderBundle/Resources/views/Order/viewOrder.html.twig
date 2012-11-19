@@ -37,15 +37,21 @@
 
     </section>
 
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 	{% for order in form.orders %}
     <div class="container">
 
         <div class="row">
             <div class="span12">
-
-                <div class="page-header">
-                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
-                </div>
 
 				<h2>{{order.vars.value.shop.name}}</h2>
 
@@ -139,19 +145,6 @@
 
 	{{ form_widget(form._token) }}
 </form>
-</div>
-
-<!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Etes-vous sur de vouloir supprimer le produit ?</h3>
-  </div>
-  <div class="modal-body row-fluid"></div>
-  <div class="modal-footer clearfix">
-    <button class="btn btn-small pull-left" data-dismiss="modal" aria-hidden="true">Annuler</button>
-	<a href="{{ path('view_order') }}" class="btn btn-primary">Retour au panier</a>
-  </div>
 </div>
 
 {% endblock %}

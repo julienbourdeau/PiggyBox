@@ -4,7 +4,12 @@
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
 
-        $(this).parent().parent().remove();
+		if ($(this).parent().parent().parent().children().size() == 1) {
+			$(this).parent().parent().parent().parent().parent().parent().parent().fadeOut(300, function() { $(this).remove(); });
+		}
+		else{
+        	$(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
+		}	
     });
 
 	$('div#quantity-minus.btn').click(function () { 

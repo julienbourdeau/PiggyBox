@@ -54,36 +54,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove a product from the cart
-     *
-     * @Route("/{order_detail_id}", name="delete_order_detail")
-     * @ParamConverter("orderDetail", options={"mapping": {"order_detail_id": "id"}})
-     * @Method("GET|POST")
-     */
-    public function deleteOrderDetailAction(Request $req, OrderDetail $orderDetail)
-    {
-        $order = $orderDetail->getOrder();
-        $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($order, $orderDetail);
-
-        if (0 == $order->getOrderDetail()->count()) {
-            $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
-            $this->get('piggy_box_cart.manager.order')->removeOrder($order);
-        }
-
-        $this->get('session')->setFlash('success', 'Le produit a ete correctement retiré');
-
-        return new RedirectResponse($this->get('request')->headers->get('referer'));
-    }
-
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
-
-    /**
      * Show the cart to the people
      *
      * @Template()
@@ -111,33 +81,33 @@ class OrderController extends Controller
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
-		foreach ($cart->getOrders() as $order) {
-    		foreach ($order->getOrderDetail() as $orderDetail) $originalOrderDetails[] = $orderDetail;
-		}
+        foreach ($cart->getOrders() as $order) {
+            foreach ($order->getOrderDetail() as $orderDetail) $originalOrderDetails[] = $orderDetail;
+        }
 
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
-		
+
         if ($form->isValid()) {
 
-			foreach ($cart->getOrders() as $order) {
-				foreach ($order->getOrderDetail() as $orderDetail) {
-					foreach ($originalOrderDetails as $key => $toDel) {
-						if ($toDel->getId() === $orderDetail->getId()) {
-							unset($originalOrderDetails[$key]);
-						}
-					}
-				}
-			}
+            foreach ($cart->getOrders() as $order) {
+                foreach ($order->getOrderDetail() as $orderDetail) {
+                    foreach ($originalOrderDetails as $key => $toDel) {
+                        if ($toDel->getId() === $orderDetail->getId()) {
+                            unset($originalOrderDetails[$key]);
+                        }
+                    }
+                }
+            }
 
             foreach ($originalOrderDetails as $orderDetail) {
-		        $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($orderDetail->getOrder(), $orderDetail);
+                $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($orderDetail->getOrder(), $orderDetail);
 
-		        if (0 == $orderDetail->getOrder()->getOrderDetail()->count()) {
-        		    $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($orderDetail->getOrder());
-         		   	$this->get('piggy_box_cart.manager.order')->removeOrder($orderDetail->getOrder());
-        		}
-				
+                if (0 == $orderDetail->getOrder()->getOrderDetail()->count()) {
+                    $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($orderDetail->getOrder());
+                        $this->get('piggy_box_cart.manager.order')->removeOrder($orderDetail->getOrder());
+                }
+
             }
 
             $em = $this->getDoctrine()->getManager();
