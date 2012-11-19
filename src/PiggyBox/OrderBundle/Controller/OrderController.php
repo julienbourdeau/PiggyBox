@@ -88,9 +88,7 @@ class OrderController extends Controller
         $data['orders'] = $orders = $cart->getOrders();
 
         foreach ($orders as $order) {
-            foreach ($order->getOrderDetail() as $orderDetail) {
-                $data['form'][$orderDetail->getId()] =  $this->createForm(new OrderDetailType(), $orderDetail)->createView();
-            }
+                $data['form'][$order->getId()] =  $this->createForm(new OrderType(), $order)->createView();
         }
         return $data;
     }
