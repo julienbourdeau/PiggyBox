@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Form\Type\OrderType;
+use PiggyBox\OrderBundle\Form\Type\CartType;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
@@ -28,7 +29,7 @@ use PiggyBox\OrderBundle\OrderEvents;
 class OrderController extends Controller
 {
     /**
-     * Validate Order
+     * Submit OrderDetail
      *
      * @Route("/{product_id}", name="cart_add_product", defaults={"_format"="json"})
      * @ParamConverter("product", options={"mapping": {"product_id": "id"}})
@@ -86,11 +87,29 @@ class OrderController extends Controller
         $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
         $data['orders'] = $orders = $cart->getOrders();
+        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
 
-        foreach ($orders as $order) {
-                $data['form'][$order->getId()] =  $this->createForm(new OrderType(), $order)->createView();
-        }
         return $data;
+    }
+
+    /**
+     * Submit OrderDetail
+     *
+     * @Route("/cart", name="submit_cart")
+     * @Method("POST")
+     */
+    public function submitCartAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $form = $this->createForm(new CartType(), $cart);
+        $form->bind($req);
+
+        if ($form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+    		$em->persist($cart);
+    		$em->flush();
+        }
+        return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
 
     /**
