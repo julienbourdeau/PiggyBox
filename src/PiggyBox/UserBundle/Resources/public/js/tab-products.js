@@ -18,7 +18,7 @@
 
 	$('div#quantity-minus.btn').click(function () { 
 		var quantity = parseInt($(this).next().val());	
-		if(quantity > 0){
+		if(quantity > 1){
 			quantity--;
 		}
 		$(this).next().val(quantity);
