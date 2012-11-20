@@ -31,7 +31,7 @@ class CartExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'piggybox_orders_get' => new \Twig_Function_Method($this,'getCurrentOrders'),
+            'piggybox_product_number_in_cart' => new \Twig_Function_Method($this,'getProductsNumberInCart'),
             );
     }
 
@@ -40,12 +40,17 @@ class CartExtension extends \Twig_Extension
      *
      * @return cart
      */
-    public function getCurrentOrders()
+    public function getProductsNumberInCart()
     {
-       $em = $this->container->get('doctrine.orm.default_entity_manager');
+	   $orders = $this->container->get('piggy_box_cart.provider')->getCart()->getOrders();
+	   $result = 0;
 
-       return  $this->container->get('piggy_box_cart.provider')->getCart()->getOrders();
-    }
+	   foreach ($orders as $order) {
+		   $result = $result + $order->getTotalProducts();
+	   }
+
+	   return $result; 
+	}
 
     public function getName()
     {
