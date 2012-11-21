@@ -165,7 +165,9 @@
 
     <h1 class="text-centered">Produits similaires</h1>
 
-   		{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': similar_products} %}
+        <div class="clearfix">
+   		   {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': similar_products} %}
+        </div>
 
 	{% endif %}
 
@@ -173,6 +175,8 @@
 
     <h1 class="text-centered">Produits au hasard</h1>
 
-   		{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': random_products} %}
+        <div class="clearfix">
+   		   {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': random_products} %}
+        </div>
 
 	{% endif %}
