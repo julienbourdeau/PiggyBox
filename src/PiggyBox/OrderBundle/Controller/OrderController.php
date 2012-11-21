@@ -31,7 +31,7 @@ class OrderController extends Controller
     /**
      * Submit OrderDetail
      *
-     * @Route("/{product_id}", name="cart_add_product", defaults={"_format"="json"})
+     * @Route("/{product_id}", name="cart_add_product", defaults={"_format"="json"}, requirements={"product_id" = "\d+"})
      * @ParamConverter("product", options={"mapping": {"product_id": "id"}})
      * @Method("POST")
      */
@@ -57,10 +57,9 @@ class OrderController extends Controller
      * 
      *
      * @Template()
-	 * @Route("/", defaults={"step" = "step-one"})
-	 * @Route("/{step}", name="view_order", requirements={"step" = "step-one|step-two|step-three"})
+	 * @Route("/", name="view_order")
      */
-    public function viewOrderAction($step)
+    public function viewOrderAction()
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
@@ -68,7 +67,6 @@ class OrderController extends Controller
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
-		$data['step'] = $step;
 
         return $data;
     }
@@ -77,12 +75,13 @@ class OrderController extends Controller
      * Submit OrderDetail
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-     * @Route("/cart/test", name="submit_cart")
+     * @Route("/date-heure", name="submit_cart")
      * @Method("POST")
      */
     public function submitCartAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
 
         foreach ($cart->getOrders() as $order) {
             foreach ($order->getOrderDetail() as $orderDetail) $originalOrderDetails[] = $orderDetail;
@@ -90,6 +89,7 @@ class OrderController extends Controller
 
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
+
 
         if ($form->isValid()) {
 
@@ -113,12 +113,17 @@ class OrderController extends Controller
 
             }
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($cart);
             $em->flush();
         }
 
-        return array('step' => 'step-two');;
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
+
+        $data['orders'] = $orders = $cart->getOrders();
+        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+		$data['step'] = 'step-two';
+		
+        return $data;
     }
 
     /**
