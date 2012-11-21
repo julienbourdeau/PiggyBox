@@ -4189,25 +4189,24 @@ table.cart-total tr td {
 
 	}
 }
-
-blockquote.homepage {
-	margin: 24px 0;
-	border: 0;
-	p {
-		font-size: 42px;
-		line-height: 46px;
-		font-family: "serif";
-		margin-top: 26px;
-		font-style: italic;
-	}
-	img.quotes-open {
-		margin-top: -26px;
-	}
-	img.quotes-close {
-		margin-top: 64px;
-	}
-}
 */
+blockquote.homepage {
+  margin: 24px 0;
+  border: 0;
+}
+blockquote.homepage p {
+  font-size: 42px;
+  line-height: 46px;
+  font-family: "serif";
+  margin-top: 26px;
+  font-style: italic;
+}
+blockquote.homepage img.quotes-open {
+  margin-top: -26px;
+}
+blockquote.homepage img.quotes-close {
+  margin-top: 64px;
+}
 .presse-links a {
   float: left;
   display: block;
