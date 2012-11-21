@@ -56,23 +56,14 @@
             <div class="span6 offset3 form-horizontal">
                 <div class="control-group">
                     <label class="control-label" for="pickup_date">Jour</label>
-                    <div class="controls">
-                        <select name="" id="">
-                            <option value="">Mercredi 14 Novembre</option>
-                            <option value="">Jeudi 15 Novembre</option>
-                            <option value="">Vendredi 16 Novembre</option>
-                        </select>
+                    <div class="controls" data-load-shop="{{order.vars.value.shop.id}}">
+						{{ form_widget(order.pickupatDate, { 'attr': {'class': 'inline-quantity pickupDate'} }) }}
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="pickup_date">Heure</label>
                     <div class="controls">
-                        <select name="" id="">
-                            <option value="">10:30</option>
-                            <option value="">11:00</option>
-                            <option value="">11:30</option>
-                            <option value="">12:00</option>
-                        </select>
+						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
                     </div>
                 </div>
             </div>
