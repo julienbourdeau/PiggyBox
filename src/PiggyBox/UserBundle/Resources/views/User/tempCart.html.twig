@@ -136,117 +136,34 @@
     {# ----------------------------------------------------------------------------------- #}
 
     <div class="container">
-        <div class="row">
+        <div class="row bottom-marged">
             <div class="span12">
-                
-                <div class="page-header">
-                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
-                </div>
-
-                <table class="table table-striped cart-large">
-                    <thead>
-                        <tr>
-                            <th class="col1">Désignation Produit</th>
-                            <th class="col2">Quantité</th>
-                            <th class="col3">Prix Unitaire</th>
-                            <th class="col4">Prix au Kilo</th>
-                            <th class="col5">Prix Total</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td class="col1">
-                                <strong>
-                                    Côte d'Agneau Première
-                                </strong>
-                            </td>
-                            <td class="col2">
-                                <div class="product-toolbar product-toolbar-large form-inline">
-
-                                    <div class="select-quantity">
-                                        <span class="btn left"><i class="icon-minus"></i></span>
-                                        <input type="text" class="inline-quantity">
-                                        <span class="btn right"><i class="icon-plus"></i></span>
-                                    </div>
-
-                                    <div class="select-size text-left">
-                                        <label class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                            <i class="icon-meat24"></i> <span>Bon mangeur</span>
-                                        </label>
-                                        <br />
-                                        <label class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
-                                            <i class="icon-meat16"></i> <span>Normal</span>
-                                        </label>
-                                        <br />
-                                        <label class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
-                                            <i class="icon-meat12"></i> <span>Petite faim</span>
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </td>
-                            <td class="col3">8,39 €</td>
-                            <td class="col4">15,99 €</td>
-                            <td class="col5">150,00 €</td>
-                        </tr>
-
-                        <tr>
-                            <td class="col1">
-                                <strong>
-                                    Côte de Boeuf
-                                </strong>
-                            </td>
-                            <td class="col2">
-                                <div class="product-toolbar product-toolbar-large form-inline">
-                                    <div class="select-quantity">
-                                        <span class="btn left"><i class="icon-minus"></i></span>
-                                        <input type="text" class="inline-quantity inline-quantity-person" value="1 pers.">
-                                        <span class="btn right"><i class="icon-plus"></i></span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="col3">8,39 €</td>
-                            <td class="col4">15,99 €</td>
-                            <td class="col5">150,00 €</td>
-                        </tr>
-
-                        <tr>
-                            <td class="col1">
-                                <strong>
-                                    Boite de conserve
-                                </strong>
-                            </td>
-                            <td class="col2">
-                                <div class="product-toolbar product-toolbar-large form-inline">
-                                    <div class="select-quantity">
-                                        <span class="btn left"><i class="icon-minus"></i></span>
-                                        <input type="text" class="inline-quantity">
-                                        <span class="btn right"><i class="icon-plus"></i></span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="col3">3,99 €</td>
-                            <td class="col4">9,59 €</td>
-                            <td class="col5">7,98 €</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <h1 class="text-centered">Choisissez votre moyen de paiement</h1>
             </div>
         </div>
-
         <div class="row">
-            <div class="span4 offset8">
-                <table class="table table-bordered table-striped cart-total">
-                    <tr>
-                        <td class=""><strong>Total TTC:</strong></td>
-                        <td class=""><strong>235,99 €</strong></td>
-                    </tr>
-                </table>
+            <div class="span4">
+                <h2>Payez en boutique</h2>
+
+                <form action="">
+                    <label for="" class="radio">
+                        <input type="radio" value="" checked>
+                        Payer ma commande en magasin
+                    </label>
+                </form>
+            </div>
+            <div class="span8">
+                <div class="row-fluid" style="border-left: 2px solid #999;">
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <h2>Payer en ligne</h2>
+
+                        <div>
+                            <div class="coming-soon"></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/paiement.jpg')}}" alt="" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -259,7 +176,7 @@
                     <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+                    <button href="#" class="btn btn-large btn-primary">xxx  <i class="icon-arrow-right icon-white"></i></button>
                 </div>
             </div>
         </div>
