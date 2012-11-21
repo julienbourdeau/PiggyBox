@@ -51,12 +51,6 @@ class OrderDetail
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Price")
-     * @ORM\JoinColumn(name="price_id", referencedColumnName="id", onDelete="SET NULL")
-     **/
-    private $price;
-
-    /**
      * @var string $quantity
      *
      * @ORM\Column(name="quantity", type="string", nullable=true)
@@ -163,29 +157,6 @@ class OrderDetail
     public function getProduct()
     {
         return $this->product;
-    }
-
-    /**
-     * Set price
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Price $price
-     * @return OrderDetail
-     */
-    public function setPrice(\PiggyBox\ShopBundle\Entity\Price $price = null)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return PiggyBox\ShopBundle\Entity\Price
-     */
-    public function getPrice()
-    {
-        return $this->price;
     }
 
     /**

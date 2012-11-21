@@ -82,18 +82,18 @@ class OrderManager
 
     public function setTotalPrice(Order $order)
     {
-        $orderDetails = $order->getOrderDetail();
-        $result = 0;
+       // $orderDetails = $order->getOrderDetail();
+       // $result = 0;
 
-        foreach ($orderDetails as $orderDetail) {
-            if ($orderDetail->getProduct()->getPriceType() == Product::WEIGHT_PRICE) {
-                $result = $result + $orderDetail->getProduct()->getPriceKg()*$orderDetail->getQuantity()/10;
-            }
-            if ($orderDetail->getProduct()->getPriceType() != Product::WEIGHT_PRICE) {
-                $result = $result + $orderDetail->getPrice()->getPrice()*$orderDetail->getQuantity();
-            }
-        }
-        $order->setTotalPrice($result);
+       // foreach ($orderDetails as $orderDetail) {
+       //     if ($orderDetail->getProduct()->getPriceType() == Product::WEIGHT_PRICE) {
+       //         $result = $result + $orderDetail->getProduct()->getPriceKg()*$orderDetail->getQuantity()/10;
+       //     }
+       //     if ($orderDetail->getProduct()->getPriceType() != Product::WEIGHT_PRICE) {
+       //         $result = $result + $orderDetail->getPrice()->getPrice()*$orderDetail->getQuantity();
+       //     }
+       // }
+       // $order->setTotalPrice($result);
     }
 
     private function getTimeInterval($start, $end, $openingHours)
