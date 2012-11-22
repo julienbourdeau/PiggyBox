@@ -161,7 +161,7 @@
 				<button type="submit" class="btn btn-large btn-block">Annuler</button>
 			</div>
 			<div class="span10">
-				<button type="submit" id="addProductButton" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Ajouter ce produit</button>
+				<button type="submit" id="addProductButton" class="btn btn-large btn-block btn-primary"><i class="icon-pencil icon-white"></i> Modifier ce produit</button>
 			</div>
 		</div>
 
@@ -181,10 +181,7 @@
 
 	$('#product_price_type_trigger select').change(function() {
 		$('.conditional-field ').hide();
-
-		//var price_type = $(this).val();
 		$('.'+$(this).val()).show();
-		$
 	});
 
 </script>

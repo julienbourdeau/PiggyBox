@@ -13,118 +13,142 @@
 		<h1>{{product.name}}</h1>
 	</div>
 
-	<form action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal">
+	<form action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal form-slider-container">
     {{ form_errors(edit_form) }}
 
 		<div class="box box-margined">
 		    <div class="row-fluid">
 
 		    	<div class="span4">
-		    		<img src="" class="img240x240">
+		    		<img src="{{product.getWebPath | apply_filter('large_thumb') }}" class="img240x240">
 		    	</div>
 
 				<div class="span8">
 
-						<div class="control-group">
-							<label class="control-label" for="inputName">Nom du produit</label>
-							<div class="controls">
-								{{ form_widget(edit_form.name, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} }) }}
-							</div>
+					<div class="wrapper">
+
+
+						<div id="navigation" style="display:none;">
+					        <ul>
+					            <li class="selected">
+					                <a href="#">Détails</a>
+					            </li>
+					            <li>
+					                <a href="#">Images & Catégorie</a>
+					            </li>
+					            <li>
+					                <a href="#">Tarification</a>
+					            </li>
+					        </ul>
+					    </div>
+
+
+						<div id="steps">
+
+							<fieldset class="step">
+								<div class="control-group">
+									<label class="control-label" for="">Nom du produit</label>
+									<div class="controls">
+										{{ form_widget(edit_form.name, { 'attr': {'class': 'span12','placeholder':'Nom du produit...'} }) }}
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label" for="">Description</label>
+									<div class="controls">
+										{{ form_widget(edit_form.description, { 'attr': {'class': 'span12'} }) }}
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label" for="">Origine</label>
+									<div class="controls">
+										{{ form_widget(edit_form.origin, { 'attr': {'class': 'span12'} }) }}
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label" for="">Conservation</label>
+									<div class="controls">
+										{{ form_widget(edit_form.preservation, { 'attr': {'class': 'span12'} }) }}
+									</div>
+								</div>
+							</fieldset>
+
+							<fieldset class="step">
+								<div class="control-group">
+									<label class="control-label" for="">Changer la photo</label>
+									<div class="controls">
+										{{ form_widget(edit_form.file, { 'attr': {'class': 'span12'} }) }}
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label" for="">Choisir une Catégorie</label>
+									<div class="controls">
+										{{ form_widget(edit_form.category, { 'attr': {'class': 'span12'} }) }}
+									</div>
+								</div>
+							</fieldset>
+
+							<fieldset class="step">
+								<div class="control-group">
+									<label class="control-label" for="">Prix au Kilogramme</label>
+									<div class="controls">
+										{{ form_widget(edit_form.weightPrice) }}
+									</div>
+
+								</div>
+
+								<div class="control-group" id="product_price_type_trigger">
+									<label class="control-label" for="">Type de Prix</label>
+									<div class="controls">
+										{{ form_widget(edit_form.priceType) }}
+									</div>
+								</div>
+
+								<div class="control-group conditional-field unit_fixed_price">
+									<label class="control-label" for="">Prix</label>
+									<div class="controls">
+										{{ form_widget(edit_form.price) }}
+									</div>
+								</div>
+
+								<div class="control-group conditional-field unit_variable_price">
+									<label class="control-label" for="">Poids par tranche</label>
+									<div class="controls">
+										{{ form_widget(edit_form.productWeightPerSlice) }}
+									</div>
+								</div>
+
+								<div class="control-group conditional-field chunk_price row-fluid">
+									<div class="span4">
+										Poid minimum <br>
+										{{ form_widget(edit_form.minWeight, { 'attr': {'style': 'width: 90%'} } ) }}
+										<div class="text-centered">
+											<img src="{{ asset('bundles/piggyboxshop/img/double-arrows.png')}}" alt="">
+										</div>
+										Minimum de personnes <br>
+										{{ form_widget(edit_form.minPerson, { 'attr': {'style': 'width: 90%'} } ) }}
+									</div>
+									<div class="span4">
+										&nbsp;
+									</div>
+									<div class="span4">
+										Poid maximum <br>
+										{{ form_widget(edit_form.maxWeight, { 'attr': {'style': 'width: 90%'} } ) }}
+										<div class="text-centered">
+											<img src="{{ asset('bundles/piggyboxshop/img/double-arrows.png')}}" alt="">
+										</div>
+										Maximum de personnes <br>
+										{{ form_widget(edit_form.maxPerson, { 'attr': {'style': 'width: 90%'} } ) }}
+									</div>
+								</div>
+							</fieldset>
+
 						</div>
 
-						<div class="control-group">
-							<label class="control-label" for="inputDesc">Description</label>
-							<div class="controls">
-								{{ form_widget(edit_form.description, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputDesc">Origine</label>
-							<div class="controls">
-								{{ form_widget(edit_form.origin, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputDesc">Conservation</label>
-							<div class="controls">
-								{{ form_widget(edit_form.preservation, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<hr>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Changer la photo</label>
-							<div class="controls">
-								{{ form_widget(edit_form.file, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Choisir une Catégorie</label>
-							<div class="controls">
-								{{ form_widget(edit_form.category, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Prix au Kilogramme</label>
-							<div class="controls">
-								{{ form_widget(edit_form.weightPrice) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Prix</label>
-							<div class="controls">
-								{{ form_widget(edit_form.price) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Type de Prix</label>
-							<div class="controls">
-								{{ form_widget(edit_form.priceType) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Poids par tranche</label>
-							<div class="controls">
-								{{ form_widget(edit_form.productWeightPerSlice, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Poid minimum</label>
-							<div class="controls">
-								{{ form_widget(edit_form.minWeight, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Poid maximum</label>
-							<div class="controls">
-								{{ form_widget(edit_form.maxWeight, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Minimum de personnes</label>
-							<div class="controls">
-								{{ form_widget(edit_form.minPerson, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label" for="inputName">Maximum de personnes</label>
-							<div class="controls">
-								{{ form_widget(edit_form.maxPerson, { 'attr': {'class': 'span12'} }) }}
-							</div>
-						</div>
-
+					</div>
 
 				</div>
 
@@ -136,7 +160,7 @@
 				<button type="submit" class="btn btn-large btn-block">Annuler</button>
 			</div>
 			<div class="span10">
-				<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Ajouter ce produit</button>
+				<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-pencil icon-white"></i> Modifier ce produit</button>
 			</div>
 		</div>
 
@@ -172,6 +196,177 @@
 
 {% block javascript %}
 {{parent()}}
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('#product_price_type_trigger select').trigger('change');
+	});
+	
+	$('#product_price_type_trigger select').change( 
+		function load_right_form_part() {
+			console.log($(this).val());
+			$('.conditional-field ').hide();
+			$('.'+$(this).val()).show();
+		}
+	);
+
+</script>
+
+
+<script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/sliding.form.js')}}"></script>
+
+<script type="text/javascript">
+	$(function() {
+	    /*
+	    number of fieldsets
+	    */
+	    var fieldsetCount = $('.form-slider-container').children().length;
+	 
+	    /*
+	    current position of fieldset / navigation link
+	    */
+	    var current     = 1;
+	 
+	    /*
+	    sum and save the widths of each one of the fieldsets
+	    set the final sum as the total width of the steps element
+	    */
+	    var stepsWidth  = 0;
+	    var widths      = new Array();
+	    $('#steps .step').each(function(i){
+	        var $step       = $(this);
+	        widths[i]       = stepsWidth;
+	        stepsWidth      += $step.width();
+	    });
+	    $('#steps').width(stepsWidth);
+	 
+	    /*
+	    to avoid problems in IE, focus the first input of the form
+	    */
+	    $('.form-slider-container').children(':first').find(':input:first').focus(); 
+	 
+	    /*
+	    show the navigation bar
+	    */
+	    $('#navigation').show();
+	 
+	    /*
+	    when clicking on a navigation link
+	    the form slides to the corresponding fieldset
+	    */
+	    $('#navigation a').bind('click',function(e){
+	        var $this   = $(this);
+	        var prev    = current;
+	        $this.closest('ul').find('li').removeClass('selected');
+	        $this.parent().addClass('selected');
+	        /*
+	        we store the position of the link
+	        in the current variable
+	        */
+	        current = $this.parent().index() + 1;
+	        /*
+	        animate / slide to the next or to the corresponding
+	        fieldset. The order of the links in the navigation
+	        is the order of the fieldsets.
+	        Also, after sliding, we trigger the focus on the first
+	        input element of the new fieldset
+	        If we clicked on the last link (confirmation), then we validate
+	        all the fieldsets, otherwise we validate the previous one
+	        before the form slided
+	        */
+	        $('#steps').stop().animate({
+	            marginLeft: '-' + widths[current-1] + 'px'
+	        },500,function(){
+	            if(current == fieldsetCount)
+	                validateSteps();
+	            else
+	                validateStep(prev);
+	            $('.form-slider-container').children(':nth-child('+ parseInt(current) +')').find(':input:first').focus();
+	        });
+	        e.preventDefault();
+	    });
+	 
+	    /*
+	    clicking on the tab (on the last input of each fieldset), makes the form
+	    slide to the next step
+	    */
+	    $('.form-slider-container > fieldset').each(function(){
+	        var $fieldset = $(this);
+	        $fieldset.children(':last').find(':input').keydown(function(e){
+	            if (e.which == 9){
+	                $('#navigation li:nth-child(' + (parseInt(current)+1) + ') a').click();
+	                /* force the blur for validation */
+	                $(this).blur();
+	                e.preventDefault();
+	            }
+	        });
+	    });
+	 
+	    /*
+	    validates errors on all the fieldsets
+	    records if the form has errors in $('#formElem').data()
+	    */
+	    function validateSteps(){
+	        var FormErrors = false;
+	        for(var i = 1; i < fieldsetCount; ++i){
+	            var error = validateStep(i);
+	            if(error == -1){
+	                FormErrors = true;
+	            }
+	        }
+	        $('.form-slider-container').data('errors',FormErrors);
+	    }
+	 
+	    /*
+	    validates one fieldset
+	    and returns -1 if errors found, or 1 if not
+	    */
+	    function validateStep(step){
+	        if(step == fieldsetCount) return;
+	 
+	        var error = 1;
+	        var hasError = false;
+	        $('.form-slider-container').children(':nth-child('+ parseInt(step) +')').find(':input:not(button)').each(function(){
+	            var $this       = $(this);
+	            var required	= $(this).attr('required');
+	            var valueLength = jQuery.trim($this.val()).length;
+	 
+	 			if(required) {
+		            if(valueLength == ''){
+		                hasError = true;
+		                $this.css('background-color','#FFEDEF');
+		            }
+		            else
+		                $this.css('background-color','#FFFFFF');
+	 			}
+	        });
+	        var $link = $('#navigation li:nth-child(' + parseInt(step) + ') a');
+	        $link.parent().find('.error,.checked').remove();
+	 
+	        var valclass = 'checked';
+	        if(hasError){
+	            error = -1;
+	            valclass = 'error';
+	        }
+	        $('<span class="'+valclass+'"></span>').insertAfter($link);
+	 
+	        return error;
+	    }
+	 
+	    /*
+	    if there are errors don't allow the user to submit
+	    */
+	    $('#addProductButton').bind('click',function(){
+	        if($('.form-slider-container').data('errors')){
+	            alert('Il reste des erreurs dans le formulaire (fond rouge)');
+	            return false;
+	        }
+	    });
+	});
+
+</script>
+
 
 <script type="text/javascript">
 	// Delete: ask for confirmation
