@@ -75,7 +75,7 @@ class OrderController extends Controller
      * Submit OrderDetail
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-	 * @Route("/", name="submit_cart")
+	 * @Route("/date-heure", name="submit_cart")
      * @Method("POST")
      */
     public function submitCartAction(Request $req)
@@ -129,10 +129,10 @@ class OrderController extends Controller
      * Submit Cart for hours details
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-	 * @Route("/date-heure", name="submit_cart_datetime")
+	 * @Route("/test", name="submit_cart_datetime")
      * @Method("POST")
      */
-    public function submitCartAction(Request $req)
+    public function submitCartForDateTimeAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
@@ -142,34 +142,10 @@ class OrderController extends Controller
 
         if ($form->isValid()) {
 
-            foreach ($cart->getOrders() as $order) {
-                foreach ($order->getOrderDetail() as $orderDetail) {
-                    foreach ($originalOrderDetails as $key => $toDel) {
-                        if ($toDel->getId() === $orderDetail->getId()) {
-                            unset($originalOrderDetails[$key]);
-                        }
-                    }
-                }
-            }
-
-            foreach ($originalOrderDetails as $orderDetail) {
-                $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($orderDetail->getOrder(), $orderDetail);
-
-                if (0 == $orderDetail->getOrder()->getOrderDetail()->count()) {
-                    $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($orderDetail->getOrder());
-                        $this->get('piggy_box_cart.manager.order')->removeOrder($orderDetail->getOrder());
-                }
-
-            }
-
             $em->persist($cart);
             $em->flush();
         }
 
-		$cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
-
-        $data['orders'] = $orders = $cart->getOrders();
-        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
 		$data['step'] = 'step-two';
 
         return $data;
