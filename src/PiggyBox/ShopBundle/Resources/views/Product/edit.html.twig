@@ -13,7 +13,7 @@
 		<h1>{{product.name}}</h1>
 	</div>
 
-	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal">
+	<form action="{{ path('monmagasin_mesproduits_update', {'id': product.id}) }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal">
     {{ form_errors(edit_form) }}
 
 		<div class="box box-margined">
