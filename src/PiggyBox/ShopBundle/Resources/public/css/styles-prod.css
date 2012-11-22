@@ -4215,6 +4215,7 @@ a.badge:hover {
 .form-slider-container #navigation {
   height: 45px;
   border-bottom: 4px solid #222222;
+  margin-bottom: 26px;
 }
 .form-slider-container #navigation ul {
   list-style: none;

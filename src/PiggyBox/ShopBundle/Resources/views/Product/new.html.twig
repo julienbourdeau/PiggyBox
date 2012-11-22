@@ -14,7 +14,7 @@
 	</div>
 
 
-	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(form)}} class="form-horizontal form-slider-container">
+	<form action="{{ path('monmagasin_mesproduits_create') }}" method="post" {{form_enctype(form)}} class="form-horizontal form-slider-container" data-errors="">
     {{ form_errors(form) }}
 
 		<div class="box box-margined">
@@ -277,8 +277,9 @@
 	        var FormErrors = false;
 	        for(var i = 1; i < fieldsetCount; ++i){
 	            var error = validateStep(i);
-	            if(error == -1)
+	            if(error == -1){
 	                FormErrors = true;
+	            }
 	        }
 	        $('.form-slider-container').data('errors',FormErrors);
 	    }
@@ -294,14 +295,20 @@
 	        var hasError = false;
 	        $('.form-slider-container').children(':nth-child('+ parseInt(step) +')').find(':input:not(button)').each(function(){
 	            var $this       = $(this);
+	            //console.log($this);
+	            var required	= $(this).attr('required');
+	            //console.log("\t"+required);
 	            var valueLength = jQuery.trim($this.val()).length;
 	 
-	            if(valueLength == ''){
-	                hasError = true;
-	                $this.css('background-color','#FFEDEF');
-	            }
-	            else
-	                $this.css('background-color','#FFFFFF');
+	 			if(required) {
+	            	console.log("\t\t"+required);
+		            if(valueLength == ''){
+		                hasError = true;
+		                $this.css('background-color','#FFEDEF');
+		            }
+		            else
+		                $this.css('background-color','#FFFFFF');
+	 			}
 	        });
 	        var $link = $('#navigation li:nth-child(' + parseInt(step) + ') a');
 	        $link.parent().find('.error,.checked').remove();
@@ -321,7 +328,7 @@
 	    */
 	    $('#addProductButton').bind('click',function(){
 	        if($('.form-slider-container').data('errors')){
-	            alert('Please correct the errors in the Form');
+	            alert('Il reste des erreurs dans le formulaire (fond rouge)');
 	            return false;
 	        }
 	    });
