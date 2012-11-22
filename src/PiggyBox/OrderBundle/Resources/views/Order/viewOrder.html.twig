@@ -12,6 +12,12 @@
 		{% endif %}
 	{% endif %}
 
+	{% if step is defined %}
+		{% if step == 'step-three' %}
+			{% include 'PiggyBoxOrderBundle:Order:step-three.html.twig' %}
+		{% endif %}
+	{% endif %}
+
 {% endblock %}
 
 {% block javascript %}
