@@ -14,17 +14,8 @@
             </div>
 
 
-            <div id="action-buttons" class="row bottom-marged">
-                <div class="span12">
-                    <a href="{{ path('shops') }}" id="" class="btn btn-xlarge btn-primary"><i class="icon-map-marker icon-white"></i> Rechercher sur Nantes</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{ path('ccm') }}" class="btn btn-xlarge"><i class="icon-book"></i> Comprendre le site</a>
-                </div>
-            </div>
-
-
             <div class="row bottom-marged">
-                <div class="span12">
+                <div class="span12" style="margin-top: 32px; margin-bottom: 32px;">
                     <div class="black-bordered">
                         <a href="{{ path('shops') }}">
                             <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
@@ -39,32 +30,45 @@
 
 
     <div class="container">
-        <div class="row big-quote bottom-marged">
-            <div class="span12">
-                <blockquote class="homepage">
-                    <img src="{{ asset('bundles/piggyboxuser/img/quotes-open.png')}}" alt="" class="pull-left quotes-open">
-                    <img src="{{ asset('bundles/piggyboxuser/img/quotes-close.png')}}" alt="" class="pull-right quotes-close">
-                    <p class="text-centered">
-                        La qualité et le service des commerces de proximité <br>
-                        avec les avantages du drive
-                    </p>
-                </blockquote>
+        <div class="row bottom-marged">
+
+            <div class="span6">
+                <img src="{{ asset('bundles/piggyboxuser/img/features.png')}}" alt="" />
             </div>
+
+            <div class="span6">
+                <h1 class="no-margin text-centered">Coups de coeur</h1>
+                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
+                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
+                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
+            </div>
+
         </div>
     </div>
 
 
-	<div class="container">
-		<div class="row bottom-marged">
-			<div class="span12">
-                <div id="launch-ribbon" class="text-centered clearfix">
-                    <div class="dash-container">
-    				    <h2>Déjà plusieurs partenaires sur Nantes
-    					   <br>Bientôt encore plus de commerces et villes disponibles</h2>
-                    </div>
-    			</div>
-    		</div>
-    	</div>
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <h1 class="text-centered">Ils parlent de nous</h1>
+            </div>
+        </div>
+        <div class="row bottom-marged">
+            {#<div class="span4">
+                <a href="http://www.startup-factory.fr/">
+                    <img class="" src="{{ asset('bundles/piggyboxuser/img/presse/startupfactory.png')}}" alt="">
+                </a>
+            </div> #}
+            <div class="span12 presse-links">
+                <a id="startupfactory" href="http://www.startup-factory.fr/"></a>
+                <a id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
+                <a id="sunradio" href="http://kwalitylife.com/le-petit-club-03-novembre-sun-radio/"></a>
+                <a id="atlanpole" class="last" href="http://www.atlanpole.fr/Atlanpole-Digital-Innovation/liste-des-news/Startup-Factory-by-Atlanpole-Atlantic-2.0-les-8-laureats-de-la-premiere-saison"></a>
+                <a id="frenchweb" href="http://frenchweb.fr/startup-factory-les-8-jeunes-pousses-selectionnees-pour-la-1ere-saison-sont/78901"></a>
+                <a id="journalentreprise" href="http://www.lejournaldesentreprises.com/national/filinfo/nantes-huit-projets-retenus-par-startup-factory-02-10-2012-161205.php"></a>
+                <a id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
+            </div>
+        </div>
     </div>
 
 
@@ -79,6 +83,7 @@
             </div>
         </div>
     </div>
+
 
 
 

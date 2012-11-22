@@ -1,5 +1,8 @@
 
+<div class="clearfix">
+
 {% for product in products %}
+
 
 	<div class="product-item
 				box
@@ -19,7 +22,7 @@
 			</div>
 
 			<div class="product-thumbnail">
-				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="">
+				<img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class="img160x160">
 			</div>
 
 
@@ -49,9 +52,13 @@
 
 	</div>
 
+{% if loop.index is divisibleby(3) %}
+	</div><div class="clearfix">
+{% endif %}
 
 {% endfor %}
 
+</div>
 
 <!-- Modal -->
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

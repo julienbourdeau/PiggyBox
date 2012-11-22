@@ -30,4 +30,3 @@
 		$(this).prev().val(quantity);
     });
 })(jQuery);
-
