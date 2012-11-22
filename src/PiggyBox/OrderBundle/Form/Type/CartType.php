@@ -11,7 +11,10 @@ class CartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('orders', 'collection', array('type' => new OrderType()));
+            ->add('orders', 'collection', array(
+                 'type' => new OrderType(),
+                'by_reference' => false,
+            ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
