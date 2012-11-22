@@ -32,4 +32,16 @@ class CartRepository extends EntityRepository
             ->setParameter('cartId', $cartId)
             ->getResult();
     }
+
+    /**
+     * Find cart by session left join orders and order details and products
+     *
+     * */
+    public function findBySession($cartId)
+    {
+    return $this->getEntityManager()
+            ->createQuery('SELECT c, o, d, p FROM PiggyBoxOrderBundle:Cart c LEFT JOIN c.orders  o LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE c.id=:cart_id')
+            ->setParameter('cart_id', $cartId)
+            ->getSingleResult();
+    }
 }

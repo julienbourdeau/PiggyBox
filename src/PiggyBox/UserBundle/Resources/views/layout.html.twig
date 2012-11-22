@@ -59,7 +59,11 @@
                                     <a id="shopping-cart-button" href="{{ path('validation_page') }}" class="pull-right">
                                         <strong><i class="icon-shopping-cart"></i> Panier</strong>
                                         <br>
-                                        <small>Actuellement vide</small>
+										{% if piggybox_product_number_in_cart() == 0 %}
+	                                        <small>Actuellement vide</small>
+										{% else %}
+											<small><span class="badge badge-success">{{piggybox_product_number_in_cart()}}</span></small>
+										{% endif %}
                                     </a>
                                 </div>
 

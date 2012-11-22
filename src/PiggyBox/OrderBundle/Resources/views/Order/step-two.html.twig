@@ -1,0 +1,91 @@
+<div id="content" class="">
+	<form action="{{path('submit_cart')}}" method="post" {{form_enctype(form)}}>
+
+    <section id="shopping-cart-progess-bar" class="clearfix">
+
+        <div id="" class="container cart-progress">
+            <div class="row">
+                <div class="span10 offset1 text-centered">
+
+                    <div class="cart-progress-item">
+                        <div class="step-number"><span>1</span></div>
+                        Commande
+                    </div>
+                    <div class="cart-progress-item current">
+                        <div class="step-number"><span>2</span></div>
+                        Date & Heure
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>3</span></div>
+                        Identification
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>4</span></div>
+                        Validation
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>5</span></div>
+                        Confirmation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Quand voulez-vous recupérer votre commande ?</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	{% for order in form.orders %}
+    <div class="container">
+
+        <div class="row">
+            <div class="span12">
+				<h2>{{order.vars.value.shop.name}}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span6 offset3 form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="pickup_date">Jour</label>
+                    <div class="controls" data-load-shop="{{order.vars.value.shop.id}}">
+						{{ form_widget(order.pickupatDate, { 'attr': {'class': 'inline-quantity pickupDate'} }) }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="pickup_date">Heure</label>
+                    <div class="controls">
+						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+	{% endfor %}
+
+    <div class="container">
+        <div class="row">
+            <div class="toolbar">
+                <div class="span6">
+                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                </div>
+                <div class="span6 text-right">
+                    <button href="#" class="btn btn-large btn-primary">Identifiez-vous  <i class="icon-arrow-right icon-white"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	{{ form_widget(form._token) }}
+	</form>
+</div>
+
