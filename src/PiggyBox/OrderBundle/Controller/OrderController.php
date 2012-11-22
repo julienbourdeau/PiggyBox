@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Form\Type\OrderType;
+use PiggyBox\OrderBundle\Form\Type\CartType;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
@@ -23,14 +24,14 @@ use PiggyBox\OrderBundle\OrderEvents;
 /**
  * Order controller.
  *
- * @Route("/commande")
+ * @Route("/checkout")
  */
 class OrderController extends Controller
 {
     /**
-     * Validate Order
+     * Submit OrderDetail
      *
-     * @Route("/checkout/{product_id}", name="cart_add_product", defaults={"_format"="json"})
+     * @Route("/{product_id}", name="cart_add_product", defaults={"_format"="json"}, requirements={"product_id" = "\d+"})
      * @ParamConverter("product", options={"mapping": {"product_id": "id"}})
      * @Method("POST")
      */
@@ -53,24 +54,76 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove a product from the cart
+     * 
      *
-     * @Route("/enlever/{order_detail_id}", name="cart_remove_product")
-     * @ParamConverter("orderDetail", options={"mapping": {"order_detail_id": "id"}})
+     * @Template()
+	 * @Route("/", name="view_order")
      */
-    public function removeProductAction(OrderDetail $orderDetail)
+    public function viewOrderAction()
     {
-        $order = $orderDetail->getOrder();
-        $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($order, $orderDetail);
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
-        if (0 == $order->getOrderDetail()->count()) {
-            $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
-            $this->get('piggy_box_cart.manager.order')->removeOrder($order);
+        $data['orders'] = $orders = $cart->getOrders();
+        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+
+        return $data;
+    }
+
+    /**
+     * Submit OrderDetail
+     *
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     * @Route("/date-heure", name="submit_cart")
+     * @Method("POST")
+     */
+    public function submitCartAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($cart->getOrders() as $order) {
+            foreach ($order->getOrderDetail() as $orderDetail) $originalOrderDetails[] = $orderDetail;
         }
 
-        $this->get('session')->setFlash('success', 'Le produit a ete correctement retiré');
+        $form = $this->createForm(new CartType(), $cart);
+        $form->bind($req);
 
-        return new RedirectResponse($this->get('request')->headers->get('referer'));
+
+        if ($form->isValid()) {
+
+            foreach ($cart->getOrders() as $order) {
+                foreach ($order->getOrderDetail() as $orderDetail) {
+                    foreach ($originalOrderDetails as $key => $toDel) {
+                        if ($toDel->getId() === $orderDetail->getId()) {
+                            unset($originalOrderDetails[$key]);
+                        }
+                    }
+                }
+            }
+
+            foreach ($originalOrderDetails as $orderDetail) {
+                $this->get('piggy_box_cart.manager.order')->removeOrderDetailFromOrder($orderDetail->getOrder(), $orderDetail);
+
+                if (0 == $orderDetail->getOrder()->getOrderDetail()->count()) {
+                    $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($orderDetail->getOrder());
+                        $this->get('piggy_box_cart.manager.order')->removeOrder($orderDetail->getOrder());
+                }
+
+            }
+
+            $em->persist($cart);
+            $em->flush();
+        }
+
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
+
+        $data['orders'] = $orders = $cart->getOrders();
+        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+		$data['step'] = 'step-two';
+		
+        return $data;
     }
 
     /**

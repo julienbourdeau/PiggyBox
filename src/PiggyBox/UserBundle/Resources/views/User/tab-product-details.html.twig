@@ -171,7 +171,7 @@
 
 	{% if random_products|length > 0 %}
 
-    <h1 class="text-centered">Produits au hasard</h1>
+    <h1 class="text-centered">Nos clients ont acheté avec ce produit:</h1>
 
    		{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': random_products} %}
 

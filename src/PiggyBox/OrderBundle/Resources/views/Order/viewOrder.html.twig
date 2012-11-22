@@ -1,0 +1,77 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+{% block content %}
+
+	{% if step is not defined %}
+		{% include 'PiggyBoxOrderBundle:Order:step-one.html.twig' %}
+	{% endif %}
+
+	{% if step is defined %}
+		{% if step == 'step-two' %}
+			{% include 'PiggyBoxOrderBundle:Order:step-two.html.twig' %}
+		{% endif %}
+	{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+{{parent()}}
+<script src="{{ asset('bundles/piggyboxorder/js/viewOrder.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+<script type="text/javascript">
+(function ($) {
+$(document).ready(function() {
+	$('select').change(function (e) {
+		var target = $(this);
+		var selectDateId = $(this).attr('id');
+		var selectTimeId = $(this).attr('id').replace("pickupatDate_date", "pickupatTime_time");
+		var selectTime = $('select#'+selectTimeId);
+		var shop_id = target.parent().parent().parent();
+
+   	    if (shop_id.attr('data-load-shop')) {
+   	        $.ajax({
+   	            url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
+   	            dataType: 'json',
+   	            success: function (data) {
+
+				var select = selectTime;
+				addOptionsToSelect(select, data.content);
+
+					if(isEmpty(data.content)){
+						var selectDate = document.getElementById(selectDateId);
+						selectDate.remove("0");
+
+						$.ajax({
+							url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : selectDate.options[0].value}),
+							dataType: 'json',
+							success: function (data) {
+							var select = selectTime;
+							addOptionsToSelect(select, data.content);
+							}
+						});
+					}
+				}
+    	        });
+    	    }
+    	}).trigger('change');
+	});
+
+	function isEmpty(val){
+    	return (val === undefined || val == null || val.length <= 0) ? true : false;
+	}
+
+	function addOptionsToSelect(select, content){
+		if(select.prop) {
+		  var options = select.prop('options');
+		}
+
+		else {
+			var options = select.attr('options');
+		}
+		$('option', select).remove();
+		select.append(content);
+	}
+})(jQuery);
+</script>
+{% endblock %}

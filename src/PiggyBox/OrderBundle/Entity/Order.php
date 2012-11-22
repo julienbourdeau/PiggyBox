@@ -48,7 +48,7 @@ class Order
      *
      * @ORM\Column(name="total_products", type="integer", nullable=true)
      */
-    private $total_products;
+    private $totalProducts;
 
     /**
      * @var \DateTime $createdat
@@ -239,26 +239,26 @@ class Order
     }
 
     /**
-     * Set total_products
+     * Set totalProducts
      *
      * @param  integer $totalProducts
      * @return Order
      */
     public function setTotalProducts($totalProducts)
     {
-        $this->total_products = $totalProducts;
+        $this->totalProducts = $totalProducts;
 
         return $this;
     }
 
     /**
-     * Get total_products
+     * Get totalProducts
      *
      * @return integer
      */
     public function getTotalProducts()
     {
-        return $this->total_products;
+        return $this->totalProducts;
     }
 
     /**
