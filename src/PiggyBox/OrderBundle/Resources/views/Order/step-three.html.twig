@@ -1,5 +1,4 @@
 <div id="content" class="">
-	<form action="{{path('submit_cart_datetime')}}" method="post" {{form_enctype(form)}}>
 
     <section id="shopping-cart-progess-bar" class="clearfix">
 
@@ -11,11 +10,11 @@
                         <div class="step-number"><span>1</span></div>
                         Commande
                     </div>
-                    <div class="cart-progress-item current">
+                    <div class="cart-progress-item">
                         <div class="step-number"><span>2</span></div>
                         Date & Heure
                     </div>
-                    <div class="cart-progress-item muted">
+                    <div class="cart-progress-item current">
                         <div class="step-number"><span>3</span></div>
                         Validation
                     </div>
@@ -30,43 +29,38 @@
     </section>
 
     <div class="container">
-        <div class="row">
+        <div class="row bottom-marged">
             <div class="span12">
-                <div class="page-header">
-                    <h1>Quand voulez-vous recupérer votre commande ?</h1>
+                <h1 class="text-centered">Choisissez votre moyen de paiement</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <h2>Payez en boutique</h2>
+
+                <form action="">
+                    <label for="" class="radio">
+                        <input type="radio" value="" checked>
+                        Payer ma commande en magasin
+                    </label>
+                </form>
+            </div>
+            <div class="span8">
+                <div class="row-fluid" style="border-left: 2px solid #999;">
+                    <div class="span1"></div>
+                    <div class="span11">
+                        <h2>Payer en ligne</h2>
+
+                        <div>
+                            <div class="coming-soon"></div>
+                            <img src="{{ asset('bundles/piggyboxuser/img/paiement.jpg')}}" alt="" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-	{% for order in form.orders %}
-    <div class="container">
-
-        <div class="row">
-            <div class="span12">
-				<h2>{{order.vars.value.shop.name}}</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="span6 offset3 form-horizontal">
-                <div class="control-group">
-                    <label class="control-label" for="pickup_date">Jour</label>
-                    <div class="controls" data-load-shop="{{order.vars.value.shop.id}}">
-						{{ form_widget(order.pickupatDate, { 'attr': {'class': 'inline-quantity pickupDate'} }) }}
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="pickup_date">Heure</label>
-                    <div class="controls">
-						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-	{% endfor %}
 
     <div class="container">
         <div class="row">
@@ -75,12 +69,10 @@
                     <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">Identifiez-vous  <i class="icon-arrow-right icon-white"></i></button>
+                    <button href="#" class="btn btn-large btn-primary">Confirmation<i class="icon-arrow-right icon-white"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
-	{{ form_widget(form._token) }}
-	</form>
 </div>

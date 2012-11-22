@@ -54,10 +54,10 @@ class OrderController extends Controller
     }
 
     /**
-     * 
+     *
      *
      * @Template()
-	 * @Route("/", name="view_order")
+     * @Route("/", name="view_order")
      */
     public function viewOrderAction()
     {
@@ -90,7 +90,6 @@ class OrderController extends Controller
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
 
-
         if ($form->isValid()) {
 
             foreach ($cart->getOrders() as $order) {
@@ -121,8 +120,34 @@ class OrderController extends Controller
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
-		$data['step'] = 'step-two';
-		
+        $data['step'] = 'step-two';
+
+        return $data;
+    }
+
+    /**
+     * Submit Cart for hours details
+     *
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     * @Route("/identification", name="submit_cart_datetime")
+     * @Method("POST")
+     */
+    public function submitCartForDateTimeAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(new CartType(), $cart);
+        $form->bind($req);
+
+        if ($form->isValid()) {
+
+            $em->persist($cart);
+            $em->flush();
+        }
+
+        $data['step'] = 'step-three';
+
         return $data;
     }
 
