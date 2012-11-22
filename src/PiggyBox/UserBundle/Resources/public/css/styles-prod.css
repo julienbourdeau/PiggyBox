@@ -4328,8 +4328,7 @@ ul.megalist {
   list-style-image: url('../img/tick.png');
   font-size: 26px;
 }
-label[for="piggybox_orderbundle_ordertype_pickupatTime_time"],
-label[for="piggybox_orderbundle_ordertype_pickupatDate_date"] {
+label[for*="piggybox_orderbundle_carttype_orders"] {
   display: none;
 }
 /*!
