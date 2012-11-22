@@ -120,3 +120,85 @@
 	background: url('../img/tick.png');
 }
 
+.form-slider-container {
+	@sliderwidth: 580px;
+	.wrapper{
+	    //box-shadow:0px 0px 3px #aaa;
+	    //.border-radius(10px);
+	    //border:2px solid #fff;
+	    //background-color:#f9f9f9;
+	    width: @sliderwidth;
+	    overflow:hidden;
+	}
+	#steps{
+	    width: @sliderwidth;
+	    overflow:hidden;
+	}
+	.step{
+	    float:left;
+	    width: @sliderwidth;
+	}
+	#navigation{
+	    height:45px;
+	    border-bottom:4px solid @grayDarker;
+		
+		ul{
+		    list-style:none;
+		    margin:auto;
+		    width: 444px;
+		}
+		ul li{
+		    float:left;
+		    position:relative;
+		    margin:0px 6px;
+		}
+		ul li a{
+		    display:block;
+		    height:45px;
+		    background-color:#444;
+		    color:#777;
+		    outline:none;
+		    font-weight:bold;
+		    text-decoration:none;
+		    line-height:45px;
+		    padding:0px 20px;
+		    background:#f0f0f0;
+		    background:
+		        -webkit-gradient(
+		        linear,
+		        left bottom,
+		        left top,
+		        color-stop(0.09, rgb(240,240,240)),
+		        color-stop(0.55, rgb(227,227,227)),
+		        color-stop(0.78, rgb(240,240,240))
+		        );
+		    background:
+		        -moz-linear-gradient(
+		        center bottom,
+		        rgb(240,240,240) 9%,
+		        rgb(227,227,227) 55%,
+		        rgb(240,240,240) 78%
+		        )
+		}
+		ul li a:hover,
+		ul li.selected a{
+		    background:@grayDarker;
+		    color:@white;
+		}
+
+		span.checked{
+		    background:transparent url(../img/checked.png) no-repeat top left;
+		    position:absolute;
+		    top:0px;
+		    width:20px;
+		    height:20px;
+		}
+		span.error{
+		    background:transparent url(../img/error.png) no-repeat top left;
+		    position:absolute;
+		    top:0px;
+		    width:20px;
+		    height:20px;
+		}
+	}
+}
