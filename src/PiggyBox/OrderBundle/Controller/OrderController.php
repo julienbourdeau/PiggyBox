@@ -75,7 +75,7 @@ class OrderController extends Controller
      * Submit OrderDetail
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-	 * @Route("/date-heure", name="submit_cart")
+     * @Route("/date-heure", name="submit_cart")
      * @Method("POST")
      */
     public function submitCartAction(Request $req)
@@ -116,11 +116,11 @@ class OrderController extends Controller
             $em->flush();
         }
 
-		$cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
-		$data['step'] = 'step-two';
+        $data['step'] = 'step-two';
 
         return $data;
     }
@@ -129,7 +129,7 @@ class OrderController extends Controller
      * Submit Cart for hours details
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-	 * @Route("/test", name="submit_cart_datetime")
+     * @Route("/identification", name="submit_cart_datetime")
      * @Method("POST")
      */
     public function submitCartForDateTimeAction(Request $req)
@@ -146,7 +146,7 @@ class OrderController extends Controller
             $em->flush();
         }
 
-		$data['step'] = 'step-two';
+        $data['step'] = 'step-three';
 
         return $data;
     }

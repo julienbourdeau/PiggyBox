@@ -1,17 +1,1 @@
-{% extends 'FOSUserBundle::layout.html.twig' %}
-
-{% block content %}
-
-	<div class="container">
-	    <div class="row">
-
-	        <div id="content" class="span6 offset3">
-
-	        	{% include 'FOSUserBundle:Registration:register_content.html.twig' %}
-
-	        </div>
-
-	    </div>
-	</div>
-
-{% endblock %}
+{% include 'FOSUserBundle:Registration:register_content.html.twig' %}
