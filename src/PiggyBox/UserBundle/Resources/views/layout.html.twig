@@ -59,11 +59,7 @@
                                     <a id="shopping-cart-button" href="{{ path('validation_page') }}" class="pull-right">
                                         <strong><i class="icon-shopping-cart"></i> Panier</strong>
                                         <br>
-										{% if piggybox_product_number_in_cart() == 0 %}
-	                                        <small>Actuellement vide</small>
-										{% else %}
-											<small><span class="badge badge-success">{{piggybox_product_number_in_cart()}}</span></small>
-										{% endif %}
+                                        <small>Actuellement vide</small>
                                     </a>
                                 </div>
 
@@ -88,7 +84,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
+        </div>
 
 		{% for name, value in app.session.flashes if name in ['success', 'error'] %}
             <div class="container">
@@ -152,8 +149,9 @@
                             16 impasse du stade <br>
                             Raymond Durand <br>
                             44120 Vertou<br>
-                            <abbr title="Telephone">Tel:</abbr> 02 40 37 46 67
-                            <a href="mailto:team@theboxmake.rs">team@theboxmake.rs</a>
+                            <abbr title="Telephone">Tel:</abbr> 02 40 37 46 67 <br>
+                            <a href="mailto:team@theboxmake.rs">team@theboxmake.rs</a> <br>
+                            SIRET: 78906613100010
                         </address>
                     </div>
 
@@ -201,14 +199,6 @@
 
         </script>
 
-		<script type="text/javascript">
-		var uvOptions = {};
-			(function() {
-			 var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-			 uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/rkoElkbRdY0HHfnblIQk9Q.js';
-			 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-		    })();
-		</script>
 
 		{% endif %}
 

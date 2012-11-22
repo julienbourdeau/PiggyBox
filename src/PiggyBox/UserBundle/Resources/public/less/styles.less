@@ -248,9 +248,18 @@ h1 {
 	}
 }
 #category_tree > li {
-	margin-bottom: 4px;
-	border-bottom: 2px dashed @grayLight;
-	padding-bottom: 4px;
+	margin-top: 4px;
+	border-top: 2px dashed @grayBorder;
+	padding-top: 4px;
+}
+#category_tree .subnav > li {
+    margin-left: 16px;
+    border-left: 1px solid @grayBorder;
+	a {
+		margin-left: 0;
+		color: @grayDarker;
+	}
+
 }
 
 #entry-content {
@@ -511,7 +520,7 @@ table.cart-total {
 /*==========================================================================
    Home page's custom styles
   ==========================================================================*/
-
+/*
 #ribbon {
 	margin-top: -36px;
 	background: #eeeeee;
@@ -529,6 +538,7 @@ table.cart-total {
 
 	}
 }
+*/
 
 blockquote.homepage {
 	margin: 24px 0;
@@ -545,6 +555,75 @@ blockquote.homepage {
 	}
 	img.quotes-close {
 		margin-top: 64px;
+	}
+}
+
+
+.presse-links {
+	a {
+		float: left;
+		display: block;
+		margin: 0 100px 32px 0;
+		background-image: url("@{pressePath}");
+	}
+	#startupfactory {
+		width: 374px;
+		height: 149px;
+		background-position: 0 0;
+	}
+	#startupfactory:hover {
+		background-position: -374px 0;
+	}
+	#unefilleanantes {
+		width: 116px;
+		height: 129px;
+		background-position: 0 -150px;
+	}
+	#unefilleanantes:hover {
+		background-position: -116px -150px;
+	}
+	#sunradio {
+		width: 130px;
+		height: 130px;
+		background-position: -232px -150px;
+	}
+	#sunradio:hover {
+		background-position: -362px -150px;
+	}
+	#atlanpole {
+		margin-right: 0;
+		width: 110px;
+		height: 159px;
+		background-position: -637px -150px; 
+	}
+	#atlanpole:hover {
+		background-position: -520px -150px;
+	}
+	#frenchweb {
+		margin-left: 64px;
+		width: 260px;
+		height: 51px;
+		background-position: 0 -307px;
+	}
+	#frenchweb:hover {
+		background-position: -260px -307px;
+	}
+	#journalentreprise {
+		width: 200px;
+		height: 70px;
+		background-position: 0 -358px;
+	}
+	#journalentreprise:hover {
+		background-position: -200px -358px;
+	}
+	#ouestfrance {
+		margin-right: 0;
+		width: 280px;
+		height: 46px;
+		background-position: 0 -428px;
+	}
+	#ouestfrance:hover {
+		background-position: -280px -428px;
 	}
 }
 
@@ -580,6 +659,20 @@ blockquote.homepage {
 }
 
 
+.img160x160 {
+	display: block;
+	width: 160px;
+	height: 160px;
+	margin: 0 auto 16px auto;
+	background-image: url('../img/indispo/indispo_160x160.png');
+}
+.img300x300 {
+	display: block;
+	width: 300px;
+	height: 300px;
+	margin: auto;
+	background-image: url('../img/indispo/indispo_300x300.png');
+}
 
 
 
