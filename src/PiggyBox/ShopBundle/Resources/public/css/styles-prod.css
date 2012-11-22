@@ -4200,6 +4200,9 @@ a.badge:hover {
 .box-success .price-img {
   background: url('../img/tick.png');
 }
+.conditional-field {
+  display: none;
+}
 .form-slider-container .wrapper {
   width: 580px;
   overflow: hidden;
