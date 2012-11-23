@@ -30,7 +30,8 @@
         "sonata-project/seo-bundle": "*",
         "bcc/cron-manager-bundle": "*",
         "craue/twigextensions-bundle": "dev-master",
-		"whiteoctober/breadcrumbs-bundle": "2.1.x-dev"
+		"whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
+        "egeloen/google-map-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
