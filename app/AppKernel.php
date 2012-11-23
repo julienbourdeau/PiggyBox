@@ -32,6 +32,7 @@ class AppKernel extends Kernel
 			new BCC\CronManagerBundle\BCCCronManagerBundle(),
 			new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
 			new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+	        new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
 
 			//bundles for category in PiggyBoxShopBundle
 			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
