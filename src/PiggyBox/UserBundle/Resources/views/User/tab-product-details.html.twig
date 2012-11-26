@@ -66,18 +66,19 @@
 
 	{% if  product.priceType == 'unit_fixed_price' %}
     <div class="product-toolbar text-centered span6 offset3">
-        <form action="" class="form-inline">
+		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
 
             <table class="table pricing">
                 <tr>
                     <td class="select-quantity">
-                        <span class="btn left"><i class="icon-minus"></i></span>
-                        <input type="text" class="inline-quantity">
-                        <span class="btn right"><i class="icon-plus"></i></span>
+						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+						{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
                     </td>
 
                     <td class="select-add">
-                        <a href="" class="btn">Ajouter</a>
+						<button class="btn btn-mini">Ajouter</button>
+						{{ form_widget(myFormInstance._token) }}
                     </td>
                 </tr>
             </table>
@@ -86,78 +87,50 @@
     </div>
 	{% elseif product.priceType == 'unit_variable_price' %}
     <div class="product-toolbar text-centered span9 offset1">
-        <form action="" class="form-inline">
+		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
+			<table class="table pricing">
+				<tbody>
+					<tr>
+						<td class="select-quantity">
+							<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+							{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+							<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+						</td>
 
-            <table class="table pricing">
-                <tr>
-                    <td class="select-quantity">
-                        <span class="btn left"><i class="icon-minus"></i></span>
-                        <input type="text" class="inline-quantity">
-                        <span class="btn right"><i class="icon-plus"></i></span>
-                    </td>
+						<td class="select-size">
+							{{ form_widget(myFormInstance.quantityDetail) }}
+						</td>
 
-                    <td class="select-size">
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                            <i class="icon-meat24"></i> <span>Bon mangeur</span>
-                        </label>
-                        <br />
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
-                            <i class="icon-meat16"></i> <span>Normal</span>
-                        </label>
-                        <br />
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
-                            <i class="icon-meat12"></i> <span>Petite faim</span>
-                        </label>
-                    </td>
-
-                    <td class="select-add">
-                        <a href="" class="btn">Ajouter</a>
-                    </td>
-                </tr>
-            </table>
-
-        </form>
+						<td class="select-add">
+							<button class="btn btn-mini">Ajouter</button>
+							{{ form_widget(myFormInstance._token) }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
     </div>
 	{% else %}
     <div class="product-toolbar text-centered span9 offset1">
-        <form action="" class="form-inline">
+		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
 
             <table class="table pricing">
                 <tr>
                     <td class="select-quantity">
-                        <span class="btn left"><i class="icon-minus"></i></span>
-                        <input type="text" class="inline-quantity inline-quantity-person" value="1 pers.">
-                        <span class="btn right"><i class="icon-plus"></i></span>
-                    </td>
-
-                    <td class="select-size">
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                            <i class="icon-meat24"></i> <span>Bon mangeur</span>
-                        </label>
-                        <br />
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked>
-                            <i class="icon-meat16"></i> <span>Normal</span>
-                        </label>
-                        <br />
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option3">
-                            <i class="icon-meat12"></i> <span>Petite faim</span>
-                        </label>
+						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+						{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
                     </td>
 
                     <td class="select-add">
-                        <a href="" class="btn">Ajouter</a>
+						<button class="btn btn-mini">Ajouter</button>
+						{{ form_widget(myFormInstance._token) }}
                     </td>
                 </tr>
             </table>
 
         </form>
-    </div>
+	</div>
 	{% endif %}
 </div>
 
