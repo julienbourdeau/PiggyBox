@@ -16,6 +16,9 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxuser/css/styles-prod.css')}}">
         {% endif %}
 
+            <link rel="stylesheet" type="text/css" media="print" href="{{ asset('bundles/piggyboxuser/css/print.css')}}">
+
+
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -56,7 +59,7 @@
                                 </div>
 
                                 <div class="clearfix">
-                                    <a id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right">
+                                    <a id="shopping-cart-button" href="{{ path('validation_page') }}" class="pull-right">
                                         <strong><i class="icon-shopping-cart"></i> Panier</strong>
                                         <br>
                                         <small>Actuellement vide</small>
