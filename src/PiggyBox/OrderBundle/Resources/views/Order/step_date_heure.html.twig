@@ -5,9 +5,9 @@
 
         <div id="" class="container cart-progress">
             <div class="row">
-                <div class="span8 offset2 text-centered">
+                <div class="span10 offset1 text-centered">
 
-                    <div class="cart-progress-item">
+                    <div class="cart-progress-item ">
                         <div class="step-number"><span>1</span></div>
                         Commande
                     </div>
@@ -17,10 +17,14 @@
                     </div>
                     <div class="cart-progress-item muted">
                         <div class="step-number"><span>3</span></div>
-                        Validation
+                        Identification
                     </div>
                     <div class="cart-progress-item muted">
                         <div class="step-number"><span>4</span></div>
+                        Validation
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>5</span></div>
                         Confirmation
                     </div>
                 </div>
@@ -75,7 +79,8 @@
                     <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">Identifiez-vous  <i class="icon-arrow-right icon-white"></i></button>
+                    <button href="#" class="btn btn-large btn-primary">{% if app.user %}Paiement {% else %}Identifiez-vous 
+                    {% endif %}<i class="icon-arrow-right icon-white"></i></button>
                 </div>
             </div>
         </div>

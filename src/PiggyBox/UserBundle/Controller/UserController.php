@@ -13,8 +13,6 @@ use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-use Ivory\GoogleMapBundle\Model\Overlays\Animation;
-use Ivory\GoogleMapBundle\Model\Events\MouseEvent;
 
 /**
  * User controller.
@@ -40,44 +38,44 @@ class UserController extends Controller
      */
     public function shopsAction()
     {
-		$map = $this->get('ivory_google_map.map');
+        $map = $this->get('ivory_google_map.map');
 
-		$map->setPrefixJavascriptVariable('map_');
-		$map->setHtmlContainerId('map_canvas');
-		$map->setAsync(false);
+        $map->setPrefixJavascriptVariable('map_');
+        $map->setHtmlContainerId('map_canvas');
+        $map->setAsync(false);
 
-		$map->setCenter(47.2179340, -1.5573370, true);
-		$map->setMapOption('zoom', 12);
+        $map->setCenter(47.2179340, -1.5573370, true);
+        $map->setMapOption('zoom', 12);
 
-		$map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
+        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
 
-		$map->setStylesheetOptions(array(
-			'width' => '100%',
-			'height' => '400px'
-		));
+        $map->setStylesheetOptions(array(
+            'width' => '100%',
+            'height' => '400px'
+        ));
 
-		$marker = $this->get('ivory_google_map.marker');
+        $marker = $this->get('ivory_google_map.marker');
 
-		// Configure your marker options
-		$marker->setPrefixJavascriptVariable('marker_');
-		$marker->setPosition(47.2144380, -1.585360, true);
+        // Configure your marker options
+        $marker->setPrefixJavascriptVariable('marker_');
+        $marker->setPosition(47.2144380, -1.585360, true);
 
-		$marker2 = $this->get('ivory_google_map.marker');
-		$marker2->setPrefixJavascriptVariable('marker_');
-		$marker2->setPosition(47.215545,-1.564271, true);
+        $marker2 = $this->get('ivory_google_map.marker');
+        $marker2->setPrefixJavascriptVariable('marker_');
+        $marker2->setPosition(47.215545,-1.564271, true);
 
-		$marker3 = $this->get('ivory_google_map.marker');
-		$marker3->setPrefixJavascriptVariable('marker_');
-		$marker3->setPosition(47.229044,-1.57163, true);
+        $marker3 = $this->get('ivory_google_map.marker');
+        $marker3->setPrefixJavascriptVariable('marker_');
+        $marker3->setPosition(47.229044,-1.57163, true);
 
-		$marker4 = $this->get('ivory_google_map.marker');
-		$marker4->setPrefixJavascriptVariable('marker_');
-		$marker4->setPosition(47.214962,-1.55429, true);
+        $marker4 = $this->get('ivory_google_map.marker');
+        $marker4->setPrefixJavascriptVariable('marker_');
+        $marker4->setPosition(47.214962,-1.55429, true);
 
-		$map->addMarker($marker);
-		$map->addMarker($marker2);
-		$map->addMarker($marker3);
-		$map->addMarker($marker4);
+        $map->addMarker($marker);
+        $map->addMarker($marker2);
+        $map->addMarker($marker3);
+        $map->addMarker($marker4);
 
         return array('map' => $map);
     }

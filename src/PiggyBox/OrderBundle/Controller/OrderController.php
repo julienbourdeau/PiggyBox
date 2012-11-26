@@ -120,7 +120,7 @@ class OrderController extends Controller
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
-        $data['step'] = 'step-two';
+        $data['step'] = 'step_date_heure';
 
         return $data;
     }
@@ -129,7 +129,7 @@ class OrderController extends Controller
      * Submit Cart for hours details
      *
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-     * @Route("/identification", name="submit_cart_datetime")
+     * @Route("/status/", name="submit_cart_datetime")
      * @Method("POST")
      */
     public function submitCartForDateTimeAction(Request $req)
@@ -146,45 +146,19 @@ class OrderController extends Controller
             $em->flush();
         }
 
-        $data['step'] = 'step-three';
-
-        return $data;
+        return $this->redirect($this->generateUrl('validate_order'));
+//        return $data;
     }
 
     /**
-     * Validate Order
+     * Submit Cart for hours details
      *
-     * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Route("/validation/transaction/{id}", name="validate_order")
-     * @Method("POST")
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     * @Route("/validation", name="validate_order")
      */
-    public function createAction(Request $request, $id)
+    public function validationAction(Request $req)
     {
-        $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository('PiggyBoxOrderBundle:Order')->find($id);
-        $user = $this->get('security.context')->getToken()->getUser();
-        $order->setUser($user);
-        $form = $this->createForm(new OrderType(), $order);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            try {
-                $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
-                $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order, 'toValidate');
-
-                $this->get('session')->getFlashBag()->set('success', 'La commande a été envoyé au commerçant');
-
-                return $this->redirect($this->generateUrl('shops'));
-            } catch (\Exception $e) {
-                $this->get('logger')->crit($e->getMessage(), array('exception', $e));
-                $this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
-            }
-        }
-
-        return array(
-            'entity' => $order,
-            'form'   => $form->createView(),
-        );
+        return array('step' => 'step_paiement');
     }
 
     /**
