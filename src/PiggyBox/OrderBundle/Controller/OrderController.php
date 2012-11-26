@@ -162,6 +162,25 @@ class OrderController extends Controller
     }
 
     /**
+     * Finally submit and validate the entire Cart 
+     *
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     * @Route("/confirmation", name="confirm_order")
+     */
+    public function confirmationAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
+
+        $data['orders'] = $orders = $cart->getOrders();
+        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+        $data['step'] = 'step_confirmation';
+
+        return $data;
+    }
+
+    /**
      * Validation Page
      *
      * @PreAuthorize("hasRole('ROLE_USER')")
