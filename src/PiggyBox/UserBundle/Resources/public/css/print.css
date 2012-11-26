@@ -1,2 +1,14 @@
-#header{display:none}#shopping-cart-progess-bar{display:none}#footer{display:none}
-/* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
+@media print {
+  #header {
+    display: none;
+  }
+  #shopping-cart-progess-bar {
+    display: none;
+  }
+  #footer {
+    display: none;
+  }
+  table tr td {
+    border: 1px dotted #000;
+  }
+}
