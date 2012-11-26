@@ -10,11 +10,13 @@
 		{% if step == 'step_date_heure' %}
 			{% include 'PiggyBoxOrderBundle:Order:step_date_heure.html.twig' %}
 		{% endif %}
-	{% endif %}
-
-	{% if step is defined %}
+		
 		{% if step == 'step_paiement' %}
 			{% include 'PiggyBoxOrderBundle:Order:step_paiement.html.twig' %}
+		{% endif %}
+		
+		{% if step == 'step_confirmation' %}
+			{% include 'PiggyBoxOrderBundle:Order:step_confirmation.html.twig' %}
 		{% endif %}
 	{% endif %}
 
