@@ -46,7 +46,7 @@ class CartExtension extends \Twig_Extension
        $result = 0;
 
        foreach ($orders as $order) {
-           $result = $result + $order->getTotalProducts();
+           $result = $result + $order->getOrderDetail()->count();
        }
 
        return $result;
