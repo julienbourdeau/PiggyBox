@@ -2,6 +2,40 @@
 	
 {% block content %}
 
+{% if path('validate_order') in app.session.get('_security.main.target_path') %}
+    <section id="shopping-cart-progess-bar" class="clearfix">
+
+        <div id="" class="container cart-progress">
+            <div class="row">
+                <div class="span8 offset2 text-centered">
+
+                    <div class="cart-progress-item ">
+                        <div class="step-number"><span>1</span></div>
+                        Commande
+                    </div>
+                    <div class="cart-progress-item">
+                        <div class="step-number"><span>2</span></div>
+                        Date & Heure
+                    </div>
+                    <div class="cart-progress-item current">
+                        <div class="step-number"><span>4</span></div>
+                        Identification
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>3</span></div>
+                        Validation
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>4</span></div>
+                        Confirmation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endif %}
+
 <div class="container">
     <div class="row">
 
