@@ -141,8 +141,7 @@ class UserController extends Controller
 
         $randomProducts = $em->getRepository('PiggyBoxShopBundle:Product')->findByShopExcludeByCategory($shop->getId(), $product->getCategory());
 
-        $orderDetail = new OrderDetail();
-        $form = $this->createForm(new OrderDetailType(), $orderDetail);
+        $form = $this->createForm(new OrderDetailType(), new OrderDetail());
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
@@ -156,6 +155,7 @@ class UserController extends Controller
             'similar_products' => $similarProducts,
             'random_products' => $randomProducts,
             'form' => $form,
+            'form_view' => $form->createView(),
         );
     }
 

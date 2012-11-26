@@ -2233,17 +2233,17 @@ table [class*=span],
   width: 16px;
   height: 16px;
 }
-.icon-meat24 {
+.big .icon-meat {
   background: url('../img/meat24.png') center no-repeat;
   width: 24px;
   height: 24px;
 }
-.icon-meat16 {
+.normal .icon-meat {
   background: url('../img/meat16.png') center no-repeat;
   width: 24px;
   height: 24px;
 }
-.icon-meat12 {
+.small .icon-meat {
   background: url('../img/meat12.png') center no-repeat;
   width: 24px;
   height: 24px;

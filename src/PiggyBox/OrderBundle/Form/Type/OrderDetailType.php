@@ -45,6 +45,15 @@ class OrderDetailType extends AbstractType
                 }
             }
         );
+		$builder->add('quantityDetail', 'choice', array(
+			'choices'   => array(
+				'big'   => 'Bon mangeur',
+				'normal' => 'Normal',
+				'small'   => 'Petite faim',
+			),
+			'multiple'  => false,
+			'expanded'  => true,
+		));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
