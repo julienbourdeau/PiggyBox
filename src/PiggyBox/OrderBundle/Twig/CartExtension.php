@@ -42,15 +42,15 @@ class CartExtension extends \Twig_Extension
      */
     public function getProductsNumberInCart()
     {
-	   $orders = $this->container->get('piggy_box_cart.provider')->getCart()->getOrders();
-	   $result = 0;
+       $orders = $this->container->get('piggy_box_cart.provider')->getCart()->getOrders();
+       $result = 0;
 
-	   foreach ($orders as $order) {
-		   $result = $result + $order->getTotalProducts();
-	   }
+       foreach ($orders as $order) {
+           $result = $result + $order->getTotalProducts();
+       }
 
-	   return $result; 
-	}
+       return $result;
+    }
 
     public function getName()
     {
