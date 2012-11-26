@@ -4150,6 +4150,9 @@ a.badge:hover {
   margin: 0;
   padding: 0;
 }
+.bottom-marged {
+  margin-bottom: 26px;
+}
 #masterhead ul.nav {
   clear: both;
   width: 100%;
@@ -4262,4 +4265,15 @@ a.badge:hover {
   top: 0px;
   width: 20px;
   height: 20px;
+}
+table.cart-large tr th {
+  background: #222222;
+  color: #ffffff;
+}
+table.cart-total {
+  width: 270px;
+}
+table.cart-total tr > td {
+  width: 1%;
+  text-align: right;
 }
