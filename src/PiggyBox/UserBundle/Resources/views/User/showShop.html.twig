@@ -52,13 +52,15 @@
                                 <div id="" class="tab-content">
 
                                     <div id="fiche" class="tab-pane">
-                                        {% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
+										{% include 'PiggyBoxUserBundle:User:tab-fiche.html.twig' with {'shop': shop} %}
                                     </div>
 
                                     <div id="shop" class="tab-pane active">
 										{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
                                         <div class="product-list">
 											{% if app.request.attributes.get('_route') == 'view_product_details' %}
+												{% set myFormInstance = craue_cloneForm(form) %}
+												{% form_theme myFormInstance 'PiggyBoxUserBundle:Form:fields.html.twig' %}
                                                 {% include 'PiggyBoxUserBundle:User:tab-product-details.html.twig' with {'shop': shop, 'product': product} %}
 											{% else %}
                                             	{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}
@@ -105,3 +107,5 @@
 </script>
 
 {% endblock %}
+
+
