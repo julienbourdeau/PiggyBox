@@ -7,7 +7,7 @@
 
 
 	<div class="page-header">
-		<h1>Produits disponibles à la commande en ligne</h1>
+		<h1>Produits disponibles dans votre boutique en ligne</h1>
 	</div>
 
 	<ul class="nav nav-pills nav-pills-large">
@@ -25,23 +25,37 @@
 					<img src="{{product.getWebPath | apply_filter('my_thumb') }}" class="img160x160">
 		    	</div>
 
-				<div class="entry-description span5">
-					<h3 class="no-margin">{{product.name|escape}}</h3>
-					<div>{{product.description}}</div>
+				<div class="entry-description span9">
+					<div class="row-fluid">
+						<div class="span8">
+							<h3 class="no-margin">{{product.name|escape}}</h3>
+							<div>{{product.description}}</div>
+						</div>
+						<div class="span2 text-centered">
+							<h4>Prix U</h4>
+							{% if product.price == 0 %}
+								N/A
+							{% else %}
+								{{ product.price }} €
+							{% endif %}
+						</div>
+						<div class="span2 text-centered">
+							<h4>Prix KG</h4>
+							{{ product.weightPrice }} €
+						</div>
+					</div>
 
-				</div>
+					<hr>
 
-				<div class="span2 text-centered">
+					<a href="{{ path('monmagasin_mesproduits_edit', {'id': product.id})}}" class="btn btn-large btn-primary">
+						<i class="icon-wrench icon-white"></i> Modifier
+					</a>
 
-					<h4 class="">Prix /Kg</h4>
-					<h3 class="no-margin"></h3>
+					<a href="" class="btn"><i class="icon-gift"></i> Faire une promo</a>
 
-				</div>
-
-				<div class="span2">
-					<a href="{{ path('monmagasin_mesproduits_edit', {'id': product.id})}}" class="btn btn-large btn-block btn-primary"><i class="icon-wrench icon-white"></i> Modifier</a>
-					<hr />
-					<a href="" class="btn btn-block"><i class="icon-eject"></i> Indisponible</a>
+					<a href="" class="btn pull-right">
+						<i class="icon-eject"></i> Indisponible
+					</a>
 				</div>
 
 		    </div>
