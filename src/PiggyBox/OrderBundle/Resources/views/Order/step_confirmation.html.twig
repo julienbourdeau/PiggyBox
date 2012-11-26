@@ -5,23 +5,23 @@
             <div class="row">
                 <div class="span10 offset1 text-centered">
 
-                    <div class="cart-progress-item ">
+                    <div class="cart-progress-item">
                         <div class="step-number"><span>1</span></div>
                         Commande
                     </div>
-                    <div class="cart-progress-item current">
+                    <div class="cart-progress-item">
                         <div class="step-number"><span>2</span></div>
                         Date & Heure
                     </div>
-                    <div class="cart-progress-item muted">
+                    <div class="cart-progress-item">
                         <div class="step-number"><span>3</span></div>
                         Identification
                     </div>
-                    <div class="cart-progress-item muted">
+                    <div class="cart-progress-item">
                         <div class="step-number"><span>4</span></div>
                         Validation
                     </div>
-                    <div class="cart-progress-item muted">
+                    <div class="cart-progress-item current">
                         <div class="step-number"><span>5</span></div>
                         Confirmation
                     </div>
@@ -31,14 +31,142 @@
 
     </section>
 
-    <div class="container">
+    
+        <div class="container">
         <div class="row">
             <div class="span12">
                 <div class="page-header">
-                    <h1>Quand voulez-vous recupérer votre commande ?</h1>
+                    <h1>Merci <small>Confirmation et marche à suivre</small></h1>
+                </div>
+
+                <p>Merci d'avoir commandé sur <em>"<a href="http://cotelettes-tarteauxfraises.com">Côtelettes & Tarte aux fraises</a>"</em>. Veuillez trouver ci-dessous les détails de vos commandes et la marche a suivre pour les récuperer.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <a href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
+            </div>
+        </div>
+
+{% for order in form.orders %}
+        <div class="row">
+            <div class="span12">
+                <h2>{{order.vars.value.shop.name}}</h2>
+            </div>
+            <div class="span4">
+                <div class="text-centered alert alert-info">No de commande: 243556-XX-34</div>
+                <div>Récupérez votre commande à </div>
+                <div>
+                    <strong><i class="icon-map-marker"></i> {{order.vars.value.shop.name}}</strong>
+                </div>
+                <div> à partir de </div>
+                <div class="bottom-marged">
+                    <strong><i class="icon-time"></i> {{ order.vars.data.pickupatDate.date|date("l d F") }} {{ order.vars.data.pickupatTime.date|date("G:i") }}</strong>.
+                </div>
+                <div class="">
+                    Votre commande est <strong>à payer en magasin</strong>.
+                </div>
+            </div>
+            <div class="span8">
+                <table class="table table-striped cart-large">
+                    <thead>
+                        <tr>
+                            <th class="col1">Désignation Produit</th>
+                            <th class="col2">Quantité</th>
+                            <th class="col3">Prix Unitaire</th>
+                            <th class="col4">Prix au Kilo</th>
+                            <th class="col5">Prix Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for orderDetail in order.order_detail %}
+                        <tr>
+                            <td class="col1">
+                                <img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
+                                <strong>
+                                    {{orderDetail.vars.value.product.name}}
+                                </strong>
+                            </td>
+                            <td class="col2">
+                                <div class="product-toolbar product-toolbar-large form-inline">
+
+                                    <div class="select-quantity">
+                                        {{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td class="col3">8,39 €</td>
+                            <td class="col4">15,99 €</td>
+                            <td class="col5">150,00 €</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="span4 offset8">
+                <table class="table table-bordered table-striped cart-total">
+                    <tr>
+                        <td class=""><strong>Total TTC:</strong></td>
+                        <td class=""><strong>235,99 €</strong></td>
+                     </tr>
+                 </table>
+             </div>
+        </div>
+{% endfor %}
+
+
+
+        <div class="row">
+            <div class="span12">
+                <a href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="span6 offset3">
+                <h1 class="text-centered bottom-marged" style="font-size: 29px;">Comment récupérer sa commande</h1>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="step-number"><span>1</span></div>
+                    </div>
+                    <div class="span9">
+                        Notez votre <strong>numéro de commande</strong> (ou bien imprimez votre récapitulatif)
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="step-number"><span>2</span></div>
+                    </div>
+                    <div class="span9">
+                        Rendez-vous <strong>dans votre commerce</strong> à partir de la date et l'heure précisée
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="step-number"><span>3</span></div>
+                    </div>
+                    <div class="span9">
+                        Avancez jusqu'au <strong>point de retrait</strong> sans faire la queue 
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <div class="step-number"><span>4</span></div>
+                    </div>
+                    <div class="span9">
+                        Payez votre commande et <strong>repartez avec votre commande</strong>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </div>
 
