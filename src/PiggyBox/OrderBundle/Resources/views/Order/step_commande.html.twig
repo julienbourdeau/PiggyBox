@@ -1,3 +1,5 @@
+{% if orders|length > 0 %}
+
 <div id="content" class="">
 	<form action="{{path('submit_cart') }}" method="post" {{form_enctype(form)}}>
 
@@ -128,3 +130,56 @@
 	{{ form_widget(form._token) }}
 	</form>
 </div>
+
+{% else %}
+
+<div id="content" class="">
+
+    <section id="shopping-cart-progess-bar" class="clearfix">
+
+        <div id="" class="container cart-progress">
+            <div class="row">
+                <div class="span10 offset1 text-centered">
+
+                    <div class="cart-progress-item current">
+                        <div class="step-number"><span>1</span></div>
+                        Commande
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>2</span></div>
+                        Date & Heure
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>3</span></div>
+                        Identification
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>4</span></div>
+                        Validation
+                    </div>
+                    <div class="cart-progress-item muted">
+                        <div class="step-number"><span>5</span></div>
+                        Confirmation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="page-header">
+                    <h1>Votre panier <small>Vos commandes en cours</small> </h1>
+                </div>
+				<strong>Votre panier est actuellement vide : </strong><a href="{{path('shops')}}">Voir vos commerçants de proximité</a>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</div>
+		
+{% endif %}
