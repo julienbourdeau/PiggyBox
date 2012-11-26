@@ -7,6 +7,16 @@
         <div class="row bottom-marged">
             <div class="span12">
 
+                <h1 class="text-centered">Où sont vos commerces</h1>
+				{{ google_map_container(map) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+
                 <h1 class="text-centered">Nos commerces sélectionnés</h1>
 
             </div>
@@ -168,4 +178,9 @@
 
 
 
+{% endblock %}
+
+{% block javascript %}
+	{{parent()}}
+	{{ google_map_js(map) }}
 {% endblock %}
