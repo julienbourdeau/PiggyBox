@@ -3,6 +3,7 @@
 {% block content %}
 
 	{% if step is not defined %}
+		{% form_theme form 'PiggyBoxUserBundle:Form:fields.html.twig' %}
 		{% include 'PiggyBoxOrderBundle:Order:step_commande.html.twig' %}
 	{% endif %}
 
