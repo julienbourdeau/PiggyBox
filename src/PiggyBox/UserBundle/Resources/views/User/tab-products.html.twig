@@ -40,6 +40,7 @@
 
 			<div class="span12">
 				{% set myFormInstance = craue_cloneForm(form) %}
+				
 				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
 					<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
 					{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
