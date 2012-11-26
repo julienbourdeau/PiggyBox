@@ -58,6 +58,13 @@ class OrderDetail
     private $quantity;
 
     /**
+     * @var string $quantityDetail
+     *
+     * @ORM\Column(name="quantityDetail", type="string", nullable=true)
+     */
+    private $quantityDetail;
+
+    /**
      * Get id
      *
      * @return integer
@@ -185,5 +192,28 @@ class OrderDetail
     public function __toString()
     {
         return 'order_detail';
+    }
+
+    /**
+     * Set quantityDetail
+     *
+     * @param string $quantityDetail
+     * @return OrderDetail
+     */
+    public function setQuantityDetail($quantityDetail)
+    {
+        $this->quantityDetail = $quantityDetail;
+    
+        return $this;
+    }
+
+    /**
+     * Get quantityDetail
+     *
+     * @return string 
+     */
+    public function getQuantityDetail()
+    {
+        return $this->quantityDetail;
     }
 }
