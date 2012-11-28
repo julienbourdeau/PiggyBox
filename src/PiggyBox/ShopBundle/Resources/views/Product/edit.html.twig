@@ -20,7 +20,12 @@
 		    <div class="row-fluid">
 
 		    	<div class="span4">
-		    		<img src="{{product.getWebPath | apply_filter('large_thumb') }}" class="img240x240">
+					<div class="img240x240">
+						{% if product.hasImage %}
+							<img src="{{product.getWebPath | apply_filter('large_thumb') }}"	
+							alt="{{product.name}}" title="{{product.name}}" >
+						{% endif %}
+					</div>
 		    	</div>
 
 				<div class="span8">
