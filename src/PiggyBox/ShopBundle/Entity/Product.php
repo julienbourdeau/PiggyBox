@@ -741,4 +741,17 @@ class Product
 	public function hasImage(){
 		return file_exists($this->getWebPath());
 	}
+
+	/**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+	 */	
+	public function setPriceForChunkPrice(){
+		if($this->priceType == 'chunk_price'){
+			$this->price = round($this->minWeight * $this->weightPrice/1000, 2, PHP_ROUND_HALF_UP);
+		}
+		if($this->priceType == 'unit_variable_price'){
+			$this->price = round($this->productWeightPerSlice * $this->weightPrice/1000, 2, PHP_ROUND_HALF_UP);
+		}
+	}
 }
