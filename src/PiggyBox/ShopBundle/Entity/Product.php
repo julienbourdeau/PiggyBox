@@ -737,4 +737,8 @@ class Product
     {
         return $this->slug;
     }
+
+	public function hasImage(){
+		return file_exists($this->getWebPath());
+	}
 }
