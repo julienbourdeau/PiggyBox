@@ -147,23 +147,30 @@ class OrderController extends Controller
         }
 
         return $this->redirect($this->generateUrl('validate_order'));
-//        return $data;
     }
 
     /**
      * Submit Cart for hours details
      *
+     * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
      * @Route("/validation", name="validate_order")
      */
     public function validationAction(Request $req)
     {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+		
+		foreach ($cart->getOrders() as $order) {
+			$order->setUser($this->get('security.context')->getToken()->getUser());
+		}
+
         return array('step' => 'step_paiement');
     }
 
     /**
      * Finally submit and validate the entire Cart 
      *
+     * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
      * @Route("/confirmation", name="confirm_order")
      */

@@ -49,20 +49,20 @@
             </div>
         </div>
 
-{% for order in form.orders %}
+{% for order in orders %}
         <div class="row">
             <div class="span12">
-                <h2>{{order.vars.value.shop.name}}</h2>
+                <h2>{{order.shop.name}}</h2>
             </div>
             <div class="span4">
-                <div class="text-centered alert alert-info">No de commande: 243556-XX-34</div>
+				<div class="text-centered alert alert-info">No de commande: {{order.ordernumber}}</div>
                 <div>Récupérez votre commande à </div>
                 <div>
-                    <strong><i class="icon-map-marker"></i> {{order.vars.value.shop.name}}</strong>
+                    <strong><i class="icon-map-marker"></i> {{order.shop.name}}</strong>
                 </div>
                 <div> à partir de </div>
                 <div class="bottom-marged">
-                    <strong><i class="icon-time"></i> {{ order.vars.data.pickupatDate.date|date("l d F") }} {{ order.vars.data.pickupatTime.date|date("G:i") }}</strong>.
+                    <strong><i class="icon-time"></i> {{ order.pickupatDate.date|date("l d F") }} {{ order.pickupatTime.date|date("G:i") }}</strong>.
                 </div>
                 <div class="">
                     Votre commande est <strong>à payer en magasin</strong>.
@@ -81,26 +81,26 @@
                     </thead>
 
                     <tbody>
-                        {% for orderDetail in order.order_detail %}
+                        {% for orderDetail in order.orderdetail %}
                         <tr>
                             <td class="col1">
-                                <img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
+                                <img src="{{orderDetail.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
                                 <strong>
-                                    {{orderDetail.vars.value.product.name}}
+                                    {{orderDetail.product.name}}
                                 </strong>
                             </td>
                             <td class="col2">
                                 <div class="product-toolbar product-toolbar-large form-inline">
 
                                     <div class="select-quantity">
-                                        {{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity quantity'} }) }}
+										{{orderDetail.quantity}}
                                     </div>
 
                                 </div>
                             </td>
-                            <td class="col3">8,39 €</td>
-                            <td class="col4">15,99 €</td>
-                            <td class="col5">150,00 €</td>
+							<td class="col3">{{orderDetail.product.price}} €</td>
+							<td class="col4">{{orderDetail.product.weightprice}} €</td>
+							<td class="col5">{{orderDetail.product.price*orderDetail.quantity|number_format(2)}} €</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -111,7 +111,7 @@
                 <table class="table table-bordered table-striped cart-total">
                     <tr>
                         <td class=""><strong>Total TTC:</strong></td>
-                        <td class="total-price"><strong>235,99 €</strong></td>
+						<td class="total-price"><strong>{{order.totalprice}} €</strong></td>
                      </tr>
                  </table>
              </div>
