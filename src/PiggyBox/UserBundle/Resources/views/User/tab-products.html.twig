@@ -44,14 +44,16 @@
 			</div>
 
 			<div class="span12">
-				{% set myFormInstance = craue_cloneForm(form) %}
-
-				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(myFormInstance)}}>
-					<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
-					{{ form_widget(myFormInstance.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-					<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+					{% if product.priceType == 'chunk_price' %}
+						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+					{% else %}
+						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+					{% endif %}
 					<button class="btn btn-mini">Ajouter</button>
-					{{ form_widget(myFormInstance._token) }}
+					{{ form_widget(form[product.id]._token) }}
 				</form>
 			</div>
 		</div>
