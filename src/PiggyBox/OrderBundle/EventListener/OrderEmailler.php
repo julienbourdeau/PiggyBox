@@ -51,4 +51,21 @@ class OrderEmailler
             $this->container->get('mailer')->send($message);
         }
     }
+
+    public function onOrderPassed(OrderEvent $event)
+    {
+        $entity = $event->getOrder();
+
+        if ($entity instanceof Order) {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('commande Passée - Côtelettes & Tarte aux Fraises')
+                ->setFrom('lifo@cotelettes-tarteauxfraises.com')
+                ->setTo('baptiste@cotelettes-tarteauxfraises.com');
+
+            $message->setBody('Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().' par l\'utilisateur : '.$entity->getUser()->getEmail(), 'text/html')
+            ;
+
+            $this->container->get('mailer')->send($message);
+        }
+    }
 }
