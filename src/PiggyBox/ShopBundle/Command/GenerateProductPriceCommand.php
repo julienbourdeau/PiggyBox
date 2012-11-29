@@ -26,13 +26,13 @@ class GenerateProductPriceCommand extends ContainerAwareCommand
         $products = $em->getRepository('PiggyBoxShopBundle:Product')->findAll();
 
         foreach ($products as $product) {
-			if ($product->getPriceType() == 'unit_variable_price') {
-				$product->setPrice(round($product->getProductWeightPerSlice()*$product->getWeightPrice()/1000, 2, PHP_ROUND_HALF_UP));
-			}
-			if ($product->getPriceType() == 'chunk_price') {
-				$product->setPrice(round($product->getMinWeight()*$product->getWeightPrice()/1000, 2, PHP_ROUND_HALF_UP));
-				$product->setPrice($product->getMinWeight()*$product->getWeightPrice()/1000);
-			}
+            if ($product->getPriceType() == 'unit_variable_price') {
+                $product->setPrice(round($product->getProductWeightPerSlice()*$product->getWeightPrice()/1000, 2, PHP_ROUND_HALF_UP));
+            }
+            if ($product->getPriceType() == 'chunk_price') {
+                $product->setPrice(round($product->getMinWeight()*$product->getWeightPrice()/1000, 2, PHP_ROUND_HALF_UP));
+                $product->setPrice($product->getMinWeight()*$product->getWeightPrice()/1000);
+            }
 
             $product->setSlug(null);
             $em->persist($product);
@@ -40,4 +40,3 @@ class GenerateProductPriceCommand extends ContainerAwareCommand
         }
     }
 }
-

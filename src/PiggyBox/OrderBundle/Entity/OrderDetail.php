@@ -197,20 +197,20 @@ class OrderDetail
     /**
      * Set quantityDetail
      *
-     * @param string $quantityDetail
+     * @param  string      $quantityDetail
      * @return OrderDetail
      */
     public function setQuantityDetail($quantityDetail)
     {
         $this->quantityDetail = $quantityDetail;
-    
+
         return $this;
     }
 
     /**
      * Get quantityDetail
      *
-     * @return string 
+     * @return string
      */
     public function getQuantityDetail()
     {

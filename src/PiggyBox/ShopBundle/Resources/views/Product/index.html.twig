@@ -22,9 +22,9 @@
 		    <div class="row-fluid">
 
 		    	<div class="span3">
-					<a href="{{ path('monmagasin_mesproduits_edit', {'id': product.id})}}" class="img160x160">	
+					<a href="{{ path('monmagasin_mesproduits_edit', {'id': product.id})}}" class="img160x160">
 						{% if product.hasImage %}
-							<img src="{{product.getWebPath | apply_filter('my_thumb') }}"	
+							<img src="{{product.getWebPath | apply_filter('my_thumb') }}"
 							alt="{{product.name}}" title="{{product.name}}" >
 						{% endif %}
 					</a>

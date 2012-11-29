@@ -1,7 +1,6 @@
 (function ($) {
 
 	$('a#remove-order-detail').on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
         e.preventDefault();
 		var selector = $(this).attr('class')
 		var shopSlug = $(this).attr('rel')

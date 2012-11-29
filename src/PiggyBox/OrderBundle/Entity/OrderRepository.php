@@ -20,4 +20,12 @@ class OrderRepository extends EntityRepository
             ->setParameter('cart_id', $cart_id)
             ->getResult();
     }
+
+    public function getOrdersByUser($user_id)
+    {
+    return $this->getEntityManager()
+            ->createQuery('SELECT o, d, p FROM PiggyBoxOrderBundle:Order o LEFT JOIN o.order_detail d LEFT JOIN d.product p WHERE (o.status=\'toValidate\' AND o.user=:user_id)')
+            ->setParameter('user_id', $user_id)
+            ->getResult();
+    }
 }
