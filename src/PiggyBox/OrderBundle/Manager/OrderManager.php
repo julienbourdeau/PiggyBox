@@ -4,7 +4,6 @@ namespace PiggyBox\OrderBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use PiggyBox\ShopBundle\Entity\Shop;
-use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 
@@ -86,7 +85,7 @@ class OrderManager
         $result = 0;
 
         foreach ($orderDetails as $orderDetail) {
-			$result = $result + $orderDetail->getProduct()->getPrice()*$orderDetail->getQuantity();
+            $result = $result + $orderDetail->getProduct()->getPrice()*$orderDetail->getQuantity();
         }
 
         $order->setTotalPrice(round($result, 2, PHP_ROUND_HALF_UP));

@@ -159,16 +159,18 @@ class OrderController extends Controller
     public function validationAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-		
-		foreach ($cart->getOrders() as $order) {
-			$order->setUser($this->get('security.context')->getToken()->getUser());
-		}
+
+        foreach ($cart->getOrders() as $order) {
+            $order->setUser($this->get('security.context')->getToken()->getUser());
+			$this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
+			$this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+        }
 
         return array('step' => 'step_paiement');
     }
 
     /**
-     * Finally submit and validate the entire Cart 
+     * Finally submit and validate the entire Cart
      *
      * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
@@ -176,12 +178,10 @@ class OrderController extends Controller
      */
     public function confirmationAction(Request $req)
     {
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
-
-        $data['orders'] = $orders = $cart->getOrders();
-        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+        $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
+		
         $data['step'] = 'step_confirmation';
 
         return $data;
@@ -203,6 +203,8 @@ class OrderController extends Controller
 
         foreach ($orders as $order) {
             $order->setUser($user);
+			$this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
+			$this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
             $data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
             }
 
