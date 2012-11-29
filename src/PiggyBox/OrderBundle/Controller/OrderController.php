@@ -163,6 +163,8 @@ class OrderController extends Controller
             $order->setUser($this->get('security.context')->getToken()->getUser());
             $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
             $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));			
         }
 
         return array('step' => 'step_paiement');

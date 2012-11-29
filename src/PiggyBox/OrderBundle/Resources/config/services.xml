@@ -45,7 +45,7 @@
 
 		<service id="piggy_box_cart.listener.order_email" class="PiggyBox\OrderBundle\EventListener\OrderEmailler">
 			<argument type="service" id="service_container"/>
-			<tag name="kernel.event_listener" event="order.validated" method="onOrderValidation" />
+			<tag name="kernel.event_listener" event="order.passed" method="onOrderValidation" />
 		</service>
 
 	</services>

@@ -14,4 +14,6 @@ final class OrderEvents
      * @var string
      */
     const ORDER_VALIDATED = 'order.validated';
+
+    const ORDER_PASSED = 'order.passed';
 }
