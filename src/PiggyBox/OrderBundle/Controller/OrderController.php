@@ -188,30 +188,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Validation Page
-     *
-     * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Route("/validation", name="validation_page")
-     */
-    public function validationPageAction()
-    {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $orders = $cart->getOrders();
-
-        $data = array();
-
-        foreach ($orders as $order) {
-            $order->setUser($user);
-			$this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
-			$this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
-            $data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
-            }
-
-        return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
-    }
-
-    /**
      * Generate the <option> for the openingHour on each select
      *
      * @Template()
