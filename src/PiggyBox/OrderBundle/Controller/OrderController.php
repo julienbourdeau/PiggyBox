@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\OrderBundle\Entity\Order;
-use PiggyBox\OrderBundle\Form\Type\OrderType;
 use PiggyBox\OrderBundle\Form\Type\CartType;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
@@ -162,8 +161,10 @@ class OrderController extends Controller
 
         foreach ($cart->getOrders() as $order) {
             $order->setUser($this->get('security.context')->getToken()->getUser());
-			$this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
-			$this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+            $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
+            $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));			
         }
 
         return array('step' => 'step_paiement');
@@ -181,7 +182,7 @@ class OrderController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
-		
+
         $data['step'] = 'step_confirmation';
 
         return $data;
