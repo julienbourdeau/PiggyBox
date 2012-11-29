@@ -86,9 +86,11 @@
 										<div id="quantity-plus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn right plus"><i class="icon-plus"></i></div>
                                     </div>
 
-                                    <div class="select-size text-left">
-										{{ form_widget(orderDetail.quantityDetail) }}
-                                    </div>
+									{% if orderDetail.vars.value.product.priceType == 'unit_variable_price' %}
+										<div class="select-size text-left">
+											{{ form_widget(orderDetail.quantityDetail) }}
+										</div>
+									{% endif %}
 
                                 </div>
                             </td>
