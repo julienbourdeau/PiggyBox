@@ -12,7 +12,7 @@
         <div class="product-thumbnail">
 			<div class="img300x300">
 				{% if product.hasImage %}
-					<img src="{{product.getWebPath | apply_filter('huge_thumb') }}"	
+					<img src="{{product.getWebPath | apply_filter('huge_thumb') }}"
 					alt="{{product.name}}" title="{{product.name}}" >
 				{% endif %}
 			</div>

@@ -147,59 +147,44 @@ class OrderController extends Controller
         }
 
         return $this->redirect($this->generateUrl('validate_order'));
-//        return $data;
     }
 
     /**
      * Submit Cart for hours details
      *
+     * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
      * @Route("/validation", name="validate_order")
      */
     public function validationAction(Request $req)
     {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+
+        foreach ($cart->getOrders() as $order) {
+            $order->setUser($this->get('security.context')->getToken()->getUser());
+			$this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
+			$this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+        }
+
         return array('step' => 'step_paiement');
     }
 
     /**
-     * Finally submit and validate the entire Cart 
+     * Finally submit and validate the entire Cart
      *
+     * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
      * @Route("/confirmation", name="confirm_order")
      */
     public function confirmationAction(Request $req)
     {
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
-
-        $data['orders'] = $orders = $cart->getOrders();
-        $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
+        $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
+		
         $data['step'] = 'step_confirmation';
 
         return $data;
-    }
-
-    /**
-     * Validation Page
-     *
-     * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Route("/validation", name="validation_page")
-     */
-    public function validationPageAction()
-    {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $orders = $cart->getOrders();
-
-        $data = array();
-
-        foreach ($orders as $order) {
-            $order->setUser($user);
-            $data['form'][$order->getId()] = $this->createForm(new OrderType(), $order)->createView();
-            }
-
-        return $this->render('PiggyBoxOrderBundle:Order:validate.html.twig', $data);
     }
 
     /**
