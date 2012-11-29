@@ -4,7 +4,6 @@ namespace PiggyBox\OrderBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use PiggyBox\ShopBundle\Entity\Shop;
-use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\OrderBundle\Entity\Order;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 
