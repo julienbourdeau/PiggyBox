@@ -135,27 +135,27 @@ class UserController extends Controller
     public function viewProductDetailsAction(Shop $shop, $category_slug, $product_slug)
     {
         $em = $this->getDoctrine()->getManager();
-		$data = array();
+        $data = array();
         $data['product'] = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
-		$orderDetail = new OrderDetail();
-		$orderDetail->setProduct($data['product']);
-		$data['form'][$data['product']->getId()] = $this->createForm(new OrderDetailType(), $orderDetail)->createView();
+        $orderDetail = new OrderDetail();
+        $orderDetail->setProduct($data['product']);
+        $data['form'][$data['product']->getId()] = $this->createForm(new OrderDetailType(), $orderDetail)->createView();
 
-		$data['similar_products'] = $em->getRepository('PiggyBoxShopBundle:Product')->findBySimilarProductByShopAndByCategory($shop->getId(), $data['product']->getId(), $data['product']->getCategory());
+        $data['similar_products'] = $em->getRepository('PiggyBoxShopBundle:Product')->findBySimilarProductByShopAndByCategory($shop->getId(), $data['product']->getId(), $data['product']->getCategory());
         $data = $this->createOrderDetailForm($data['similar_products'], $data);
 
         $data['random_products'] = $em->getRepository('PiggyBoxShopBundle:Product')->findByShopExcludeByCategory($shop->getId(), $data['product']->getCategory());
         $data = $this->createOrderDetailForm($data['random_products'], $data);
 
-		$data['shop'] = $shop;
-		$data['category_title'] = $category_slug;
+        $data['shop'] = $shop;
+        $data['category_title'] = $category_slug;
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
         $breadcrumbs->addItem($data['product']->getCategory()->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_slug)));
         $breadcrumbs->addItem($data['product']->getName(), $this->get("router")->generate('view_product_details', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug, 'product_slug' => $product_slug)));
 
-		return $data;
+        return $data;
     }
 
     /**
@@ -167,23 +167,23 @@ class UserController extends Controller
      */
     public function showShopAction(Request $req, Shop $shop, $category_title)
     {
-		$data = array();
-		$data['shop'] = $shop;
-		$data['category_title'] = 'tous';
+        $data = array();
+        $data['shop'] = $shop;
+        $data['category_title'] = 'tous';
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
 
         if ($category_title == "default") {
             $data['products'] = $products = $shop->getProducts();
-			$data = $this->createOrderDetailForm($products, $data);
+            $data = $this->createOrderDetailForm($products, $data);
 
-			return $data;
+            return $data;
         }
 
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);
-		$data['category_title'] = $category_title;
+        $data['category_title'] = $category_title;
         $breadcrumbs->addItem($category->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_title)));
 
         if ($category->getLevel() == 0 && $category->getChildren()->count()!=0) {
@@ -198,19 +198,20 @@ class UserController extends Controller
         } else {
             $products = $em->getRepository('PiggyBoxShopBundle:Product')->findAllByShopAndCategory($shop->getId(), $category->getId());
         }
-		$data['products'] = $products;
-		$data = $this->createOrderDetailForm($products, $data);
+        $data['products'] = $products;
+        $data = $this->createOrderDetailForm($products, $data);
 
-		return $data;
+        return $data;
     }
 
     private function createOrderDetailForm($products, $data)
     {
-		foreach ($products as $product) {
-			$orderDetail = new OrderDetail();
-			$orderDetail->setProduct($product);
-			$data['form'][$product->getId()] = $this->createForm(new OrderDetailType(), $orderDetail)->createView();
-		}
-		return $data;
-    }	
+        foreach ($products as $product) {
+            $orderDetail = new OrderDetail();
+            $orderDetail->setProduct($product);
+            $data['form'][$product->getId()] = $this->createForm(new OrderDetailType(), $orderDetail)->createView();
+        }
+
+        return $data;
+    }
 }

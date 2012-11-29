@@ -27,31 +27,31 @@ class OrderDetailType extends AbstractType
                 }
 
                 if (!$data->getId()) {
-					if($data->getProduct()){
-						if ($data->getProduct()->getPriceType() == 'chunk_price') {
-							$choices = array();
+                    if ($data->getProduct()) {
+                        if ($data->getProduct()->getPriceType() == 'chunk_price') {
+                            $choices = array();
 
-							for ($i = $data->getProduct()->getMinPerson(); $i <= $data->getProduct()->getMaxPerson(); $i++) {
-								$choices[$i] = $i.' pers.';
-							}
+                            for ($i = $data->getProduct()->getMinPerson(); $i <= $data->getProduct()->getMaxPerson(); $i++) {
+                                $choices[$i] = $i.' pers.';
+                            }
 
-							$form->add(
-								$formFactory->createNamed('quantity', 'choice', null, array(
-						            'choices'   => $choices,
-								))
-							);
-						}
-						if ($data->getProduct()->getPriceType() != 'chunk_price') {
-							$choices = array();
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'choice', null, array(
+                                    'choices'   => $choices,
+                                ))
+                            );
+                        }
+                        if ($data->getProduct()->getPriceType() != 'chunk_price') {
+                            $choices = array();
 
-							$form->add(
-								$formFactory->createNamed('quantity', 'number', null, array(
-									'data' => 1,
-									'read_only' => true,
-								))
-							);
-						}
-					}
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'number', null, array(
+                                    'data' => 1,
+                                    'read_only' => true,
+                                ))
+                            );
+                        }
+                    }
                 }
 
                 if ($data->getId()) {
@@ -69,7 +69,7 @@ class OrderDetailType extends AbstractType
                 'normal' => 'Normal',
                 'small'   => 'Petite faim',
             ),
-			'data' => 'normal',
+            'data' => 'normal',
             'multiple'  => false,
             'expanded'  => true,
         ));
