@@ -3,12 +3,14 @@
 	$('a#remove-order-detail').on('click', function(e) {
         // prevent the link from creating a "#" on the URL
         e.preventDefault();
+		var selector = $(this).attr('class')
+		var shopSlug = $(this).attr('rel')
 
-		if ($(this).parent().parent().parent().children().size() == 1) {
-			$(this).parent().parent().parent().parent().parent().parent().parent().fadeOut(300, function() { $(this).remove(); refreshTotalPrice(); });
+		if ($('tbody#'+shopSlug).children().size() == 1) {
+			$('div#'+shopSlug+'.container').fadeOut(300, function() { $(this).remove(); });
 		}
 		else{
-        	$(this).parent().parent().fadeOut(300, function() { $(this).remove(); refreshTotalPrice(); });
+        	$('tr#'+selector).fadeOut(300, function() { $(this).remove(); refreshTotalPrice(shopSlug); });
 		}	
     });
 
@@ -19,9 +21,10 @@
 		}
 		$(this).next().val(quantity);
 
-		var unitPrice = $(this).parent().parent().parent().next().children().text(); 
-		$(this).parent().parent().parent().next().next().next().children().text((parseFloat(unitPrice)*parseFloat(quantity)).toFixed(2));
-		refreshTotalPrice();
+		var selector = $(this).attr('rel');
+		var unitPrice = $('td#'+selector+'.col3').text();
+		$('td#'+selector+'.col5').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		refreshTotalPrice($(this).attr('data-shop'));
     });
 
 	$('div#quantity-plus.btn').click(function () { 
@@ -29,21 +32,21 @@
 		quantity++;
 		$(this).prev().val(quantity);
 
-		var unitPrice = $(this).parent().parent().parent().next().children().text(); 
-		$(this).parent().parent().parent().next().next().next().children().text((parseFloat(unitPrice)*parseFloat(quantity)).toFixed(2));
-		refreshTotalPrice();
+		var selector = $(this).attr('rel');
+		var unitPrice = $('td#'+selector+'.col3').text();
+		$('td#'+selector+'.col5').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		refreshTotalPrice($(this).attr('data-shop'));
     });
 
-	function refreshTotalPrice(){
+	function refreshTotalPrice(selector){
 		var result = 0;
 
-		$('td.col5').each(function(){
-			result += parseFloat($(this).children().text());
+		$('table#'+selector+' td.col5').each(function(){
+			result += parseFloat($(this).text());
 			}
 		);
 
-		$('td.total-price').children().children().text(result);
+		result = result.toFixed(2);
+		$('table#'+selector+'-total td.total-price strong span').text(result);
 	}
-
-
 })(jQuery);
