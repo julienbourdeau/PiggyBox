@@ -77,7 +77,7 @@ class Product
      * @var float $productWeightPerSlice
      *
      * @Assert\Min(limit = "0", message = "Le poids du produit doit être supérieur à 0Kg.", invalidMessage = "Un nombre doit être indiqué.")
-     * @ORM\Column(name="productWeightPerSlice", type="decimal", precision=2, nullable=true)
+     * @ORM\Column(name="productWeightPerSlice", type="float", nullable=true)
      */
     private $productWeightPerSlice;
 

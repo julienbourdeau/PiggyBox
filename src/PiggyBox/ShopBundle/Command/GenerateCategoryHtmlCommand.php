@@ -41,7 +41,7 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
                     }
 
                     $html.="\t".'<li id="'.$category->getSlug().'" class="">'."\r\n";
-                    $html.="\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $category->getTitle())).'" class="category-item '.$category->getTitle().'">'.$category->getTitle().'</a>'."\r\n";
+                    $html.="\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('shop_slug' => $shop->getSlug(), 'category_slug' => $category->getSlug())).'" class="category-item '.$category->getTitle().'">'.$category->getTitle().'</a>'."\r\n";
 
                     $children_categories = $category->getChildren();
                     if (count($children_categories) > 0) {
@@ -50,7 +50,7 @@ class GenerateCategoryHtmlCommand extends ContainerAwareCommand
                         foreach ($children_categories as $children_category) {
                             if (in_array($children_category, $categories) and !$categories_buffer->contains($children_category)) {
                                 $html.="\t\t\t".'<li id="'.$children_category->getSlug().'" class="">'."\r\n";
-                                    $html.="\t\t\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('slug' => $shop->getSlug(), 'category_title' => $children_category->getTitle())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a>'."\r\n";
+                                    $html.="\t\t\t\t".'<a href="'.$this->getContainer()->get('router')->generate('user_show_shop',array('shop_slug' => $shop->getSlug(), 'category_slug' => $children_category->getSlug())).'" class="category-item '.$children_category->getTitle().' ">'.$children_category->getTitle().'</a>'."\r\n";
                                 $html.="\t\t\t".'</li>'."\r\n";
                                 $categories_buffer->add($children_category);
                             }
