@@ -108,24 +108,6 @@ class UserController extends Controller
     }
 
     /**
-     * @Template()
-     * @Route("temp", name="temp")
-     */
-    public function tempAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
-     * @Route("temp-cart", name="temp_cart")
-     */
-    public function tempCartAction()
-    {
-        return array();
-    }
-
-    /**
      * Affiche le détail par produit
      *
      * @Route("commerce/{shop_slug}/{category_slug}/{product_slug}", name="view_product_details")
@@ -161,20 +143,20 @@ class UserController extends Controller
     /**
      * Récupère les produits d'un magasin selon la catégorie
      *
-     * @Route("commerce/{slug}/{category_title}", name="user_show_shop", defaults={"category_title"="default"})
-     * @ParamConverter("shop", options={"mapping": {"slug": "slug"}})
+     * @Route("commerce/{shop_slug}/{category_slug}", name="user_show_shop", defaults={"category_slug"="default"})
+     * @ParamConverter("shop", options={"mapping": {"shop_slug": "slug"}})
      * @Template()
      */
-    public function showShopAction(Request $req, Shop $shop, $category_title)
+    public function showShopAction(Request $req, Shop $shop, $category_slug)
     {
         $data = array();
         $data['shop'] = $shop;
-        $data['category_title'] = 'tous';
+        $data['category_slug'] = $category_slug;
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
+        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
 
-        if ($category_title == "default") {
+        if ($category_slug == "default") {
             $data['products'] = $products = $shop->getProducts();
             $data = $this->createOrderDetailForm($products, $data);
 
@@ -182,9 +164,8 @@ class UserController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneByTitle($category_title);
-        $data['category_title'] = $category_title;
-        $breadcrumbs->addItem($category->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_title)));
+        $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneBySlug($category_slug);
+        $breadcrumbs->addItem($category->getTitle() , $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug)));
 
         if ($category->getLevel() == 0 && $category->getChildren()->count()!=0) {
             $children_categories = $category->getChildren();
@@ -203,6 +184,9 @@ class UserController extends Controller
 
         return $data;
     }
+
+
+
 
     private function createOrderDetailForm($products, $data)
     {
