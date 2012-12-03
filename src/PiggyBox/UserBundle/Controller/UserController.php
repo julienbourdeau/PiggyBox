@@ -130,11 +130,11 @@ class UserController extends Controller
         $data = $this->createOrderDetailForm($data['random_products'], $data);
 
         $data['shop'] = $shop;
-        $data['category_title'] = $category_slug;
+        $data['category_slug'] = $category_slug;
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug())));
-        $breadcrumbs->addItem($data['product']->getCategory()->getTitle() , $this->get("router")->generate('user_show_shop', array('slug' => $shop->getSlug(), 'category_title' => $category_slug)));
+        $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
+        $breadcrumbs->addItem($data['product']->getCategory()->getTitle() , $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug(), 'category_title' => $category_slug)));
         $breadcrumbs->addItem($data['product']->getName(), $this->get("router")->generate('view_product_details', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug, 'product_slug' => $product_slug)));
 
         return $data;
