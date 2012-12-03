@@ -15,7 +15,7 @@ class ProductRepository extends EntityRepository
     public function findAllByShopAndCategory($shop_id, $category_id)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.category=:category_id)')
+            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.category=:category_id AND p.active=1)')
             ->setParameters(array(
                 'shop_id' => $shop_id,
                 'category_id' => $category_id,
@@ -23,10 +23,18 @@ class ProductRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findByActiveProduct($shop_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.active=1)')
+            ->setParameter('shop_id', $shop_id)
+            ->getResult();
+    }
+
     public function findOneByShopAndProductSlug($shop_id, $product_slug)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p, c FROM PiggyBoxShopBundle:Product p  LEFT JOIN p.category c WHERE (p.shop=:shop_id AND p.slug=:product_slug)')
+            ->createQuery('SELECT p, c FROM PiggyBoxShopBundle:Product p  LEFT JOIN p.category c WHERE (p.shop=:shop_id AND p.slug=:product_slug AND p.active=1)')
             ->setParameters(array(
                 'shop_id' => $shop_id,
                 'product_slug' => $product_slug,
@@ -37,7 +45,7 @@ class ProductRepository extends EntityRepository
     public function findBySimilarProductByShopAndByCategory($shop_id, $product_id, $category_id)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.category=:category_id AND p.shop=:shop_id AND NOT p.id=:product_id) ORDER BY s.sales_nbr DESC')
+            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.category=:category_id AND p.shop=:shop_id AND NOT p.id=:product_id AND p.active=1) ORDER BY s.sales_nbr DESC')
             ->setParameters(array(
                 'shop_id' => $shop_id,
                 'category_id' => $category_id,
@@ -50,7 +58,7 @@ class ProductRepository extends EntityRepository
     public function findByShopExcludeByCategory($shop_id, $category_id)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.shop=:shop_id AND NOT p.category=:category_id) ORDER BY s.sales_nbr DESC')
+            ->createQuery('SELECT p, s FROM PiggyBoxShopBundle:Product p LEFT JOIN p.sales s WHERE (p.shop=:shop_id AND NOT p.category=:category_id AND p.active=1) ORDER BY s.sales_nbr DESC')
             ->setParameters(array(
                 'shop_id' => $shop_id,
                 'category_id' => $category_id,
