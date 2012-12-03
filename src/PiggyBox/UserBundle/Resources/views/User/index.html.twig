@@ -38,9 +38,21 @@
 
             <div class="span6">
                 <h1 class="no-margin text-centered">Coups de coeur</h1>
-                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
-                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
-                <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/empty-shop.png')}}" alt=""></div>
+                <div class="step-item">
+                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
+                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/zola-boucherie.png')}}" alt="">
+                    </a>
+                </div>
+                <div class="step-item">
+                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}">
+                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/gourmet-boucherie.png')}}" alt="">
+                    </a>
+                </div>
+                <div class="step-item">
+                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}">
+                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/copernic-boucherie.png')}}" alt="">
+                    </a>
+                </div>
             </div>
 
         </div>
