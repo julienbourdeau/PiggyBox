@@ -61,7 +61,7 @@ class Product
      * @var float $price
      *
      * @Assert\Min(limit = "0", message = "Le prix du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
@@ -69,7 +69,7 @@ class Product
      * @var float $weightPrice
      *
      * @Assert\Min(limit = "0", message = "Le prix au poids du produit doit être supérieur à 0,00 €.", invalidMessage = "Un nombre doit être indiqué.")
-     * @ORM\Column(name="weightPrice", type="float")
+     * @ORM\Column(name="weightPrice", type="float", nullable=true)
      */
     private $weightPrice;
 
