@@ -62,7 +62,7 @@
 	        		<li class="divider-vertical"></li>
 
 	        		<li class="subnav-icon-links">
-	        			<a href="{{ path('home') }}">
+	        			<a href="{{ path('user_show_shop', {'shop_slug': app.user.ownshop.slug }) }}">
 	        				<img src="{{ asset('bundles/piggyboxshop/img/home-button.png')}}" alt="">
 	        				<div style="">Retour au site</div>
 	        			</a>
