@@ -152,18 +152,18 @@ class UserController extends Controller
         $data = array();
         $data['shop'] = $shop;
         $data['category_slug'] = $category_slug;
+        $em = $this->getDoctrine()->getManager();
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
 
         if ($category_slug == "default") {
-            $data['products'] = $products = $shop->getProducts();
+            $data['products'] = $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             $data = $this->createOrderDetailForm($products, $data);
 
             return $data;
         }
 
-        $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('PiggyBoxShopBundle:Category')->findOneBySlug($category_slug);
         $breadcrumbs->addItem($category->getTitle() , $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug)));
 
