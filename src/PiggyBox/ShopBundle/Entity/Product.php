@@ -93,7 +93,7 @@ class Product
      *
      * @ORM\Column(name="active", type="boolean",nullable=true)
      */
-    private $active;
+    private $active = true;
 
     /**
      * @var integer $minWeight

@@ -239,4 +239,27 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+
+	/**
+     * Change active/inactive status
+     *
+     * @Route("/{id}/activate", name="monmagasin_mesproduits_activate")
+     * @SecureParam(name="product", permissions="VIEW, DELETE")
+     * @ParamConverter
+     */
+	public function setActiveAction(Product $product)
+	{
+        $em = $this->getDoctrine()->getManager();
+		
+		if ($product->getActive() == true) {
+	  		$product->setActive(false);
+	  	} else {
+	  		$product->setActive(true);
+	  	}
+
+    $em->persist($product);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('monmagasin_mesproduits'));
+	}
 }
