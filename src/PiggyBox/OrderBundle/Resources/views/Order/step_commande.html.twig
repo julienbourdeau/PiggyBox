@@ -120,7 +120,7 @@
         <div class="row">
             <div class="toolbar">
                 <div class="span6">
-                    <a href="{{ path('user_show_shop', {'slug': order.vars.value.shop.slug }) }}" class="btn btn-small"><i class="icon-arrow-left"></i> Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
+                    <a href="{{ path('user_show_shop', {'shop_slug': order.vars.value.shop.slug }) }}" class="btn btn-small"><i class="icon-arrow-left"></i> Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
                 </div>
             </div>
         </div>
