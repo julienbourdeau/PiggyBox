@@ -15,8 +15,12 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('origin')
             ->add('preservation')
-            ->add('price', 'money')
-            ->add('weightPrice', 'money')
+            ->add('price', 'money', array(
+				'required' => false,
+			))
+            ->add('weightPrice', 'money', array(
+				'required' => false,
+			))
             ->add('priceType', 'choice', array(
                 'choices'   => array(
                     'unit_fixed_price' => 'Unit Fixed Price',
