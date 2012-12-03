@@ -18,7 +18,7 @@
 	</ul>
 
 		{% for product in products %}
-		<div class="box box-margined">
+		<div class="box box-margined {% if product.active == 0 %}box-muted{% endif %}">
 		    <div class="row-fluid">
 
 		    	<div class="span3">
@@ -58,9 +58,15 @@
 
 					<a href="" class="btn"><i class="icon-gift"></i> Faire une promo</a>
 
-					<a href="" class="btn pull-right">
-						<i class="icon-eject"></i> Indisponible
-					</a>
+					{% if product.active == true %}
+						<a href="{{path('monmagasin_mesproduits_activate', {'id': product.id})}}" class="btn pull-right">
+							<i class="icon-eject"></i> Indisponible
+						</a>
+					{% else %}
+					<a href="{{path('monmagasin_mesproduits_activate', {'id': product.id})}}" class="btn btn-success pull-right">
+							<i class="icon-ok"></i> Activer 
+						</a>
+					{% endif %}
 				</div>
 
 		    </div>
