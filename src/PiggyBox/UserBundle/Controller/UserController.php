@@ -34,15 +34,6 @@ class UserController extends Controller
 
     /**
      * @Template()
-     * @Route("/temp", name="temp")
-     */
-    public function tempAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
      * @Route("les-commercants", name="shops")
      */
     public function shopsAction()
