@@ -16,105 +16,161 @@
 		<h2 id="to_prepare">Commandes à préparer <sup class="badge badge-warning">{{orders_toPrepare|length}}</sup></h2>
 
 	{% for order in orders_toPrepare %}
-		<div class="box box-margined box-warning">
-		    <div class="row-fluid">
+        <div class="box box-margined box-warning">
+            <div class="row-fluid bottom-marged">
 
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-					<h4 class="no-margin">{{order.pickupatDate|localizeddate('full','none')}} </h4>
+                <div class="span4">
+                    <h4><i class="icon-time" style="margin-top: 3px;"></i> {{order.pickupatDate|localizeddate('full','none')}} {{order.pickupatTime|date("H:i")}}</h4>
+                </div>
 
-	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
-	    			</div>
-		    	</div>
+                <div class="span4">
+					<i class="icon-user"></i> <strong>{{order.user.name}}</strong> <br>
+					<i class="icon-signal"></i> {{order.user.phonenumber}}<br>
+					<i class="icon-envelope"></i> {{order.user.email}}
+                </div>
 
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						{% for order_detail in order.orderdetail %}
-						<li><i class="icon-ok"></i> {{order_detail.product.name}} -
-						{% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}</li>
-						{% endfor %}
-					</ul>
+                <div class="span4 text-centered">
+                    <span class="label label-success">Première commande</span> <br>
+                    <span class="label label-important">Non payé</span>
+                </div>
+
+            </div>
+
+            <div class="row-fluid bottom-marged">
+
+                <div class="span8">
+                    <table class="table table-bordered cart-large no-margin">
+                        <thead>
+                            <tr>
+                                <th class="col1">Désignation Produit</th>
+                                <th class="col2">Quantité</th>
+                                <th class="col3">Prix Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+							{% for order_detail in order.orderdetail %}
+							<tr>
+								<td class="col1">
+									<strong>
+										{{order_detail.product.name}}
+									</strong>
+								</td>
+								<td class="col2">{{order_detail.quantity}}</td>
+								<td class="col3">{{order_detail.quantity*order_detail.product.price}} €</td>
+							</tr>
+							{% endfor %}							
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered table-striped cart-total pull-right">
+                        <tr>
+                            <td class=""><strong>Total TTC:</strong></td>
+							<td class=""><strong>{{order.totalprice}} €</strong></td>
+                        </tr>
+                    </table>
 
                 </div>
 
-                <div class="span3 text-centered">
-					<h3 class="no-margin">No {{order.ordernumber}}</h3>
-					<hr />
-					<h4 class="no-margin">{{order.user.name}}</h4>
-					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
-					<span class="label label-success">Première Commande</span>
+				{% if order.note is not null %}
+                <div class="span4">
+                    <div class="alert alert-info">
+                        <div class="label label-info">Note du client</div>
+                        <p>Merci de mettre toute ma commande sous vide</p>
+                    </div>
+                </div>
+				{% endif %}
 
-                	<hr class="divider" />
+            </div>
 
-                	<div class="order-price text-centered">{{order.totalprice}}€</div>
-				</div>
+            <div class="row-fluid">
+                <div class="span3 offset1">
+                    <a href="{{path('change_status', {'order_id': order.id, 'status': 'archived'})}}" class="btn btn-block"><i class="icon-flag"></i> Retirée</a>
+                </div>
+                <div class="span4 offset3">
+                    <a href="{{path('change_status', {'order_id': order.id, 'status': 'toArchive'})}}" class="btn btn-large btn-block btn-primary"><i class="icon-ok icon-white"></i> Prête</a>
+                </div>
+            </div>
+        </div>
 
-				<div class="span2">
-
-					<div class="order-toolbox">
-						<hr class="divider" />
-
-						<a href="{{path('change_status', {'order_id': order.id, 'status': 'toArchive'})}}" class="btn btn-large btn-block btn-inverse"> <i class="icon-flag icon-white"></i> Prête </a>
-
-						<hr class="divider" />
-					</div>
-
-				</div>
-
-		    </div>
-		</div>
-	{% endfor %}
-
+		{% endfor %}
 
 		<hr class="divider">
 		<h2 id="to_collect">Commandes à retirer <sup class="badge">{{orders_toArchive|length}}</sup></h2>
 
 	{% for order in orders_toArchive %}
-		<div class="box box-margined">
-		    <div class="row-fluid">
+        <div class="box box-margined">
+            <div class="row-fluid bottom-marged">
 
-		    	<div class="span2">
-		    		<div class="collect-date text-centered">
-					<h4 class="no-margin">{{order.pickupatDate|localizeddate('full','none')}} </h4>
-	    				<h3 class="no-margin">{{order.pickupatTime|date("H:i")}}</h3>
-	    			</div>
-		    	</div>
-
-				<div class="entry-description span5">
-					<ul class="orderlist">
-						{% for order_detail in order.orderdetail %}
-							<li><i class="icon-ok"></i> {{order_detail.product.name}} - {% if order_detail.product.pricetype == 'weight_price'%}{% if order_detail.quantity < 10%}{{order_detail.quantity}}00g{% else %}{{order_detail.quantity/10}}Kg{% endif %}{% else %}{{order_detail.quantity}}{% endif %}</li>
-						{% endfor %}
-					</ul>
-
+                <div class="span4">
+                    <h4><i class="icon-time" style="margin-top: 3px;"></i> {{order.pickupatDate|localizeddate('full','none')}} {{order.pickupatTime|date("H:i")}}</h4>
                 </div>
 
-                <div class="span3 text-centered">
-					<h3 class="no-margin">No {{order.ordernumber}}</h3>
-					<hr />
-					<h4 class="no-margin">{{order.user.name}}</h4>
-					<div><i class="icon-user"></i> {{order.user.phonenumber}}</div>
-					<span class="label label-success">Première Commande</span>
+                <div class="span4">
+					<i class="icon-user"></i> <strong>{{order.user.name}}</strong> <br>
+					<i class="icon-signal"></i> {{order.user.phonenumber}}<br>
+					<i class="icon-envelope"></i> {{order.user.email}}
+                </div>
 
-                	<hr class="divider" />
+                <div class="span4 text-centered">
+                    <span class="label label-success">Première commande</span> <br>
+                    <span class="label label-important">Non payé</span>
+                </div>
 
-                	<div class="order-price text-centered">{{order.totalprice}}€</div>
-				</div>
+            </div>
 
-				<div class="span2">
+            <div class="row-fluid bottom-marged">
 
-					<div class="order-toolbox">
-						<hr class="divider" />
+                <div class="span8">
+                    <table class="table table-bordered cart-large no-margin">
+                        <thead>
+                            <tr>
+                                <th class="col1">Désignation Produit</th>
+                                <th class="col2">Quantité</th>
+                                <th class="col3">Prix Total</th>
+                            </tr>
+                        </thead>
 
-						<a href="{{path('change_status', {'order_id': order.id, 'status': 'archived'})}}" class="btn btn-large btn-block btn-primary"> <i class="icon-download-alt icon-white"></i> Retirée </a>
+                        <tbody>
+							{% for order_detail in order.orderdetail %}
+							<tr>
+								<td class="col1">
+									<strong>
+										{{order_detail.product.name}}
+									</strong>
+								</td>
+								<td class="col2">{{order_detail.quantity}}</td>
+								<td class="col3">{{order_detail.quantity*order_detail.product.price}} €</td>
+							</tr>
+							{% endfor %}							
+                        </tbody>
+                    </table>
 
-						<hr class="divider" />
-					</div>
+                    <table class="table table-bordered table-striped cart-total pull-right">
+                        <tr>
+                            <td class=""><strong>Total TTC:</strong></td>
+							<td class=""><strong>{{order.totalprice}} €</strong></td>
+                        </tr>
+                    </table>
 
-				</div>
+                </div>
+				{% if order.note is not null %}
+                <div class="span4">
+                    <div class="alert alert-info">
+                        <div class="label label-info">Note du client</div>
+                        <p>Merci de mettre toute ma commande sous vide</p>
+                    </div>
+                </div>
+				{% endif %}
 
-		    </div>
-		</div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span4 offset7">
+                    <a href="{{path('change_status', {'order_id': order.id, 'status': 'archived'})}}" class="btn btn-large btn-block btn-inverse"><i class="icon-flag icon-white"></i> Retirée</a>
+                </div>
+            </div>
+        </div>
 	{% endfor %}
 
 	</div>
