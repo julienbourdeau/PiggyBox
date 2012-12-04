@@ -3820,6 +3820,7 @@ div.image-category:hover img {
   opacity: 0.8;
 }
 #header {
+  min-width: 1055px;
   height: 100%;
   margin-bottom: 52px;
 }
@@ -4156,6 +4157,7 @@ table.cart-total tr td {
   color: #ffffff;
   font-family: "Museo-300", Georgia, "Times New Roman", Times, serif;
   font-size: 13px;
+  min-width: 1055px;
 }
 #footer .row {
   margin-top: 16px;
