@@ -70,71 +70,79 @@
 
 
 	{% if  product.priceType == 'unit_fixed_price' %}
-    <div class="product-toolbar text-centered span6 offset3">
-		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 
-            <table class="table pricing">
-                <tr>
-                    <td class="select-quantity">
-						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
-						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
-                    </td>
+	    <div class="product-toolbar text-centered span6 offset3">
+			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 
-                    <td class="select-add">
-						<button class="btn btn-mini">Ajouter</button>
-						{{ form_widget(form[product.id]._token) }}
-                    </td>
-                </tr>
-            </table>
-
-        </form>
-    </div>
-	{% elseif product.priceType == 'unit_variable_price' %}
-    <div class="product-toolbar text-centered span9 offset1">
-		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
-			<table class="table pricing">
-				<tbody>
-					<tr>
-						<td class="select-quantity">
+	            <table class="table pricing pricing-fixed-unit-price">
+	                <tr>
+	                    <td class="select-quantity">
 							<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
 							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
 							<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
-						</td>
+	                    </td>
 
-						<td class="select-size">
-							{{ form_widget(form[product.id].quantityDetail) }}
-						</td>
-
-						<td class="select-add">
+	                    <td class="select-add">
 							<button class="btn btn-mini">Ajouter</button>
 							{{ form_widget(form[product.id]._token) }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-    </div>
+	                    </td>
+	                </tr>
+	            </table>
+
+	        </form>
+	    </div>
+
+	{% elseif product.priceType == 'unit_variable_price' %}
+    
+	    <div class="product-toolbar text-centered span9 offset1">
+			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+				<table class="table pricing pricing-variable-unit-price">
+					<tbody>
+						<tr>
+							<td class="select-quantity">
+								<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+								{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+								<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+							</td>
+
+							<td class="select-size">
+								{{ form_widget(form[product.id].quantityDetail) }}
+							</td>
+
+							<td class="select-add">
+								<button class="btn btn-mini">Ajouter</button>
+								{{ form_widget(form[product.id]._token) }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+	    </div>
+
 	{% else %}
-    <div class="product-toolbar text-centered span9 offset1">
-		<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 
-            <table class="table pricing">
-                <tr>
-                    <td class="select-quantity">
-						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-                    </td>
+	    <div class="product-toolbar text-centered span6 offset3">
+			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 
-                    <td class="select-add">
-						<button class="btn btn-mini">Ajouter</button>
-						{{ form_widget(form[product.id]._token) }}
-                    </td>
-                </tr>
-            </table>
+	            <table class="table pricing pricing-chunk-price">
+	                <tr>
+	                    <td class="select-quantity">
+							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
+	                    </td>
 
-        </form>
-	</div>
+	                    <td class="select-add">
+							<button class="btn btn-mini">Ajouter</button>
+							{{ form_widget(form[product.id]._token) }}
+	                    </td>
+	                </tr>
+	            </table>
+
+	        </form>
+		</div>
+
 	{% endif %}
+
+
 </div>
 
 {% if similar_products|length > 0 %}
