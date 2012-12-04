@@ -3978,8 +3978,9 @@ h1 {
   padding: 0;
   text-align: center;
 }
-.product-toolbar input[type="text"].inline-quantity-person {
-  width: 70px;
+.product-toolbar select.inline-quantity-person {
+  width: 110px;
+  margin-bottom: 0;
 }
 .product-toolbar-large .product-details {
   margin: 24px 0;
@@ -4047,6 +4048,7 @@ table.pricing tfoot tr td {
 }
 table.pricing .select-quantity {
   padding-top: 42px;
+  text-align: center;
 }
 table.pricing .select-size label.radio {
   line-height: 32px;
@@ -4059,6 +4061,16 @@ table.pricing .select-size label.radio i {
 }
 table.pricing .select-add {
   padding-top: 42px;
+}
+table.pricing-fixed-unit-price td.select-quantity,
+table.pricing-chunk-price td.select-quantity {
+  width: 60%;
+}
+table.pricing-variable-unit-price td.select-quantity {
+  width: 33%;
+}
+table.pricing-variable-unit-price td.select-size {
+  width: 45%;
 }
 .toolbar {
   margin: 32px 0;
