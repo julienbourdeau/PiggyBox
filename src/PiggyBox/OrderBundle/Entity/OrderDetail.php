@@ -227,20 +227,20 @@ class OrderDetail
     /**
      * Set totalPrice
      *
-     * @param float $totalPrice
+     * @param  float       $totalPrice
      * @return OrderDetail
      */
     public function setTotalPrice($totalPrice)
     {
         $this->totalPrice = $totalPrice;
-    
+
         return $this;
     }
 
     /**
      * Get totalPrice
      *
-     * @return float 
+     * @return float
      */
     public function getTotalPrice()
     {
