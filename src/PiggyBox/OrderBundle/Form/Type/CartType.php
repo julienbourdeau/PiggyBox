@@ -13,7 +13,7 @@ class CartType extends AbstractType
         $builder
             ->add('orders', 'collection', array(
                  'type' => new OrderType(),
-                'by_reference' => false,
+                 'by_reference' => false,
             ));
     }
 
