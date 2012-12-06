@@ -80,5 +80,6 @@
 
 		result = result.toFixed(2);
 		$('table#'+selector+'-total td.total-price strong span').text(result);
+		$('table#'+selector+'-total td.total-price > input').val(result);
 	}
 })(jQuery);
