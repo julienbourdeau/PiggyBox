@@ -21,7 +21,7 @@
                     </div>
                     <div class="cart-progress-item muted">
                         <div class="step-number"><span>4</span></div>
-                        Validation
+                        Paiement
                     </div>
                     <div class="cart-progress-item muted">
                         <div class="step-number"><span>5</span></div>
@@ -64,6 +64,7 @@
                     <label class="control-label" for="pickup_date">Heure</label>
                     <div class="controls">
 						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
+						{{ form_widget(order.totalPrice) }}
                     </div>
                 </div>
             </div>
@@ -79,8 +80,14 @@
                     <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">{% if app.user %}Paiement {% else %}Identifiez-vous
-                    {% endif %}<i class="icon-arrow-right icon-white"></i></button>
+                    <button href="#" class="btn btn-large btn-primary">
+                        {% if app.user %}
+                            Choisissez votre méthode de paiement
+                        {% else %}
+                            Identifiez-vous
+                        {% endif %}
+                        <i class="icon-arrow-right icon-white"></i>
+                    </button>
                 </div>
             </div>
         </div>
