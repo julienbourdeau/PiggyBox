@@ -1,5 +1,36 @@
 (function ($) {
 
+	$(document).ready(function () {
+		$("td.col5").each(function () {
+			var selector = $(this).attr('id');
+			var quantity = parseInt($('input.'+selector).val());
+			var unitPrice = parseFloat($('td#'+selector+'.col3 > span').text()).toFixed(2);
+			console.log(quantity);
+			console.log(unitPrice);
+
+			$('td#'+selector+'.col5 > input').val(parseFloat(quantity*unitPrice).toFixed(2));
+			$('td#'+selector+'.col5 > span').text(parseFloat(quantity*unitPrice).toFixed(2));
+		});
+	});
+
+	$('select').on('change', function() {
+		var selector = $(this).attr('rel')
+	
+		var quantity = parseInt($(this).val());	
+		var min_weight = parseFloat($(this).attr('data-min-weight')).toFixed(2);	
+		var max_weight = parseFloat($(this).attr('data-max-weight')).toFixed(2);	
+		var min_person = parseInt($(this).attr('data-min-person'));
+		var max_person = parseInt($(this).attr('data-max-person'));
+		var weight_price = parseFloat($('td#'+selector+'.col4').text()).toFixed(2);
+
+		var result = (parseFloat(parseFloat((((max_weight-min_weight)/(max_person-min_person))*(quantity-min_person)))+parseFloat(min_weight))*parseFloat(weight_price)/1000).toFixed(2); 
+
+		$('td#'+selector+'.col3 > span').text(result);
+		$('td#'+selector+'.col5 > span').text(result);
+		$('td#'+selector+'.col5 > input').val(result);
+		refreshTotalPrice($(this).attr('data-shop'));
+    });
+
 	$('a#remove-order-detail').on('click', function(e) {
         e.preventDefault();
 		var selector = $(this).attr('class')
@@ -22,7 +53,8 @@
 
 		var selector = $(this).attr('rel');
 		var unitPrice = $('td#'+selector+'.col3').text();
-		$('td#'+selector+'.col5').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		$('td#'+selector+'.col5 > span').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		$('td#'+selector+'.col5 > input').val((quantity*parseFloat(unitPrice)).toFixed(2));
 		refreshTotalPrice($(this).attr('data-shop'));
     });
 
@@ -33,7 +65,8 @@
 
 		var selector = $(this).attr('rel');
 		var unitPrice = $('td#'+selector+'.col3').text();
-		$('td#'+selector+'.col5').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		$('td#'+selector+'.col5 > span').text((quantity*parseFloat(unitPrice)).toFixed(2));
+		$('td#'+selector+'.col5 > input').val((quantity*parseFloat(unitPrice)).toFixed(2));
 		refreshTotalPrice($(this).attr('data-shop'));
     });
 
