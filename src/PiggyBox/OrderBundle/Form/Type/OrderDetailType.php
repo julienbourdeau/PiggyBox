@@ -55,11 +55,31 @@ class OrderDetailType extends AbstractType
                 }
 
                 if ($data->getId()) {
-                    $form->add(
-                        $formFactory->createNamed('quantity', 'number', null, array(
-                            'read_only' => true,
-                        ))
-                    );
+                    if ($data->getProduct()) {
+                        if ($data->getProduct()->getPriceType() == 'chunk_price') {
+                            $choices = array();
+
+                            for ($i = $data->getProduct()->getMinPerson(); $i <= $data->getProduct()->getMaxPerson(); $i++) {
+                                $choices[$i] = $i.' pers.';
+                            }
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'choice', null, array(
+                                    'choices'   => $choices,
+                                ))
+                            );
+                        }
+                        if ($data->getProduct()->getPriceType() != 'chunk_price') {
+                            $choices = array();
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'number', null, array(
+                                    'data' => 1,
+                                    'read_only' => true,
+                                ))
+                            );
+                        }
+                    }
                 }
             }
         );
@@ -73,6 +93,7 @@ class OrderDetailType extends AbstractType
             'multiple'  => false,
             'expanded'  => true,
         ));
+        $builder->add('totalPrice', 'hidden');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
