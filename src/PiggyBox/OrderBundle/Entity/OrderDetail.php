@@ -65,6 +65,13 @@ class OrderDetail
     private $quantityDetail;
 
     /**
+     * @var float $totalPrice
+     *
+     * @ORM\Column(name="totalPrice", type="float", nullable=true)
+     */
+    private $totalPrice = 0;
+
+    /**
      * Get id
      *
      * @return integer
@@ -215,5 +222,28 @@ class OrderDetail
     public function getQuantityDetail()
     {
         return $this->quantityDetail;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param float $totalPrice
+     * @return OrderDetail
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+    
+        return $this;
+    }
+
+    /**
+     * Get totalPrice
+     *
+     * @return float 
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
     }
 }
