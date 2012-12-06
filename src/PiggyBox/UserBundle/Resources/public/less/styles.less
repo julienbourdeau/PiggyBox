@@ -132,6 +132,7 @@ div.image-category:hover {
 }
 
 #header {
+	min-width: 1055px; // SHITTY CODE HERE ^^
 	height: 100%;
 	margin-bottom: 52px;
 	#logo {
@@ -303,8 +304,9 @@ h1 {
 		padding: 0;
 		text-align: center;
 	}
-	input[type="text"].inline-quantity-person {
-		width: 70px;
+	select.inline-quantity-person {
+		width: 110px;
+		margin-bottom: 0;
 	}
 }
 
@@ -384,6 +386,7 @@ table.pricing {
 	}
 	.select-quantity {
 		padding-top: 42px;
+		text-align: center;
 	}
 	.select-size {
 		label.radio {
@@ -400,6 +403,23 @@ table.pricing {
 		padding-top: 42px;
 	}
 }	
+
+table.pricing-fixed-unit-price,
+table.pricing-chunk-price {
+	td.select-quantity {
+		width: 60%;
+	}
+}	
+
+table.pricing-variable-unit-price {
+	td.select-quantity {
+		width: 33%;
+	}
+	td.select-size {
+		width: 45%;
+	}
+}
+
 
 .toolbar {
 	margin: 32px 0;
@@ -481,6 +501,7 @@ table.cart-total {
 	color: @white;
 	font-family: @museo300FontFamily;
 	font-size: 13px;
+	min-width: 1055px; // SHITTY CODE HERE ^^
 	.row {
 		margin-top: 16px;
 	}

@@ -46,7 +46,7 @@
 			<div class="span12">
 				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 					{% if product.priceType == 'chunk_price' %}
-						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
 					{% else %}
 						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
 						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
