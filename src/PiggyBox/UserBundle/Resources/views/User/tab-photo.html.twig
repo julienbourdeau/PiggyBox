@@ -67,4 +67,15 @@
 	</div>
 {% endfor %}
 
+{% elseif (shop.slug == 'le-boulanger-de-zola') %}
+
+
+{% for count in range(0, 4) %}
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/leboulangerdezola/le-boulanger-de-zola-" ~ count ~ ".jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+{% endfor %}
+
 {% endif %}
