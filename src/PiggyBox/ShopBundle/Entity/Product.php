@@ -183,6 +183,11 @@ class Product
      **/
     private $category;
 
+	/**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
+     **/
+    private $menuItems;
+
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -755,5 +760,45 @@ class Product
         if ($this->priceType == 'unit_variable_price') {
             $this->price = round($this->productWeightPerSlice * $this->weightPrice/1000, 2, PHP_ROUND_HALF_UP);
         }
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add menuItems
+     *
+     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     * @return Product
+     */
+    public function addMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menuItems[] = $menuItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menuItems
+     *
+     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     */
+    public function removeMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menuItems->removeElement($menuItems);
+    }
+
+    /**
+     * Get menuItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMenuItems()
+    {
+        return $this->menuItems;
     }
 }
