@@ -80,10 +80,31 @@
                                 <div class="product-toolbar product-toolbar-large form-inline">
 
                                     <div class="select-quantity">
+										{% if orderDetail.vars.value.product.priceType != 'chunk_price' %}
+
 										<div id="quantity-minus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn left minus"><i class="icon-minus"></i>
 										</div>
-										{{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-										<div id="quantity-plus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn right plus"><i class="icon-plus"></i></div>
+
+										{{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity '~loop.index0~'-'~order.vars.value.shop.slug} }) }}
+
+										<div id="quantity-plus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn right plus"><i class="icon-plus"></i>
+										</div>
+
+										{% else %}
+
+										{{ form_widget(orderDetail.quantity, {
+											'attr': {
+												'rel': loop.index0 ~ "-" ~ orderDetail.vars.value.order.shop.slug,
+												'data-shop': orderDetail.vars.value.order.shop.slug,
+												'class': 'inline-quantity-person' ,
+												'data-min-weight': orderDetail.vars.value.product.minWeight,
+												'data-min-person': orderDetail.vars.value.product.minPerson,
+												'data-max-weight': orderDetail.vars.value.product.maxWeight,
+												'data-max-person': orderDetail.vars.value.product.maxPerson
+												}
+											})
+										}}
+										{% endif %}
                                     </div>
 
 									{% if orderDetail.vars.value.product.priceType == 'unit_variable_price' %}
@@ -94,10 +115,26 @@
 
                                 </div>
                             </td>
-							<td class="col3" id="{{loop.index0}}-{{order.vars.value.shop.slug}}"><span>{{orderDetail.vars.value.product.price}}</span> €</td>
-                            <td class="col4" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">{{orderDetail.vars.value.product.weightPrice}} €</td>
-							<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}"><span>{{orderDetail.vars.value.product.price*orderDetail.vars.value.quantity}}</span> €</td>
-							<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}"><a id="remove-order-detail" class="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="{{order.vars.value.shop.slug}}" href="#"><i class="icon-trash"></i></a></td>
+							<td class="col3" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
+								<span>
+									{{orderDetail.vars.value.product.price}}
+								</span> €
+							</td>
+							<td class="col4" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
+								<span>
+									{{orderDetail.vars.value.product.weightPrice}}
+								</span> €
+							</td>
+							<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
+									{{ form_widget(orderDetail.totalPrice) }}
+								<span>
+									{{orderDetail.vars.value.quantity }}
+								</span> €
+							</td>
+							<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
+								<a id="remove-order-detail" class="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="{{order.vars.value.shop.slug}}" href="#"><i class="icon-trash"></i>
+								</a>
+							</td>
                         </tr>
 						{% endfor %}
                     </tbody>
@@ -111,7 +148,14 @@
 				<table id="{{order.vars.value.shop.slug}}-total" class="table table-bordered table-striped cart-total">
                     <tr>
                         <td class=""><strong>Total TTC:</strong></td>
-				<td class="total-price"><strong><span>{{order.vars.value.totalprice}}</span> €</strong></td>
+						<td class="total-price">
+									{{ form_widget(order.totalPrice) }}
+							<strong>
+								<span>
+									{{order.vars.value.totalprice}}
+								</span> €
+							</strong>
+						</td>
                     </tr>
                 </table>
             </div>
