@@ -1,7 +1,7 @@
-# PiggyBoxShopBundle
+## Etapes d'upload du code sur Github
 
-## Entity Product
-
-	* Modification du form de création d'un produit
-	* Ajout du js pour l'affichage
-	* Ajout le champs de preview 
+-	Tu modifie ton code sources pour faire ta feature
+-	Tu commit tes données:
+	git commit -m "modification du template"
+-	Tu push sur le serveur tes modifications
+	git push -u origin feature-tracking
