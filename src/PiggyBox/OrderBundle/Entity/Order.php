@@ -37,11 +37,11 @@ class Order
     private $status = "ordering";
 
     /**
-     * @var float $total_price
+     * @var float $totalPrice
      *
-     * @ORM\Column(name="total_price", type="float", nullable=true)
+     * @ORM\Column(name="totalPrice", type="float", nullable=true)
      */
-    private $total_price = 0;
+    private $totalPrice = 0;
 
     /**
      * @var integer $total_products
@@ -177,7 +177,7 @@ class Order
      */
     public function setTotalPrice($totalPrice)
     {
-        $this->total_price = $totalPrice;
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
@@ -189,7 +189,7 @@ class Order
      */
     public function getTotalPrice()
     {
-        return $this->total_price;
+        return $this->totalPrice;
     }
 
     /**
