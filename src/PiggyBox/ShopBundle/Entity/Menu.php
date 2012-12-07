@@ -30,13 +30,6 @@ class Menu
     private $title;
 
     /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="menuItems", type="object")
-     */
-    private $menuItems;
-
-    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -64,6 +57,15 @@ class Menu
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
+
+	/**
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem")
+     * @ORM\JoinTable(name="menus_menuitems",
+     *      joinColumns={@ORM\JoinColumn(name="menu_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="menuitem_id", referencedColumnName="id", unique=true)}
+     *      )
+     **/
+    private $menuItems;
 
     /**
      * Get id
@@ -142,29 +144,6 @@ class Menu
     }
 
     /**
-     * Set menuItems
-     *
-     * @param  \stdClass $menuItems
-     * @return Menu
-     */
-    public function setMenuItems($menuItems)
-    {
-        $this->menuItems = $menuItems;
-
-        return $this;
-    }
-
-    /**
-     * Get menuItems
-     *
-     * @return \stdClass
-     */
-    public function getMenuItems()
-    {
-        return $this->menuItems;
-    }
-
-    /**
      * Set shop
      *
      * @param  \PiggyBox\ShopBundle\Entity\Shop $shop
@@ -185,5 +164,71 @@ class Menu
     public function getShop()
     {
         return $this->shop;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Menu
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Menu
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Add menuItems
+     *
+     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     * @return Menu
+     */
+    public function addMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menuItems[] = $menuItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menuItems
+     *
+     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     */
+    public function removeMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menuItems->removeElement($menuItems);
+    }
+
+    /**
+     * Get menuItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMenuItems()
+    {
+        return $this->menuItems;
     }
 }
