@@ -183,7 +183,7 @@ class Product
      **/
     private $category;
 
-	/**
+    /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
      **/
     private $menuItems;
@@ -768,17 +768,17 @@ class Product
     {
         $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add menuItems
      *
-     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     * @param  \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
      * @return Product
      */
     public function addMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
     {
         $this->menuItems[] = $menuItems;
-    
+
         return $this;
     }
 
@@ -795,7 +795,7 @@ class Product
     /**
      * Get menuItems
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMenuItems()
     {

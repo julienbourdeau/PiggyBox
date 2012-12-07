@@ -29,7 +29,7 @@ class MenuDetail
      */
     private $menu;
 
-	/**
+    /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product")
      * @ORM\JoinTable(name="menudetails_products",
      *      joinColumns={@ORM\JoinColumn(name="menudetail_id", referencedColumnName="id")},
@@ -54,7 +54,7 @@ class MenuDetail
      */
     private $updatedAt;
 
-	/**
+    /**
      * @ORM\OneToOne(targetEntity="PiggyBox\OrderBundle\Entity\OrderDetail", mappedBy="menuDetail")
      **/
     private $orderDetail;
@@ -62,7 +62,7 @@ class MenuDetail
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -72,20 +72,20 @@ class MenuDetail
     /**
      * Set menu
      *
-     * @param \stdClass $menu
+     * @param  \stdClass  $menu
      * @return MenuDetail
      */
     public function setMenu($menu)
     {
         $this->menu = $menu;
-    
+
         return $this;
     }
 
     /**
      * Get menu
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getMenu()
     {
@@ -95,20 +95,20 @@ class MenuDetail
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime  $createdAt
      * @return MenuDetail
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -118,20 +118,20 @@ class MenuDetail
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime  $updatedAt
      * @return MenuDetail
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -141,20 +141,20 @@ class MenuDetail
     /**
      * Set orderDetail
      *
-     * @param \PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
+     * @param  \PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail
      * @return MenuDetail
      */
     public function setOrderDetail(\PiggyBox\OrderBundle\Entity\OrderDetail $orderDetail = null)
     {
         $this->orderDetail = $orderDetail;
-    
+
         return $this;
     }
 
     /**
      * Get orderDetail
      *
-     * @return \PiggyBox\OrderBundle\Entity\OrderDetail 
+     * @return \PiggyBox\OrderBundle\Entity\OrderDetail
      */
     public function getOrderDetail()
     {
@@ -167,17 +167,17 @@ class MenuDetail
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add products
      *
-     * @param \PiggyBox\ShopBundle\Entity\Product $products
+     * @param  \PiggyBox\ShopBundle\Entity\Product $products
      * @return MenuDetail
      */
     public function addProduct(\PiggyBox\ShopBundle\Entity\Product $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -194,7 +194,7 @@ class MenuDetail
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {

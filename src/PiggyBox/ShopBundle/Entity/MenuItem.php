@@ -29,17 +29,17 @@ class MenuItem
      */
     private $title;
 
-	/**
+    /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product", inversedBy="menuItems")
      * @ORM\JoinTable(name="menuItems_products")
-	 **/
-	private $products;
+     **/
+    private $products;
 
     /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
      **/
-	private $menu;
+    private $menu;
 
     /**
      * @var \DateTime
@@ -57,11 +57,10 @@ class MenuItem
      */
     private $updatedAt;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +70,20 @@ class MenuItem
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string   $title
      * @return MenuItem
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -94,20 +93,20 @@ class MenuItem
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return MenuItem
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -117,20 +116,20 @@ class MenuItem
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return MenuItem
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -144,24 +143,24 @@ class MenuItem
     {
         $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set menu
      *
-     * @param \PiggyBox\ShopBundle\Entity\Menu $menu
+     * @param  \PiggyBox\ShopBundle\Entity\Menu $menu
      * @return MenuItem
      */
     public function setMenu(\PiggyBox\ShopBundle\Entity\Menu $menu = null)
     {
         $this->menu = $menu;
-    
+
         return $this;
     }
 
     /**
      * Get menu
      *
-     * @return \PiggyBox\ShopBundle\Entity\Menu 
+     * @return \PiggyBox\ShopBundle\Entity\Menu
      */
     public function getMenu()
     {
@@ -171,13 +170,13 @@ class MenuItem
     /**
      * Add products
      *
-     * @param \PiggyBox\ShopBundle\Entity\Product $products
+     * @param  \PiggyBox\ShopBundle\Entity\Product $products
      * @return MenuItem
      */
     public function addProduct(\PiggyBox\ShopBundle\Entity\Product $products)
     {
         $this->products[] = $products;
-    
+
         return $this;
     }
 
@@ -194,7 +193,7 @@ class MenuItem
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProducts()
     {
