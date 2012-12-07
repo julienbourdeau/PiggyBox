@@ -93,7 +93,7 @@
 	    </div>
 
 	{% elseif product.priceType == 'unit_variable_price' %}
-    
+
 	    <div class="product-toolbar text-centered span9 offset1">
 			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 				<table class="table pricing pricing-variable-unit-price">

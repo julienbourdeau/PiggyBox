@@ -59,16 +59,16 @@ class Menu
      */
     private $price;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
-	private $shop;
+    private $shop;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,20 +78,20 @@ class Menu
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Menu
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -101,7 +101,7 @@ class Menu
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -111,7 +111,7 @@ class Menu
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -121,20 +121,20 @@ class Menu
     /**
      * Set price
      *
-     * @param float $price
+     * @param  float $price
      * @return Menu
      */
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -144,20 +144,20 @@ class Menu
     /**
      * Set menuItems
      *
-     * @param \stdClass $menuItems
+     * @param  \stdClass $menuItems
      * @return Menu
      */
     public function setMenuItems($menuItems)
     {
         $this->menuItems = $menuItems;
-    
+
         return $this;
     }
 
     /**
      * Get menuItems
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getMenuItems()
     {
@@ -167,20 +167,20 @@ class Menu
     /**
      * Set shop
      *
-     * @param \PiggyBox\ShopBundle\Entity\Shop $shop
+     * @param  \PiggyBox\ShopBundle\Entity\Shop $shop
      * @return Menu
      */
     public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
         $this->shop = $shop;
-    
+
         return $this;
     }
 
     /**
      * Get shop
      *
-     * @return \PiggyBox\ShopBundle\Entity\Shop 
+     * @return \PiggyBox\ShopBundle\Entity\Shop
      */
     public function getShop()
     {
