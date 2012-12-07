@@ -3,11 +3,12 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Menu
  *
- * @ORM\Table()
+ * @ORM\Table(name="piggybox_menu")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\MenuRepository")
  */
 class Menu
@@ -38,6 +39,7 @@ class Menu
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
@@ -45,6 +47,7 @@ class Menu
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
@@ -56,13 +59,11 @@ class Menu
      */
     private $price;
 
-    /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="shop", type="object")
-     */
-    private $shop;
-
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     **/
+	private $shop;
 
     /**
      * Get id
@@ -98,42 +99,6 @@ class Menu
     }
 
     /**
-     * Set menuItems
-     *
-     * @param \stdClass $menuItems
-     * @return Menu
-     */
-    public function setMenuItems($menuItems)
-    {
-        $this->menuItems = $menuItems;
-    
-        return $this;
-    }
-
-    /**
-     * Get menuItems
-     *
-     * @return \stdClass 
-     */
-    public function getMenuItems()
-    {
-        return $this->menuItems;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Menu
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
-
-    /**
      * Get createdAt
      *
      * @return \DateTime 
@@ -141,19 +106,6 @@ class Menu
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Menu
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    
-        return $this;
     }
 
     /**
@@ -190,12 +142,35 @@ class Menu
     }
 
     /**
-     * Set shop
+     * Set menuItems
      *
-     * @param \stdClass $shop
+     * @param \stdClass $menuItems
      * @return Menu
      */
-    public function setShop($shop)
+    public function setMenuItems($menuItems)
+    {
+        $this->menuItems = $menuItems;
+    
+        return $this;
+    }
+
+    /**
+     * Get menuItems
+     *
+     * @return \stdClass 
+     */
+    public function getMenuItems()
+    {
+        return $this->menuItems;
+    }
+
+    /**
+     * Set shop
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Shop $shop
+     * @return Menu
+     */
+    public function setShop(\PiggyBox\ShopBundle\Entity\Shop $shop = null)
     {
         $this->shop = $shop;
     
@@ -205,7 +180,7 @@ class Menu
     /**
      * Get shop
      *
-     * @return \stdClass 
+     * @return \PiggyBox\ShopBundle\Entity\Shop 
      */
     public function getShop()
     {
