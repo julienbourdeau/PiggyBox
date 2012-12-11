@@ -22,7 +22,7 @@
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <p class="chromeframe">You are using an outdated browser. <a onclick="_gaq.push(["_trackEvent", "User", "ACTION"]);" href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
 
 
@@ -35,7 +35,7 @@
                         <div class="span12">
 
                             <div id="logo">
-                                <a href="{{ path('home') }}">
+                                <a onclick="_gaq.push(["_trackEvent", "User", "Logo_home"]);" href="{{ path('home') }}">
                                     <img src="{{ asset('bundles/piggyboxuser/img/logo.png')}}" height="" alt="">
                                 </a>
                             </div>
@@ -45,20 +45,20 @@
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills no-margin pull-right">
                                         {% if app.user %}
-                                            <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
-                                            <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                                            <li><a onclick="_gaq.push(["_trackEvent", "User", "Mon_compte"]);" href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
+                                            <li><a onclick="_gaq.push(["_trackEvent", "User", "Se_deconnecter"]);" href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
 
                                             {% if "ROLE_SHOP" in app.user.roles %}
-                                                 <li><a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
+                                                 <li><a onclick="_gaq.push(["_trackEvent", "User", "Mon_magasin"]);" href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
                                             {% endif %}
                                         {% else %}
-                                            <li><a href="{{ path('fos_user_security_login') }}">Créer rapidement un compte / Se connecter</a></li>
+                                            <li><a onclick="_gaq.push(["_trackEvent", "User", "Creer_rapidement_compte_ou_se_connecter"]);" href="{{ path('fos_user_security_login') }}">Créer rapidement un compte / Se connecter</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
 
                                 <div class="clearfix">
-                                    <a id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right text-centered">
+                                    <a onclick="_gaq.push(["_trackEvent", "User", "Panier"]);" id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right text-centered">
                                         <strong><i class="icon-shopping-cart"></i> Panier</strong>
                                         <br>
 										{% if piggybox_product_number_in_cart() > 0 %}
@@ -82,9 +82,9 @@
                         <div class="span12">
                             <div class="header-menu tabbable tabs-below pull-right">
                                 <ul class="access nav nav-tabs">
-                                    <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Rechercher des commerces</a></li>
-                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Nos engagements</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a onclick="_gaq.push(["_trackEvent", "User", "accueil"]);" href="{{ path('home') }}">Accueil</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a onclick="_gaq.push(["_trackEvent", "User", "rechercher_commerces"]);" href="{{ path('shops') }}">Rechercher des commerces</a></li>
+                                    <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a onclick="_gaq.push(["_trackEvent", "User", "nos_engagements"]);" href="{{ path('ccm') }}">Nos engagements</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
     			<div class="row">
     				<div class="span12">
     					<div class="alert alert-{{ name }}">
-    						<a class="close" data-dismiss="alert" href="#">×</a>
+    						<a onclick="_gaq.push(["_trackEvent", "User", "close_alert"]);" class="close" data-dismiss="alert" href="#">×</a>
     						{{ value|trans }}
     					</div>
     				</div>
@@ -118,8 +118,8 @@
                     <div class="span4">
                         <div class="help-contact text-centered">
                             <img src="{{ asset('bundles/piggyboxuser/img/help-telephone.png')}}" alt="">
-                            <a href="//twitter.com/cetaf_officiel"><img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt=""></a>
-                            <a href="mailto:aide@cotelettes-tarteauxfraises.com"><img src="{{ asset('bundles/piggyboxuser/img/help-email.png')}}" alt=""></a>
+                            <a onclick="_gaq.push(["_trackEvent", "User", "help_twitter"]);" href="//twitter.com/cetaf_officiel"><img src="{{ asset('bundles/piggyboxuser/img/help-twitter.png')}}" alt=""></a>
+                            <a onclick="_gaq.push(["_trackEvent", "User", "help_mail"]);" href="mailto:aide@cotelettes-tarteauxfraises.com"><img src="{{ asset('bundles/piggyboxuser/img/help-email.png')}}" alt=""></a>
                         </div>
 
                     </div>
@@ -140,11 +140,11 @@
                     <div class="span2">
                         <h3 class="no-margin">A voir</h3>
                         <ul>
-                            <li><a href="{{ path('home') }}">Accueil</a></li>
-                            <li><a href="{{ path('shops') }}">Les commerçants</a></li>
-                            <li><a href="{{ path('ccm') }}">Comment ça marche ?</a></li>
-                            <li><a href="{{ path('about') }}">Qui sommes-nous ?</a></li>
-                            <li><a href="{{ path('legal') }}">Mentions légales</a></li>
+                            <li><a onclick="_gaq.push(["_trackEvent", "User", "a_voir_accueil"]);" href="{{ path('home') }}">Accueil</a></li>
+                            <li><a onclick="_gaq.push(["_trackEvent", "User", "a_voir_les_commercants"]);" href="{{ path('shops') }}">Les commerçants</a></li>
+                            <li><a onclick="_gaq.push(["_trackEvent", "User", "a_voir_comment_ca_marche"]);" href="{{ path('ccm') }}">Comment ça marche ?</a></li>
+                            <li><a onclick="_gaq.push(["_trackEvent", "User", "a_voir_qui_sommes_nous"]);" href="{{ path('about') }}">Qui sommes-nous ?</a></li>
+                            <li><a onclick="_gaq.push(["_trackEvent", "User", "a_voir_mentions_legales"]);" href="{{ path('legal') }}">Mentions légales</a></li>
                         </ul>
                     </div>
 
@@ -155,8 +155,8 @@
                             16 impasse du stade <br>
                             Raymond Durand <br>
                             44120 Vertou<br>
-                            <abbr title="Telephone">Tel:</abbr> 02 40 37 46 67 <br>
-                            <a href="mailto:team@theboxmake.rs">team@theboxmake.rs</a> <br>
+                            <a onclick="_gaq.push(["_trackEvent", "User", "a_propos_telephone"]);"bbr title="Telephone">Tel:</abbr> 02 40 37 46 67 <br>
+                            <a onclick="_gaq.push(["_trackEvent", "User", "a_propos_mailto"]);" href="mailto:team@theboxmake.rs">team@theboxmake.rs</a> <br>
                             SIRET: 78906613100010
                         </address>
                     </div>
@@ -174,7 +174,7 @@
                         <p>
                             Les photos des produits ne sont pas contractuelles. En cas de différence de prix, le prix en magasin fait foi.
                             <br>
-                            L'abus d'alcool est dangereux pour la santé. A consommer avec modération. <a href="http://www.mangerbouger.fr/">mangerbouger.fr</a>
+                            L'abus d'alcool est dangereux pour la santé. A consommer avec modération. <a onclick="_gaq.push(["_trackEvent", "User", "manger_bouger"]);" href="http://www.mangerbouger.fr/">mangerbouger.fr</a>
                         </p>
                     </div>
                 </div>
