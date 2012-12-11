@@ -11,7 +11,6 @@ use PiggyBox\ShopBundle\Entity\Menu;
 use PiggyBox\ShopBundle\Entity\MenuItem;
 use PiggyBox\ShopBundle\Form\MenuType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
-use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 /**
  * Menu controller.
@@ -71,28 +70,8 @@ class MenuController extends Controller
     public function newAction()
     {
         $menu = new Menu();
-		$user = $this->get('security.context')->getToken()->getUser();
-		$menu->setShop($user->getOwnshop());
-
-        $form   = $this->createForm(new MenuType(), $menu);
-
-        return array(
-            'entity' => $menu,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Create New MenuItem Form to retreive the right shop in the table
-     *
-     * @Route("/create_menu_item", name="create_menu_item")
-     * @Template()
-     */
-    public function createMenuItemAction()
-    {
-        $menu = new Menu();
-		$user = $this->get('security.context')->getToken()->getUser();
-		$menu->setShop($user->getOwnshop());
+        $user = $this->get('security.context')->getToken()->getUser();
+        $menu->setShop($user->getOwnshop());
 
         $form   = $this->createForm(new MenuType(), $menu);
 
@@ -119,11 +98,12 @@ class MenuController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-			for ($i = 0; $i < $form->getData()->getStepsNumber(); $i++) {
-				$menuItem = new MenuItem();
-				$menuItem->setTitle("Etape ".$i);
-				$menu->addMenuItem($menuItem);
-			}
+            for ($i = 0; $i < $form->getData()->getStepsNumber(); $i++) {
+                $menuItem = new MenuItem();
+                $menuItem->setTitle("Etape ".$i);
+                $menuItem->setMenu($menu);
+                $menu->addMenuItem($menuItem);
+            }
 
             $em->persist($menu);
             $em->flush();

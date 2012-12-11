@@ -36,6 +36,12 @@ class MenuItem
     private $products;
 
     /**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu", inversedBy="menuItems")
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     **/
+    private $menu;
+
+    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -169,5 +175,28 @@ class MenuItem
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set menu
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Menu $menu
+     * @return MenuItem
+     */
+    public function setMenu(\PiggyBox\ShopBundle\Entity\Menu $menu = null)
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+    /**
+     * Get menu
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Menu
+     */
+    public function getMenu()
+    {
+        return $this->menu;
     }
 }
