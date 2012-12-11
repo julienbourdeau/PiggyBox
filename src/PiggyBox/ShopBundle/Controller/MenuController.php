@@ -8,11 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Menu;
+use PiggyBox\ShopBundle\Entity\MenuItem;
 use PiggyBox\ShopBundle\Form\MenuType;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 /**
  * Menu controller.
  *
+ * @PreAuthorize("hasRole('ROLE_SHOP')")
  * @Route("/monmagasin/formule")
  */
 class MenuController extends Controller
@@ -27,10 +31,10 @@ class MenuController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PiggyBoxShopBundle:Menu')->findAll();
+        $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findAll();
 
         return array(
-            'entities' => $entities,
+            'menus' => $menus,
         );
     }
 
@@ -61,16 +65,39 @@ class MenuController extends Controller
     /**
      * Displays a form to create a new Menu entity.
      *
-     * @Route("/new", name="formule_new")
+     * @Route("/nouveau", name="formule_new")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Menu();
-        $form   = $this->createForm(new MenuType(), $entity);
+        $menu = new Menu();
+		$user = $this->get('security.context')->getToken()->getUser();
+		$menu->setShop($user->getOwnshop());
+
+        $form   = $this->createForm(new MenuType(), $menu);
 
         return array(
-            'entity' => $entity,
+            'entity' => $menu,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Create New MenuItem Form to retreive the right shop in the table
+     *
+     * @Route("/create_menu_item", name="create_menu_item")
+     * @Template()
+     */
+    public function createMenuItemAction()
+    {
+        $menu = new Menu();
+		$user = $this->get('security.context')->getToken()->getUser();
+		$menu->setShop($user->getOwnshop());
+
+        $form   = $this->createForm(new MenuType(), $menu);
+
+        return array(
+            'entity' => $menu,
             'form'   => $form->createView(),
         );
     }
@@ -84,20 +111,28 @@ class MenuController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Menu();
-        $form = $this->createForm(new MenuType(), $entity);
+        $menu  = new Menu();
+        $form = $this->createForm(new MenuType(), $menu);
         $form->bind($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
+			for ($i = 0; $i < $form->getData()->getStepsNumber(); $i++) {
+				$menuItem = new MenuItem();
+				$menuItem->setTitle("Etape ".$i);
+				$menu->addMenuItem($menuItem);
+			}
+
+            $em->persist($menu);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('formule_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('formule_show', array('id' => $menu->getId())));
         }
 
         return array(
-            'entity' => $entity,
+            'entity' => $menu,
             'form'   => $form->createView(),
         );
     }
@@ -112,17 +147,17 @@ class MenuController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PiggyBoxShopBundle:Menu')->find($id);
+        $menu = $em->getRepository('PiggyBoxShopBundle:Menu')->find($id);
 
-        if (!$entity) {
+        if (!$menu) {
             throw $this->createNotFoundException('Unable to find Menu entity.');
         }
 
-        $editForm = $this->createForm(new MenuType(), $entity);
+        $editForm = $this->createForm(new MenuType(), $menu);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'menu'      => $menu,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );

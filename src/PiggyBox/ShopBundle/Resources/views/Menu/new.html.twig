@@ -1,16 +1,104 @@
-<h1>Menu creation</h1>
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
 
-<form action="{{ path('formule_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% form_theme form _self %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('formule') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Produit à ajouter</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for child in form %}
+				<tr>
+					<td>{{ form_widget(child) }}</td>
+					<td>{{ form_label(child) }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block body%}
+
+{% include 'PiggyBoxShopBundle:Menu:menu_sub_header.html.twig' %}
+
+<div id="main">
+	<div id="primary" class="site-content container">
+
+
+	<div class="page-header">
+		<h1>Nouvelle Formule</h1>
+	</div>
+
+		<form action="{{ path('formule_create') }}" method="post" {{ form_enctype(form) }}>
+			<ul class="tags" data-prototype="{{ form_widget(form.menuItems.vars.prototype)|e }}">
+				...
+			</ul>
+
+			{{ form_widget(form) }}
+			<p>
+				<button type="submit">Create</button>
+			</p>
+		</form>
+
+		<ul class="record_actions">
+			<li>
+				<a href="{{ path('formule') }}">
+					Back to the list
+				</a>
+			</li>
+		</ul>
+
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+
+// Get the div that holds the collection of tags
+var collectionHolder = $('ul.tags');
+
+// setup an "add a tag" link
+var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
+var $newLinkLi = $('<li></li>').append($addTagLink);
+
+jQuery(document).ready(function() {
+    // add the "add a tag" anchor and li to the tags ul
+    collectionHolder.append($newLinkLi);
+
+    $addTagLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // add a new tag form (see next code block)
+        addTagForm(collectionHolder, $newLinkLi);
+    });
+});
+
+function addTagForm(collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = collectionHolder.attr('data-prototype');
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on the current collection's length.
+    var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li></li>').append(newForm);
+    $newLinkLi.before($newFormLi);
+}
+
+</script>
+
+{% endblock %}
+
