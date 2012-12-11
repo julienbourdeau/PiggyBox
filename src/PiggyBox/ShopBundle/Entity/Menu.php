@@ -65,12 +65,8 @@ class Menu
      **/
     private $shop;
 
-	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", cascade={"persist"})
-     * @ORM\JoinTable(name="menus_menuitems",
-     *      joinColumns={@ORM\JoinColumn(name="menu_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="menuitem_id", referencedColumnName="id", unique=true)}
-     *      )
+    /**
+     * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="menu", cascade={"persist"})
      **/
     private $menuItems;
 
@@ -172,6 +168,55 @@ class Menu
     {
         return $this->shop;
     }
+
+    /**
+     * Set createdAt
+     *
+     * @param  \DateTime $createdAt
+     * @return Menu
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param  \DateTime $updatedAt
+     * @return Menu
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Set stepsNumber
+     *
+     * @param  integer $stepsNumber
+     * @return Menu
+     */
+    public function setStepsNumber($stepsNumber)
+    {
+        $this->stepsNumber = $stepsNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get stepsNumber
+     *
+     * @return integer
+     */
+    public function getStepsNumber()
+    {
+        return $this->stepsNumber;
+    }
     /**
      * Constructor
      */
@@ -179,43 +224,17 @@ class Menu
     {
         $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Menu
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Menu
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    
-        return $this;
-    }
 
     /**
      * Add menuItems
      *
-     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     * @param  \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
      * @return Menu
      */
     public function addMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
     {
         $this->menuItems[] = $menuItems;
-    
+
         return $this;
     }
 
@@ -232,33 +251,10 @@ class Menu
     /**
      * Get menuItems
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMenuItems()
     {
         return $this->menuItems;
-    }
-
-    /**
-     * Set stepsNumber
-     *
-     * @param integer $stepsNumber
-     * @return Menu
-     */
-    public function setStepsNumber($stepsNumber)
-    {
-        $this->stepsNumber = $stepsNumber;
-    
-        return $this;
-    }
-
-    /**
-     * Get stepsNumber
-     *
-     * @return integer 
-     */
-    public function getStepsNumber()
-    {
-        return $this->stepsNumber;
     }
 }

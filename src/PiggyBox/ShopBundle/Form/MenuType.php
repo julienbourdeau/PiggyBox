@@ -13,10 +13,13 @@ class MenuType extends AbstractType
         $builder
             ->add('title')
             ->add('price')
-			->add('stepsNumber', 'integer', array(
-				'required' => true,
-				'data' => 3,
-				))
+			->add('shop', 'hidden', array(
+            	'data_class' => 'PiggyBox\ShopBundle\Entity\Shop'
+			))
+            ->add('stepsNumber', 'integer', array(
+                'required' => true,
+                'data' => 3,
+                ))
             ->add('menuItems', 'collection', array(
                     'type' => new MenuItemType(),
                     'allow_delete' => true,

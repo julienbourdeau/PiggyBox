@@ -2,29 +2,6 @@
 
 {% form_theme form _self %}
 
-{% block choice_widget_expanded %}
-{% spaceless %}
-    <div {{ block('widget_container_attributes') }}>
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Produit à ajouter</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for child in form %}
-				<tr>
-					<td>{{ form_widget(child) }}</td>
-					<td>{{ form_label(child) }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-    </div>
-{% endspaceless %}
-{% endblock choice_widget_expanded %}
-
 {% block body%}
 
 {% include 'PiggyBoxShopBundle:Menu:menu_sub_header.html.twig' %}
@@ -38,10 +15,6 @@
 	</div>
 
 		<form action="{{ path('formule_create') }}" method="post" {{ form_enctype(form) }}>
-			<ul class="tags" data-prototype="{{ form_widget(form.menuItems.vars.prototype)|e }}">
-				...
-			</ul>
-
 			{{ form_widget(form) }}
 			<p>
 				<button type="submit">Create</button>
@@ -101,4 +74,3 @@ function addTagForm(collectionHolder, $newLinkLi) {
 </script>
 
 {% endblock %}
-
