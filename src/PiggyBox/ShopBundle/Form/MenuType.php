@@ -12,12 +12,17 @@ class MenuType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('menuItems')
-            ->add('createdAt')
-            ->add('updatedAt')
             ->add('price')
-            ->add('shop')
-        ;
+			->add('stepsNumber', 'integer', array(
+				'required' => true,
+				'data' => 3,
+				))
+            ->add('menuItems', 'collection', array(
+                    'type' => new MenuItemType(),
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

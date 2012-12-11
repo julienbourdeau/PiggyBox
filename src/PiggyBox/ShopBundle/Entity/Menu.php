@@ -53,13 +53,20 @@ class Menu
     private $price;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="stepsNumber", type="integer")
+     */
+    private $stepsNumber;
+
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
     private $shop;
 
 	/**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem")
+     * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", cascade={"persist"})
      * @ORM\JoinTable(name="menus_menuitems",
      *      joinColumns={@ORM\JoinColumn(name="menu_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="menuitem_id", referencedColumnName="id", unique=true)}
@@ -230,5 +237,28 @@ class Menu
     public function getMenuItems()
     {
         return $this->menuItems;
+    }
+
+    /**
+     * Set stepsNumber
+     *
+     * @param integer $stepsNumber
+     * @return Menu
+     */
+    public function setStepsNumber($stepsNumber)
+    {
+        $this->stepsNumber = $stepsNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get stepsNumber
+     *
+     * @return integer 
+     */
+    public function getStepsNumber()
+    {
+        return $this->stepsNumber;
     }
 }

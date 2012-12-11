@@ -21,29 +21,67 @@ class OrderType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formFactory) {
-                if (null === $event->getData()) {
-                     return;
+                $data = $event->getData();
+                $form = $event->getForm();
+
+                if (null === $data) {
+                    return;
                 }
 
-                if ($event->getData()) {
-                    $closeDays = array();
+                if (!$data->getId()) {
+                    if ($data->getProduct()) {
+                        if ($data->getProduct()->getPriceType() == 'chunk_price') {
+                            $choices = array();
 
-                    if ($event->getData()->getShop() !== null) {
-                        $openingDays = $event->getData()->getShop()->getOpeningDays();
-
-                        foreach ($openingDays as $day) {
-                            if (!$day->getOpen()) {
-                                array_push($closeDays, $day->getDayOfTheWeek());
+                            for ($i = $data->getProduct()->getMinPerson(); $i <= $data->getProduct()->getMaxPerson(); $i++) {
+                                $choices[$i] = $i.' pers.';
                             }
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'choice', null, array(
+                                    'choices'   => $choices,
+                                ))
+                            );
+                        }
+                        if ($data->getProduct()->getPriceType() != 'chunk_price') {
+                            $choices = array();
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'number', null, array(
+                                    'data' => 1,
+                                    'read_only' => true,
+                                ))
+                            );
                         }
                     }
+                }
 
-                    $event->getForm()->add(
-                        $formFactory->createNamed('pickupatDate',new DateUniqueSelectorType(),null ,array(
-                            'number_of_days' => 8,
-                            'closed_days' => $closeDays,
-                        ))
-                    );
+                if ($data->getId()) {
+                    if ($data->getProduct()) {
+                        if ($data->getProduct()->getPriceType() == 'chunk_price') {
+                            $choices = array();
+
+                            for ($i = $data->getProduct()->getMinPerson(); $i <= $data->getProduct()->getMaxPerson(); $i++) {
+                                $choices[$i] = $i.' pers.';
+                            }
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'choice', null, array(
+                                    'choices'   => $choices,
+                                ))
+                            );
+                        }
+                        if ($data->getProduct()->getPriceType() != 'chunk_price') {
+                            $choices = array();
+
+                            $form->add(
+                                $formFactory->createNamed('quantity', 'number', null, array(
+                                    'data' => 1,
+                                    'read_only' => true,
+                                ))
+                            );
+                        }
+                    }
                 }
             }
         );

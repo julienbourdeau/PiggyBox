@@ -1,7 +1,13 @@
 <h1>Menu edit</h1>
 
-<form action="{{ path('formule_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form action="{{ path('formule_update', { 'id': menu.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+	{% for  menuItem in edit_form.menuItems %}
+		{{ form_widget(menuItem.title) }}
+		{{ form_widget(menuItem.products) }}
+	{% endfor %}
     {{ form_widget(edit_form) }}
+	
     <p>
         <button type="submit">Edit</button>
     </p>
@@ -14,7 +20,7 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('formule_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('formule_delete', { 'id': menu.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit">Delete</button>
         </form>
