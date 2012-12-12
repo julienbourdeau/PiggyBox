@@ -63,6 +63,8 @@
 
 
                                                 {% include 'PiggyBoxUserBundle:User:tab-product-details.html.twig' with {'shop': shop, 'product': product, 'form': form} %}
+											{% elseif category_slug == 'menus' %}
+                                            	{% include 'PiggyBoxUserBundle:User:tab-menus.html.twig' with {'shop': shop} %}
 											{% else %}
                                             	{% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': products} %}
 											{% endif %}

@@ -118,6 +118,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $data = array();
+
         $data['product'] = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
         $orderDetail = new OrderDetail();
         $orderDetail->setProduct($data['product']);
@@ -153,6 +154,7 @@ class UserController extends Controller
         $data['shop'] = $shop;
         $data['category_slug'] = $category_slug;
         $em = $this->getDoctrine()->getManager();
+        $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
@@ -161,6 +163,10 @@ class UserController extends Controller
             $data['products'] = $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             $data = $this->createOrderDetailForm($products, $data);
 
+            return $data;
+        }
+
+        if ($category_slug == "menus") {
             return $data;
         }
 
