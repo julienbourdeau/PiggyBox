@@ -70,8 +70,6 @@ class MenuController extends Controller
     public function newAction()
     {
         $menu = new Menu();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $menu->setShop($user->getOwnshop());
 
         $form   = $this->createForm(new MenuType(), $menu);
 
@@ -104,6 +102,8 @@ class MenuController extends Controller
                 $menuItem->setMenu($menu);
                 $menu->addMenuItem($menuItem);
             }
+			$user = $this->get('security.context')->getToken()->getUser();
+			$menu->setShop($user->getOwnshop());
 
             $em->persist($menu);
             $em->flush();
