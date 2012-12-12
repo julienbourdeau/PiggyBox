@@ -23,7 +23,7 @@ class MenuController extends Controller
     /**
      * Lists all Menu entities.
      *
-     * @Route("/", name="formule")
+     * @Route("/", name="piggybox_menu_list")
      * @Template()
      */
     public function indexAction()
@@ -40,7 +40,7 @@ class MenuController extends Controller
     /**
      * Finds and displays a Menu entity.
      *
-     * @Route("/{id}/show", name="formule_show")
+     * @Route("/{id}/show", name="piggybox_menu_show")
      * @Template()
      */
     public function showAction($id)
@@ -64,7 +64,7 @@ class MenuController extends Controller
     /**
      * Displays a form to create a new Menu entity.
      *
-     * @Route("/nouveau", name="formule_new")
+     * @Route("/nouveau", name="piggybox_menu_new")
      * @Template()
      */
     public function newAction()
@@ -82,7 +82,7 @@ class MenuController extends Controller
     /**
      * Creates a new Menu entity.
      *
-     * @Route("/create", name="formule_create")
+     * @Route("/create", name="piggybox_menu_create")
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Menu:new.html.twig")
      */
@@ -108,7 +108,7 @@ class MenuController extends Controller
             $em->persist($menu);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('formule_show', array('id' => $menu->getId())));
+            return $this->redirect($this->generateUrl('piggybox_menu_show', array('id' => $menu->getId())));
         }
 
         return array(
@@ -120,7 +120,7 @@ class MenuController extends Controller
     /**
      * Displays a form to edit an existing Menu entity.
      *
-     * @Route("/{id}/edit", name="formule_edit")
+     * @Route("/{id}/edit", name="piggybox_menu_edit")
      * @Template()
      */
     public function editAction($id)
@@ -146,7 +146,7 @@ class MenuController extends Controller
     /**
      * Edits an existing Menu entity.
      *
-     * @Route("/{id}/update", name="formule_update")
+     * @Route("/{id}/update", name="piggybox_menu_update")
      * @Method("POST")
      * @Template("PiggyBoxShopBundle:Menu:edit.html.twig")
      */
@@ -168,7 +168,7 @@ class MenuController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('formule_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('piggybox_menu_edit', array('id' => $id)));
         }
 
         return array(
@@ -181,7 +181,7 @@ class MenuController extends Controller
     /**
      * Deletes a Menu entity.
      *
-     * @Route("/{id}/delete", name="formule_delete")
+     * @Route("/{id}/delete", name="piggybox_menu_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
@@ -201,7 +201,7 @@ class MenuController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('formule'));
+        return $this->redirect($this->generateUrl('piggybox_menu_list'));
     }
 
     private function createDeleteForm($id)
