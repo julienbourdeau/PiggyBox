@@ -5,6 +5,7 @@ namespace PiggyBox\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Entity\Shop;
@@ -207,6 +208,7 @@ class UserController extends Controller
 		$menuDetail->setMenu($menu);
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($menu->getShop());
+        $products = $menu->getMenuItems()->first()->getProducts()->toArray();
 
 		$form = $this->createForm(new MenuDetailType(), $menuDetail);
 
@@ -215,8 +217,30 @@ class UserController extends Controller
 			'shop' => $menu->getShop(),
 			'menus' => $menus,
 			'menu' => $menu,
-			'category_slug' => 'menu-detail'
+			'category_slug' => 'menu-detail',
+			'products' => $products 
 		);
+	}
+
+    /**
+     * Submit the MenuDetail type to get user's choice of menus
+     *
+     * @Route("post/menudetail/{id}", name="user_submit_menus")
+	 * @ParamConverter("menu", class="PiggyBoxShopBundle:Menu")
+	 * @Method("POST")
+     * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
+     */
+	public function submitMenuDetailAction(Request $req, Menu $menu)
+	{
+		$menuDetail = new MenuDetail();	
+		$menuDetail->setMenu($menu);
+
+		$form = $this->createForm(new MenuDetailType(), $menuDetail);
+		$form->bind($req);
+
+		if ($form->isValid()) {
+			var_dump($form['products_31']->getData());die();
+		}
 	}
 
     private function createOrderDetailForm($products, $data)

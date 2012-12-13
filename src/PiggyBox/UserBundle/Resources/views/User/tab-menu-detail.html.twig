@@ -1,12 +1,22 @@
-<form class="form-inline" id="checkout" action="" method="post" {{form_enctype(form)}}>
+<form class="form-inline" action="{{ path('user_submit_menus', {'id': menu.id}) }}" method="post" {{form_enctype(form)}}>
 {% for menuItem in menu.menuItems %}
 <h1>{{menuItem.title}}</h1>
 
-	{{ form_widget(form['products_'~menuItem.id], { 'attr': {'class': 'inline-quantity'} }) }}
+	{{ dump(form['products_'~menuItem.id]) }}
+{#{{ dump(form['products_'~menuItem.id]) }}#}
+{% for test in form['products_'~menuItem.id].children %}
+	{{ form_widget(test, { 'attr': {'class': 'inline-quantity'} }) }}
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+{% endfor %}
+{#{{ form_widget(form['products_'~menuItem.id], { 'attr': {'class': 'inline-quantity'} }) }}#}
 
 {% endfor %}
 
-<div class="clearfix">
+<input class="btn btn-large btn-primary" type="submit">
 
-</div>
+{{ form_rest(form) }}
+
 </form>
