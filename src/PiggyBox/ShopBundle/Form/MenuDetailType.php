@@ -18,7 +18,7 @@ class MenuDetailType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formFactory) {
-				$data = $event->getData();
+                $data = $event->getData();
 
                 if (null === $event->getData()) {
                      return;
@@ -27,45 +27,47 @@ class MenuDetailType extends AbstractType
                 if (!$data) {
                     $event->getForm()->add(
                         $formFactory->createNamed('products', 'entity', null, array(
-							'class'         => 'PiggyBox\ShopBundle\Entity\Product',
-							'property'      => 'name',
-							'label'         => 'Produits',
-							'multiple'		=> false,
-							'expanded'		=> true,
-							'query_builder' => function (EntityRepository $repository) use ($data) {
-								$qb = $repository->createQueryBuilder('product')
-									->where('product.shop= :shop')
-									->setParameter('shop', null);
-								return $qb;
-		 					}
-					))
-					);
+                            'class'         => 'PiggyBox\ShopBundle\Entity\Product',
+                            'property'      => 'name',
+                            'label'         => 'Produits',
+                            'multiple'		=> false,
+                            'expanded'		=> true,
+                            'query_builder' => function (EntityRepository $repository) use ($data) {
+                                $qb = $repository->createQueryBuilder('product')
+                                    ->where('product.shop= :shop')
+                                    ->setParameter('shop', null);
+
+                                return $qb;
+                             }
+                    ))
+                    );
                 }
-				
+
                 if ($data->getMenu() != null) {
-					foreach ($data->getMenu()->getMenuItems() as $menuItem) {
-						$event->getForm()->add(
-							$formFactory->createNamed('products_'.$menuItem->getId(), 'entity', null, array(
-								'class'         => 'PiggyBox\ShopBundle\Entity\Product',
-								'property'      => 'name',
-								'label'         => 'Produits',
-								'multiple'		=> false,
-								'expanded'		=> true,
-								'property_path' => false,
-								'query_builder' => function (EntityRepository $repository) use ($data, $menuItem){
-									$qb = $repository->createQueryBuilder('product');
-									$qb->select(array('DISTINCT p', 'i'))
-										->from('PiggyBoxShopBundle:Product', 'p')
-										->leftJoin('p.menuItems', 'i')
-										->where('(p.shop=?1 AND i.id=?2)')
-										->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
-									return $qb;
-								}
-						))
-					);
-					}
+                    foreach ($data->getMenu()->getMenuItems() as $menuItem) {
+                        $event->getForm()->add(
+                            $formFactory->createNamed('products_'.$menuItem->getId(), 'entity', null, array(
+                                'class'         => 'PiggyBox\ShopBundle\Entity\Product',
+                                'property'      => 'name',
+                                'label'         => 'Produits',
+                                'multiple'		=> false,
+                                'expanded'		=> true,
+                                'property_path' => false,
+                                'query_builder' => function (EntityRepository $repository) use ($data, $menuItem) {
+                                    $qb = $repository->createQueryBuilder('product');
+                                    $qb->select(array('DISTINCT p', 'i'))
+                                        ->from('PiggyBoxShopBundle:Product', 'p')
+                                        ->leftJoin('p.menuItems', 'i')
+                                        ->where('(p.shop=?1 AND i.id=?2)')
+                                        ->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
+
+                                    return $qb;
+                                }
+                        ))
+                    );
+                    }
                 }
-			});		
+            });
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

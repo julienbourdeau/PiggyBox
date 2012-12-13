@@ -102,8 +102,8 @@ class MenuController extends Controller
                 $menuItem->setMenu($menu);
                 $menu->addMenuItem($menuItem);
             }
-			$user = $this->get('security.context')->getToken()->getUser();
-			$menu->setShop($user->getOwnshop());
+            $user = $this->get('security.context')->getToken()->getUser();
+            $menu->setShop($user->getOwnshop());
 
             $em->persist($menu);
             $em->flush();

@@ -269,20 +269,20 @@ class Menu
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Menu
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {

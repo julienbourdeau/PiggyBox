@@ -2,17 +2,21 @@
 {% for menuItem in menu.menuItems %}
 <h1>{{menuItem.title}}</h1>
 
-	{{ dump(form['products_'~menuItem.id]) }}
-{#{{ dump(form['products_'~menuItem.id]) }}#}
-{% for test in form['products_'~menuItem.id].children %}
-	{{ form_widget(test, { 'attr': {'class': 'inline-quantity'} }) }}
-	<br/>
-	<br/>
-	<br/>
-	<br/>
+{#{{ dump(form['products_'~menuItem.id].children) }}#}
+{% for key, buffer in form['products_'~menuItem.id].vars.value %}
+<label for="{{ form['products_'~menuItem.id].children[key].vars.id }}">{{ form['products_'~menuItem.id].children[key].vars.label }}
+{{ form_widget(form['products_'~menuItem.id].children[key]) }}
+        <div class="product-thumbnail">
+			<div class="img160x160">
+				{% if form['products_'~menuItem.id].vars.choices[key].data.hasImage %}
+					<img src="{{form['products_'~menuItem.id].vars.choices[key].data.getWebPath | apply_filter('my_thumb') }}"
+					alt="{{form['products_'~menuItem.id].vars.choices[key].data.name}}" title="{{form['products_'~menuItem.id].vars.choices[key].data.name}}" >
+				{% endif %}
+			</div>
+        </div>
+	</label>
 {% endfor %}
 {#{{ form_widget(form['products_'~menuItem.id], { 'attr': {'class': 'inline-quantity'} }) }}#}
-
 {% endfor %}
 
 <input class="btn btn-large btn-primary" type="submit">
