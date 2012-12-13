@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Menu
  *
  * @ORM\Table(name="piggybox_menu")
- * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\MenuRepository")
+ * @ORM\Entity()
  */
 class Menu
 {

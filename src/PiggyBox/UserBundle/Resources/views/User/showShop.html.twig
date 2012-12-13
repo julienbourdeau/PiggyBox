@@ -63,7 +63,10 @@
 
 
                                                 {% include 'PiggyBoxUserBundle:User:tab-product-details.html.twig' with {'shop': shop, 'product': product, 'form': form} %}
+
 											{% elseif app.request.attributes.get('_route') == 'user_show_menus' %}
+											{% form_theme form _self %}
+
                                             	{% include 'PiggyBoxUserBundle:User:tab-menu-detail.html.twig' with {'shop': shop} %}
 												
 											{% elseif category_slug == 'menus' %}

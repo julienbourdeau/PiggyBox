@@ -42,26 +42,26 @@ class MenuDetailType extends AbstractType
 					);
                 }
 				
-                if ($data) {
+                if ($data->getMenu() != null) {
 					foreach ($data->getMenu()->getMenuItems() as $menuItem) {
-                    $event->getForm()->add(
-                        $formFactory->createNamed('products_'.$menuItem->getId(), 'entity', null, array(
-							'class'         => 'PiggyBox\ShopBundle\Entity\Product',
-							'property'      => 'name',
-							'label'         => 'Produits',
-							'multiple'		=> false,
-							'expanded'		=> true,
-							'property_path' => false,
-							'query_builder' => function (EntityRepository $repository) use ($data, $menuItem){
-								$qb = $repository->createQueryBuilder('product');
-								$qb->select(array('DISTINCT p', 'i'))
-									->from('PiggyBoxShopBundle:Product', 'p')
-									->leftJoin('p.menuItems', 'i')
-									->where('(p.shop=?1 AND i.id=?2)')
-									->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
-								return $qb;
-		 					}
-					))
+						$event->getForm()->add(
+							$formFactory->createNamed('products_'.$menuItem->getId(), 'entity', null, array(
+								'class'         => 'PiggyBox\ShopBundle\Entity\Product',
+								'property'      => 'name',
+								'label'         => 'Produits',
+								'multiple'		=> false,
+								'expanded'		=> true,
+								'property_path' => false,
+								'query_builder' => function (EntityRepository $repository) use ($data, $menuItem){
+									$qb = $repository->createQueryBuilder('product');
+									$qb->select(array('DISTINCT p', 'i'))
+										->from('PiggyBoxShopBundle:Product', 'p')
+										->leftJoin('p.menuItems', 'i')
+										->where('(p.shop=?1 AND i.id=?2)')
+										->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
+									return $qb;
+								}
+						))
 					);
 					}
                 }
