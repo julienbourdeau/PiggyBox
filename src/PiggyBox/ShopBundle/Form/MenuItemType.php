@@ -18,7 +18,7 @@ class MenuItemType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formFactory) {
-				$data = $event->getData();
+                $data = $event->getData();
 
                 if (null === $event->getData()) {
                      return;
@@ -27,37 +27,39 @@ class MenuItemType extends AbstractType
                 if (!$event->getData()) {
                     $event->getForm()->add(
                         $formFactory->createNamed('products', 'entity', null, array(
-							'class'         => 'PiggyBox\ShopBundle\Entity\Product',
-							'property'      => 'name',
-							'label'         => 'Produits',
-							'multiple'		=> true,
-							'expanded'		=> true,
-							'query_builder' => function (EntityRepository $repository) use ($data) {
-								$qb = $repository->createQueryBuilder('product')
-									->where('product.shop= :shop')
-									->setParameter('shop', null);
-								return $qb;
-		 					}
-					))
-					);
+                            'class'         => 'PiggyBox\ShopBundle\Entity\Product',
+                            'property'      => 'name',
+                            'label'         => 'Produits',
+                            'multiple'		=> true,
+                            'expanded'		=> true,
+                            'query_builder' => function (EntityRepository $repository) use ($data) {
+                                $qb = $repository->createQueryBuilder('product')
+                                    ->where('product.shop= :shop')
+                                    ->setParameter('shop', null);
+
+                                return $qb;
+                             }
+                    ))
+                    );
                 }
-				
+
                 if ($event->getData()) {
                     $event->getForm()->add(
                         $formFactory->createNamed('products', 'entity', null, array(
-							'class'         => 'PiggyBox\ShopBundle\Entity\Product',
-							'property'      => 'name',
-							'label'         => 'Produits',
-							'multiple'		=> true,
-							'expanded'		=> true,
-							'query_builder' => function (EntityRepository $repository) use ($data){
-								$qb = $repository->createQueryBuilder('product')
-									->where('product.shop= :shop')
-									->setParameter('shop', $data->getMenu()->getShop()->getId());
-								return $qb;
-		 					}
-					))
-					);
+                            'class'         => 'PiggyBox\ShopBundle\Entity\Product',
+                            'property'      => 'name',
+                            'label'         => 'Produits',
+                            'multiple'		=> true,
+                            'expanded'		=> true,
+                            'query_builder' => function (EntityRepository $repository) use ($data) {
+                                $qb = $repository->createQueryBuilder('product')
+                                    ->where('product.shop= :shop')
+                                    ->setParameter('shop', $data->getMenu()->getShop()->getId());
+
+                                return $qb;
+                             }
+                    ))
+                    );
                 }
             }
         );

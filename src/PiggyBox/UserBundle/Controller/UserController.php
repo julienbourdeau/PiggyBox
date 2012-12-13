@@ -202,46 +202,46 @@ class UserController extends Controller
      * @ParamConverter("menu", options={"mapping": {"menu_slug": "slug"}})
      * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
      */
-	public function createMenuDetailAction(Request $req, Menu $menu)
-	{
-		$menuDetail = new MenuDetail();
-		$menuDetail->setMenu($menu);
+    public function createMenuDetailAction(Request $req, Menu $menu)
+    {
+        $menuDetail = new MenuDetail();
+        $menuDetail->setMenu($menu);
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($menu->getShop());
         $products = $menu->getMenuItems()->first()->getProducts()->toArray();
 
-		$form = $this->createForm(new MenuDetailType(), $menuDetail);
+        $form = $this->createForm(new MenuDetailType(), $menuDetail);
 
-		return array(
-			'form' => $form->createView(),
-			'shop' => $menu->getShop(),
-			'menus' => $menus,
-			'menu' => $menu,
-			'category_slug' => 'menu-detail',
-			'products' => $products 
-		);
-	}
+        return array(
+            'form' => $form->createView(),
+            'shop' => $menu->getShop(),
+            'menus' => $menus,
+            'menu' => $menu,
+            'category_slug' => 'menu-detail',
+            'products' => $products
+        );
+    }
 
     /**
      * Submit the MenuDetail type to get user's choice of menus
      *
      * @Route("post/menudetail/{id}", name="user_submit_menus")
-	 * @ParamConverter("menu", class="PiggyBoxShopBundle:Menu")
-	 * @Method("POST")
+     * @ParamConverter("menu", class="PiggyBoxShopBundle:Menu")
+     * @Method("POST")
      * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
      */
-	public function submitMenuDetailAction(Request $req, Menu $menu)
-	{
-		$menuDetail = new MenuDetail();	
-		$menuDetail->setMenu($menu);
+    public function submitMenuDetailAction(Request $req, Menu $menu)
+    {
+        $menuDetail = new MenuDetail();
+        $menuDetail->setMenu($menu);
 
-		$form = $this->createForm(new MenuDetailType(), $menuDetail);
-		$form->bind($req);
+        $form = $this->createForm(new MenuDetailType(), $menuDetail);
+        $form->bind($req);
 
-		if ($form->isValid()) {
-			var_dump($form['products_31']->getData());die();
-		}
-	}
+        if ($form->isValid()) {
+            var_dump($form['products_31']->getData());die();
+        }
+    }
 
     private function createOrderDetailForm($products, $data)
     {
