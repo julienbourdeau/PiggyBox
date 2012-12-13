@@ -22,11 +22,10 @@ class MenuDetail
      */
     private $id;
 
-    /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="menu", type="object")
-     */
+	/**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu")
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     **/
     private $menu;
 
     /**
@@ -67,29 +66,6 @@ class MenuDetail
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set menu
-     *
-     * @param  \stdClass  $menu
-     * @return MenuDetail
-     */
-    public function setMenu($menu)
-    {
-        $this->menu = $menu;
-
-        return $this;
-    }
-
-    /**
-     * Get menu
-     *
-     * @return \stdClass
-     */
-    public function getMenu()
-    {
-        return $this->menu;
     }
 
     /**
@@ -199,5 +175,28 @@ class MenuDetail
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set menu
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Menu $menu
+     * @return MenuDetail
+     */
+    public function setMenu(\PiggyBox\ShopBundle\Entity\Menu $menu = null)
+    {
+        $this->menu = $menu;
+    
+        return $this;
+    }
+
+    /**
+     * Get menu
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Menu 
+     */
+    public function getMenu()
+    {
+        return $this->menu;
     }
 }
