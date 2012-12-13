@@ -10,7 +10,10 @@ use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\MenuDetail;
+use PiggyBox\ShopBundle\Entity\Menu;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
+use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
 
@@ -191,8 +194,30 @@ class UserController extends Controller
         return $data;
     }
 
+    /**
+     * Récupère les formules pour laisser choisir l'utilisateur son menu
+     *
+     * @Route("commerce/{shop_slug}/formule/{menu_slug}/choisir", name="user_show_menus")
+     * @ParamConverter("menu", options={"mapping": {"menu_slug": "slug"}})
+     * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
+     */
+	public function createMenuDetailAction(Request $req, Menu $menu)
+	{
+		$menuDetail = new MenuDetail();
+		$menuDetail->setMenu($menu);
+        $em = $this->getDoctrine()->getManager();
+        $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($menu->getShop());
 
+		$form = $this->createForm(new MenuDetailType(), $menuDetail);
 
+		return array(
+			'form' => $form->createView(),
+			'shop' => $menu->getShop(),
+			'menus' => $menus,
+			'menu' => $menu,
+			'category_slug' => 'menu-detail'
+		);
+	}
 
     private function createOrderDetailForm($products, $data)
     {

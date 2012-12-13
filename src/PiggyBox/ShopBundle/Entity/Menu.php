@@ -60,6 +60,14 @@ class Menu
     private $stepsNumber;
 
     /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=255, unique=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      **/
@@ -256,5 +264,28 @@ class Menu
     public function getMenuItems()
     {
         return $this->menuItems;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Menu
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

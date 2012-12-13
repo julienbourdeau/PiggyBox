@@ -1,0 +1,12 @@
+<form class="form-inline" id="checkout" action="" method="post" {{form_enctype(form)}}>
+{% for menuItem in menu.menuItems %}
+<h1>{{menuItem.title}}</h1>
+
+	{{ form_widget(form['products_'~menuItem.id], { 'attr': {'class': 'inline-quantity'} }) }}
+
+{% endfor %}
+
+<div class="clearfix">
+
+</div>
+</form>

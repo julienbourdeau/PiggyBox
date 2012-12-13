@@ -1,6 +1,6 @@
 <ul id="category_tree" class="nav nav-list">
 	<li id="tous" class="category-item tous"><a href="{{ path('user_show_shop',{shop_slug: shop.slug})}}">Tous</a></li>
-	{% if menus|length > 0 %}
+	{% if menus is defined and menus|length > 0%}
 		<li id="menus" class="category-item menus"><a href="{{ path('user_show_shop',{shop_slug: shop.slug, category_slug: 'menus'})}}">Formules</a></li>
 	{% endif %}
 	{{shop.categoryhtml|raw}}
