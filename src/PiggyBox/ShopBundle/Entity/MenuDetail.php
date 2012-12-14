@@ -32,7 +32,7 @@ class MenuDetail
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\Product")
      * @ORM\JoinTable(name="menudetails_products",
      *      joinColumns={@ORM\JoinColumn(name="menudetail_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
      *      )
      **/
     private $products;
@@ -52,11 +52,6 @@ class MenuDetail
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
-
-    /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\OrderBundle\Entity\OrderDetail", mappedBy="menuDetail")
-     **/
-    private $orderDetail;
 
     /**
      * Get id
@@ -180,20 +175,20 @@ class MenuDetail
     /**
      * Set menu
      *
-     * @param  \PiggyBox\ShopBundle\Entity\Menu $menu
+     * @param \PiggyBox\ShopBundle\Entity\Menu $menu
      * @return MenuDetail
      */
     public function setMenu(\PiggyBox\ShopBundle\Entity\Menu $menu = null)
     {
         $this->menu = $menu;
-
+    
         return $this;
     }
 
     /**
      * Get menu
      *
-     * @return \PiggyBox\ShopBundle\Entity\Menu
+     * @return \PiggyBox\ShopBundle\Entity\Menu 
      */
     public function getMenu()
     {

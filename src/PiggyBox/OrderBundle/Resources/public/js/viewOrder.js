@@ -5,11 +5,19 @@
 			var selector = $(this).attr('id');
 			var quantity = parseInt($('input.'+selector).val());
 			var unitPrice = parseFloat($('td#'+selector+'.col3 > span').text()).toFixed(2);
-			console.log(quantity);
-			console.log(unitPrice);
 
-			$('td#'+selector+'.col5 > input').val(parseFloat(quantity*unitPrice).toFixed(2));
-			$('td#'+selector+'.col5 > span').text(parseFloat(quantity*unitPrice).toFixed(2));
+			if ($(this).attr('rel') != 'formule' ) {
+				$('td#'+selector+'.col5 > input').val(parseFloat(quantity*unitPrice).toFixed(2));
+				$('td#'+selector+'.col5 > span').text(parseFloat(quantity*unitPrice).toFixed(2));
+			}
+			if ($(this).attr('rel') == 'formule' ) {
+				$('td#'+selector+'.col5 > input').val(parseFloat($('td#'+selector+'.col5 > span').text()).toFixed(2));
+			}
+		});
+
+		$("table").each(function () {
+			var selector = $(this).attr('id');
+			refreshTotalPrice(selector);
 		});
 	});
 
