@@ -22,8 +22,8 @@ class MenuDetail
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu")
+	/**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
      **/
     private $menu;

@@ -225,10 +225,9 @@ class UserController extends Controller
     /**
      * Submit the MenuDetail type to get user's choice of menus
      *
-     * @Route("post/menudetail/{id}", name="user_submit_menus")
+     * @Route("/menudetail/{id}", name="user_submit_menus")
      * @ParamConverter("menu", class="PiggyBoxShopBundle:Menu")
      * @Method("POST")
-     * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
      */
     public function submitMenuDetailAction(Request $req, Menu $menu)
     {
@@ -239,8 +238,22 @@ class UserController extends Controller
         $form->bind($req);
 
         if ($form->isValid()) {
-            var_dump($form['products_31']->getData());die();
+            $menuItems = $menu->getMenuItems();
+
+                foreach ($menuItems as $menuItem) {
+                    $menuDetail->addProduct($form['products_'.$menuItem->getId()]->getData());
+					$order = $this->get('piggy_box_cart.manager.order')->addOrGetOrderFromCart($menu->getShop());
+        			$orderDetail = new OrderDetail();
+			        $orderDetail->setProduct($form['products_'.$menuItem->getId()]->getData());
+					$this->get('piggy_box_cart.manager.order')->addOrderDetailToOrder($order, $orderDetail);
+                }
+			
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($menuDetail);
+			$em->flush();
         }
+
+        return $this->redirect($this->generateUrl('view_order'));
     }
 
     private function createOrderDetailForm($products, $data)
