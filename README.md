@@ -1,7 +1,14 @@
 # PiggyBoxShopBundle
 
-## Entity Product
+## Feature - Formule de produits
 
-	* Modification du form de création d'un produit
-	* Ajout du js pour l'affichage
-	* Ajout le champs de preview 
+	* Entité MenuItem
+	* Entité Menu
+	* Entité MenuDetail
+	* Mise à jour des entitées
+
+## Nouvelle formule
+	* Création de formule avec création d'élement (MenuItem)
+	* Pour chaque MenuItem donner la liste de tous les produits
+	* Tickage des produits concernés 
+	* Affichage de la formule
