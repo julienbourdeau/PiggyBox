@@ -5,12 +5,16 @@ namespace PiggyBox\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\OrderBundle\Entity\OrderDetail;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\MenuDetail;
+use PiggyBox\ShopBundle\Entity\Menu;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
+use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
 
@@ -118,6 +122,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $data = array();
+
         $data['product'] = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
         $orderDetail = new OrderDetail();
         $orderDetail->setProduct($data['product']);
@@ -153,6 +158,7 @@ class UserController extends Controller
         $data['shop'] = $shop;
         $data['category_slug'] = $category_slug;
         $em = $this->getDoctrine()->getManager();
+        $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
@@ -161,6 +167,10 @@ class UserController extends Controller
             $data['products'] = $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             $data = $this->createOrderDetailForm($products, $data);
 
+            return $data;
+        }
+
+        if ($category_slug == "menus") {
             return $data;
         }
 
@@ -185,8 +195,68 @@ class UserController extends Controller
         return $data;
     }
 
+    /**
+     * Récupère les formules pour laisser choisir l'utilisateur son menu
+     *
+     * @Route("commerce/{shop_slug}/formule/{menu_slug}/choisir", name="user_show_menus")
+     * @ParamConverter("menu", options={"mapping": {"menu_slug": "slug"}})
+     * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
+     */
+    public function createMenuDetailAction(Request $req, Menu $menu)
+    {
+        $menuDetail = new MenuDetail();
+        $menuDetail->setMenu($menu);
+        $em = $this->getDoctrine()->getManager();
+        $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($menu->getShop());
+        $products = $menu->getMenuItems()->first()->getProducts()->toArray();
 
+        $form = $this->createForm(new MenuDetailType(), $menuDetail);
 
+        return array(
+            'form' => $form->createView(),
+            'shop' => $menu->getShop(),
+            'menus' => $menus,
+            'menu' => $menu,
+            'category_slug' => 'menu-detail',
+            'products' => $products
+        );
+    }
+
+    /**
+     * Submit the MenuDetail type to get user's choice of menus
+     *
+     * @Route("/menudetail/{id}", name="user_submit_menus")
+     * @ParamConverter("menu", class="PiggyBoxShopBundle:Menu")
+     * @Method("POST")
+     */
+    public function submitMenuDetailAction(Request $req, Menu $menu)
+    {
+        $menuDetail = new MenuDetail();
+        $menuDetail->setMenu($menu);
+
+        $form = $this->createForm(new MenuDetailType(), $menuDetail);
+        $form->bind($req);
+
+        if ($form->isValid()) {
+            $menuItems = $menu->getMenuItems();
+
+                foreach ($menuItems as $menuItem) {
+                    $menuDetail->addProduct($form['products_'.$menuItem->getId()]->getData());
+					$order = $this->get('piggy_box_cart.manager.order')->addOrGetOrderFromCart($menu->getShop());
+
+        			$orderDetail = new OrderDetail();
+			        $orderDetail->setProduct($form['products_'.$menuItem->getId()]->getData());
+					$orderDetail->setMenuDetail($menuDetail);
+					$this->get('piggy_box_cart.manager.order')->addOrderDetailToOrder($order, $orderDetail);
+                }
+
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($menuDetail);
+			$em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('view_order'));
+    }
 
     private function createOrderDetailForm($products, $data)
     {

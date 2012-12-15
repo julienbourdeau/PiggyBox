@@ -1,0 +1,65 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+{% block body%}
+{% include 'PiggyBoxShopBundle:Menu:menu_sub_header.html.twig' %}
+
+<div id="main">
+	<div id="primary" class="site-content container">
+
+
+	<div class="page-header">
+		<h1>Formules disponibles dans votre boutique en ligne</h1>
+	</div>
+
+	{% if menus|length == 0 %}
+
+		<h2 class="text-centered text-success">Vous n'avez aucune formules dans votre boutique en ligne</h2>
+
+	{% endif %}
+
+	{% for menu in menus %}
+		<div class="box box-margined ">
+		    <div class="row-fluid">
+
+				<div class="entry-description span12">
+					<div class="row-fluid">
+						<div class="span8">
+							<h3 class="no-margin">{{menu.title|escape}}</h3>
+							{% for  menuItem in menu.menuItems  %}
+							<h6>{{ menuItem.title }}</h6>
+							{% endfor %}
+						</div>
+						<div class="span4 text-centered">
+							<h4>Prix Formule</h4>
+							N/A
+						</div>
+					</div>
+
+					<hr>
+
+					<a href="{{ path('piggybox_menu_edit', {'id': menu.id}) }}" class="btn btn-large btn-primary">
+						<i class="icon-wrench icon-white"></i> Modifier
+					</a>
+
+					{#
+					{% if product.active == true %}
+						<a href="{{path('monmagasin_mesproduits_activate', {'id': product.id})}}" class="btn pull-right">
+							<i class="icon-eject"></i> Indisponible
+						</a>
+					{% else %}
+					<a href="{{path('monmagasin_mesproduits_activate', {'id': product.id})}}" class="btn btn-success pull-right">
+							<i class="icon-ok"></i> Activer
+						</a>
+						{% endif %}
+						#}
+				</div>
+
+		    </div>
+		</div>
+		{% endfor %}
+
+
+    </div>
+</div>
+
+{% endblock %}
