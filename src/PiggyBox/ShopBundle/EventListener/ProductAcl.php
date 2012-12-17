@@ -29,8 +29,7 @@ class ProductAcl
     {
         $entity = $args->getEntity();
         $aclProvider = $this->container->get('security.acl.provider');
-        $securityContext = $this->container->get('security.context');
-        $user = $securityContext->getToken()->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
 
         if ($entity instanceof Product) {
             // Add operator rights to target so it can manage the comments on his person

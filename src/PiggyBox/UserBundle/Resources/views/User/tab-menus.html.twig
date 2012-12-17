@@ -1,0 +1,66 @@
+{% for menu in menus %}
+<h1>{{menu.title}}</h1>
+
+<div class="clearfix">
+
+{% for menuItem in menu.menuItems %}
+
+	<div class="product-item
+				box
+				box-light
+				text-centered
+				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+				tous
+				menus">
+
+		<div class="product-infos">
+
+			<div class="product-details">
+					<div class="product-name">
+						<h4>{{menuItem.title}}</h4>
+					</div>
+			</div>
+
+			{% set result = 0 %}
+			{% set productPhoto = null %}
+
+			{% for product in menuItem.products %}
+
+				{% if result < product.price %}
+					{% set result  = product.price %}
+					{% set productPhoto = product %}
+				{% endif %}
+			{% endfor %}
+
+			<div class="product-thumbnail">
+				<a href="{{ path('view_product_details', {'shop_slug': productPhoto.shop.slug, 'category_slug': productPhoto.category.slug, 'product_slug': productPhoto.slug}) }}" class="img160x160">
+					{% if productPhoto.hasImage %}
+						<img src="{{productPhoto.getWebPath | apply_filter('my_thumb') }}"
+						alt="{{productPhoto.name}}" title="{{productPhoto.name}}" >
+					{% endif %}
+				</a>
+			</div>
+
+		</div>
+
+	</div>
+
+{% if loop.index is divisibleby(3) %}
+	</div><div class="clearfix">
+{% endif %}
+
+{% endfor %}
+
+</div>
+
+<div class="text-centered">
+	<a href="{{path('user_show_menus', {'shop_slug': shop.slug, 'menu_slug': menu.slug})}}" class="btn btn-large btn-primary" type="button">Choisir cette formule et personnaliser</a>
+</div>
+
+<br/>
+
+{% endfor %}
+
+<div class="clearfix">
+
+</div>

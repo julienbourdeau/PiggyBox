@@ -1,0 +1,63 @@
+<form class="form-inline" action="{{ path('user_submit_menus', {'id': menu.id}) }}" method="post" {{form_enctype(form)}}>
+{% for menuItem in menu.menuItems %}
+<h1>{{menuItem.title}}</h1>
+
+{#{{ dump(form['products_'~menuItem.id].children) }}#}
+<div class="clearfix">
+
+{% for key, buffer in form['products_'~menuItem.id].vars.value %}
+
+<label style="display:inline;" for="{{ form['products_'~menuItem.id].children[key].vars.id }}">
+	<div class="product-item
+				box
+				box-light
+				text-centered
+				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+				tous
+				{{form['products_'~menuItem.id].vars.choices[key].data.category.slug}}
+				{% if form['products_'~menuItem.id].vars.choices[key].data.category.level > 0 %}{{form['products_'~menuItem.id].vars.choices[key].data.category.parent.slug}}{% endif %}">
+
+		<div class="product-infos">
+
+			<div class="product-details">
+					<div class="product-name">
+						<h4>{{form['products_'~menuItem.id].vars.choices[key].data.name}}</h4>
+					</div>
+			</div>
+
+			<div class="product-thumbnail img160x160">
+				{% if form['products_'~menuItem.id].vars.choices[key].data.hasImage %}
+					<img src="{{form['products_'~menuItem.id].vars.choices[key].data.getWebPath | apply_filter('my_thumb') }}"
+					alt="{{form['products_'~menuItem.id].vars.choices[key].data.name}}" title="{{form['products_'~menuItem.id].vars.choices[key].data.name}}" >
+				{% endif %}
+			</div>
+
+
+		</div>
+
+		<div class="product-toolbar row-fluid">
+			<div class="span12">
+				{{ form_widget(form['products_'~menuItem.id].children[key]) }}
+			</div>
+		</div>
+
+	</div>
+</label>
+
+{% if loop.index is divisibleby(3) %}
+	</div><div class="clearfix">
+{% endif %}
+{% endfor %}
+
+</div>
+
+
+
+
+{% endfor %}
+
+<input class="btn btn-large btn-primary" type="submit">
+
+{{ form_rest(form) }}
+
+</form>
