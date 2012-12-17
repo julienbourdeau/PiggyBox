@@ -25,13 +25,15 @@
 					<div class="row-fluid">
 						<div class="span8">
 							<h3 class="no-margin">{{menu.title|escape}}</h3>
+							<ol>
 							{% for  menuItem in menu.menuItems  %}
-							<h6>{{ menuItem.title }}</h6>
+							<li>{{ menuItem.title }}</li>
 							{% endfor %}
+							</ol>
 						</div>
 						<div class="span4 text-centered">
 							<h4>Prix Formule</h4>
-							N/A
+							{{ menu.price }} €
 						</div>
 					</div>
 
