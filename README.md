@@ -1,7 +1,20 @@
-## Etapes d'upload du code sur Github
+# Promotion system implementation
 
--	Tu modifie ton code sources pour faire ta feature
--	Tu commit tes données:
-	git commit -m "modification du template"
--	Tu push sur le serveur tes modifications
-	git push -u origin feature-tracking
+## Types of discount
+
+*	Buy one get one
+*	percentage discount
+*	Fixed amount discount
+
+
+# Coupon's system implementation
+
+	Définition: In marketing, a coupon is a ticket or document that can be exchanged for a financial discount or rebate when purchasing a product.
+
+## Types of coupons:
+
+*	discounts
+*	free shipping
+*	buy-one-get-one
+*	first-time-customer-coupon
+*	free giveaways
