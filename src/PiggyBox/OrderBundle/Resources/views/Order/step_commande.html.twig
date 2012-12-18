@@ -80,7 +80,7 @@
                                 <div class="product-toolbar product-toolbar-large form-inline">
 
                                     <div class="select-quantity">
-										{% if orderDetail.vars.value.product.price|number_format(2, ',', ' ')Type != 'chunk_price|number_format(2, ',', ' ')' %}
+										{% if orderDetail.vars.value.product.priceType != 'chunk_price' %}
 
 										<div id="quantity-minus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn left minus"><i class="icon-minus"></i>
 										</div>
