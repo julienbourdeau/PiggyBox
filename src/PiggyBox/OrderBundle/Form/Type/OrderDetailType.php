@@ -74,7 +74,6 @@ class OrderDetailType extends AbstractType
 
                             $form->add(
                                 $formFactory->createNamed('quantity', 'number', null, array(
-                                    'data' => 1,
                                     'read_only' => true,
                                 ))
                             );
