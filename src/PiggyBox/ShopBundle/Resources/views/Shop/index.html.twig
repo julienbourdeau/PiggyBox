@@ -57,7 +57,7 @@
 									</strong>
 								</td>
 								<td class="col2">{{order_detail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
-								<td class="col3">{{order_detail.totalPrice}} €</td>
+								<td class="col3">{{order_detail.totalPrice|number_format(2, ',', ' ')}} €</td>
 							</tr>
 							{% endfor %}
                         </tbody>
@@ -66,7 +66,7 @@
                     <table class="table table-bordered table-striped cart-total pull-right">
                         <tr>
                             <td class=""><strong>Total TTC:</strong></td>
-							<td class=""><strong>{{order.totalprice}} €</strong></td>
+							<td class=""><strong>{{order.totalprice|number_format(2, ',', ' ')}} €</strong></td>
                         </tr>
                     </table>
 
@@ -140,7 +140,7 @@
 									</strong>
 								</td>
 								<td class="col2">{{order_detail.quantity}}</td>
-								<td class="col3">{{order_detail.quantity*order_detail.product.price}} €</td>
+								<td class="col3">{{(order_detail.quantity*order_detail.product.price)|number_format(2, ',', ' ')}} €</td>
 							</tr>
 							{% endfor %}
                         </tbody>
@@ -149,7 +149,7 @@
                     <table class="table table-bordered table-striped cart-total pull-right">
                         <tr>
                             <td class=""><strong>Total TTC:</strong></td>
-							<td class=""><strong>{{order.totalprice}} €</strong></td>
+							<td class=""><strong>{{order.totalprice|number_format(2, ',', ' ')}} €</strong></td>
                         </tr>
                     </table>
 
