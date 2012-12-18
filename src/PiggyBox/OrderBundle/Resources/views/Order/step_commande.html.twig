@@ -129,7 +129,7 @@
 								<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 										{{ form_widget(orderDetail.totalPrice) }}
 									<span>
-										{{orderDetail.vars.value.quantity }}
+										{{orderDetail.vars.value.totalPrice }}
 									</span> €
 								</td>
 								<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
@@ -179,6 +179,14 @@
 
             </div>
         </div>
+
+		<div class="row">
+			<div class="span12">
+				<input name="reload" class="pull-right btn btn-small btn-info" type="submit" value="Mettre à jour mon panier">
+				<br/>
+				<br/>
+			</div>
+		</div>
 
         <div class="row">
             <div class="span4 offset8">
