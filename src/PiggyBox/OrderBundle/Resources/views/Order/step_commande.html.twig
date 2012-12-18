@@ -80,7 +80,7 @@
                                 <div class="product-toolbar product-toolbar-large form-inline">
 
                                     <div class="select-quantity">
-										{% if orderDetail.vars.value.product.priceType != 'chunk_price' %}
+										{% if orderDetail.vars.value.product.price|number_format(2, ',', ' ')Type != 'chunk_price|number_format(2, ',', ' ')' %}
 
 										<div id="quantity-minus" data-shop="{{order.vars.value.shop.slug}}" rel="{{loop.index0}}-{{order.vars.value.shop.slug}}" class="btn left minus"><i class="icon-minus"></i>
 										</div>
@@ -117,12 +117,12 @@
                             </td>
 							<td class="col3" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 								<span>
-									{{orderDetail.vars.value.product.price}}
+									{{orderDetail.vars.value.product.price|number_format(2, ',', ' ')}}
 								</span> €
 							</td>
 							<td class="col4" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 								<span>
-									{{orderDetail.vars.value.product.weightPrice}}
+									{{orderDetail.vars.value.product.weightPrice|number_format(2, ',', ' ')}}
 								</span> €
 							</td>
 							<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
@@ -152,7 +152,7 @@
 									{{ form_widget(order.totalPrice) }}
 							<strong>
 								<span>
-									{{order.vars.value.totalprice}}
+									{{order.vars.value.totalprice|number_format(2, ',', ' ')}}
 								</span> €
 							</strong>
 						</td>
