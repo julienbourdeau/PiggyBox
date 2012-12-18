@@ -43,7 +43,7 @@
                             <div class="header-content">
 
                                 <div class="user-bar text-right clearfix">
-                                    <ul class="nav nav-pills no-margin pull-right">
+                                    <ul class="nav nav-pills nav-pills-red no-margin pull-right">
                                         {% if app.user %}
                                             <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="span12">
                             <div class="header-menu tabbable tabs-below pull-right">
-                                <ul class="access nav nav-tabs">
+                                <ul class="access nav nav-tabs nav-tabs-red">
                                     <li class="{% if app.request.attributes.get('_route') == "home" %}active{% endif %}"><a href="{{ path('home') }}">Accueil</a></li>
                                     <li class="{% if app.request.attributes.get('_route') == "shops" %}active{% endif %}"><a href="{{ path('shops') }}">Rechercher des commerces</a></li>
                                     <li class="{% if app.request.attributes.get('_route') == "ccm" %}active{% endif %}"><a href="{{ path('ccm') }}">Nos engagements</a></li>
