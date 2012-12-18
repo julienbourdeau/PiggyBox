@@ -41,12 +41,12 @@
 							{% if product.price == 0 %}
 								N/A
 							{% else %}
-								{{ product.price }} €
+								{{ product.price|number_format(2, ',', ' ') }} €
 							{% endif %}
 						</div>
 						<div class="span2 text-centered">
 							<h4>Prix KG</h4>
-							{{ product.weightPrice }} €
+							{{ product.weightPrice|number_format(2, ',', ' ') }} €
 						</div>
 					</div>
 

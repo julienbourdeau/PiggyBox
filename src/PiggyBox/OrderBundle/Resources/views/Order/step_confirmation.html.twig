@@ -102,9 +102,9 @@
 
                                 </div>
                             </td>
-							<td class="col3">{{orderDetail.product.price}} €</td>
-							<td class="col4">{{orderDetail.product.weightprice}} €</td>
-							<td class="col5">{{orderDetail.totalPrice}} €</td>
+							<td class="col3">{{orderDetail.product.price|number_format(2, ',', ' ')}} €</td>
+							<td class="col4">{{orderDetail.product.weightprice|number_format(2, ',', ' ')}} €</td>
+							<td class="col5">{{orderDetail.totalPrice|number_format(2, ',', ' ')}} €</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -115,7 +115,7 @@
                 <table class="table table-bordered table-striped cart-total">
                     <tr>
                         <td class=""><strong>Total TTC:</strong></td>
-						<td class="total-price"><strong>{{order.totalprice}} €</strong></td>
+						<td class="total-price"><strong>{{order.totalprice|number_format(2, ',', ' ')}} €</strong></td>
                      </tr>
                  </table>
              </div>
