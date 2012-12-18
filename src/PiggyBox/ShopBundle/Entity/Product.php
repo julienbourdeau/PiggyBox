@@ -15,10 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product
 {
-    const UNIT_PRICE = 'unit_price';
-    const WEIGHT_PRICE = 'weight_price';
-    const SLICE_PRICE = 'slice_price';
-
     /**
      * @var integer $id
      *
@@ -187,6 +183,13 @@ class Product
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
      **/
     private $menuItems;
+
+    /**
+     * @var boolean $promotion
+     *
+     * @ORM\Column(name="promotion", type="boolean",nullable=true)
+     */
+    private $promotion = false;
 
     public function getAbsolutePath()
     {
@@ -800,5 +803,28 @@ class Product
     public function getMenuItems()
     {
         return $this->menuItems;
+    }
+
+    /**
+     * Set promotion
+     *
+     * @param boolean $promotion
+     * @return Product
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
+    
+        return $this;
+    }
+
+    /**
+     * Get promotion
+     *
+     * @return boolean 
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
     }
 }
