@@ -37,7 +37,22 @@
             </div>
 
             <div class="span6">
-                <h1 class="no-margin text-centered">Coups de coeur</h1>
+                <h1 class="no-margin text-centered bottom-marged">Coups de coeur</h1>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <img src="{{ asset('bundles/piggyboxuser/img/Banette_logo2.png')}}" alt="">
+                    </div>
+                    <div class="span8">
+                        <div class="text-centered">
+                            <h3>Les Boulangeries <em>Banette</em></h3>
+                            <a href="{{ path('shops_nantes') }}" class="btn btn-small"><i class="icon-map-marker"></i> Nantes</a>
+                            &nbsp; &nbsp; &nbsp; &nbsp;
+                            <a href="{{ path('shops_poitiers') }}" class="btn btn-small"><i class="icon-map-marker"></i> Poitiers</a>
+                        </div>
+
+                    </div>
+                </div>
+                {#
                 <div class="step-item">
                     <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-zola']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
                         <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/zola-boucherie.png')}}" alt="">
@@ -53,6 +68,7 @@
                         <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/copernic-boucherie.png')}}" alt="">
                     </a>
                 </div>
+                #}
             </div>
 
         </div>
