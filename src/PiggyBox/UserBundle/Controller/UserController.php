@@ -110,6 +110,107 @@ class UserController extends Controller
 
     /**
      * @Template()
+     * @Route("les-commercants/nantes", name="shops_nantes")
+     */
+    public function shopsNantesAction()
+    {
+        $map = $this->get('ivory_google_map.map');
+
+        $map->setPrefixJavascriptVariable('map_');
+        $map->setHtmlContainerId('map_canvas');
+        $map->setAsync(false);
+
+        $map->setCenter(47.223066, -1.552162, true);
+        $map->setMapOption('zoom', 11);
+
+        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
+
+        $map->setStylesheetOptions(array(
+            'width' => '100%',
+            'height' => '400px'
+        ));
+
+
+        // Configure your marker options
+        $marker1 = $this->get('ivory_google_map.marker');
+        $marker1->setPrefixJavascriptVariable('marker_');
+        $marker1->setPosition(47.2144380, -1.585360, true);
+
+        $marker2 = $this->get('ivory_google_map.marker');
+        $marker2->setPrefixJavascriptVariable('marker_');
+        $marker2->setPosition(47.215545,-1.564271, true);
+
+        $marker3 = $this->get('ivory_google_map.marker');
+        $marker3->setPrefixJavascriptVariable('marker_');
+        $marker3->setPosition(47.229044,-1.57163, true);
+
+        $marker4 = $this->get('ivory_google_map.marker');
+        $marker4->setPrefixJavascriptVariable('marker_');
+        $marker4->setPosition(47.214962,-1.55429, true);
+
+        # Les mimines
+        $marker8 = $this->get('ivory_google_map.marker');
+        $marker8->setPrefixJavascriptVariable('marker_');
+        $marker8->setPosition(47.275619,-1.466761, true);
+
+        $map->addMarker($marker1);
+        $map->addMarker($marker2);
+        $map->addMarker($marker3);
+        $map->addMarker($marker4);
+        $map->addMarker($marker8);
+
+        return array('map' => $map);
+    }
+
+    /**
+     * @Template()
+     * @Route("les-commercants/poitiers", name="shops_poitiers")
+     */
+    public function shopsPoitiersAction()
+    {
+        $map = $this->get('ivory_google_map.map');
+
+        $map->setPrefixJavascriptVariable('map_');
+        $map->setHtmlContainerId('map_canvas');
+        $map->setAsync(false);
+
+        $map->setCenter(46.582462, 0.340405, true);
+        $map->setMapOption('zoom', 12);
+
+        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
+
+        $map->setStylesheetOptions(array(
+            'width' => '100%',
+            'height' => '400px'
+        ));
+
+
+        // Configure your marker options
+
+        # Epi de blais
+        $marker5 = $this->get('ivory_google_map.marker');
+        $marker5->setPrefixJavascriptVariable('marker_');
+        $marker5->setPosition(46.594289,0.36257, true);
+
+        # La garenne
+        $marker6 = $this->get('ivory_google_map.marker');
+        $marker6->setPrefixJavascriptVariable('marker_');
+        $marker6->setPosition(46.556027,0.304871, true);
+
+        # Inopinee
+        $marker7 = $this->get('ivory_google_map.marker');
+        $marker7->setPrefixJavascriptVariable('marker_');
+        $marker7->setPosition(46.564791,0.356863, true);
+
+        $map->addMarker($marker5);
+        $map->addMarker($marker6);
+        $map->addMarker($marker7);
+
+        return array('map' => $map);
+    }
+
+    /**
+     * @Template()
      * @Route("comment-ca-marche", name="ccm")
      */
     public function ccmAction()
