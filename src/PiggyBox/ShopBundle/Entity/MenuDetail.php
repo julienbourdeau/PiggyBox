@@ -22,7 +22,7 @@ class MenuDetail
      */
     private $id;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Menu")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
      **/
@@ -175,20 +175,20 @@ class MenuDetail
     /**
      * Set menu
      *
-     * @param \PiggyBox\ShopBundle\Entity\Menu $menu
+     * @param  \PiggyBox\ShopBundle\Entity\Menu $menu
      * @return MenuDetail
      */
     public function setMenu(\PiggyBox\ShopBundle\Entity\Menu $menu = null)
     {
         $this->menu = $menu;
-    
+
         return $this;
     }
 
     /**
      * Get menu
      *
-     * @return \PiggyBox\ShopBundle\Entity\Menu 
+     * @return \PiggyBox\ShopBundle\Entity\Menu
      */
     public function getMenu()
     {

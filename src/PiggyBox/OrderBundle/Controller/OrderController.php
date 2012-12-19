@@ -111,12 +111,12 @@ class OrderController extends Controller
 
             }
 
-			foreach ($cart->getOrders() as $order) {
-				foreach ($order->getOrderDetail() as $orderDetail) {
-					$this->get('piggy_box_cart.manager.order')->setOrderDetailTotalPrice($orderDetail);
-				}
-				$this->get('piggy_box_cart.manager.order')->setOrderTotalPrice($order);
-			}
+            foreach ($cart->getOrders() as $order) {
+                foreach ($order->getOrderDetail() as $orderDetail) {
+                    $this->get('piggy_box_cart.manager.order')->setOrderDetailTotalPrice($orderDetail);
+                }
+                $this->get('piggy_box_cart.manager.order')->setOrderTotalPrice($order);
+            }
 
             $em->persist($cart);
             $em->flush();
@@ -127,9 +127,9 @@ class OrderController extends Controller
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
 
-		if ($req->request->get('reload') == null) {
-        	$data['step'] = 'step_date_heure';
-		}
+        if ($req->request->get('reload') == null) {
+            $data['step'] = 'step_date_heure';
+        }
 
         return $data;
     }
