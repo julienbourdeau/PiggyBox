@@ -92,7 +92,6 @@ class OrderDetailType extends AbstractType
             'multiple'  => false,
             'expanded'  => true,
         ));
-        $builder->add('totalPrice', 'hidden');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

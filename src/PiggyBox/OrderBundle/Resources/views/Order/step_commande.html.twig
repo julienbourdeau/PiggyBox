@@ -127,7 +127,6 @@
 									</span> €
 								</td>
 								<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
-										{{ form_widget(orderDetail.totalPrice) }}
 									<span>
 										{{orderDetail.vars.value.totalPrice }}
 									</span> €
@@ -160,9 +159,8 @@
 											{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.vars.value.menuDetail.id]) %}
 										</td>
 										<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="formule">
-												{{ form_widget(orderDetail.totalPrice) }}
 											<span>
-												{{ orderDetail.vars.value.menuDetail.menu.price }}	
+												{{ orderDetail.vars.value.menuDetail.menu.price }}
 											</span> €
 										</td>
 										<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
@@ -194,7 +192,6 @@
                     <tr>
                         <td class=""><strong>Total TTC:</strong></td>
 						<td class="total-price">
-									{{ form_widget(order.totalPrice) }}
 							<strong>
 								<span>
 									{{order.vars.value.totalprice}}

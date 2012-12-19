@@ -71,7 +71,7 @@ class OrderDetail
      */
     private $totalPrice = 0;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\MenuDetail", cascade={"persist"})
      * @ORM\JoinColumn(name="menuDetail_id", referencedColumnName="id")
      **/
@@ -256,20 +256,20 @@ class OrderDetail
     /**
      * Set menuDetail
      *
-     * @param \PiggyBox\ShopBundle\Entity\MenuDetail $menuDetail
+     * @param  \PiggyBox\ShopBundle\Entity\MenuDetail $menuDetail
      * @return OrderDetail
      */
     public function setMenuDetail(\PiggyBox\ShopBundle\Entity\MenuDetail $menuDetail = null)
     {
         $this->menuDetail = $menuDetail;
-    
+
         return $this;
     }
 
     /**
      * Get menuDetail
      *
-     * @return \PiggyBox\ShopBundle\Entity\MenuDetail 
+     * @return \PiggyBox\ShopBundle\Entity\MenuDetail
      */
     public function getMenuDetail()
     {
