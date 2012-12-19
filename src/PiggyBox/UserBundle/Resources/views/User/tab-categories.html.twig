@@ -1,7 +1,7 @@
 <ul id="category_tree" class="nav nav-list">
-	<li id="tous" class="category-item tous"><a href="{{ path('user_show_shop',{shop_slug: shop.slug})}}">Tous</a></li>
+	<li id="tous" class="category-item tous"><a onclick="_gaq.push(['_trackEvent', 'CATEGORIES', 'go-to', {{ path('user_show_shop',{shop_slug: shop.slug})}}]);" href="{{ path('user_show_shop',{shop_slug: shop.slug})}}">Tous</a></li>
 	{% if menus is defined and menus|length > 0%}
-		<li id="menus" class="category-item menus"><a href="{{ path('user_show_shop',{shop_slug: shop.slug, category_slug: 'menus'})}}">Formules</a></li>
+		<li id="menus" class="category-item menus"><a onclick="_gaq.push(['_trackEvent', 'CATEGORIES', 'go-to', {{ path('user_show_shop',{shop_slug: shop.slug, category_slug: 'menus'})}}]);" href="{{ path('user_show_shop',{shop_slug: shop.slug, category_slug: 'menus'})}}">Formules</a></li>
 	{% endif %}
 	{{shop.categoryhtml|raw}}
 
