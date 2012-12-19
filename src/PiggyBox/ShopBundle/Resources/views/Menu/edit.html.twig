@@ -1,0 +1,52 @@
+
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+{% block body%}
+{% include 'PiggyBoxShopBundle:Menu:menu_sub_header.html.twig' %}
+
+<div id="main">
+    <div id="primary" class="site-content container">
+
+
+    <div class="page-header">
+        <h1>{{ edit_form.vars.value.title }}</h1>
+    </div>
+
+
+    <form action="{{ path('piggybox_menu_update', { 'id': menu.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+        {% for  menuItem in edit_form.menuItems %}
+            {{ form_widget(menuItem.title) }}
+            <div class="label-as-col">
+                {{ form_widget(menuItem.products) }}
+            </div>
+            <div class="clear bottom-marged"></div>
+        {% endfor %}
+        {{ form_widget(edit_form) }}
+
+        <div class="row-fluid">
+            <div class="span4">
+                <a class="btn btn-large btn-block" href="{{ path('piggybox_menu_list') }}">
+                    Annuler
+                </a>
+            </div>
+            <div class="span8">
+                <button class="btn btn-large btn-primary btn-block" type="submit">Enregistrer les modifications</button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+    <form action="{{ path('piggybox_menu_delete', { 'id': menu.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+
+    </div>
+</div>
+
+{% endblock %}
+

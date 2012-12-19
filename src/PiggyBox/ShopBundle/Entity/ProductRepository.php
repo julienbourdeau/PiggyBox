@@ -66,4 +66,15 @@ class ProductRepository extends EntityRepository
             ->setMaxResults(3)
             ->getResult();
     }
+
+    public function findByShopAndMenu($shop_id, $menuItem_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DISTINCT p, i FROM PiggyBoxShopBundle:Product p LEFT JOIN p.menuItems i WHERE (p.shop=shop_id AND i.id=menuItem_id)')
+            ->setParameters(array(
+                'shop_id' => $shop_id,
+                'menuItem_id' => $menuItem_id,
+                ))
+            ->getResult();
+    }
 }

@@ -24,15 +24,6 @@ class ProductController extends Controller
 {
 
     /**
-     * @Template()
-     * @Route("/temp-add", name="temp_add")
-     */
-    public function tempAddAction()
-    {
-        return array();
-    }
-
-    /**
      * Lister les produits du magasin, les linker vers le CRUD
      *
      * @Route("/{category_id}", name="monmagasin_mesproduits", requirements={"category_id"="\d+"}, defaults={"category_id"="0"})
@@ -43,8 +34,7 @@ class ProductController extends Controller
         //NOTE: Get the list of product by category for the shopowner > link them to the CRUD
         $em = $this->getDoctrine()->getManager();
 
-        $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $categories = $query = $em->createQuery('SELECT DISTINCT c, p FROM PiggyBoxShopBundle:Category c JOIN c.products p  WHERE p.shop=:id')
                                   ->setParameter('id', $user->getOwnShop()->getId())
@@ -120,8 +110,7 @@ class ProductController extends Controller
         if ($form->isValid()) {
             try {
                  // retrieving the security identity of the currently logged-in user
-                $securityContext = $this->get('security.context');
-                $user = $securityContext->getToken()->getUser();
+                $user = $this->get('security.context')->getToken()->getUser();
                 $em = $this->getDoctrine()->getManager();
 
                 $em->persist($product);
