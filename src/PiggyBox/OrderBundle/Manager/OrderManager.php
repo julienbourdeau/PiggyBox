@@ -43,7 +43,7 @@ class OrderManager
     {
         $order->addOrderDetail($orderDetail);
         $orderDetail->setOrder($order);
-		$this->setOrderDetailTotalPrice($orderDetail);
+        $this->setOrderDetailTotalPrice($orderDetail);
         $this->setOrderTotalPrice($order);
         $this->persistAndFlush($order);
     }
@@ -83,38 +83,37 @@ class OrderManager
     public function setOrderTotalPrice(Order $order)
     {
         $result = 0;
-		$menuDetails = array();
+        $menuDetails = array();
 
-		foreach ($order->getOrderDetail() as $orderDetail) {
-			if ($orderDetail->getMenuDetail() != null) {
-				if (!in_array($orderDetail->getMenuDetail(), $menuDetails)) {
-					$menuDetails[] = $orderDetail->getMenuDetail();
-					$result = $result + $orderDetail->getMenuDetail()->getMenu()->getPrice();
-				}
-			}
-			if ($orderDetail->getMenuDetail() == null) {
-				$result = $result + $orderDetail->getTotalPrice();
-			}
-		}
-		
+        foreach ($order->getOrderDetail() as $orderDetail) {
+            if ($orderDetail->getMenuDetail() != null) {
+                if (!in_array($orderDetail->getMenuDetail(), $menuDetails)) {
+                    $menuDetails[] = $orderDetail->getMenuDetail();
+                    $result = $result + $orderDetail->getMenuDetail()->getMenu()->getPrice();
+                }
+            }
+            if ($orderDetail->getMenuDetail() == null) {
+                $result = $result + $orderDetail->getTotalPrice();
+            }
+        }
+
         $order->setTotalPrice(round($result, 2, PHP_ROUND_HALF_UP));
     }
 
     public function setOrderDetailTotalPrice(OrderDetail $orderDetail)
     {
-		if ($orderDetail->getMenuDetail() == null) {
-			if ($orderDetail->getProduct()->getPromotion() == true) {
-				$promotionOrderDetails[] = $orderDetail;
-			}
-			else {
-				if ($orderDetail->getProduct() == 'chunk_price') {
-					$orderDetail->setTotalPrice((((($orderDetail->getProduct()->getMaxWeight()-$orderDetail->getProduct()->getMinWeight())/($orderDetail->getProduct()->getMaxPerson()-$orderDetail->getProduct()->getMinWeight()))*($orderDetail->getQuantity()-$orderDetail->getProduct()->getMinWeight())+$orderDetail->getProduct()->getMinWeight())*$orderDetail->getProduct()->getWeightPrice()/1000));
-				}
-				if ($orderDetail->getProduct() != 'chunk_price') {
-					$orderDetail->setTotalPrice($orderDetail->getProduct()->getPrice() * $orderDetail->getQuantity());
-				}
-			}
-		}
+        if ($orderDetail->getMenuDetail() == null) {
+            if ($orderDetail->getProduct()->getPromotion() == true) {
+                $promotionOrderDetails[] = $orderDetail;
+            } else {
+                if ($orderDetail->getProduct() == 'chunk_price') {
+                    $orderDetail->setTotalPrice(round((((($orderDetail->getProduct()->getMaxWeight()-$orderDetail->getProduct()->getMinWeight())/($orderDetail->getProduct()->getMaxPerson()-$orderDetail->getProduct()->getMinWeight()))*($orderDetail->getQuantity()-$orderDetail->getProduct()->getMinWeight())+$orderDetail->getProduct()->getMinWeight())*$orderDetail->getProduct()->getWeightPrice()/1000), 2, PHP_ROUND_HALF_UP));
+                }
+                if ($orderDetail->getProduct() != 'chunk_price') {
+                    $orderDetail->setTotalPrice(round($orderDetail->getProduct()->getPrice() * $orderDetail->getQuantity(), 2, PHP_ROUND_HALF_UP));
+                }
+            }
+        }
     }
 
     private function getTimeInterval($start, $end, $openingHours)

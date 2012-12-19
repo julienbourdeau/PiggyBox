@@ -808,20 +808,20 @@ class Product
     /**
      * Set promotion
      *
-     * @param boolean $promotion
+     * @param  boolean $promotion
      * @return Product
      */
     public function setPromotion($promotion)
     {
         $this->promotion = $promotion;
-    
+
         return $this;
     }
 
     /**
      * Get promotion
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPromotion()
     {
