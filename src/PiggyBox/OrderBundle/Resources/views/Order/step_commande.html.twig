@@ -160,7 +160,7 @@
 										</td>
 										<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="formule">
 											<span>
-												{{ orderDetail.vars.value.menuDetail.menu.price }}
+												{{ orderDetail.vars.value.menuDetail.menu.price|number_format(2, ',', ' ') }}
 											</span> €
 										</td>
 										<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
@@ -194,7 +194,7 @@
 						<td class="total-price">
 							<strong>
 								<span>
-									{{order.vars.value.totalprice}}
+									{{order.vars.value.totalprice|number_format(2, ',', ' ')}}
 								</span> €
 							</strong>
 						</td>

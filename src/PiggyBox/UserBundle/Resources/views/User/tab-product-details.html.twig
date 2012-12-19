@@ -35,9 +35,11 @@
 					{% endif %}
                 </div>
                 <div class="product-price text-right span6">
-					<span class="kilo-price">{{product.weightPrice}} € /Kg</span>
+                	{% if product.weightPrice is not null %}
+						<span class="kilo-price">{{product.weightPrice|number_format(2, ',', ' ')}} € /Kg</span>
+					{% endif %}
                     &nbsp;&nbsp;&nbsp;
-					<span class="primary-price">{{product.price}} €</span>
+					<span class="primary-price">{{product.price|number_format(2, ',', ' ')}} €</span>
                 </div>
 			</div>
 
