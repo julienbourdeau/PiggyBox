@@ -242,17 +242,17 @@ class UserController extends Controller
 
                 foreach ($menuItems as $menuItem) {
                     $menuDetail->addProduct($form['products_'.$menuItem->getId()]->getData());
-					$order = $this->get('piggy_box_cart.manager.order')->addOrGetOrderFromCart($menu->getShop());
+                    $order = $this->get('piggy_box_cart.manager.order')->addOrGetOrderFromCart($menu->getShop());
 
-        			$orderDetail = new OrderDetail();
-			        $orderDetail->setProduct($form['products_'.$menuItem->getId()]->getData());
-					$orderDetail->setMenuDetail($menuDetail);
-					$this->get('piggy_box_cart.manager.order')->addOrderDetailToOrder($order, $orderDetail);
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->setProduct($form['products_'.$menuItem->getId()]->getData());
+                    $orderDetail->setMenuDetail($menuDetail);
+                    $this->get('piggy_box_cart.manager.order')->addOrderDetailToOrder($order, $orderDetail);
                 }
 
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($menuDetail);
-			$em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($menuDetail);
+            $em->flush();
         }
 
         return $this->redirect($this->generateUrl('view_order'));
