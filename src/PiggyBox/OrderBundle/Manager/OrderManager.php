@@ -110,7 +110,6 @@ class OrderManager
                     $orderDetail->setTotalPrice(round((((($orderDetail->getProduct()->getMaxWeight()-$orderDetail->getProduct()->getMinWeight())/($orderDetail->getProduct()->getMaxPerson()-$orderDetail->getProduct()->getMinWeight()))*($orderDetail->getQuantity()-$orderDetail->getProduct()->getMinWeight())+$orderDetail->getProduct()->getMinWeight())*$orderDetail->getProduct()->getWeightPrice()/1000), 2, PHP_ROUND_HALF_UP));
                 }
                 if ($orderDetail->getProduct() != 'chunk_price') {
-                    $order->setTotalPrice(round($result, 2, PHP_ROUND_HALF_UP));
                     $orderDetail->setTotalPrice(round($orderDetail->getProduct()->getPrice() * $orderDetail->getQuantity(), 2, PHP_ROUND_HALF_UP));
                 }
             }
