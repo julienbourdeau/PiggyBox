@@ -48,8 +48,8 @@ class UserController extends Controller
         $map->setHtmlContainerId('map_canvas');
         $map->setAsync(false);
 
-        $map->setCenter(47.2179340, -1.5573370, true);
-        $map->setMapOption('zoom', 12);
+        $map->setCenter(46.875213, -0.296631, true);
+        $map->setMapOption('zoom', 8);
 
         $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
 
@@ -58,11 +58,11 @@ class UserController extends Controller
             'height' => '400px'
         ));
 
-        $marker = $this->get('ivory_google_map.marker');
 
         // Configure your marker options
-        $marker->setPrefixJavascriptVariable('marker_');
-        $marker->setPosition(47.2144380, -1.585360, true);
+        $marker1 = $this->get('ivory_google_map.marker');
+        $marker1->setPrefixJavascriptVariable('marker_');
+        $marker1->setPosition(47.2144380, -1.585360, true);
 
         $marker2 = $this->get('ivory_google_map.marker');
         $marker2->setPrefixJavascriptVariable('marker_');
@@ -76,10 +76,34 @@ class UserController extends Controller
         $marker4->setPrefixJavascriptVariable('marker_');
         $marker4->setPosition(47.214962,-1.55429, true);
 
-        $map->addMarker($marker);
+        # Epi de blais
+        $marker5 = $this->get('ivory_google_map.marker');
+        $marker5->setPrefixJavascriptVariable('marker_');
+        $marker5->setPosition(46.594289,0.36257, true);
+
+        # La garenne
+        $marker6 = $this->get('ivory_google_map.marker');
+        $marker6->setPrefixJavascriptVariable('marker_');
+        $marker6->setPosition(46.556027,0.304871, true);
+
+        # Inopinee
+        $marker7 = $this->get('ivory_google_map.marker');
+        $marker7->setPrefixJavascriptVariable('marker_');
+        $marker7->setPosition(46.564791,0.356863, true);
+
+        # Les mimines
+        $marker8 = $this->get('ivory_google_map.marker');
+        $marker8->setPrefixJavascriptVariable('marker_');
+        $marker8->setPosition(47.275619,-1.466761, true);
+
+        $map->addMarker($marker1);
         $map->addMarker($marker2);
         $map->addMarker($marker3);
         $map->addMarker($marker4);
+        $map->addMarker($marker5);
+        $map->addMarker($marker6);
+        $map->addMarker($marker7);
+        $map->addMarker($marker8);
 
         return array('map' => $map);
     }
