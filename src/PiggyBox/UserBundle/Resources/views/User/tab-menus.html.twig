@@ -33,7 +33,7 @@
 			{% endfor %}
 
 			<div class="product-thumbnail">
-				<a href="{{ path('view_product_details', {'shop_slug': productPhoto.shop.slug, 'category_slug': productPhoto.category.slug, 'product_slug': productPhoto.slug}) }}" class="img160x160">
+				<a onclick="_gaq.push(['_trackEvent', 'PRODUIT', 'voir-produit-detail', {{ path('view_product_details', {'shop_slug': productPhoto.shop.slug, 'category_slug': productPhoto.category.slug, 'product_slug': productPhoto.slug}) }}]);" href="{{ path('view_product_details', {'shop_slug': productPhoto.shop.slug, 'category_slug': productPhoto.category.slug, 'product_slug': productPhoto.slug}) }}" class="img160x160">
 					{% if productPhoto.hasImage %}
 						<img src="{{productPhoto.getWebPath | apply_filter('my_thumb') }}"
 						alt="{{productPhoto.name}}" title="{{productPhoto.name}}" >
@@ -54,7 +54,7 @@
 </div>
 
 <div class="text-centered">
-	<a href="{{path('user_show_menus', {'shop_slug': shop.slug, 'menu_slug': menu.slug})}}" class="btn btn-large btn-primary" type="button">Choisir et personnaliser cette formule</a>
+	<a onclick="_gaq.push(['_trackEvent', 'MENU', 'choisir-et-personnaliser-cette-formule', {{path('user_show_menus', {'shop_slug': shop.slug, 'menu_slug': menu.slug})}}]);" href="{{path('user_show_menus', {'shop_slug': shop.slug, 'menu_slug': menu.slug})}}" class="btn btn-large btn-primary" type="button">Choisir et personnaliser cette formule</a>
 </div>
 
 <br/>

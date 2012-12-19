@@ -17,7 +17,7 @@
             <div class="row bottom-marged">
                 <div class="span12" style="margin-top: 32px; margin-bottom: 32px;">
                     <div class="black-bordered">
-                        <a href="{{ path('shops') }}">
+                        <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="{{ path('shops') }}">
                             <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
                         </a>
                     </div>
@@ -39,17 +39,17 @@
             <div class="span6">
                 <h1 class="no-margin text-centered">Coups de coeur</h1>
                 <div class="step-item">
-                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
+                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-zola']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
                         <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/zola-boucherie.png')}}" alt="">
                     </a>
                 </div>
                 <div class="step-item">
-                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}">
+                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-des-gourmets']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}">
                         <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/gourmet-boucherie.png')}}" alt="">
                     </a>
                 </div>
                 <div class="step-item">
-                    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}">
+                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-copernic']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}">
                         <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/copernic-boucherie.png')}}" alt="">
                     </a>
                 </div>
@@ -67,18 +67,18 @@
         </div>
         <div class="row bottom-marged">
             {#<div class="span4">
-                <a href="http://www.startup-factory.fr/">
+                <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="http://www.startup-factory.fr/">
                     <img class="" src="{{ asset('bundles/piggyboxuser/img/presse/startupfactory.png')}}" alt="">
                 </a>
             </div> #}
             <div class="span12 presse-links">
-                <a id="startupfactory" href="http://www.startup-factory.fr/"></a>
-                <a id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
-                <a id="sunradio" href="http://kwalitylife.com/le-petit-club-03-novembre-sun-radio/"></a>
-                <a id="atlanpole" class="last" href="http://www.atlanpole.fr/Atlanpole-Digital-Innovation/liste-des-news/Startup-Factory-by-Atlanpole-Atlantic-2.0-les-8-laureats-de-la-premiere-saison"></a>
-                <a id="frenchweb" href="http://frenchweb.fr/startup-factory-les-8-jeunes-pousses-selectionnees-pour-la-1ere-saison-sont/78901"></a>
-                <a id="journalentreprise" href="http://www.lejournaldesentreprises.com/national/filinfo/nantes-huit-projets-retenus-par-startup-factory-02-10-2012-161205.php"></a>
-                <a id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'startupfactory']);" id="startupfactory" href="http://www.startup-factory.fr/"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'unefilleanantes']);" id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'sunradio']);" id="sunradio" href="http://kwalitylife.com/le-petit-club-03-novembre-sun-radio/"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'atlanpole']);" id="atlanpole" class="last" href="http://www.atlanpole.fr/Atlanpole-Digital-Innovation/liste-des-news/Startup-Factory-by-Atlanpole-Atlantic-2.0-les-8-laureats-de-la-premiere-saison"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'frenchweb']);" id="frenchweb" href="http://frenchweb.fr/startup-factory-les-8-jeunes-pousses-selectionnees-pour-la-1ere-saison-sont/78901"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'journaldesentreprises']);" id="journalentreprise" href="http://www.lejournaldesentreprises.com/national/filinfo/nantes-huit-projets-retenus-par-startup-factory-02-10-2012-161205.php"></a>
+                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'ouestfrance']);" id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <div class="black-bordered">
-                    <a href="{{ path('shops') }}">
+                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'go-to-shops', 'img-bar-2']);" href="{{ path('shops') }}">
                         <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
                     </a>
                 </div>
