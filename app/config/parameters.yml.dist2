@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     ~
-    database_name:     piggybox_prod 
-    database_user:     piggyboxer
-    database_password: 66ln8^VeOwnLD8&Vk8
+    database_name:     piggybox_prod_v2 
+    database_user:     piggyboxer2
+    database_password: 66ln8^VeOwnLD8
 
     mailer_transport:  smtp
     mailer_host:       localhost

@@ -31,8 +31,8 @@
 							<tr class="text-centered">
 								<td>{{price.slicenbr}}</td>
 								<td>{{price.totalweight}}</td>
-								<td>{{price.price}} €</td>
-								<td>{{product.pricekg}} €</td>
+								<td>{{price.price|number_format(2, ',', ' ')}} €</td>
+								<td>{{product.pricekg|number_format(2, ',', ' ')}} €</td>
 								<td>
 									<form class="form-inline" action="{{path('cart_add_product', {product_id: product_id, price_id : price.id})}}" method="post" {{ form_enctype(form[loop.index0]) }}>
 										{{ form_widget(form[loop.index0].quantity, { 'attr': {'class': 'span12'}}) }}
