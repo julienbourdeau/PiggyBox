@@ -1,5 +1,5 @@
 
-<h1 class="text-centered bottom-marged">{{menu.title}} <small>{{menu.price}} €</small></h1>
+<h1 class="text-centered bottom-marged">{{menu.title}} <small>{{menu.price|number_format(2, ',', ' ')}} €</small></h1>
 
 <form class="form-inline" action="{{ path('user_submit_menus', {'id': menu.id}) }}" method="post" {{form_enctype(form)}}>
 {% for menuItem in menu.menuItems %}

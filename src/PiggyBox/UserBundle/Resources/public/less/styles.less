@@ -103,14 +103,28 @@ h4 [class^="icon-"] {
 	margin-left: -5px;
 	background: url('../img/coming-soon-small.png');
 }
-.coming-soon {
+.ribbon {
 	z-index: 999;
 	position: absolute;
 	width: 150px;
 	height: 150px;
 	margin-top: -2px;
 	margin-left: -2px;
+}
+.product-item {
+	.ribbon {
+		margin-top: -14px;
+		margin-left: -14px;
+	}
+}
+.ribbon-coming-soon {
 	background: url('../img/coming-soon.png');
+}
+.ribbon-formule {	
+	background: url('../img/formule.png');
+}
+.ribbon-promotion {	
+	background: url('../img/promotion.png');
 }
 
 .selectedItem {
@@ -279,7 +293,7 @@ h1 {
 
 // PRODUCT
 .product-item {
-	width: 220px;
+	width: 219px;
 	margin: 0 23px 46px 0;
 	padding: 12px;
 	.clearfix;
