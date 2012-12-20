@@ -3,7 +3,6 @@
 
 {% for product in products %}
 
-
 	<div class="product-item
 				box
 				box-light
@@ -12,6 +11,7 @@
 				tous
 				{{product.category.slug}}
 				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
+	{# <div class="ribbon ribbon-promotion"></div> #}
 
 		<div class="product-infos">
 
