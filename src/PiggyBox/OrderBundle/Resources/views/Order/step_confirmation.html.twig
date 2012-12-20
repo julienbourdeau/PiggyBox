@@ -82,45 +82,70 @@
 
                     <tbody>
                         {% for orderDetail in order.orderdetail %}
-                        <tr>
-                            <td class="col1">
-                                <img src="{{orderDetail.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
-                                <strong>
-                                    {{orderDetail.product.name}}
-                                </strong>
-                            </td>
-                            <td class="col2">
-                                <div class="product-toolbar product-toolbar-large form-inline">
+							{% if orderDetail.menuDetail is null %}
+								<tr>
+									<td class="col1">
+										<img src="{{orderDetail.product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
+										<strong>
+											{{orderDetail.product.name}}
+										</strong>
+									</td>
+									<td class="col2">
+										<div class="product-toolbar product-toolbar-large form-inline">
 
-                                    <div class="select-quantity">
-										{% if orderDetail.product.priceType != 'chunk_price' %}
-											{{orderDetail.quantity}}
-										{% else %}
-											{{orderDetail.quantity}} pers.
-										{% endif %}
-                                    </div>
+											<div class="select-quantity">
+												{% if orderDetail.product.priceType != 'chunk_price' %}
+													{{orderDetail.quantity}}
+												{% else %}
+													{{orderDetail.quantity}} pers.
+												{% endif %}
+											</div>
 
-                                </div>
-                            </td>
-							{% if orderDetail.product.price|number_format(2, ',', ' ') == 0 %}
-							<td class="col3">N/A</td>
-							{% else %}
-							<td class="col3">{{orderDetail.product.price|number_format(2, ',', ' ')}} €</td>
+										</div>
+									</td>
+									{% if orderDetail.product.price|number_format(2, ',', ' ') == 0 %}
+									<td class="col3">N/A</td>
+									{% else %}
+									<td class="col3">{{orderDetail.product.price|number_format(2, ',', ' ')}} €</td>
+									{% endif %}
+
+									{% if orderDetail.product.weightprice|number_format(2, ',', ' ') == 0 %}
+									<td class="col4">N/A</td>
+									{% else %}
+									<td class="col4">{{orderDetail.product.weightprice|number_format(2, ',', ' ')}} €</td>
+									{% endif %}
+
+									{% if orderDetail.totalPrice|number_format(2, ',', ' ') == 0 %}
+									<td class="col5">N/A</td>
+									{% else %}
+									<td class="col5">{{orderDetail.totalPrice|number_format(2, ',', ' ')}} €</td>
+									{% endif %}
+								</tr>
 							{% endif %}
+						{% endfor %}
 
-							{% if orderDetail.product.weightprice|number_format(2, ',', ' ') == 0 %}
-							<td class="col4">N/A</td>
-							{% else %}
-							<td class="col4">{{orderDetail.product.weightprice|number_format(2, ',', ' ')}} €</td>
-							{% endif %}
+						{% set menuDetailBufferId = [] %}
 
-							{% if orderDetail.totalPrice|number_format(2, ',', ' ') == 0 %}
-							<td class="col5">N/A</td>
-							{% else %}
-							<td class="col5">{{orderDetail.totalPrice|number_format(2, ',', ' ')}} €</td>
+                        {% for orderDetail in order.orderdetail %}
+							{% if orderDetail.menuDetail != null %}
+								{% if  orderDetail.menuDetail.id not in menuDetailBufferId %}
+								<tr>
+									<td colspan="5" class="col1">
+										<strong>
+											{{ orderDetail.menuDetail.menu.title }}
+										</strong>
+                                        <br>
+                                        <ul class="unstyled">
+											{% for product in orderDetail.menuDetail.products %}
+											<li><i class="icon-ok"></i> {{ product.name }}</li>
+											{% endfor %}
+                                        </ul>
+										{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.menuDetail.id]) %}
+									</td>
+								</tr>
+								{% endif %}
 							{% endif %}
-                        </tr>
-                        {% endfor %}
+						{% endfor %}
                     </tbody>
                 </table>
             </div>
