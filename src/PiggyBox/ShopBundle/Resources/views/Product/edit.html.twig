@@ -119,14 +119,14 @@
 									</div>
 								</div>
 
-								<div class="control-group conditional-field unit_variable_price">
+								<div class="control-group hide conditional-field unit_variable_price">
 									<label class="control-label" for="">Poids par tranche</label>
 									<div class="controls">
 										{{ form_widget(edit_form.productWeightPerSlice) }}
 									</div>
 								</div>
 
-								<div class="control-group conditional-field chunk_price row-fluid">
+								<div class="control-group hide conditional-field chunk_price row-fluid">
 									<div class="span4">
 										Poid minimum <br>
 										{{ form_widget(edit_form.minWeight, { 'attr': {'style': 'width: 90%'} } ) }}
