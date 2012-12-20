@@ -40,7 +40,7 @@
 											{{orderDetail.product.name}}
 										</strong>
 									</td>
-									<td class="col2">{{orderDetail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
+									<td class="col2">{{orderDetail.quantity}} {% if orderDetail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
 									<td class="col3">{{(orderDetail.totalPrice)|number_format(2, ',', ' ')}} €</td>
 								</tr>
 							{% endif %}
