@@ -245,6 +245,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data = array();
 
+        $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
         $data['product'] = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
         $orderDetail = new OrderDetail();
         $orderDetail->setProduct($data['product']);
