@@ -58,8 +58,9 @@ class MenuDetailType extends AbstractType
                                     $qb->select(array('DISTINCT p', 'i'))
                                         ->from('PiggyBoxShopBundle:Product', 'p')
                                         ->leftJoin('p.menuItems', 'i')
-                                        ->where('(p.shop=?1 AND i.id=?2)')
-                                        ->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
+                                        //->where('(p.shop=?1 AND i.id=?2)')
+                                        ->where('(p.shop='.$data->getMenu()->getShop()->getId().' AND i.id='.$menuItem->getId().')');
+                                        //->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
 
                                     return $qb;
                                 }
