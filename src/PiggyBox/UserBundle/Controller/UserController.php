@@ -58,7 +58,6 @@ class UserController extends Controller
             'height' => '400px'
         ));
 
-
         // Configure your marker options
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
@@ -130,7 +129,6 @@ class UserController extends Controller
             'height' => '400px'
         ));
 
-
         // Configure your marker options
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
@@ -183,7 +181,6 @@ class UserController extends Controller
             'width' => '100%',
             'height' => '400px'
         ));
-
 
         // Configure your marker options
 
@@ -248,6 +245,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data = array();
 
+        $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
         $data['product'] = $em->getRepository('PiggyBoxShopBundle:Product')->findOneByShopAndProductSlug($shop->getId(), $product_slug);
         $orderDetail = new OrderDetail();
         $orderDetail->setProduct($data['product']);

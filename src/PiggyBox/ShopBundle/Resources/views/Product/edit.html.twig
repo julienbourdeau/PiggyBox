@@ -210,7 +210,6 @@
 
 	$('#product_price_type_trigger select').change(
 		function load_right_form_part() {
-			console.log($(this).val());
 			$('.conditional-field ').hide();
 			$('.'+$(this).val()).show();
 		}
