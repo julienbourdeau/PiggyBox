@@ -70,9 +70,11 @@
 						{% if orderDetail.vars.value.menuDetail is null %}
 							<tr id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 								<td class="col1" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
-									{% if orderDetail.vars.value.product.hasImage %}
-										<img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="{{orderDetail.vars.value.product.name}}" title="{{orderDetail.vars.value.product.name}}" >
-									{% endif %}
+                                    <div class="pull-left img100x100" style="margin-right: 26px;" >
+    									{% if orderDetail.vars.value.product.hasImage %}
+    										<img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="{{orderDetail.vars.value.product.name}}" title="{{orderDetail.vars.value.product.name}}" >
+    									{% endif %}
+                                    </div>
 									<strong>
 										{{orderDetail.vars.value.product.name}}
 									</strong>
