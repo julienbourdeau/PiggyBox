@@ -44,12 +44,10 @@ $(document).ready(function() {
    	            dataType: 'json',
    	            success: function (data) {
 
-				console.log(isEmpty(data.content));
 				var select = selectTime;
 				addOptionsToSelect(select, data.content);
 
 					if(isEmpty(data.content)){
-					console.log("isEmpty");
 						var selectDate = document.getElementById(selectDateId);
 						selectDate.remove("0");
 

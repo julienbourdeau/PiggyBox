@@ -145,6 +145,9 @@
 
 						{% for orderDetail in order.order_detail %}
 							{% if orderDetail.vars.value.menuDetail != null %}
+								{# Permet de ne pas supprimer l'orderDetail... un peu tricky mais temporaire #}
+								{{ form_widget(orderDetail.quantity, { 'attr': {'class': 'inline-quantity '~loop.index0~'-'~order.vars.value.shop.slug, 'style': 'display: none;'} }) }}
+
 								{% if  orderDetail.vars.value.menuDetail.id not in menuDetailBufferId %}
 
 									<tr id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
@@ -152,8 +155,8 @@
                                             <div class="pull-left img100x100" style="margin-right: 26px;" >
     											{% if orderDetail.vars.value.product.hasImage %}
     												<img
-                                                        src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" 
-                                                        alt="{{orderDetail.vars.value.product.name}}" 
+                                                        src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}"
+                                                        alt="{{orderDetail.vars.value.product.name}}"
                                                         title="{{orderDetail.vars.value.product.name}}" >
     											{% endif %}
                                             </div>
@@ -163,7 +166,7 @@
                                             <br>
                                             <ul class="unstyled">
 												{% for product in orderDetail.vars.value.menuDetail.products %}
-													<li><i class="icon-ok"></i> {{ product.name }}</li>
+												<li><i class="icon-ok"></i> {{ product.name }}</li>
 												{% endfor %}
                                             </ul>
 											{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.vars.value.menuDetail.id]) %}

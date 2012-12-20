@@ -102,6 +102,9 @@ class OrderManager
 
     public function setOrderDetailTotalPrice(OrderDetail $orderDetail)
     {
+        if ($orderDetail->getMenuDetail() != null) {
+            $orderDetail->setTotalPrice(round($orderDetail->getProduct()->getPrice(), 2, PHP_ROUND_HALF_UP));
+        }
         if ($orderDetail->getMenuDetail() == null) {
             if ($orderDetail->getProduct()->getPromotion() == true) {
                 $promotionOrderDetails[] = $orderDetail;
