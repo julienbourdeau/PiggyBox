@@ -147,15 +147,23 @@
 
 									<tr id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 										<td colspan="4" class="col1" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
-											{% if orderDetail.vars.value.product.hasImage %}
-												<img src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" alt="{{orderDetail.vars.value.product.name}}" title="{{orderDetail.vars.value.product.name}}" >
-											{% endif %}
+                                            <div class="pull-left img100x100" style="margin-right: 26px;" >
+    											{% if orderDetail.vars.value.product.hasImage %}
+    												<img
+                                                        src="{{orderDetail.vars.value.product.getWebPath | apply_filter('little_thumb') }}" 
+                                                        alt="{{orderDetail.vars.value.product.name}}" 
+                                                        title="{{orderDetail.vars.value.product.name}}" >
+    											{% endif %}
+                                            </div>
 											<strong>
 												{{ orderDetail.vars.value.menuDetail.menu.title }}
 											</strong>
+                                            <br>
+                                            <ul class="unstyled">
 												{% for product in orderDetail.vars.value.menuDetail.products %}
-													{{ product.name }}
+													<li><i class="icon-ok"></i> {{ product.name }}</li>
 												{% endfor %}
+                                            </ul>
 											{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.vars.value.menuDetail.id]) %}
 										</td>
 										<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="formule">
