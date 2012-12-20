@@ -58,7 +58,6 @@ class UserController extends Controller
             'height' => '400px'
         ));
 
-
         // Configure your marker options
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
@@ -130,7 +129,6 @@ class UserController extends Controller
             'height' => '400px'
         ));
 
-
         // Configure your marker options
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
@@ -183,7 +181,6 @@ class UserController extends Controller
             'width' => '100%',
             'height' => '400px'
         ));
-
 
         // Configure your marker options
 

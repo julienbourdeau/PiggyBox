@@ -61,7 +61,6 @@ class MenuDetailType extends AbstractType
                                         //->where('(p.shop=?1 AND i.id=?2)')
                                         ->where('(p.shop='.$data->getMenu()->getShop()->getId().' AND i.id='.$menuItem->getId().')');
                                         //->setParameters(array(1 => $data->getMenu()->getShop()->getId(), 2 => $menuItem->getId()));
-
                                     return $qb;
                                 }
                         ))
