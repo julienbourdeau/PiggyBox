@@ -204,16 +204,12 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		$('#product_price|number_format(2, ',', ' ')_type_trigger select').trigger('change');
+	$('#product_price_type_trigger select').change(function() {
+		console.log("triggered");
+		$('.conditional-field ').hide();
+		$('.'+$(this).val()).show();
+		console.log($(this).val());
 	});
-
-	$('#product_price_type_trigger select').change(
-		function load_right_form_part() {
-			$('.conditional-field ').hide();
-			$('.'+$(this).val()).show();
-		}
-	);
 
 </script>
 
