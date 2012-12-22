@@ -75,6 +75,34 @@
 
 </div>
 
+{% elseif (shop.slug == 'banette-la-mimine') %}
+
+<h2>La boulangerie La Mimine - Sainte Luce</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>Boulangerie Nantaise</h4>
+
+		<p>Présentation de la boulangerie à rédiger.</p>
+	</div>
+
+</div>
+
+{% elseif (shop.slug == 'banette-buxerolles') %}
+
+<h2>Boulangerie Buxerolles - Poitiers</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>Boulangerie de Buxerolles</h4>
+
+		<p>Présentation de la boulangerie à rédiger.</p>
+	</div>
+
+</div>
+
 {% endif %}
 
 {% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' with {'shop': shop} %}
