@@ -372,4 +372,48 @@
 </div>
 
 
+{#
+#################################################################################################
+#####
+##### 			BOULANGERIE BANETTE - FUTUROSCOPE
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'banette-futuroscope') %}
+
+<h2>Boulangerie Banette: horaires, adresse & détails</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong> </p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> Carte bleue</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Tickets restaurant (tout type)</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> <span class="red">09.61.36.20.28</span> </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> banette.poitiers@orange.fr</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> Av Gustave Eiffel 86360 Chasseneuil du Poitou (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+	<div id="map-large" class="span12">
+		<h3>La carte <small>Boulangerie Banette - Poitiers</small></h3>
+		<iframe width="740" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Av.+Gustave+Eiffel,+Chasseneuil-du-Poitou&amp;aq=0&amp;oq=Av.+Gustave+Eiffel,+Chas&amp;sll=47.348,-1.741412&amp;sspn=1.529688,3.131104&amp;ie=UTF8&amp;hq=&amp;hnear=Avenue+Gustave+Eiffel,+86360+Chasseneuil-du-Poitou,+Vienne,+Poitou-Charentes&amp;ll=46.661014,0.36347&amp;spn=0.024329,0.048923&amp;t=m&amp;z=14&amp;output=embed"></iframe>
+	</div>
+</div>
+
+
 {% endif %}
