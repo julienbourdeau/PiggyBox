@@ -111,4 +111,26 @@
 	</div>
 {% endfor %}
 
+{% elseif (shop.slug == 'banette-la-mimine') %}
+
+
+{% for count in range(0, 7) %}
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine-" ~ count ~ ".jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+{% endfor %}
+
+{% elseif (shop.slug == 'banette-la-garenne') %}
+
+
+{% for count in range(0, 6) %}
+	<div class="">
+		{% set path = "bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne-" ~ count ~ ".jpg" %}
+		<img src="{{ asset(path) }}" alt="">
+		<hr />
+	</div>
+{% endfor %}
+
 {% endif %}
