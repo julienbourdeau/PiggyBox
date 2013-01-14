@@ -67,7 +67,7 @@ Supports Thumbs: true
 }
 
 .theme-default .nivo-caption {
-    font-family: Helvetica, Arial, sans-serif;
+    /*font-family: Helvetica, Arial, sans-serif;*/
 }
 .theme-default .nivo-caption a {
     color:#fff;
