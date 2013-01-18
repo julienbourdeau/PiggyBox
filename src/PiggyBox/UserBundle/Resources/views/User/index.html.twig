@@ -48,8 +48,13 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
-                <div id="map-container">
-                    x
+                <div id="map-container" class="clearfix">
+                    <div id="map-container-left" class="pull-left">
+                        {{ google_map_container(map) }}
+                    </div>
+                    <div id="map-container-right" class="pull-left">
+                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
+                    </div>
                 </div>
             </div>
         </div>
