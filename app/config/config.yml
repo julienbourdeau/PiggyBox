@@ -150,3 +150,14 @@ craue_twig_extensions: ~
 
 # WhiteOctoberBreadcrumbsBundle configuration
 white_october_breadcrumbs: ~
+
+# JMSPaymentCoreBundle configuration
+jms_payment_core:
+    secret: tripleanal
+
+# JMSPaymentCoreBundle configuration
+jms_payment_paypal:
+    username: baptis_1358518044_biz_api1.gmail.com
+    password: 1358518066
+    signature: AFcWxV21C7fd0v3bYYYRCpSSRl31AFyG5UYjATZwTzczVmSoLtu8ZXdc
+    debug: true
