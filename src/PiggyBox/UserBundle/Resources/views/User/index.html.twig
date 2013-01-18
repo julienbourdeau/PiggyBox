@@ -24,11 +24,19 @@
 
                 <div class="ribbon ribbon-promotion"></div>
                 <div class="row-fluid slider-sidebar-item">
-                    <div class="span4">promo</div>
+                    <div class="span12">
+                        <a class="" href="http://cotelettes-tarteauxfraises.com/commerce/boucherie-zola/boeuf/cote-de-boeuf-1" >
+                            <img src="{{ asset('bundles/piggyboxuser/img/promo/promo-1.jpg')}}" alt="">
+                        </a>
+                    </div>
                 </div>
 
                 <div class="row-fluid slider-sidebar-item" style="margin: 0;">
-                    <div class="span12">truc cool</div>
+                    <div class="span12">
+                        <a class="img-link" href="{{path('shops')}}" >
+                            <img src="{{ asset('bundles/piggyboxuser/img/banette-en-ligne-logo.jpg')}}" alt="">
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -50,9 +58,21 @@
 
     <div class="container">
         <div class="row bottom-marged">
-            <div class="span12">
+            <div class="span12 text-centered">
                 <div id="newsletter-container">
                     
+                    <!-- Begin MailChimp Signup Form -->
+                    <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
+                        <label for="mce-EMAIL">Restez informé des nouveautés </label>
+                        <input type="email" value="" name="EMAIL" class="required email input-xlarge" id="mce-EMAIL">
+                        <input type="submit" value="Tenez moi au courant !" name="subscribe" id="mc-embedded-subscribe" class="btn btn-large">
+                        <div class="clear">
+                            <div class="response" id="mce-error-response" style="display:none"></div>
+                            <div class="response" id="mce-success-response" style="display:none"></div>
+                        </div>
+                    </form>
+                    <!--End mc_embed_signup-->
+
                 </div>
             </div>
         </div>
@@ -62,10 +82,25 @@
     <div class="container">
         <div class="row bottom-marged">
             <div class="span8">
-                citations
+                <div id="testimonials-container">
+                    <ul class="testimonials">
+                        <li class="testimonial-item current">
+                            <div class="quote">&laquo; En faisant la queue à la boulangerie je me suis dit qu'il était temps d'utiliser ce service! &raquo;</div>
+                            <div class="quote-source">&#9998; Jonathan, Nantes</div>
+                        </li>
+                        <li class="testimonial-item">
+                            <div class="quote">&laquo; J'adore mes commerces de proximité mais avec un enfant ce n'était pas toujours simple, maintenant je peux y aller plus souvent! &raquo;</div>
+                            <div class="quote-source">&#9998; Stéphanie, Nantes</div> 
+                        </li>
+                        <li class="testimonial-item last-item">
+                            <div class="quote">&laquo; En 2013, j'ai décidé de favoriser la qualité, avec Côtelettes & Tarte aux fraises je trouve ce dont j'ai besoin en quelques clics. &raquo;</div>
+                            <div class="quote-source">&#9998; Pierre, Orvault</div> 
+                        </li>
+                    </ul>                    
+                </div>
             </div>
             <div class="span4">
-                <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC%25C3%25B4telettes-Tarte-aux-fraises%2F389516231125842&amp;width=335&amp;height=200&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;border_color&amp;header=true&amp;appId=260550777370634" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:335px; height:200px;" allowTransparency="true"></iframe>
+                <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC%25C3%25B4telettes-Tarte-aux-fraises%2F389516231125842&amp;width=335&amp;height=250&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;border_color&amp;header=true&amp;appId=260550777370634" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:335px; height:266px;" allowTransparency="true"></iframe>
             </div>
         </div>
     </div>
@@ -107,6 +142,59 @@
 $(window).load(function() {
     $('#slider').nivoSlider();
 });
+</script>
+
+<script>
+
+    $(window).load (function() {
+        var theContent = $('ul.testimonials li');
+        var theWidth = 695;
+        var theHeight = 266;
+        //wrap into mother div
+        $('ul.testimonials').wrap('<div id="mother" />');                    
+        //assign height width and overflow hidden to mother
+        $('#mother').css({
+            width: function() {
+            return theWidth;
+          }, 
+            height: function() {
+            return theHeight;
+          }, 
+            position: 'relative',
+            overflow: 'hidden'      
+        });
+            //get total of image sizes and set as width for ul 
+        var totalWidth = theContent.length * theWidth;
+        $('ul.testimonials').css({
+            width: function(){
+            return totalWidth;  
+        }               
+        });     
+     
+    });//doc ready
+
+    window.setInterval(function(){
+        //console.log("cool");
+        var theContent = $('ul.testimonials li');
+        $(theContent).each(     
+            function(intIndex){
+                //console.log(intIndex);
+                if ($(this).hasClass('current')) {
+                    $(this).parent('ul').animate({
+                        "margin-left": (-(intIndex) * 695)             
+                    }, 1000)
+                    $(this).removeClass('current');
+                    if ($(this).hasClass('last-item')) {
+                        $(this).parent('ul').children().addClass('current');
+                    } else {                        
+                        $(this).next().addClass('current');
+                    }
+                    return false;
+                };
+            }
+        );
+    }, 5000);
+ 
 </script>
 
 {% endblock %}
