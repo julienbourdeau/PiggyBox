@@ -153,8 +153,9 @@
 
 <script>
 
-function testFunction($var) {
-    console.log("cool ca marche " + $var);
+function showShopInMap($slug) {
+    var id = "#sidebar-" + $slug;
+    $(id).show();
 }
 
 $(document).ready(

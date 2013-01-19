@@ -41,8 +41,8 @@ class UserController extends Controller
         $map->setHtmlContainerId('map_canvas');
         $map->setAsync(false);
 
-        $map->setCenter(47.223066, -1.552162, true);
-        $map->setMapOption('zoom', 11);
+        $map->setCenter(46.875213, -0.296631, true);
+        $map->setMapOption('zoom', 8);
 
         $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
 
@@ -51,52 +51,118 @@ class UserController extends Controller
             'height' => '500px'
         ));
 
-        // Configure your marker options
+        # zola
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
         $marker1->setPosition(47.2144380, -1.585360, true);
 
+        $event1 = $this->get('ivory_google_map.event');
+        $event1->setInstance($marker1->getJavascriptVariable());
+        $event1->setEventName('click');
+        $event1->setHandle('function(){showShopInMap("boucherie-zola")}');
+
+        # gourmets
         $marker2 = $this->get('ivory_google_map.marker');
         $marker2->setPrefixJavascriptVariable('marker_');
         $marker2->setPosition(47.215545,-1.564271, true);
 
+        $event2 = $this->get('ivory_google_map.event');
+        $event2->setInstance($marker2->getJavascriptVariable());
+        $event2->setEventName('click');
+        $event2->setHandle('function(){showShopInMap("boucherie-des-gourmets")}');
+
+        # Copernic
         $marker3 = $this->get('ivory_google_map.marker');
         $marker3->setPrefixJavascriptVariable('marker_');
         $marker3->setPosition(47.229044,-1.57163, true);
 
+        $event3 = $this->get('ivory_google_map.event');
+        $event3->setInstance($marker3->getJavascriptVariable());
+        $event3->setEventName('click');
+        $event3->setHandle('function(){showShopInMap("boucherie-copernic")}');
+
+        # boulanger zola
         $marker4 = $this->get('ivory_google_map.marker');
         $marker4->setPrefixJavascriptVariable('marker_');
         $marker4->setPosition(47.214962,-1.55429, true);
+
+        $event4 = $this->get('ivory_google_map.event');
+        $event4->setInstance($marker4->getJavascriptVariable());
+        $event4->setEventName('click');
+        $event4->setHandle('function(){showShopInMap("le-boulanger-de-zola")}');
+
+        # Epi de blais
+        $marker5 = $this->get('ivory_google_map.marker');
+        $marker5->setPrefixJavascriptVariable('marker_');
+        $marker5->setPosition(46.594289,0.36257, true);
+
+        $event5 = $this->get('ivory_google_map.event');
+        $event5->setInstance($marker5->getJavascriptVariable());
+        $event5->setEventName('click');
+        $event5->setHandle('function(){showShopInMap("banette-buxerolles")}');
+
+        # La garenne
+        $marker6 = $this->get('ivory_google_map.marker');
+        $marker6->setPrefixJavascriptVariable('marker_');
+        $marker6->setPosition(46.556027,0.304871, true);
+
+        $event6 = $this->get('ivory_google_map.event');
+        $event6->setInstance($marker6->getJavascriptVariable());
+        $event6->setEventName('click');
+        $event6->setHandle('function(){showShopInMap("banette-la-garenne")}');
+
+        # Inopinee
+        $marker7 = $this->get('ivory_google_map.marker');
+        $marker7->setPrefixJavascriptVariable('marker_');
+        $marker7->setPosition(46.564791,0.356863, true);
+
+        $event7 = $this->get('ivory_google_map.event');
+        $event7->setInstance($marker7->getJavascriptVariable());
+        $event7->setEventName('click');
+        $event7->setHandle('function(){showShopInMap("banette-grand-large")}');
 
         # Les mimines
         $marker8 = $this->get('ivory_google_map.marker');
         $marker8->setPrefixJavascriptVariable('marker_');
         $marker8->setPosition(47.275619,-1.466761, true);
 
+        $event8 = $this->get('ivory_google_map.event');
+        $event8->setInstance($marker8->getJavascriptVariable());
+        $event8->setEventName('click');
+        $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker2);
         $map->addMarker($marker3);
         $map->addMarker($marker4);
+        $map->addMarker($marker5);
+        $map->addMarker($marker6);
+        $map->addMarker($marker7);
         $map->addMarker($marker8);
 
 
-        // Requests the ivory google map event service
-        $event = $this->get('ivory_google_map.event');
-
-        // Configure your event
-        $instance = $marker1->getJavascriptVariable();
-        $handle = 'function(){testFunction("boucherie-zola")}';
-        $event->setInstance($instance);
-        $event->setEventName('click');
-        $event->setHandle($handle);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
-        $event->setCapture(true);
+        $event1->setCapture(true);
+        $event2->setCapture(true);
+        $event3->setCapture(true);
+        $event4->setCapture(true);
+        $event5->setCapture(true);
+        $event6->setCapture(true);
+        $event7->setCapture(true);
+        $event8->setCapture(true);
 
 
         // Add a DOM event
-        $map->getEventManager()->addDomEvent($event);
+        $map->getEventManager()->addDomEvent($event1);
+        $map->getEventManager()->addDomEvent($event2);
+        $map->getEventManager()->addDomEvent($event3);
+        $map->getEventManager()->addDomEvent($event4);
+        $map->getEventManager()->addDomEvent($event5);
+        $map->getEventManager()->addDomEvent($event6);
+        $map->getEventManager()->addDomEvent($event7);
+        $map->getEventManager()->addDomEvent($event8);
 
 
         return array('map' => $map);
