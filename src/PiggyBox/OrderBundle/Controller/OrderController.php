@@ -19,7 +19,13 @@ use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PiggyBox\OrderBundle\Event\OrderEvent;
+use JMS\DiExtraBundle\Annotation as DI;
+use JMS\Payment\CoreBundle\Entity\Payment;
+use JMS\Payment\CoreBundle\PluginController\Result;
+use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
+use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use PiggyBox\OrderBundle\OrderEvents;
+
 /**
  * Order controller.
  *
@@ -27,6 +33,18 @@ use PiggyBox\OrderBundle\OrderEvents;
  */
 class OrderController extends Controller
 {
+    /** @DI\Inject */
+    private $request;
+
+    /** @DI\Inject */
+    private $router;
+
+    /** @DI\Inject("doctrine.orm.entity_manager") */
+    private $em;
+
+    /** @DI\Inject("payment.plugin_controller") */
+    private $ppc;
+
     /**
      * Submit OrderDetail
      *
@@ -145,7 +163,7 @@ class OrderController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('validate_order'));
+        return $this->redirect($this->generateUrl('payment_details'));
     }
 
     /**
@@ -230,5 +248,106 @@ class OrderController extends Controller
         }
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
+    }
+
+    /*
+     *	PAYMENT CONTROLLER ACTIONS
+     * */
+
+    /**
+     *
+     * @PreAuthorize("hasRole('ROLE_USER')")
+     * @Route("/details", name = "payment_details")
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     */
+    public function detailsAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+        $cart->setAmount(100);
+
+        $form = $this->getFormFactory()->create('jms_choose_payment_method', null, array(
+            'amount'   => $cart->getAmount(),
+            'currency' => 'EUR',
+            'default_method' => 'payment_paypal', // Optional
+            'predefined_data' => array(
+                'paypal_express_checkout' => array(
+                    'return_url' => $this->router->generate('payment_complete', array(
+                        'orderNumber' => $cart->getOrderNumber(),
+                    ), true),
+                    'cancel_url' => $this->router->generate('payment_cancel', array(
+                        'orderNumber' => $cart->getOrderNumber(),
+                    ), true)
+                ),
+            ),
+        ));
+
+        if ('POST' === $this->request->getMethod()) {
+            $form->bindRequest($this->request);
+
+            if ($form->isValid()) {
+                $this->ppc->createPaymentInstruction($instruction = $form->getData());
+
+                $cart->setPaymentInstruction($instruction);
+                $this->em->persist($cart);
+                $this->em->flush($cart);
+
+                return new RedirectResponse($this->router->generate('payment_complete', array(
+                    'orderNumber' => $cart->getOrderNumber(),
+                )));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'step' => 'step_paiement',
+        );
+    }
+
+    /**
+     * @Route("/{orderNumber}/complete", name = "payment_complete")
+     */
+    public function completeAction(Request $req, $orderNumber)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+
+        $instruction = $cart->getPaymentInstruction();
+
+        if (null === $pendingTransaction = $instruction->getPendingTransaction()) {
+            $payment = $this->ppc->createPayment($instruction->getId(), $instruction->getAmount() - $instruction->getDepositedAmount());
+        } else {
+            $payment = $pendingTransaction->getPayment();
+        }
+
+        $result = $this->ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
+        if (Result::STATUS_PENDING === $result->getStatus()) {
+            $ex = $result->getPluginException();
+
+            if ($ex instanceof ActionRequiredException) {
+                $action = $ex->getAction();
+
+                if ($action instanceof VisitUrl) {
+                    return new RedirectResponse($action->getUrl());
+                }
+
+                throw $ex;
+            }
+        } elseif (Result::STATUS_SUCCESS !== $result->getStatus()) {
+            throw new \RuntimeException('Transaction was not successful: '.$result->getReasonCode());
+        }
+
+        // payment was successful, do something interesting with the order
+    }
+
+    /** @DI\LookupMethod("form.factory") */
+    protected function getFormFactory() { }
+
+    /**
+     * @Route("/cancel", name = "payment_cancel")
+     */
+    public function cancelAction()
+    {
+        $this->get('session')->getFlashBag()->add('info', 'Transaction annulée.');
+
+        return $this->redirect($this->generateUrl('yourTemplate'));
     }
 }
