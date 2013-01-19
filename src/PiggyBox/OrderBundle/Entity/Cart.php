@@ -54,7 +54,7 @@ class Cart
     /** @ORM\Column(type="string", unique = true) */
     private $orderNumber;
 
-    /** @ORM\Column(type="decimal", precision = 2) */
+    /** @ORM\Column(type="float") */
     private $amount;
 
     /**
@@ -119,7 +119,7 @@ class Cart
     {
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orderNumber = mt_rand(100000, 999999);
-        $this->amount = 1000;
+        $this->amount = 0;
     }
 
     /**
