@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row bottom-marged">
             <div class="span8">
-                <div id="testimonials-container">
+                <div id="testimonials-container" class="hide">
                     <ul class="testimonials">
                         <li class="testimonial-item current">
                             <div class="quote">&laquo; En faisant la queue à la boulangerie je me suis dit qu'il était temps d'utiliser ce service! &raquo;</div>
@@ -144,14 +144,22 @@
 <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
 
 <script type="text/javascript">
-$(window).load(function() {
-    $('#slider').nivoSlider();
-});
+    $(document).ready(function() {
+        $('#slider').nivoSlider();
+    });
 </script>
+
+
 
 <script>
 
-    $(window).load (function() {
+function testFunction($var) {
+    console.log("cool ca marche " + $var);
+}
+
+$(document).ready(
+    function() {
+        $('#testimonials-container').removeClass('hide');
         var theContent = $('ul.testimonials li');
         var theWidth = 695;
         var theHeight = 266;
@@ -176,30 +184,34 @@ $(window).load(function() {
         }               
         });     
      
-    });//doc ready
+    }
+);
 
-    window.setInterval(function(){
-        //console.log("cool");
-        var theContent = $('ul.testimonials li');
-        $(theContent).each(     
-            function(intIndex){
-                //console.log(intIndex);
-                if ($(this).hasClass('current')) {
-                    $(this).parent('ul').animate({
-                        "margin-left": (-(intIndex) * 695)             
-                    }, 1000)
-                    $(this).removeClass('current');
-                    if ($(this).hasClass('last-item')) {
-                        $(this).parent('ul').children().addClass('current');
-                    } else {                        
-                        $(this).next().addClass('current');
-                    }
-                    return false;
-                };
-            }
-        );
-    }, 5000);
+window.setInterval(function(){
+    //console.log("cool");
+    var theContent = $('ul.testimonials li');
+    $(theContent).each(     
+        function(intIndex){
+            //console.log(intIndex);
+            if ($(this).hasClass('current')) {
+                $(this).parent('ul').animate({
+                    "margin-left": (-(intIndex) * 695)             
+                }, 1000)
+                $(this).removeClass('current');
+                if ($(this).hasClass('last-item')) {
+                    $(this).parent('ul').children().addClass('current');
+                } else {                        
+                    $(this).next().addClass('current');
+                }
+                return false;
+            };
+        }
+    );
+}, 5000);
  
 </script>
+
+
+{{ google_map_js(map) }}
 
 {% endblock %}
