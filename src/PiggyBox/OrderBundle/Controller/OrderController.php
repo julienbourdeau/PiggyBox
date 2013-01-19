@@ -250,10 +250,6 @@ class OrderController extends Controller
         return new RedirectResponse($this->get('request')->headers->get('referer'));
     }
 
-    /*
-     *	PAYMENT CONTROLLER ACTIONS
-     * */
-
     /**
      *
      * @PreAuthorize("hasRole('ROLE_USER')")
@@ -263,7 +259,6 @@ class OrderController extends Controller
     public function detailsAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $cart->setAmount(100);
 
         $form = $this->getFormFactory()->create('jms_choose_payment_method', null, array(
             'amount'   => $cart->getAmount(),
@@ -304,6 +299,8 @@ class OrderController extends Controller
     }
 
     /**
+	 *
+     * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/{orderNumber}/complete", name = "payment_complete")
      */
     public function completeAction(Request $req, $orderNumber)
@@ -332,7 +329,7 @@ class OrderController extends Controller
                 throw $ex;
             }
         } elseif (Result::STATUS_SUCCESS !== $result->getStatus()) {
-            throw new \RuntimeException('Transaction was not successful: '.$result->getReasonCode());
+            throw new \RuntimeException('La transaction n\'a pas fonctionné, veuillez contacter l\'équipe de Côtelettes & Tarte aux fraises pour plus de renseignements. '.$result->getReasonCode());
         }
 
         // payment was successful, do something interesting with the order
