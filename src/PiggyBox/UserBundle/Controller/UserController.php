@@ -17,7 +17,7 @@ use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-
+use Ivory\GoogleMapBundle\Model\Events\MouseEvent;
 /**
  * User controller.
  *
@@ -32,8 +32,74 @@ class UserController extends Controller
     public function indexAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-        //$seoPage->setTitle("Test");
-        return array();
+
+
+        
+        $map = $this->get('ivory_google_map.map');
+
+        $map->setPrefixJavascriptVariable('map_');
+        $map->setHtmlContainerId('map_canvas');
+        $map->setAsync(false);
+
+        $map->setCenter(47.223066, -1.552162, true);
+        $map->setMapOption('zoom', 11);
+
+        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
+
+        $map->setStylesheetOptions(array(
+            'width' => '100%',
+            'height' => '500px'
+        ));
+
+        // Configure your marker options
+        $marker1 = $this->get('ivory_google_map.marker');
+        $marker1->setPrefixJavascriptVariable('marker_');
+        $marker1->setPosition(47.2144380, -1.585360, true);
+
+        $marker2 = $this->get('ivory_google_map.marker');
+        $marker2->setPrefixJavascriptVariable('marker_');
+        $marker2->setPosition(47.215545,-1.564271, true);
+
+        $marker3 = $this->get('ivory_google_map.marker');
+        $marker3->setPrefixJavascriptVariable('marker_');
+        $marker3->setPosition(47.229044,-1.57163, true);
+
+        $marker4 = $this->get('ivory_google_map.marker');
+        $marker4->setPrefixJavascriptVariable('marker_');
+        $marker4->setPosition(47.214962,-1.55429, true);
+
+        # Les mimines
+        $marker8 = $this->get('ivory_google_map.marker');
+        $marker8->setPrefixJavascriptVariable('marker_');
+        $marker8->setPosition(47.275619,-1.466761, true);
+
+        $map->addMarker($marker1);
+        $map->addMarker($marker2);
+        $map->addMarker($marker3);
+        $map->addMarker($marker4);
+        $map->addMarker($marker8);
+
+
+        // Requests the ivory google map event service
+        $event = $this->get('ivory_google_map.event');
+
+        // Configure your event
+        $instance = $marker1->getJavascriptVariable();
+        $handle = 'function(){testFunction("boucherie-zola")}';
+        $event->setInstance($instance);
+        $event->setEventName('click');
+        $event->setHandle($handle);
+
+        // It can only be used with a DOM event
+        // By default, the capture flag is false
+        $event->setCapture(true);
+
+
+        // Add a DOM event
+        $map->getEventManager()->addDomEvent($event);
+
+
+        return array('map' => $map);
     }
 
     /**
@@ -156,7 +222,7 @@ class UserController extends Controller
         $map->addMarker($marker3);
         $map->addMarker($marker4);
         $map->addMarker($marker8);
-
+        
         return array('map' => $map);
     }
 
