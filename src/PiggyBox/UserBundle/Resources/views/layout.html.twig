@@ -56,15 +56,19 @@
                                                  <li><a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
                                             {% endif %}
                                         {% else %}
-                                            <li><a href="{{ path('fos_user_security_login') }}">Créer rapidement un compte / Se connecter</a></li>
+                                            <li><a href="{{ path('fos_user_security_login') }}">Créer rapidement un compte</a></li>
+                                            <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
 
                                 <div class="clearfix">
                                     <div class="row-fluid">
-                                        <div class="span10 text-right" style="color: white;">
-                                            Service Client: 02 40 37 46 67
+                                        <div class="span5 offset2 baseline">
+                                            Dernier arrivé, premier servi !
+                                        </div>
+                                        <div class="span3 text-right" style="color: white;">
+                                            <img src="{{ asset('bundles/piggyboxuser/img/help_number_header.png')}}" alt="">
                                         </div>
                                         <div class="span2">
                                             <a id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right text-centered">
