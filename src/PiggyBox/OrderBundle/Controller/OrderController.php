@@ -165,13 +165,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Submit Cart for hours details
+     * Finally submit and validate the entire Cart
      *
      * @PreAuthorize("hasRole('ROLE_USER')")
      * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-     * @Route("/validation", name="validate_order")
+     * @Route("/confirmation", name="confirm_order")
      */
-    public function validationAction(Request $req)
+    public function confirmationAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
@@ -182,22 +182,9 @@ class OrderController extends Controller
             $dispatcher = $this->get('event_dispatcher');
             $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
         }
-
-        return array('step' => 'step_paiement');
-    }
-
-    /**
-     * Finally submit and validate the entire Cart
-     *
-     * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-     * @Route("/confirmation", name="confirm_order")
-     */
-    public function confirmationAction(Request $req)
-    {
+		
         $user = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
+        $data['orders'] = $this->em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
 
         $data['step'] = 'step_confirmation';
 
@@ -330,7 +317,7 @@ class OrderController extends Controller
             throw new \RuntimeException('La transaction n\'a pas fonctionné, veuillez contacter l\'équipe de Côtelettes & Tarte aux fraises pour plus de renseignements. '.$result->getReasonCode());
         }
 
-        // payment was successful, do something interesting with the order
+       return new RedirectResponse($this->router->generate('confirm_order'));
     }
 
     /** @DI\LookupMethod("form.factory") */
