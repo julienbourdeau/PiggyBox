@@ -49,13 +49,13 @@ class CartProvider
             $cart  = new Cart();
 
 
-        $this->em->persist($cart);
-        $this->em->flush();
+			$this->em->persist($cart);
+			$this->em->flush();
 
-        //NOTE: Set the session
-        $this->storage->setCurrentCartIdentifier($cart);
+			//NOTE: Set the session
+			$this->storage->setCurrentCartIdentifier($cart);
 
-        return $cart;
+			return $cart;
         }
 
         return $this->em->getRepository('PiggyBoxOrderBundle:Cart')->find($this->storage->getCurrentCartIdentifier());
