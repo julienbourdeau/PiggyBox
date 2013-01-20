@@ -181,6 +181,7 @@ class OrderController extends Controller
             $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
             $dispatcher = $this->get('event_dispatcher');
             $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
+			$this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();
         }
 		
         $user = $this->get('security.context')->getToken()->getUser();
