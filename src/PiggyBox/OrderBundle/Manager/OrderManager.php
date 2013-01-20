@@ -56,14 +56,14 @@ class OrderManager
         $this->setTotalPrice($order);
         $this->persistAndFlush($order);
         $this->setTotalAmount($this->cartProvider->getCart());
-        $this->persistAndFlush($this->cartProvider->getCart());		
+        $this->persistAndFlush($this->cartProvider->getCart());
     }
 
     public function removeOrderFromCart(Order $order)
     {
         $cart = $this->cartProvider->getCart();
         $cart->removeOrder($order);
-        $this->setTotalAmount($this->cartProvider->getCart());		
+        $this->setTotalAmount($this->cartProvider->getCart());
         $this->persistAndFlush($cart);
     }
 
@@ -96,16 +96,17 @@ class OrderManager
         $order->setTotalPrice(round($result, 2, PHP_ROUND_HALF_UP));
     }
 
-	public function setTotalAmount($cart){
-		$cart = $this->cartProvider->getCart();
-		$result = 0;
+    public function setTotalAmount($cart)
+    {
+        $cart = $this->cartProvider->getCart();
+        $result = 0;
 
-		foreach ($cart->getOrders() as $order) {
-			$result = $result + $order->getTotalPrice();
-		}
+        foreach ($cart->getOrders() as $order) {
+            $result = $result + $order->getTotalPrice();
+        }
 
-		$cart->setAmount(round($result , 2, PHP_ROUND_HALF_UP));
-	}
+        $cart->setAmount(round($result , 2, PHP_ROUND_HALF_UP));
+    }
 
     private function getTimeInterval($start, $end, $openingHours)
     {
