@@ -54,14 +54,27 @@ class UserController extends Controller
         # zola
         $marker1 = $this->get('ivory_google_map.marker');
         $marker1->setPrefixJavascriptVariable('marker_');
-        $marker1->setPosition(47.2144380, -1.585360, true);
+        $marker1->setPosition(47.214048, -1.585698, true);
 
         $event1 = $this->get('ivory_google_map.event');
         $event1->setInstance($marker1->getJavascriptVariable());
         $event1->setEventName('click');
         $event1->setHandle('function(){showShopInMap("boucherie-zola")}');
 
-        # gourmets
+        # le boulanger de zola
+        $marker1bis = $this->get('ivory_google_map.marker');
+        $marker1bis->setPrefixJavascriptVariable('marker_');
+        $marker1bis->setPosition(47.214061, -1.585741, true);
+        $markerImage1bis = $this->get('ivory_google_map.marker_image');
+        $markerImage1bis->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker1bis->setIcon($markerImage1bis);
+
+        $event1bis = $this->get('ivory_google_map.event');
+        $event1bis->setInstance($marker1bis->getJavascriptVariable());
+        $event1bis->setEventName('click');
+        $event1bis->setHandle('function(){showShopInMap("le-boulanger-de-zola")}');
+
+        # copernic
         $marker2 = $this->get('ivory_google_map.marker');
         $marker2->setPrefixJavascriptVariable('marker_');
         $marker2->setPosition(47.215545,-1.564271, true);
@@ -69,9 +82,9 @@ class UserController extends Controller
         $event2 = $this->get('ivory_google_map.event');
         $event2->setInstance($marker2->getJavascriptVariable());
         $event2->setEventName('click');
-        $event2->setHandle('function(){showShopInMap("boucherie-des-gourmets")}');
+        $event2->setHandle('function(){showShopInMap("boucherie-copernic")}');
 
-        # Copernic
+        # gourmets
         $marker3 = $this->get('ivory_google_map.marker');
         $marker3->setPrefixJavascriptVariable('marker_');
         $marker3->setPosition(47.229044,-1.57163, true);
@@ -79,9 +92,9 @@ class UserController extends Controller
         $event3 = $this->get('ivory_google_map.event');
         $event3->setInstance($marker3->getJavascriptVariable());
         $event3->setEventName('click');
-        $event3->setHandle('function(){showShopInMap("boucherie-copernic")}');
+        $event3->setHandle('function(){showShopInMap("boucherie-des-gourmets")}');
 
-        # boulanger zola
+        # bouffay
         $marker4 = $this->get('ivory_google_map.marker');
         $marker4->setPrefixJavascriptVariable('marker_');
         $marker4->setPosition(47.214962,-1.55429, true);
@@ -89,7 +102,7 @@ class UserController extends Controller
         $event4 = $this->get('ivory_google_map.event');
         $event4->setInstance($marker4->getJavascriptVariable());
         $event4->setEventName('click');
-        $event4->setHandle('function(){showShopInMap("le-boulanger-de-zola")}');
+        $event4->setHandle('function(){showShopInMap("boucherie-du-bouffay")}');
 
         # Epi de blais
         $marker5 = $this->get('ivory_google_map.marker');
@@ -100,11 +113,17 @@ class UserController extends Controller
         $event5->setInstance($marker5->getJavascriptVariable());
         $event5->setEventName('click');
         $event5->setHandle('function(){showShopInMap("banette-buxerolles")}');
+        $markerImage5 = $this->get('ivory_google_map.marker_image');
+        $markerImage5->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker5->setIcon($markerImage5);
 
         # La garenne
         $marker6 = $this->get('ivory_google_map.marker');
         $marker6->setPrefixJavascriptVariable('marker_');
         $marker6->setPosition(46.556027,0.304871, true);
+        $markerImage6 = $this->get('ivory_google_map.marker_image');
+        $markerImage6->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker6->setIcon($markerImage6);
 
         $event6 = $this->get('ivory_google_map.event');
         $event6->setInstance($marker6->getJavascriptVariable());
@@ -115,6 +134,9 @@ class UserController extends Controller
         $marker7 = $this->get('ivory_google_map.marker');
         $marker7->setPrefixJavascriptVariable('marker_');
         $marker7->setPosition(46.564791,0.356863, true);
+        $markerImage7 = $this->get('ivory_google_map.marker_image');
+        $markerImage7->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker7->setIcon($markerImage7);
 
         $event7 = $this->get('ivory_google_map.event');
         $event7->setInstance($marker7->getJavascriptVariable());
@@ -125,6 +147,9 @@ class UserController extends Controller
         $marker8 = $this->get('ivory_google_map.marker');
         $marker8->setPrefixJavascriptVariable('marker_');
         $marker8->setPosition(47.275619,-1.466761, true);
+        $markerImage8 = $this->get('ivory_google_map.marker_image');
+        $markerImage8->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker8->setIcon($markerImage8);
 
         $event8 = $this->get('ivory_google_map.event');
         $event8->setInstance($marker8->getJavascriptVariable());
@@ -132,6 +157,7 @@ class UserController extends Controller
         $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
 
         $map->addMarker($marker1);
+        $map->addMarker($marker1bis);
         $map->addMarker($marker2);
         $map->addMarker($marker3);
         $map->addMarker($marker4);
@@ -145,6 +171,7 @@ class UserController extends Controller
         // It can only be used with a DOM event
         // By default, the capture flag is false
         $event1->setCapture(true);
+        $event1bis->setCapture(true);
         $event2->setCapture(true);
         $event3->setCapture(true);
         $event4->setCapture(true);
@@ -156,6 +183,7 @@ class UserController extends Controller
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
+        $map->getEventManager()->addDomEvent($event1bis);
         $map->getEventManager()->addDomEvent($event2);
         $map->getEventManager()->addDomEvent($event3);
         $map->getEventManager()->addDomEvent($event4);

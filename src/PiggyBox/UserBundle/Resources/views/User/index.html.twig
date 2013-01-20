@@ -57,6 +57,26 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <ul class="nav nav-tabs nav-tabs-for-map">
+                            <li class="active">
+                                <a href="#">Nantes</a>
+                            </li>
+                            <li>
+                                <a href="#">Poitiers</a>
+                            </li>
+                            <li class="disabled">
+                                <a href="#">Paris</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span6" style="padding-top: 12px;">
+                        Et d'autres à venir...
+                    </div>
+                </div>
+                
                 <div id="map-container" class="clearfix">
                     <div id="map-container-left" class="pull-left">
                         {{ google_map_container(map) }}
