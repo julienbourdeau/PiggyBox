@@ -79,8 +79,6 @@ class OrderController extends Controller
     public function viewOrderAction()
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
@@ -299,7 +297,7 @@ class OrderController extends Controller
     }
 
     /**
-	 *
+     *
      * @PreAuthorize("hasRole('ROLE_USER')")
      * @Route("/{orderNumber}/complete", name = "payment_complete")
      */
