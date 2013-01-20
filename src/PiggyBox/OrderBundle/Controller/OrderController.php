@@ -150,15 +150,14 @@ class OrderController extends Controller
     public function submitCartForDateTimeAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
 
         if ($form->isValid()) {
 
-            $em->persist($cart);
-            $em->flush();
+            $this->em->persist($cart);
+            $this->em->flush();
         }
 
         return $this->redirect($this->generateUrl('payment_details'));
@@ -181,12 +180,11 @@ class OrderController extends Controller
             $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
             $dispatcher = $this->get('event_dispatcher');
             $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
-			$this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();
         }
-		
+
+		$this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();		
         $user = $this->get('security.context')->getToken()->getUser();
         $data['orders'] = $this->em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
-
         $data['step'] = 'step_confirmation';
 
         return $data;
