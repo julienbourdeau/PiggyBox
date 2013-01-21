@@ -49,6 +49,15 @@
 			<tag name="kernel.event_listener" event="order.validated" method="onOrderValidation" />
 		</service>
 
+		<service id="payment.plugin.in_store" class="JMS\Payment\CoreBundle\Plugin\SuccessfulTransactionPlugin">
+		    <tag name="payment.plugin" />
+		</service>
+
+		<service id="payment.form.success_type" class="PiggyBox\OrderBundle\Form\Type\InStorePaymentType">
+    		<tag name="form.type" alias="success" />
+    		<tag name="payment.method_form_type" />
+		</service>
+
 	</services>
 
 </container>
