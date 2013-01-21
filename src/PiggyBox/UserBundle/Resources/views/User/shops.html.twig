@@ -9,7 +9,7 @@
             <div class="span12">
                 <h1 class="text-centered">Où sont vos commerces</h1>
             </div>
-            #}
+            
             <div class="span9">
                 {{ google_map_container(map) }}
             </div>
@@ -20,6 +20,38 @@
                         <li class=""><a href="{{ path('shops_nantes') }}">Nantes</a></li>
 						<li><a href="{{ path('shops_poitiers') }}">Poitiers</a></li>
                     </ul>
+                </div>
+            </div>
+            #}
+            <div class="span12">
+                <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <ul class="nav nav-tabs nav-tabs-for-map">
+                            <li class="active">
+                                <a id="map-recenter-nantes">Nantes</a>
+                            </li>
+                            <li>
+                            <a id="map-recenter-poitiers">Poitiers</a>
+                            </li>
+                            <li class="disabled">
+                                <a>Paris</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span6" style="padding-top: 12px;">
+                        Et d'autres à venir...
+                    </div>
+                </div>
+                
+                <div id="map-container" class="clearfix">
+                    <div id="map-container-left" class="pull-left">
+                        {{ google_map_container(map) }}
+                    </div>
+                    <div id="map-container-right" class="pull-left">
+                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,6 +174,7 @@
                     </div>
                 </a>
 
+                <div class="ribbon ribbon-coming-soon"></div>
                 <div class="box bottom-marged box-muted">
 
                     <div class="row-fluid">
@@ -246,6 +279,40 @@
 {% endblock %}
 
 {% block javascript %}
-	{{parent()}}
-	{{ google_map_js(map) }}
+
+{{parent()}}
+
+
+{{ google_map_js(map) }}
+
+
+<script type="text/javascript">
+
+
+    function showShopInMap($slug) {
+        $('.home-map-sidebar-item').hide();
+        var id = "#sidebar-" + $slug;
+        $(id).show();
+    }
+
+
+    $("#map-recenter-nantes").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); 
+            {{map.javascriptVariable}}.setZoom(11);
+        }
+    );
+    $("#map-recenter-poitiers").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); 
+            {{map.javascriptVariable}}.setZoom(12);
+        }
+    );
+    
+</script>
+
 {% endblock %}

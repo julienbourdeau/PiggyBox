@@ -180,11 +180,6 @@
 
 <script>
 
-function showShopInMap($slug) {
-    $('.home-map-sidebar-item').hide();
-    var id = "#sidebar-" + $slug;
-    $(id).show();
-}
 
 $(document).ready(
     function() {
@@ -241,10 +236,20 @@ window.setInterval(function(){
 </script>
 
 
+
+
 {{ google_map_js(map) }}
 
 
 <script type="text/javascript">
+
+
+    function showShopInMap($slug) {
+        $('.home-map-sidebar-item').hide();
+        var id = "#sidebar-" + $slug;
+        $(id).show();
+    }
+
 
     $("#map-recenter-nantes").click(
         function(){
