@@ -18,7 +18,7 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <div class="topline">
-                    Commandez en ligne et ne faite plus la queue dans vos commerces de proximité
+                    Commandez en ligne et ne faites plus la queue dans vos commerces de proximité
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     <div class="span6">
                         <ul class="nav nav-tabs nav-tabs-for-map">
                             <li class="active">
-                                <a href="#">Nantes</a>
+                                <a id="map-recenter-nantes">Nantes</a>
                             </li>
                             <li>
                                 <a href="#">Poitiers</a>
@@ -162,7 +162,6 @@
 
 
 
-
 {% endblock %}
 
 
@@ -242,6 +241,28 @@ window.setInterval(function(){
  
 </script>
 
+{#
+
+<script type="text/javascript">
+    function initializeNantes() {
+        console.log("Dans la function initializeNantes");
+        //var mapOptions = {
+            //center: new google.maps.LatLng(-34.397, 150.644),
+            //zoom: 8,
+            //mapTypeId: google.maps.MapTypeId.ROADMAP
+        //};
+        //var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        
+        console.log(map_canvas);
+        console.log(map);
+    }
+
+    $("#map-recenter-nantes").click(
+        initializeNantes
+        );
+</script>
+
+#}
 
 {{ google_map_js(map) }}
 
