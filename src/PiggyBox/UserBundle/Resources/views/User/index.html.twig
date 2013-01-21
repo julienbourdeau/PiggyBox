@@ -52,7 +52,6 @@
         </div>
     </div>
 
-
     <div class="container">
         <div class="row bottom-marged">
             <div class="span12">
@@ -62,10 +61,10 @@
                     <div class="span6">
                         <ul class="nav nav-tabs nav-tabs-for-map">
                             <li class="active">
-                                <a id="map-recenter-nantes">Nantes</a>
+                                <a id="map-recenter-nantes" href="#" onclick="preventDefault(); {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); {{map.javascriptVariable}}.setZoom(10)">Nantes</a>
                             </li>
                             <li>
-                                <a href="#">Poitiers</a>
+							<a id="map-recenter-poitiers" href="#" onclick="preventDefault(); {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); {{map.javascriptVariable}}.setZoom(10)">Poitiers</a>
                             </li>
                             <li class="disabled">
                                 <a href="#">Paris</a>
