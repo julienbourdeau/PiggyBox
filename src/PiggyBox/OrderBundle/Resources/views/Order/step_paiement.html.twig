@@ -56,8 +56,10 @@
                         <h2>Payer en ligne</h2>
 
                         <div>
-                            <div class="coming-soon"></div>
-                            <img src="{{ asset('bundles/piggyboxuser/img/paiement.jpg')}}" alt="" />
+							<form action="{{ path('payment_details') }}" method="post">
+								{{form_widget(form)}}
+						        <input type="submit" />
+							</form>
                         </div>
                     </div>
                 </div>

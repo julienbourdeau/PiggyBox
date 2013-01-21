@@ -33,6 +33,8 @@ class AppKernel extends Kernel
 			new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
 			new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 	        new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+			new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
+			new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
 
 			//bundles for category in PiggyBoxShopBundle
 			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),

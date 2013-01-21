@@ -2,7 +2,7 @@
 	
 {% block content %}
 
-{% if path('validate_order') in app.session.get('_security.main.target_path') %}
+{% if path('payment_details') in app.session.get('_security.main.target_path') %}
     <section id="shopping-cart-progess-bar" class="clearfix">
 
         <div id="" class="container cart-progress">

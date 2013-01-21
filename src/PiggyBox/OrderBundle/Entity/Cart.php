@@ -4,6 +4,7 @@ namespace PiggyBox\OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Payment\CoreBundle\Entity\PaymentInstruction;
 
 /**
  * PiggyBox\OrderBundle\Entity\Cart
@@ -46,6 +47,15 @@ class Cart
      *      )
      **/
     private $orders;
+
+    /** @ORM\OneToOne(targetEntity="JMS\Payment\CoreBundle\Entity\PaymentInstruction") */
+    private $paymentInstruction;
+
+    /** @ORM\Column(type="string", unique = true) */
+    private $orderNumber;
+
+    /** @ORM\Column(type="float") */
+    private $amount;
 
     /**
      * Get id
@@ -108,6 +118,8 @@ class Cart
     public function __construct()
     {
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderNumber = mt_rand(100000, 999999);
+        $this->amount = 0;
     }
 
     /**
@@ -141,5 +153,74 @@ class Cart
     public function getOrders()
     {
         return $this->orders;
+    }
+
+    /**
+     * Set orderNumber
+     *
+     * @param  string $orderNumber
+     * @return Cart
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param  float $amount
+     * @return Cart
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set paymentInstruction
+     *
+     * @param  \JMS\Payment\CoreBundle\Entity\PaymentInstruction $paymentInstruction
+     * @return Cart
+     */
+    public function setPaymentInstruction(\JMS\Payment\CoreBundle\Entity\PaymentInstruction $paymentInstruction = null)
+    {
+        $this->paymentInstruction = $paymentInstruction;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentInstruction
+     *
+     * @return \JMS\Payment\CoreBundle\Entity\PaymentInstruction
+     */
+    public function getPaymentInstruction()
+    {
+        return $this->paymentInstruction;
     }
 }

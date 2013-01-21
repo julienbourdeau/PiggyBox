@@ -19,7 +19,13 @@ use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use PiggyBox\OrderBundle\Event\OrderEvent;
+use JMS\DiExtraBundle\Annotation as DI;
+use JMS\Payment\CoreBundle\Entity\Payment;
+use JMS\Payment\CoreBundle\PluginController\Result;
+use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
+use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use PiggyBox\OrderBundle\OrderEvents;
+
 /**
  * Order controller.
  *
@@ -27,6 +33,18 @@ use PiggyBox\OrderBundle\OrderEvents;
  */
 class OrderController extends Controller
 {
+    /** @DI\Inject */
+    private $request;
+
+    /** @DI\Inject */
+    private $router;
+
+    /** @DI\Inject("doctrine.orm.entity_manager") */
+    private $em;
+
+    /** @DI\Inject("payment.plugin_controller") */
+    private $ppc;
+
     /**
      * Submit OrderDetail
      *
@@ -61,8 +79,6 @@ class OrderController extends Controller
     public function viewOrderAction()
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
 
         $data['orders'] = $orders = $cart->getOrders();
         $data['form'] =  $this->createForm(new CartType(), $cart)->createView();
@@ -134,40 +150,17 @@ class OrderController extends Controller
     public function submitCartForDateTimeAction(Request $req)
     {
         $cart = $this->get('piggy_box_cart.provider')->getCart();
-        $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(new CartType(), $cart);
         $form->bind($req);
 
         if ($form->isValid()) {
 
-            $em->persist($cart);
-            $em->flush();
+            $this->em->persist($cart);
+            $this->em->flush();
         }
 
-        return $this->redirect($this->generateUrl('validate_order'));
-    }
-
-    /**
-     * Submit Cart for hours details
-     *
-     * @PreAuthorize("hasRole('ROLE_USER')")
-     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
-     * @Route("/validation", name="validate_order")
-     */
-    public function validationAction(Request $req)
-    {
-        $cart = $this->get('piggy_box_cart.provider')->getCart();
-
-        foreach ($cart->getOrders() as $order) {
-            $order->setUser($this->get('security.context')->getToken()->getUser());
-            $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
-            $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
-            $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
-        }
-
-        return array('step' => 'step_paiement');
+        return $this->redirect($this->generateUrl('payment_details'));
     }
 
     /**
@@ -179,10 +172,19 @@ class OrderController extends Controller
      */
     public function confirmationAction(Request $req)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
 
+        foreach ($cart->getOrders() as $order) {
+            $order->setUser($this->get('security.context')->getToken()->getUser());
+            $this->get('piggy_box_cart.manager.order')->changeOrderStatus($order,'toValidate');
+            $this->get('piggy_box_cart.manager.order')->removeOrderFromCart($order);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
+        }
+
+        $this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $data['orders'] = $this->em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
         $data['step'] = 'step_confirmation';
 
         return $data;
@@ -230,5 +232,103 @@ class OrderController extends Controller
         }
 
         return new RedirectResponse($this->get('request')->headers->get('referer'));
+    }
+
+    /**
+     *
+     * @PreAuthorize("hasRole('ROLE_USER')")
+     * @Route("/details", name = "payment_details")
+     * @Template("PiggyBoxOrderBundle:Order:viewOrder.html.twig")
+     */
+    public function detailsAction(Request $req)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+
+        $form = $this->getFormFactory()->create('jms_choose_payment_method', null, array(
+            'amount'   => $cart->getAmount(),
+            'currency' => 'EUR',
+            'default_method' => 'payment_paypal', // Optional
+            'predefined_data' => array(
+                'paypal_express_checkout' => array(
+                    'return_url' => $this->router->generate('payment_complete', array(
+                        'orderNumber' => $cart->getOrderNumber(),
+                    ), true),
+                    'cancel_url' => $this->router->generate('payment_cancel', array(
+                        'orderNumber' => $cart->getOrderNumber(),
+                    ), true)
+                ),
+            ),
+        ));
+
+        if ('POST' === $this->request->getMethod()) {
+            $form->bindRequest($this->request);
+
+            if ($form->isValid()) {
+                $this->ppc->createPaymentInstruction($instruction = $form->getData());
+
+                $cart->setPaymentInstruction($instruction);
+                $this->em->persist($cart);
+                $this->em->flush($cart);
+
+                return new RedirectResponse($this->router->generate('payment_complete', array(
+                    'orderNumber' => $cart->getOrderNumber(),
+                )));
+            }
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'step' => 'step_paiement',
+        );
+    }
+
+    /**
+     *
+     * @PreAuthorize("hasRole('ROLE_USER')")
+     * @Route("/{orderNumber}/complete", name = "payment_complete")
+     */
+    public function completeAction(Request $req, $orderNumber)
+    {
+        $cart = $this->get('piggy_box_cart.provider')->getCart();
+
+        $instruction = $cart->getPaymentInstruction();
+
+        if (null === $pendingTransaction = $instruction->getPendingTransaction()) {
+            $payment = $this->ppc->createPayment($instruction->getId(), $instruction->getAmount() - $instruction->getDepositedAmount());
+        } else {
+            $payment = $pendingTransaction->getPayment();
+        }
+
+        $result = $this->ppc->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
+        if (Result::STATUS_PENDING === $result->getStatus()) {
+            $ex = $result->getPluginException();
+
+            if ($ex instanceof ActionRequiredException) {
+                $action = $ex->getAction();
+
+                if ($action instanceof VisitUrl) {
+                    return new RedirectResponse($action->getUrl());
+                }
+
+                throw $ex;
+            }
+        } elseif (Result::STATUS_SUCCESS !== $result->getStatus()) {
+            throw new \RuntimeException('La transaction n\'a pas fonctionné, veuillez contacter l\'équipe de Côtelettes & Tarte aux fraises pour plus de renseignements. '.$result->getReasonCode());
+        }
+
+       return new RedirectResponse($this->router->generate('confirm_order'));
+    }
+
+    /** @DI\LookupMethod("form.factory") */
+    protected function getFormFactory() { }
+
+    /**
+     * @Route("/cancel", name = "payment_cancel")
+     */
+    public function cancelAction()
+    {
+        $this->get('session')->getFlashBag()->add('info', 'Transaction annulée.');
+
+        return $this->redirect($this->generateUrl('yourTemplate'));
     }
 }
