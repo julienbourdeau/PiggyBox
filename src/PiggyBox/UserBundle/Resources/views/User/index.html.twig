@@ -1,76 +1,140 @@
 {% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
+
+{% block stylesheets %}
+
+{{parent()}}
+
+<link rel="stylesheet" href="{{ asset('bundles/piggyboxuser/css/themes/bar/bar.css')}}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('bundles/piggyboxuser/css/nivo-slider.css')}}" type="text/css" media="screen" />
+
+{% endblock %}
+
+
 {% block content %}
-<div id="">
-        <div class="container text-centered">
 
 
-            <div class="row bottom-marged">
-                <div class="span12">
-                    <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/etape1.png')}}" alt=""></div>
-                    <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/etape2.png')}}" alt=""></div>
-                    <div class="step-item"><img src="{{ asset('bundles/piggyboxuser/img/etape3.png')}}" alt=""></div>
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <div class="topline">
+                    Commandez en ligne et ne faites plus la queue dans vos commerces de proximité
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span8">
+                {% include 'PiggyBoxUserBundle:User:home-slider.html.twig' %}
+            </div>
 
+            <div class="span4">
 
-            <div class="row bottom-marged">
-                <div class="span12" style="margin-top: 32px; margin-bottom: 32px;">
-                    <div class="black-bordered">
-                        <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="{{ path('shops') }}">
-                            <img class="" src="{{ asset('bundles/piggyboxuser/img/bar1.jpg')}}" alt="">
+                <div class="ribbon ribbon-promotion"></div>
+                <div class="row-fluid slider-sidebar-item">
+                    <div class="span12">
+                        <a class="" href="http://cotelettes-tarteauxfraises.com/commerce/boucherie-zola/boeuf/cote-de-boeuf-1" >
+                            <img src="{{ asset('bundles/piggyboxuser/img/promo/promo-1.jpg')}}" alt="">
                         </a>
                     </div>
                 </div>
+
+                <div class="row-fluid slider-sidebar-item" style="margin: 0;">
+                    <div class="span12">
+                        <a class="img-link" href="{{path('shops')}}" >
+                            <img src="{{ asset('bundles/piggyboxuser/img/banette-en-ligne-logo.jpg')}}" alt="">
+                        </a>
+                    </div>
+                </div>
+
             </div>
+        </div>
+    </div>
 
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
 
+                <div class="row-fluid">
+                    <div class="span6">
+                        <ul class="nav nav-tabs nav-tabs-for-map">
+                            <li class="">
+                                <a id="map-recenter-nantes">Nantes</a>
+                            </li>
+                            <li>
+							<a id="map-recenter-poitiers">Poitiers</a>
+                            </li>
+                            <li class="disabled">
+                                <a>Paris</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span6" style="padding-top: 12px;">
+                        Et d'autres à venir...
+                    </div>
+                </div>
+                
+                <div id="map-container" class="clearfix">
+                    <div id="map-container-left" class="pull-left">
+                        {{ google_map_container(map) }}
+                    </div>
+                    <div id="map-container-right" class="pull-left">
+                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <div class="container">
         <div class="row bottom-marged">
-
-            <div class="span6">
-                <img src="{{ asset('bundles/piggyboxuser/img/features.png')}}" alt="" />
-            </div>
-
-            <div class="span6">
-                <h1 class="no-margin text-centered bottom-marged">Coups de coeur</h1>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <img src="{{ asset('bundles/piggyboxuser/img/Banette_logo2.png')}}" alt="">
-                    </div>
-                    <div class="span8">
-                        <div class="text-centered">
-                            <h3>Les Boulangeries <em>Banette</em></h3>
-                            <a href="{{ path('shops_nantes') }}" class="btn btn-small"><i class="icon-map-marker"></i> Nantes</a>
-                            &nbsp; &nbsp; &nbsp; &nbsp;
-                            <a href="{{ path('shops_poitiers') }}" class="btn btn-small"><i class="icon-map-marker"></i> Poitiers</a>
+            <div class="span12 text-centered">
+                <div id="newsletter-container">
+                    
+                    <!-- Begin MailChimp Signup Form -->
+                    <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
+                        <label for="mce-EMAIL">Restez informé des nouveautés </label>
+                        <input type="email" value="" name="EMAIL" class="required email input-xlarge" id="mce-EMAIL">
+                        <input type="submit" value="Tenez moi au courant !" name="subscribe" id="mc-embedded-subscribe" class="btn btn-large">
+                        <div class="clear">
+                            <div class="response" id="mce-error-response" style="display:none"></div>
+                            <div class="response" id="mce-success-response" style="display:none"></div>
                         </div>
+                    </form>
+                    <!--End mc_embed_signup-->
 
-                    </div>
                 </div>
-                {#
-                <div class="step-item">
-                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-zola']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
-                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/zola-boucherie.png')}}" alt="">
-                    </a>
-                </div>
-                <div class="step-item">
-                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-des-gourmets']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}">
-                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/gourmet-boucherie.png')}}" alt="">
-                    </a>
-                </div>
-                <div class="step-item">
-                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'click', 'boucherie-copernic']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}">
-                        <img src="{{ asset('bundles/piggyboxuser/img/coupdecoeur/copernic-boucherie.png')}}" alt="">
-                    </a>
-                </div>
-                #}
             </div>
+        </div>
+    </div>
 
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span8">
+                <div id="testimonials-container" class="hide">
+                    <ul class="testimonials">
+                        <li class="testimonial-item current">
+                            <div class="quote">&laquo; En faisant la queue à la boulangerie je me suis dit qu'il était temps d'utiliser ce service! &raquo;</div>
+                            <div class="quote-source">&#9998; Jonathan, Nantes</div>
+                        </li>
+                        <li class="testimonial-item">
+                            <div class="quote">&laquo; J'adore mes commerces de proximité mais avec un enfant ce n'était pas toujours simple, maintenant je peux y aller plus souvent! &raquo;</div>
+                            <div class="quote-source">&#9998; Claire, Nantes</div> 
+                        </li>
+                        <li class="testimonial-item last-item">
+                            <div class="quote">&laquo; En 2013, j'ai décidé de favoriser la qualité, avec Côtelettes & Tarte aux fraises je trouve ce dont j'ai besoin en quelques clics. &raquo;</div>
+                            <div class="quote-source">&#9998; Pierre, Orvault</div> 
+                        </li>
+                    </ul>                    
+                </div>
+            </div>
+            <div class="span4">
+                <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC%25C3%25B4telettes-Tarte-aux-fraises%2F389516231125842&amp;width=335&amp;height=250&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;border_color&amp;header=true&amp;appId=260550777370634" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:335px; height:266px;" allowTransparency="true"></iframe>
+            </div>
         </div>
     </div>
 
@@ -82,11 +146,6 @@
             </div>
         </div>
         <div class="row bottom-marged">
-            {#<div class="span4">
-                <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="http://www.startup-factory.fr/">
-                    <img class="" src="{{ asset('bundles/piggyboxuser/img/presse/startupfactory.png')}}" alt="">
-                </a>
-            </div> #}
             <div class="span12 presse-links">
                 <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'startupfactory']);" id="startupfactory" href="http://www.startup-factory.fr/"></a>
                 <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'unefilleanantes']);" id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
@@ -100,19 +159,116 @@
     </div>
 
 
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span12">
-                <div class="black-bordered">
-                    <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'go-to-shops', 'img-bar-2']);" href="{{ path('shops') }}">
-                        <img class="" src="{{ asset('bundles/piggyboxuser/img/bar2.jpg')}}" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
+{% endblock %}
+
+
+{% block javascript %}
+
+{{parent()}}
+
+<script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#slider').nivoSlider();
+    });
+</script>
+
+
+
+<script>
+
+
+$(document).ready(
+    function() {
+        $('#testimonials-container').removeClass('hide');
+        var theContent = $('ul.testimonials li');
+        var theWidth = 695;
+        var theHeight = 266;
+        //wrap into mother div
+        $('ul.testimonials').wrap('<div id="mother" />');                    
+        //assign height width and overflow hidden to mother
+        $('#mother').css({
+            width: function() {
+            return theWidth;
+          }, 
+            height: function() {
+            return theHeight;
+          }, 
+            position: 'relative',
+            overflow: 'hidden'      
+        });
+            //get total of image sizes and set as width for ul 
+        var totalWidth = theContent.length * theWidth;
+        $('ul.testimonials').css({
+            width: function(){
+            return totalWidth;  
+        }               
+        });     
+     
+    }
+);
+
+window.setInterval(function(){
+    //console.log("cool");
+    var theContent = $('ul.testimonials li');
+    $(theContent).each(     
+        function(intIndex){
+            //console.log(intIndex);
+            if ($(this).hasClass('current')) {
+                $(this).parent('ul').animate({
+                    "margin-left": (-(intIndex) * 695)             
+                }, 1000)
+                $(this).removeClass('current');
+                if ($(this).hasClass('last-item')) {
+                    $(this).parent('ul').children().addClass('current');
+                } else {                        
+                    $(this).next().addClass('current');
+                }
+                return false;
+            };
+        }
+    );
+}, 5000);
+ 
+</script>
+
+
+
+
+{{ google_map_js(map) }}
+
+
+<script type="text/javascript">
+
+
+    function showShopInMap($slug) {
+        $('.home-map-sidebar-item').hide();
+        var id = "#sidebar-" + $slug;
+        $(id).show();
+    }
+
+
+    $("#map-recenter-nantes").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); 
+            {{map.javascriptVariable}}.setZoom(11);
+        }
+    );
+    $("#map-recenter-poitiers").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); 
+            {{map.javascriptVariable}}.setZoom(12);
+        }
+    );
+    
+</script>
 
 
 
