@@ -182,7 +182,7 @@ class OrderController extends Controller
             $dispatcher->dispatch(OrderEvents::ORDER_PASSED, new OrderEvent($order));
         }
 
-		$this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();		
+        $this->get('piggy_box_cart.session')->resetCurrentCartIdentifier();
         $user = $this->get('security.context')->getToken()->getUser();
         $data['orders'] = $this->em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
         $data['step'] = 'step_confirmation';
