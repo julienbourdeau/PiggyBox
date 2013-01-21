@@ -42,7 +42,7 @@
 
                 <div class="row-fluid slider-sidebar-item" style="margin: 0;">
                     <div class="span12">
-                        <a class="img-link" href="{{path('shops')}}" >
+                        <a id="banette-link" class="img-link" >
                             <img src="{{ asset('bundles/piggyboxuser/img/banette-en-ligne-logo.jpg')}}" alt="">
                         </a>
                     </div>
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div id="map-anchor" class="container">
         <div class="row bottom-marged">
             <div class="span12">
                 <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
@@ -250,6 +250,12 @@ window.setInterval(function(){
         $(id).show();
     }
 
+    $('#banette-link').click(
+        function(){
+            window.location = '#map-anchor';
+            $('#map-recenter-poitiers').trigger('click');
+        }
+    );
 
     $("#map-recenter-nantes").click(
         function(){
