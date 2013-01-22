@@ -183,6 +183,12 @@ class Product
      **/
     private $category;
 
+	/**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Discount")
+     * @ORM\JoinColumn(name="discount_id", referencedColumnName="id")
+     **/
+    private $discount;
+
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -755,5 +761,28 @@ class Product
         if ($this->priceType == 'unit_variable_price') {
             $this->price = round($this->productWeightPerSlice * $this->weightPrice/1000, 2, PHP_ROUND_HALF_UP);
         }
+    }
+
+    /**
+     * Set discount
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Discount $discount
+     * @return Product
+     */
+    public function setDiscount(\PiggyBox\ShopBundle\Entity\Discount $discount = null)
+    {
+        $this->discount = $discount;
+    
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Discount 
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
     }
 }
