@@ -35,9 +35,11 @@
 					{% endif %}
                 </div>
                 <div class="product-price text-right span6">
-					<span class="kilo-price">{{product.weightPrice}} € /Kg</span>
+                	{% if product.weightPrice is not null %}
+						<span class="kilo-price">{{product.weightPrice|number_format(2, ',', ' ')}} € /Kg</span>
+					{% endif %}
                     &nbsp;&nbsp;&nbsp;
-					<span class="primary-price">{{product.price}} €</span>
+					<span class="primary-price">{{product.price|number_format(2, ',', ' ')}} €</span>
                 </div>
 			</div>
 
@@ -93,7 +95,7 @@
 	    </div>
 
 	{% elseif product.priceType == 'unit_variable_price' %}
-    
+
 	    <div class="product-toolbar text-centered span9 offset1">
 			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
 				<table class="table pricing pricing-variable-unit-price">

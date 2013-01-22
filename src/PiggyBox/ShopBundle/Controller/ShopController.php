@@ -131,8 +131,7 @@ class ShopController extends Controller
 
         if ($form->isValid()) {
              // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
+            $user = $this->get('security.context')->getToken()->getUser();
 
             // saving the DB
             $em = $this->getDoctrine()->getManager();

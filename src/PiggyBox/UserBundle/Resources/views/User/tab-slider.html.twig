@@ -56,6 +56,34 @@
                                             <img src="{{ asset(path) }}" alt="">
                                         </div>
                                     {% endfor %}
+                                {% elseif (shop.slug == 'banette-buxerolles') %}
+                                    {% for count in range(1, 7) %}
+                                        <div class="item">
+                                            {% set path = "bundles/piggyboxuser/img/carousel/banette-buxerolles/banette-buxerolles-" ~ count ~ ".jpg" %}
+                                            <img src="{{ asset(path)}}" alt="">
+                                        </div>
+                                    {% endfor %}
+                                {% elseif (shop.slug == 'banette-grand-large') %}
+                                    {% for count in range(1, 5) %}
+                                        <div class="item">
+                                            {% set path = "bundles/piggyboxuser/img/carousel/banette-st-benoit/banette-" ~ count ~ ".jpg" %}
+                                            <img src="{{ asset(path) }}" alt="">
+                                        </div>
+                                    {% endfor %}
+                                {% elseif (shop.slug == 'banette-la-mimine') %}
+                                    {% for count in range(1, 7) %}
+                                        <div class="item">
+                                            {% set path = "bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine-" ~ count ~ ".jpg" %}
+                                            <img src="{{ asset(path) }}" alt="">
+                                        </div>
+                                    {% endfor %}
+                                {% elseif (shop.slug == 'banette-la-garenne') %}
+                                    {% for count in range(1, 7) %}
+                                        <div class="item">
+                                            {% set path = "bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne-" ~ count ~ ".jpg" %}
+                                            <img src="{{ asset(path) }}" alt="">
+                                        </div>
+                                    {% endfor %}
                                 {% endif %}
                             </div>
 

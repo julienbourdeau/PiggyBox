@@ -15,7 +15,7 @@ class ProductRepository extends EntityRepository
     public function findAllByShopAndCategory($shop_id, $category_id)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.category=:category_id AND p.active=1)')
+            ->createQuery('SELECT p, m FROM PiggyBoxShopBundle:Product p LEFT JOIN p.menuItems m WHERE (p.shop=:shop_id AND p.category=:category_id AND p.active=1)')
             ->setParameters(array(
                 'shop_id' => $shop_id,
                 'category_id' => $category_id,
@@ -26,7 +26,7 @@ class ProductRepository extends EntityRepository
     public function findByActiveProduct($shop_id)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE (p.shop=:shop_id AND p.active=1)')
+            ->createQuery('SELECT p, m FROM PiggyBoxShopBundle:Product p LEFT JOIN p.menuItems m WHERE (p.shop=:shop_id AND p.active=1)')
             ->setParameter('shop_id', $shop_id)
             ->getResult();
     }
@@ -64,6 +64,17 @@ class ProductRepository extends EntityRepository
                 'category_id' => $category_id,
                 ))
             ->setMaxResults(3)
+            ->getResult();
+    }
+
+    public function findByShopAndMenu($shop_id, $menuItem_id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT DISTINCT p, i FROM PiggyBoxShopBundle:Product p LEFT JOIN p.menuItems i WHERE (p.shop=shop_id AND i.id=menuItem_id)')
+            ->setParameters(array(
+                'shop_id' => $shop_id,
+                'menuItem_id' => $menuItem_id,
+                ))
             ->getResult();
     }
 }
