@@ -184,13 +184,6 @@ class Product
      **/
     private $menuItems;
 
-    /**
-     * @var boolean $promotion
-     *
-     * @ORM\Column(name="promotion", type="boolean",nullable=true)
-     */
-    private $promotion = false;
-
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -803,28 +796,5 @@ class Product
     public function getMenuItems()
     {
         return $this->menuItems;
-    }
-
-    /**
-     * Set promotion
-     *
-     * @param  boolean $promotion
-     * @return Product
-     */
-    public function setPromotion($promotion)
-    {
-        $this->promotion = $promotion;
-
-        return $this;
-    }
-
-    /**
-     * Get promotion
-     *
-     * @return boolean
-     */
-    public function getPromotion()
-    {
-        return $this->promotion;
     }
 }
