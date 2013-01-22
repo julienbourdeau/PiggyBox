@@ -85,7 +85,12 @@ class OrderManager
         $result = 0;
 
         foreach ($orderDetails as $orderDetail) {
-            $result = $result + $orderDetail->getProduct()->getPrice()*$orderDetail->getQuantity();
+			if ($orderDetail->getProduct()->getDiscount() != null && $orderDetail->getProduct()->getDiscount()->getDiscountQuantity() == $orderDetail->getQuantity()) {
+            	$result = $result + $orderDetail->getProduct()->getDiscount()->getDiscountPrice();
+			}
+			else {
+            	$result = $result + $orderDetail->getProduct()->getPrice()*$orderDetail->getQuantity();
+			}
         }
 
         $order->setTotalPrice(round($result, 2, PHP_ROUND_HALF_UP));

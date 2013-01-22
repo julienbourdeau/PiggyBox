@@ -1,0 +1,125 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+
+{% block body%}
+
+{% include 'PiggyBoxShopBundle:Product:product_sub_header.html.twig' %}
+
+<div id="main">
+	<div id="primary" class="site-content container">
+
+
+		<div class="page-header">
+			<h1>Promotion pour le produit: {{product.name}}</h1>
+		</div>
+
+		<div class="alert alert-error">
+			<strong>Attention!</strong> La mise en place de promotions doit se faire avec l'accompagnement de l'équipe de Côtelettes & Tarte aux Fraises. N'hésitez pas à nous appeller au 02.40.37.46.67 (numéro gratuit).
+		</div>
+
+		<form action="{{ path('monmagasin_mesproduits_promotion_edit', {'id': product.id}) }}" method="post" {{form_enctype(edit_form)}} class="form-horizontal form-slider-container">
+		{{ form_errors(edit_form) }}
+
+			<div class="box box-margined">
+				<div class="row-fluid">
+
+					<div class="span4">
+						<div class="img240x240">
+							{% if product.hasImage %}
+								<img src="{{product.getWebPath | apply_filter('large_thumb') }}"
+								alt="{{product.name}}" title="{{product.name}}" >
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="span8">
+						<div class="wrapper">
+							<fieldset class="step">
+								<div class="control-group">
+									<label class="control-label" for="">Nom de la promotion</label>
+									<div class="controls">
+										{{ form_widget(edit_form.discountName, { 'attr': {'class': 'span8','placeholder':'4 pour 2,00€'} }) }}
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="">Desciption de la promotion (Optionnel)</label>
+									<div class="controls">
+										{{ form_widget(edit_form.discountDescription, { 'attr': {'class': 'span8','placeholder':'Pour 4 croissants achetés, un est offert'} }) }}
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="">Prix final de la promotion</label>
+									<div class="controls">
+										{{ form_widget(edit_form.discountPrice, { 'attr': {'class': 'span8','placeholder':'2,00'} }) }}
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="">Quantité associée à la promotion</label>
+									<div class="controls">
+										{{ form_widget(edit_form.discountQuantity, { 'attr': {'class': 'span8','placeholder':'4'} }) }}
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row-fluid box-margined">
+				<div class="span2">
+					<a href="{{ path('monmagasin_mesproduits') }}" class="btn btn-large btn-block">Annuler</a>
+				</div>
+				<div class="span10">
+					<button type="submit" class="btn btn-large btn-block btn-primary"><i class="icon-pencil icon-white"></i> Modifier ce produit</button>
+				</div>
+			</div>
+
+		{{ form_widget(edit_form._token) }}
+		</form>
+
+		{% if product.discount.id is not null %}
+		<form class="form-horizontal" action="{{ path('monmagasin_mesproduits_discount_delete', {'id': delete_form.vars.value.id, 'productId': product.id}) }}" method="post" {{ form_enctype(delete_form) }}>
+			<div class="row-fluid">
+				<div class="span3">
+					<a id="show-delete-product-confirmation" class="btn btn-large btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer la promotion</a>
+				</div>
+
+				<div id="delete-product-confirmation-container" class="span9 hide">
+					<div class="row-fluid">
+						{{ form_widget(delete_form) }}
+						<div class="span12">
+							<h4 style="margin-top: 0;">Etes-vous certain de vouloir supprimer la <strong>promotion</strong> pour le produit <em>"{{product.name}}"</em></h4>
+						</div>
+						<div class="span4">
+							<a id="hide-delete-product-confirmation" class="btn btn-block"><i class="icon-remove"></i> Annuler</a>
+						</div>
+						<div class="span7">
+							<button class="btn btn-block btn-danger"><i class="icon-trash icon-white"></i> Supprimer définitivement</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</form>		
+		{% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+{{parent()}}
+
+<script type="text/javascript">
+	// Delete: ask for confirmation
+	$("#show-delete-product-confirmation").click(function() {
+	  $('#delete-product-confirmation-container').show(400);
+	});
+
+	// Cancel: hide confirmation
+	$("#hide-delete-product-confirmation").click(function() {
+	  $('#delete-product-confirmation-container').hide('fast');
+	});
+</script>
+
+{% endblock %}
+

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Discount
  *
- * @ORM\Table()
+ * @ORM\Table(name="piggybox_discount")
  * @ORM\Entity
  */
 class Discount
@@ -41,6 +41,13 @@ class Discount
      * @ORM\Column(name="discountPrice", type="float")
      */
     private $discountPrice;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="discountQuantity", type="integer")
+     */
+    private $discountQuantity;
 
 
     /**
@@ -120,5 +127,28 @@ class Discount
     public function getDiscountPrice()
     {
         return $this->discountPrice;
+    }
+
+    /**
+     * Set discountQuantity
+     *
+     * @param integer $discountQuantity
+     * @return Discount
+     */
+    public function setDiscountQuantity($discountQuantity)
+    {
+        $this->discountQuantity = $discountQuantity;
+    
+        return $this;
+    }
+
+    /**
+     * Get discountQuantity
+     *
+     * @return integer 
+     */
+    public function getDiscountQuantity()
+    {
+        return $this->discountQuantity;
     }
 }
