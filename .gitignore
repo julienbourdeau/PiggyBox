@@ -25,3 +25,4 @@ app/config/parameters.yml
 # Misc
 composer.lock
 
+.codemod.bookmark

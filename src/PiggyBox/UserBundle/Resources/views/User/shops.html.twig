@@ -5,10 +5,54 @@
 
     <div class="container">
         <div class="row bottom-marged">
+            {#
             <div class="span12">
-
                 <h1 class="text-centered">Où sont vos commerces</h1>
-				{{ google_map_container(map) }}
+            </div>
+            
+            <div class="span9">
+                {{ google_map_container(map) }}
+            </div>
+            <div class="span3">
+                <div class="well">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Choisissez votre ville</li>
+                        <li class=""><a href="{{ path('shops_nantes') }}">Nantes</a></li>
+						<li><a href="{{ path('shops_poitiers') }}">Poitiers</a></li>
+                    </ul>
+                </div>
+            </div>
+            #}
+            <div class="span12">
+                <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <ul class="nav nav-tabs nav-tabs-for-map">
+                            <li class="">
+                                <a id="map-recenter-nantes">Nantes</a>
+                            </li>
+                            <li>
+                            <a id="map-recenter-poitiers">Poitiers</a>
+                            </li>
+                            <li class="disabled">
+                                <a>Paris</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="span6" style="padding-top: 12px;">
+                        Et d'autres à venir...
+                    </div>
+                </div>
+                
+                <div id="map-container" class="clearfix">
+                    <div id="map-container-left" class="pull-left">
+                        {{ google_map_container(map) }}
+                    </div>
+                    <div id="map-container-right" class="pull-left">
+                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -27,7 +71,9 @@
         <div class="row">
             <div class="span6">
 
-                <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="box bottom-marged">
+                <h3 class="text-centered"><i class="icon-map-marker"></i> Nantes</h3>
+
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', 'boucherie-zola']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="box bottom-marged">
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
                                 <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
@@ -47,11 +93,7 @@
                     </div>
                 </a>
 
-            </div>
-
-            <div class="span6">
-
-                <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOP', 'go-to', 'boucherie-des-gourmets']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -72,11 +114,28 @@
                     </div>
                 </a>
 
-            </div>
+                <div class="ribbon ribbon-coming-soon"></div>
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}"#} class="box bottom-marged box-muted">
+                    <div class="row-fluid">
+                        <div class="shop-thumbnail span4">
+                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine.jpg')}}" alt="">
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Banette La Mimine</h2>
+                            <h4></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <p class="small-text">
 
-            <div class="span6">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
+                        </div>
+                    </div>
+                </a>
 
-                <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="box bottom-marged">
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOP', 'go-to', 'boucherie-copernic']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -96,11 +155,7 @@
                     </div>
                 </a>
 
-            </div>
-
-            <div class="span6">
-
-                <a href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="box bottom-marged">
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', 'le-boulanger-de-zola']);" href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -120,11 +175,7 @@
                     </div>
                 </a>
 
-            </div>
-
-            <div class="span6">
-
-                <div class="coming-soon"></div>
+                <div class="ribbon ribbon-coming-soon"></div>
                 <div class="box bottom-marged box-muted">
 
                     <div class="row-fluid">
@@ -148,6 +199,77 @@
 
             </div>
 
+            <div class="span6">
+
+                <h3 class="text-centered"><i class="icon-map-marker"></i> Poitiers</h3>
+
+
+                <div class="ribbon ribbon-coming-soon"></div>
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-buxerolles'}) }}"#} class="box bottom-marged box-muted">
+                    <div class="row-fluid">
+                        <div class="shop-thumbnail span4">
+                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/banette-buxerolles/banette-buxerolles-0.jpg')}}" alt="">
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Banette Buxerolles</h2>
+                            <h4></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <p class="small-text">
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="ribbon ribbon-coming-soon"></div>
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-garenne'}) }}"#} class="box bottom-marged box-muted">
+                    <div class="row-fluid">
+                        <div class="shop-thumbnail span4">
+                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne.jpg')}}" alt="">
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Banette La Garenne</h2>
+                            <h4></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <p class="small-text">
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="ribbon ribbon-coming-soon"></div>
+                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-grand-large'}) }}"#} class="box bottom-marged box-muted">
+                    <div class="row-fluid">
+                        <div class="shop-thumbnail span4">
+                                <img src="{{ asset('bundles/piggyboxuser/img/banette-temp.jpg')}}" alt="">
+                        </div>
+                        <div class="span8">
+                            <h2 class="no-margin">Banette Grand Large</h2>
+                            <h4></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <p class="small-text">
+
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
+                        </div>
+                    </div>
+                </a>
+                
+
+            </div>
+
             <div class="span12">
                 <h3>Et bien d'autres dans les jours à venir...</h3>
             </div>
@@ -161,6 +283,40 @@
 {% endblock %}
 
 {% block javascript %}
-	{{parent()}}
-	{{ google_map_js(map) }}
+
+{{parent()}}
+
+
+{{ google_map_js(map) }}
+
+
+<script type="text/javascript">
+
+
+    function showShopInMap($slug) {
+        $('.home-map-sidebar-item').hide();
+        var id = "#sidebar-" + $slug;
+        $(id).show();
+    }
+
+
+    $("#map-recenter-nantes").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); 
+            {{map.javascriptVariable}}.setZoom(11);
+        }
+    );
+    $("#map-recenter-poitiers").click(
+        function(){
+            $('.nav-tabs-for-map li').removeClass("active");
+            $(this).parent("li").addClass("active");
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); 
+            {{map.javascriptVariable}}.setZoom(12);
+        }
+    );
+    
+</script>
+
 {% endblock %}

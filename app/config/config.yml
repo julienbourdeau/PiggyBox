@@ -53,6 +53,10 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -68,6 +72,7 @@ stof_doctrine_extensions:
             timestampable: true 
             sluggable: true    
             translatable: true
+            softdeleteable: true
             tree: true
 
 # FOSUserBundle Configuration
@@ -91,6 +96,9 @@ avalanche_imagine:
         huge_thumb:
             type:    thumbnail
             options:  { size: [300, 300], mode: outbound, quality: 100}
+        carousel_thumb:
+            type:    thumbnail
+            options:  { size: [770, 300], mode: outbound, quality: 100}
 #
 # Knp Menu Configuration
 knp_menu:

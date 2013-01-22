@@ -49,16 +49,41 @@
                         </thead>
 
                         <tbody>
-							{% for order_detail in order.orderdetail %}
-							<tr>
-								<td class="col1">
-									<strong>
-										{{order_detail.product.name}}
-									</strong>
-								</td>
-								<td class="col2">{{order_detail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
-								<td class="col3">{{order_detail.totalPrice}} €</td>
-							</tr>
+							{% for orderDetail in order.orderdetail %}
+								{% if orderDetail.menuDetail is null %}
+									<tr>
+										<td class="col1">
+											<strong>
+												{{orderDetail.product.name}}
+											</strong>
+										</td>
+										<td class="col2">{{orderDetail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
+										<td class="col3">{{(orderDetail.totalPrice)|number_format(2, ',', ' ')}} €</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+
+							{% set menuDetailBufferId = [] %}
+
+							{% for orderDetail in order.orderdetail %}
+								{% if orderDetail.menuDetail != null %}
+									{% if  orderDetail.menuDetail.id not in menuDetailBufferId %}
+									<tr>
+										<td colspan="3" class="col1">
+											<strong>
+												{{ orderDetail.menuDetail.menu.title }}
+											</strong>
+											<br>
+											<ul class="unstyled">
+												{% for product in orderDetail.menuDetail.products %}
+												<li><i class="icon-ok"></i> {{ product.name }}</li>
+												{% endfor %}
+											</ul>
+											{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.menuDetail.id]) %}
+										</td>
+									</tr>
+									{% endif %}
+								{% endif %}
 							{% endfor %}
                         </tbody>
                     </table>
@@ -66,7 +91,7 @@
                     <table class="table table-bordered table-striped cart-total pull-right">
                         <tr>
                             <td class=""><strong>Total TTC:</strong></td>
-							<td class=""><strong>{{order.totalprice}} €</strong></td>
+							<td class=""><strong>{{order.totalprice|number_format(2, ',', ' ')}} €</strong></td>
                         </tr>
                     </table>
 
@@ -132,16 +157,41 @@
                         </thead>
 
                         <tbody>
-							{% for order_detail in order.orderdetail %}
-							<tr>
-								<td class="col1">
-									<strong>
-										{{order_detail.product.name}}
-									</strong>
-								</td>
-								<td class="col2">{{order_detail.quantity}}</td>
-								<td class="col3">{{order_detail.quantity*order_detail.product.price}} €</td>
-							</tr>
+							{% for orderDetail in order.orderdetail %}
+								{% if orderDetail.menuDetail is null %}
+									<tr>
+										<td class="col1">
+											<strong>
+												{{orderDetail.product.name}}
+											</strong>
+										</td>
+										<td class="col2">{{orderDetail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
+										<td class="col3">{{(orderDetail.totalPrice)|number_format(2, ',', ' ')}} €</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+
+							{% set menuDetailBufferId = [] %}
+
+							{% for orderDetail in order.orderdetail %}
+								{% if orderDetail.menuDetail != null %}
+									{% if  orderDetail.menuDetail.id not in menuDetailBufferId %}
+									<tr>
+										<td colspan="3" class="col1">
+											<strong>
+												{{ orderDetail.menuDetail.menu.title }}
+											</strong>
+											<br>
+											<ul class="unstyled">
+												{% for product in orderDetail.menuDetail.products %}
+												<li><i class="icon-ok"></i> {{ product.name }}</li>
+												{% endfor %}
+											</ul>
+											{% set menuDetailBufferId = menuDetailBufferId|merge([orderDetail.menuDetail.id]) %}
+										</td>
+									</tr>
+									{% endif %}
+								{% endif %}
 							{% endfor %}
                         </tbody>
                     </table>
@@ -149,7 +199,7 @@
                     <table class="table table-bordered table-striped cart-total pull-right">
                         <tr>
                             <td class=""><strong>Total TTC:</strong></td>
-							<td class=""><strong>{{order.totalprice}} €</strong></td>
+							<td class=""><strong>{{order.totalprice|number_format(2, ',', ' ')}} €</strong></td>
                         </tr>
                     </table>
 
