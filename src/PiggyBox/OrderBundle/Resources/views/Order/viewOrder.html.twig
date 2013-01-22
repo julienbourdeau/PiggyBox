@@ -85,4 +85,17 @@ $(document).ready(function() {
 	}
 })(jQuery);
 </script>
+
+
+<script type="text/javascript">
+
+	$(".payment-choice").change(function(){
+		var className = '.' + $(this).attr("id") + '-button';
+		$(".payment-button").hide();
+		$(className).show();
+		//console.log(test);
+	});
+
+</script>
+
 {% endblock %}

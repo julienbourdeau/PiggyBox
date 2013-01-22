@@ -39,6 +39,41 @@
             </div>
         </div>
         <div class="row">
+            <div class="span6 offset3">
+
+                <form id="payment-form" action="">
+                    <label class="radio">
+                        <input name="payment-choice-radio" id="onsite-payment-choice" class="payment-choice" type="radio" value="" checked>
+                        Paiement en magasin
+                        <br>
+                        <img src="{{ asset('bundles/piggyboxuser/img/payement/onsite.png')}}" alt="">
+                    </label>
+
+                    <label class="radio">
+                        <input name="payment-choice-radio" id="online-payment-choice" class="payment-choice" type="radio" value="">
+                        Paiement sécurisé en ligne
+                        <br>
+                        <img src="{{ asset('bundles/piggyboxuser/img/payement/online.png')}}" alt="">
+                    </label>
+
+                    <button class="btn btn-xlarge btn-primary">
+                        <span class="payment-button onsite-payment-choice-button"><i class="icon-ok icon-white"></i> Confirmez votre commande </span> 
+                        <span class="payment-button online-payment-choice-button hide"><i class="icon-ok icon-white"></i> Payer votre commande </span> 
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+                <h1 class="text-centered">Choisissez votre moyen de paiement</h1>
+            </div>
+        </div>
+        <div class="row">
             <div class="span4">
                 <h2>Payez en boutique</h2>
 
@@ -56,10 +91,10 @@
                         <h2>Payer en ligne</h2>
 
                         <div>
-							<form action="{{ path('payment_details') }}" method="post">
-								{{form_widget(form)}}
-						        <input type="submit" />
-							</form>
+                            <form action="{{ path('payment_details') }}" method="post">
+                                {{form_widget(form)}}
+                                <input type="submit" />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -68,19 +103,7 @@
     </div>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="toolbar">
-                <div class="span6">
-                    <a href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
-                </div>
-                <div class="span6 text-right">
-                    <a href="{{ path('confirm_order') }}" class="btn btn-xlarge btn-primary">
-                        <i class="icon-ok icon-white"></i> Confirmez votre commande
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 </div>
+
