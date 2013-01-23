@@ -180,6 +180,12 @@ class Product
     private $category;
 
     /**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Discount")
+     * @ORM\JoinColumn(name="discount_id", referencedColumnName="id")
+     **/
+    private $discount;
+
+    /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
      **/
     private $menuItems;
@@ -763,6 +769,29 @@ class Product
     public function __construct()
     {
         $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set discount
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Discount $discount
+     * @return Product
+     */
+    public function setDiscount(\PiggyBox\ShopBundle\Entity\Discount $discount = null)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Discount
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
     }
 
     /**

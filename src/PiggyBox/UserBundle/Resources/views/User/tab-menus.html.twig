@@ -1,5 +1,5 @@
 {% for menu in menus %}
-<h1>{{menu.title}}</h1>
+<h1>{{menu.title}} <small>{{menu.price|number_format(2, ',', ' ')}} €</small></h1>
 
 <div class="clearfix">
 
