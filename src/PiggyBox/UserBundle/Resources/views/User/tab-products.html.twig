@@ -12,8 +12,12 @@
 				{{product.category.slug}}
 				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
 
-	{% if product.menuItems|length > 0%}
+	{% if product.menuItems|length > 0 and product.discount|length == 0 %}
 		<div class="ribbon ribbon-formule"></div>
+	{% endif %}
+	
+	{% if product.discount|length > 0 %}
+		<div class="ribbon ribbon-{{product.discount.slug}}"></div>
 	{% endif %}
 
 		<div class="product-infos">
