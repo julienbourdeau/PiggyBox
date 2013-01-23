@@ -112,9 +112,9 @@ class OrderManager
             if ($orderDetail->getProduct() != 'chunk_price') {
                 $orderDetail->setTotalPrice(round($orderDetail->getProduct()->getPrice() * $orderDetail->getQuantity(), 2, PHP_ROUND_HALF_UP));
             }
-			if ($orderDetail->getProduct()->getDiscount() != null && $orderDetail->getProduct()->getDiscount()->getDiscountQuantity() == $orderDetail->getQuantity()) {
-                $orderDetail->setTotalPrice($orderDetail->getProduct()->getDiscount()->getDiscountPrice());				
-			}			
+            if ($orderDetail->getProduct()->getDiscount() != null && $orderDetail->getProduct()->getDiscount()->getDiscountQuantity() == $orderDetail->getQuantity()) {
+                $orderDetail->setTotalPrice($orderDetail->getProduct()->getDiscount()->getDiscountPrice());
+            }
         }
     }
 

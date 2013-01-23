@@ -9,7 +9,7 @@
             <div class="span12">
                 <h1 class="text-centered">Où sont vos commerces</h1>
             </div>
-            
+
             <div class="span9">
                 {{ google_map_container(map) }}
             </div>
@@ -44,7 +44,7 @@
                         Et d'autres à venir...
                     </div>
                 </div>
-                
+
                 <div id="map-container" class="clearfix">
                     <div id="map-container-left" class="pull-left">
                         {{ google_map_container(map) }}
@@ -266,7 +266,7 @@
                         </div>
                     </div>
                 </a>
-                
+
 
             </div>
 
@@ -304,7 +304,7 @@
         function(){
             $('.nav-tabs-for-map li').removeClass("active");
             $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); 
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
             {{map.javascriptVariable}}.setZoom(11);
         }
     );
@@ -312,11 +312,11 @@
         function(){
             $('.nav-tabs-for-map li').removeClass("active");
             $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); 
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
             {{map.javascriptVariable}}.setZoom(11);
         }
     );
-    
+
 </script>
 
 {% endblock %}

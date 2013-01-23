@@ -17,7 +17,6 @@ use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-use Ivory\GoogleMapBundle\Model\Events\MouseEvent;
 /**
  * User controller.
  *
@@ -33,8 +32,6 @@ class UserController extends Controller
     {
         $seoPage = $this->get('sonata.seo.page');
 
-
-        
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -180,8 +177,6 @@ class UserController extends Controller
         $map->addMarker($marker8);
         $map->addMarker($marker9);
 
-
-
         // It can only be used with a DOM event
         // By default, the capture flag is false
         $event1->setCapture(true);
@@ -195,7 +190,6 @@ class UserController extends Controller
         $event8->setCapture(true);
         $event9->setCapture(true);
 
-
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
         $map->getEventManager()->addDomEvent($event1bis);
@@ -207,7 +201,6 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
-
 
         return array('map' => $map);
     }
@@ -363,8 +356,6 @@ class UserController extends Controller
         $map->addMarker($marker8);
         $map->addMarker($marker9);
 
-
-
         // It can only be used with a DOM event
         // By default, the capture flag is false
         $event1->setCapture(true);
@@ -378,7 +369,6 @@ class UserController extends Controller
         $event8->setCapture(true);
         $event9->setCapture(true);
 
-
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
         $map->getEventManager()->addDomEvent($event1bis);
@@ -390,7 +380,6 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
-
 
         return array('map' => $map);
     }
@@ -444,7 +433,7 @@ class UserController extends Controller
         $map->addMarker($marker3);
         $map->addMarker($marker4);
         $map->addMarker($marker8);
-        
+
         return array('map' => $map);
     }
 

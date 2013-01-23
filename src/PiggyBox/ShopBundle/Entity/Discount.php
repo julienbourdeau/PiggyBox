@@ -49,11 +49,10 @@ class Discount
      */
     private $discountQuantity;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,20 +62,20 @@ class Discount
     /**
      * Set discountName
      *
-     * @param string $discountName
+     * @param  string   $discountName
      * @return Discount
      */
     public function setDiscountName($discountName)
     {
         $this->discountName = $discountName;
-    
+
         return $this;
     }
 
     /**
      * Get discountName
      *
-     * @return string 
+     * @return string
      */
     public function getDiscountName()
     {
@@ -86,20 +85,20 @@ class Discount
     /**
      * Set discountDescription
      *
-     * @param string $discountDescription
+     * @param  string   $discountDescription
      * @return Discount
      */
     public function setDiscountDescription($discountDescription)
     {
         $this->discountDescription = $discountDescription;
-    
+
         return $this;
     }
 
     /**
      * Get discountDescription
      *
-     * @return string 
+     * @return string
      */
     public function getDiscountDescription()
     {
@@ -109,20 +108,20 @@ class Discount
     /**
      * Set discountPrice
      *
-     * @param float $discountPrice
+     * @param  float    $discountPrice
      * @return Discount
      */
     public function setDiscountPrice($discountPrice)
     {
         $this->discountPrice = $discountPrice;
-    
+
         return $this;
     }
 
     /**
      * Get discountPrice
      *
-     * @return float 
+     * @return float
      */
     public function getDiscountPrice()
     {
@@ -132,20 +131,20 @@ class Discount
     /**
      * Set discountQuantity
      *
-     * @param integer $discountQuantity
+     * @param  integer  $discountQuantity
      * @return Discount
      */
     public function setDiscountQuantity($discountQuantity)
     {
         $this->discountQuantity = $discountQuantity;
-    
+
         return $this;
     }
 
     /**
      * Get discountQuantity
      *
-     * @return integer 
+     * @return integer
      */
     public function getDiscountQuantity()
     {
