@@ -26,13 +26,13 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class ProductController extends Controller
 {
-	/** @DI\Inject */
+    /** @DI\Inject */
     private $request;
 
-	/** @DI\Inject */
+    /** @DI\Inject */
     private $router;
-	
-	/** @DI\Inject("doctrine.orm.entity_manager") */
+
+    /** @DI\Inject("doctrine.orm.entity_manager") */
     private $em;
 
     /**
@@ -175,18 +175,18 @@ class ProductController extends Controller
      */
     public function editDiscountAction(Product $product)
     {
-		if ($product->getDiscount() == null) {
-			$discount = new Discount();
-			$product->setDiscount($discount);
-		}
-		if ($product->getDiscount() != null) {
-			$discount = $product->getDiscount();
-		}
+        if ($product->getDiscount() == null) {
+            $discount = new Discount();
+            $product->setDiscount($discount);
+        }
+        if ($product->getDiscount() != null) {
+            $discount = $product->getDiscount();
+        }
 
         $editForm = $this->createForm(new DiscountType(), $discount);
         $deleteForm = $this->createDeleteForm($discount->getId());
 
-		if ('POST' === $this->request->getMethod()) {
+        if ('POST' === $this->request->getMethod()) {
             $editForm->bindRequest($this->request);
 
             if ($editForm->isValid()) {
@@ -195,7 +195,8 @@ class ProductController extends Controller
                 $this->em->persist($discount);
                 $this->em->flush();
 
-                $this->get('session')->getFlashBag()->set('success', 'La promotion a été ajouté avec succès.');				
+                $this->get('session')->getFlashBag()->set('success', 'La promotion a été ajouté avec succès.');
+
                 return new RedirectResponse($this->router->generate('monmagasin_mesproduits'));
             }
         }
@@ -218,17 +219,17 @@ class ProductController extends Controller
     {
         $form = $this->createDeleteForm($discount->getId());
         $form->bind($request);
-		$product = $this->em->getRepository('PiggyBoxShopBundle:Product')->findOneById($productId);
+        $product = $this->em->getRepository('PiggyBoxShopBundle:Product')->findOneById($productId);
 
         if ($form->isValid()) {
-			try {
-				$product->setDiscount(null);
-				$this->em->persist($product);
+            try {
+                $product->setDiscount(null);
+                $this->em->persist($product);
                 $this->em->remove($discount);
                 $this->em->flush();
                 $this->get('session')->getFlashBag()->set('success', 'La promotion '.$discount->getDiscountName().' a été supprimé avec succès.');
             } catch (\Exception $e) {
-				var_dump($e->getMessage());die();
+                var_dump($e->getMessage());die();
                 $this->get('logger')->crit($e->getMessage(), array('exception', $e));
                 $this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
             }

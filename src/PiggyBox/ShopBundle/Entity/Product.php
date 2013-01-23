@@ -179,7 +179,7 @@ class Product
      **/
     private $category;
 
-	/**
+    /**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Discount")
      * @ORM\JoinColumn(name="discount_id", referencedColumnName="id")
      **/
@@ -770,24 +770,24 @@ class Product
     {
         $this->menuItems = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set discount
      *
-     * @param \PiggyBox\ShopBundle\Entity\Discount $discount
+     * @param  \PiggyBox\ShopBundle\Entity\Discount $discount
      * @return Product
      */
     public function setDiscount(\PiggyBox\ShopBundle\Entity\Discount $discount = null)
     {
         $this->discount = $discount;
-    
+
         return $this;
     }
 
     /**
      * Get discount
      *
-     * @return \PiggyBox\ShopBundle\Entity\Discount 
+     * @return \PiggyBox\ShopBundle\Entity\Discount
      */
     public function getDiscount()
     {
@@ -797,13 +797,13 @@ class Product
     /**
      * Add menuItems
      *
-     * @param \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
+     * @param  \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
      * @return Product
      */
     public function addMenuItem(\PiggyBox\ShopBundle\Entity\MenuItem $menuItems)
     {
         $this->menuItems[] = $menuItems;
-    
+
         return $this;
     }
 
@@ -820,7 +820,7 @@ class Product
     /**
      * Get menuItems
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMenuItems()
     {
