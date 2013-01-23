@@ -56,13 +56,23 @@
         <div class="product-content">
 
             <div class="product-description">
-                <p>{{product.description}}</p>
+	        	{% if product.description is not null %}
+	                <p>{{product.description}}</p>
+	            {% else %}
+	            	<p><em>Aucune description disponible</em></p>
+	            {% endif %}
             </div>
+
+			{% if product.discount|length > 0 %}
+				<div class="product-origin">
+					<h4>Offre spéciale</h4>
+					<i class="icon-tag"></i> {{ product.discount.discountdescription }}</div>
+			{% endif %}
 
 			{% if product.origin is not null %}
 				<div class="product-origin">
 					<h4>Origine</h4>
-					<i class="icon-flag-fr"></i>{{product.origin}}</div>
+					<i class="icon-flag-fr"></i> {{product.origin}}</div>
 			{% endif %}
 
 			{% if product.preservation is not null %}
