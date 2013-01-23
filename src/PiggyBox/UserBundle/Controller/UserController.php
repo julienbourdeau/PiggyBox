@@ -17,7 +17,6 @@ use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-use Ivory\GoogleMapBundle\Model\Events\MouseEvent;
 /**
  * User controller.
  *
@@ -33,8 +32,6 @@ class UserController extends Controller
     {
         $seoPage = $this->get('sonata.seo.page');
 
-
-        
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -156,6 +153,19 @@ class UserController extends Controller
         $event8->setEventName('click');
         $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
 
+        # Futuroscope
+        $marker9 = $this->get('ivory_google_map.marker');
+        $marker9->setPrefixJavascriptVariable('marker_');
+        $marker9->setPosition(46.660674,0.363318, true);
+        $markerImage9 = $this->get('ivory_google_map.marker_image');
+        $markerImage9->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker9->setIcon($markerImage8);
+
+        $event9 = $this->get('ivory_google_map.event');
+        $event9->setInstance($marker9->getJavascriptVariable());
+        $event9->setEventName('click');
+        $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -165,8 +175,7 @@ class UserController extends Controller
         $map->addMarker($marker6);
         $map->addMarker($marker7);
         $map->addMarker($marker8);
-
-
+        $map->addMarker($marker9);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -179,7 +188,7 @@ class UserController extends Controller
         $event6->setCapture(true);
         $event7->setCapture(true);
         $event8->setCapture(true);
-
+        $event9->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -191,7 +200,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event6);
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
-
+        $map->getEventManager()->addDomEvent($event9);
 
         return array('map' => $map);
     }
@@ -323,6 +332,19 @@ class UserController extends Controller
         $event8->setEventName('click');
         $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
 
+        # Futuroscope
+        $marker9 = $this->get('ivory_google_map.marker');
+        $marker9->setPrefixJavascriptVariable('marker_');
+        $marker9->setPosition(46.660674,0.363318, true);
+        $markerImage9 = $this->get('ivory_google_map.marker_image');
+        $markerImage9->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker9->setIcon($markerImage8);
+
+        $event9 = $this->get('ivory_google_map.event');
+        $event9->setInstance($marker9->getJavascriptVariable());
+        $event9->setEventName('click');
+        $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -332,8 +354,7 @@ class UserController extends Controller
         $map->addMarker($marker6);
         $map->addMarker($marker7);
         $map->addMarker($marker8);
-
-
+        $map->addMarker($marker9);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -346,7 +367,7 @@ class UserController extends Controller
         $event6->setCapture(true);
         $event7->setCapture(true);
         $event8->setCapture(true);
-
+        $event9->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -358,7 +379,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event6);
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
-
+        $map->getEventManager()->addDomEvent($event9);
 
         return array('map' => $map);
     }
@@ -412,7 +433,7 @@ class UserController extends Controller
         $map->addMarker($marker3);
         $map->addMarker($marker4);
         $map->addMarker($marker8);
-        
+
         return array('map' => $map);
     }
 
