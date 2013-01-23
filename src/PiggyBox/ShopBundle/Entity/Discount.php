@@ -3,6 +3,7 @@
 namespace PiggyBox\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Discount
@@ -48,6 +49,13 @@ class Discount
      * @ORM\Column(name="discountQuantity", type="integer")
      */
     private $discountQuantity;
+
+    /**
+     *
+     * @Gedmo\Slug(fields={"discountName"})
+     * @ORM\Column(length=255, unique=false)
+     */
+    private $slug;	
 
     /**
      * Get id
@@ -149,5 +157,28 @@ class Discount
     public function getDiscountQuantity()
     {
         return $this->discountQuantity;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Discount
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
