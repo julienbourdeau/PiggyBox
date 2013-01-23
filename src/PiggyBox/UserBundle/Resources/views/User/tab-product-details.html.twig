@@ -1,3 +1,11 @@
+{% if product.menuItems|length > 0 and product.discount|length == 0 %}
+	<div class="ribbon ribbon-formule"></div>
+{% endif %}
+
+{% if product.discount|length > 0 %}
+	<div class="ribbon ribbon-{{product.discount.slug}}"></div>
+{% endif %}
+
 <div class="product-item
             product-item-single {# HERE #}
             row-fluid
@@ -159,7 +167,7 @@
 
 {% if random_products|length > 0 %}
 
-<h1 class="text-centered">Produits au hasard</h1>
+<h1 class="text-centered">Avec ceci, nos clients ont commandé</h1>
 
     <div class="clearfix">
 	   {% include 'PiggyBoxUserBundle:User:tab-products.html.twig' with {'shop': shop, 'products': random_products} %}
