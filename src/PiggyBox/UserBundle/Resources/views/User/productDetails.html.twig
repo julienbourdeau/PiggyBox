@@ -5,8 +5,8 @@
 		<form class="form-inline" action="{{path('cart_add_product', {product_id: product.id, price_id : price.id})}}" method="post" {{ form_enctype(form) }}>
 
 			{{form_widget(form.quantity)}}
-			{{ form_widget(form._token) }}
-        <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+		 	{{ form_widget(form._token) }}
+			<button class="btn btn-primary" onclick="_kmq.push(['record', 'Add to Cart', {'Shop Name':{{shop.name}}, 'Product Name': {{product.name}} }]);" ><i class="icon-plus icon-white"></i> Ajouter</button>
 		</form>
 		{% endfor %}
     </div>
@@ -36,7 +36,7 @@
 								<td>
 									<form class="form-inline" action="{{path('cart_add_product', {product_id: product_id, price_id : price.id})}}" method="post" {{ form_enctype(form[loop.index0]) }}>
 										{{ form_widget(form[loop.index0].quantity, { 'attr': {'class': 'span12'}}) }}
-										<button class="btn btn-primary btn-block"> <i class="icon-plus icon-white"></i> Ajouter</button>
+										<button class="btn btn-primary btn-block" onclick="_kmq.push(['record', 'Add to Cart', {'Shop Name':{{shop.name}}, 'Product Name': {{product.name}} }]);"> <i class="icon-plus icon-white"></i> Ajouter</button>
 										{{ form_widget(form[loop.index0]._token) }}
 									</form>
 								</td>
@@ -55,7 +55,7 @@
 
 			{{form_widget(form.quantity)}}
 			{{ form_widget(form._token) }}
-            <button class="btn btn-primary"><i class="icon-plus icon-white"></i> Ajouter</button>
+			<button class="btn btn-primary" onclick="_kmq.push(['record', 'Add to Cart', {'Shop Name':{{shop.name}}, 'Product Name': {{product.name}} }]);"><i class="icon-plus icon-white"></i> Ajouter</button>
         </form>
     </div>
 </div>
