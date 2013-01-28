@@ -144,7 +144,11 @@ class OrderManager
             }
             while ( $start->format('Hi') < $end->format('Hi')) {
                 $openingHours[$start->format('H:i')] = $start->format('H:i');
-                $start->modify('30 minutes');
+                if ($start->format('Hi') >= '1200' && $start->format('Hi') <= '1400') {
+                    $start->modify('10 minutes');
+                } else {
+                    $start->modify('30 minutes');
+                }
             }
         }
 
