@@ -55,7 +55,7 @@ class Discount
      * @Gedmo\Slug(fields={"discountName"})
      * @ORM\Column(length=255, unique=false)
      */
-    private $slug;	
+    private $slug;
 
     /**
      * Get id
@@ -162,20 +162,20 @@ class Discount
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string   $slug
      * @return Discount
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {

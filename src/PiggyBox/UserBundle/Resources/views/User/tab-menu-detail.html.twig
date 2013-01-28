@@ -5,7 +5,6 @@
 {% for menuItem in menu.menuItems %}
 <h2>{{menuItem.title}}</h2>
 
-{#{{ dump(form['products_'~menuItem.id].children) }}#}
 <div class="clearfix">
 
 {% for key, buffer in form['products_'~menuItem.id].vars.value %}

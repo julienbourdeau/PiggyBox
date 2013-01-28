@@ -229,7 +229,6 @@ class ProductController extends Controller
                 $this->em->flush();
                 $this->get('session')->getFlashBag()->set('success', 'La promotion '.$discount->getDiscountName().' a été supprimé avec succès.');
             } catch (\Exception $e) {
-                var_dump($e->getMessage());die();
                 $this->get('logger')->crit($e->getMessage(), array('exception', $e));
                 $this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
             }
