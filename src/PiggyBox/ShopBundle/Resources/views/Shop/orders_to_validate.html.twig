@@ -81,14 +81,15 @@
 
             </div>
 
-			{% if order.note is not null %}
-            <div class="span4">
-                <div class="alert alert-warning">
-                    <div class="label label-warning">Note du client</div>
-                    <p>Ce site est super sympa!</p>
-                </div>
-            </div>
-			{% endif %}
+              <div class="span4">
+  				<h3 clss="no-margin text-centered">No {{order.ordernumber}}</h3>
+  				{% if order.note is not null %}
+  					<div class="alert alert-info">
+  						<div class="label label-info">Note du client</div>
+  						<p>Merci de mettre toute ma commande sous vide</p>
+  					</div>
+  				{% endif %}
+              </div>
 
         </div>
 
