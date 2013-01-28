@@ -5,7 +5,6 @@ namespace PiggyBox\ShopBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use PiggyBox\ShopBundle\Entity\Product;
 use PiggyBox\ShopBundle\Entity\Day;
 use PiggyBox\ShopBundle\Entity\Shop;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,8 +18,8 @@ class GenerateDayCommand extends ContainerAwareCommand
         $this
             ->setName('piggybox:generate:days')
             ->setDescription('Generates day for the shops')
-            ->addArgument('shopSlug', InputArgument::REQUIRED, 'What is the slug of the shop')		
-            ->addArgument('user', InputArgument::REQUIRED, 'user');		
+            ->addArgument('shopSlug', InputArgument::REQUIRED, 'What is the slug of the shop')
+            ->addArgument('user', InputArgument::REQUIRED, 'user');
     }
 
     /**
@@ -28,69 +27,69 @@ class GenerateDayCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');		
-        $userSlug = $input->getArgument('user');		
-		$user = $em->getRepository('PiggyBoxUserBundle:User')->findOneByUsername($userSlug);
-			
-		$providerKey = $this->getContainer()->getParameter('fos_user.firewall_name');
+        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
+        $userSlug = $input->getArgument('user');
+        $user = $em->getRepository('PiggyBoxUserBundle:User')->findOneByUsername($userSlug);
+
+        $providerKey = $this->getContainer()->getParameter('fos_user.firewall_name');
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-		$this->getContainer()->get('security.context')->setToken($token);
+        $this->getContainer()->get('security.context')->setToken($token);
 
         $shopSlug = $input->getArgument('shopSlug');
         $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shopSlug);
 
-		$openingDays = $shop->getOpeningDays();
-		foreach ($openingDays as $day) {
-			$shop->removeOpeningDay($day);
-			$em->remove($day);
-		}
-		$em->persist($shop);
-		$em->flush();
+        $openingDays = $shop->getOpeningDays();
+        foreach ($openingDays as $day) {
+            $shop->removeOpeningDay($day);
+            $em->remove($day);
+        }
+        $em->persist($shop);
+        $em->flush();
 
-		$dialog = $this->getHelperSet()->get('dialog');
+        $dialog = $this->getHelperSet()->get('dialog');
 
-		for ($i = 1; $i < 8; $i++) {
-			$monday = new Day();
-			$monday->setDayOfTheWeek($i);
-			$opened = $dialog->ask(
-				$output,
-				'Le magasin est-il ouvert le jour '.$i.'? (y or n (default y))',
-				true
-			);
-			if ($opened === 'y') {
-				$opened = true;			
-			}
-			if ($opened === 'n') {
-				$opened = false;
-			}
-			$monday->setOpen($opened); 
-			$fromTimeMorning = $dialog->ask(
-				$output,
-				'A partir de quelle heure ouvre t-il (e.g 06:30 null si ENTER)',
-				null
-			);		
-			$monday->setFromTimeMorning(new \DateTime($fromTimeMorning));
-			$toTimeMorning = $dialog->ask(
-				$output,
-				'A partir de quelle heure ferme t-il le matin (e.g 12:30)',
-				null
-			);				
-			$monday->setToTimeMorning(new \DateTime($toTimeMorning));
-			$setFromTimeAfternoon = $dialog->ask(
-				$output,
-				'A partir de quelle heure ouvre t-il l\'après-midi ? (e.g 13:30)',
-				null
-			);		
-			$monday->setFromTimeAfternoon($setFromTimeAfternoon);
-			$setToTimeAfternoon = $dialog->ask(
-				$output,
-				'A partir de quelle heure ferme t-il le soir? (e.g 21:30)',
-				null
-			);				
-			$monday->setToTimeAfternoon($setToTimeAfternoon);
+        for ($i = 1; $i < 8; $i++) {
+            $monday = new Day();
+            $monday->setDayOfTheWeek($i);
+            $opened = $dialog->ask(
+                $output,
+                'Le magasin est-il ouvert le jour '.$i.'? (y or n (default y))',
+                true
+            );
+            if ($opened === 'y') {
+                $opened = true;
+            }
+            if ($opened === 'n') {
+                $opened = false;
+            }
+            $monday->setOpen($opened);
+            $fromTimeMorning = $dialog->ask(
+                $output,
+                'A partir de quelle heure ouvre t-il (e.g 06:30 null si ENTER)',
+                null
+            );
+            $monday->setFromTimeMorning(new \DateTime($fromTimeMorning));
+            $toTimeMorning = $dialog->ask(
+                $output,
+                'A partir de quelle heure ferme t-il le matin (e.g 12:30)',
+                null
+            );
+            $monday->setToTimeMorning(new \DateTime($toTimeMorning));
+            $setFromTimeAfternoon = $dialog->ask(
+                $output,
+                'A partir de quelle heure ouvre t-il l\'après-midi ? (e.g 13:30)',
+                null
+            );
+            $monday->setFromTimeAfternoon($setFromTimeAfternoon);
+            $setToTimeAfternoon = $dialog->ask(
+                $output,
+                'A partir de quelle heure ferme t-il le soir? (e.g 21:30)',
+                null
+            );
+            $monday->setToTimeAfternoon($setToTimeAfternoon);
 
-        $shop->addOpeningDay($monday);			
-		}
+        $shop->addOpeningDay($monday);
+        }
 
         $em->persist($shop);
         $em->flush();
@@ -100,5 +99,3 @@ class GenerateDayCommand extends ContainerAwareCommand
 //La garenne => Lundi à samedi 6H30 à 20H30
 //Grand large => Lundi au samedi, 6H30 à 20H00
 //Futuroscope => Lundi à Samedi, 6H30 à 20H30
-
-

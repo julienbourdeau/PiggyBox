@@ -107,21 +107,21 @@ class OrderManager
         }
         if ($orderDetail->getMenuDetail() == null) {
             if ($orderDetail->getProduct()->getPriceType() == 'chunk_price') {
-				$maxPerson = $orderDetail->getProduct()->getMaxPerson(); 
-				$minPerson = $orderDetail->getProduct()->getMinPerson(); 
-				$maxWeight = $orderDetail->getProduct()->getMaxWeight();
-				$minWeight = $orderDetail->getProduct()->getMinWeight();
-				$weightPrice = $orderDetail->getProduct()->getWeightPrice();
-				$step1 = $maxWeight-$minWeight; 
-				$step2 = $maxPerson-$minPerson;
-				$step3 = $step1/$step2;
-				$step4 = $orderDetail->getQuantity()-$minPerson;
-				$step5 = $step3*$step4;
-				$step6 = $step5*$weightPrice/1000;
-				$step7 = $minWeight*$weightPrice/1000;
-				$step8 = $step6+$step7;
+                $maxPerson = $orderDetail->getProduct()->getMaxPerson();
+                $minPerson = $orderDetail->getProduct()->getMinPerson();
+                $maxWeight = $orderDetail->getProduct()->getMaxWeight();
+                $minWeight = $orderDetail->getProduct()->getMinWeight();
+                $weightPrice = $orderDetail->getProduct()->getWeightPrice();
+                $step1 = $maxWeight-$minWeight;
+                $step2 = $maxPerson-$minPerson;
+                $step3 = $step1/$step2;
+                $step4 = $orderDetail->getQuantity()-$minPerson;
+                $step5 = $step3*$step4;
+                $step6 = $step5*$weightPrice/1000;
+                $step7 = $minWeight*$weightPrice/1000;
+                $step8 = $step6+$step7;
                 $orderDetail->setTotalPrice(round($step8, 2, PHP_ROUND_HALF_UP));
-			}
+            }
             if ($orderDetail->getProduct()->getPriceType() != 'chunk_price') {
                 $orderDetail->setTotalPrice(round($orderDetail->getProduct()->getPrice() * $orderDetail->getQuantity(), 2, PHP_ROUND_HALF_UP));
             }
@@ -144,7 +144,11 @@ class OrderManager
             }
             while ( $start->format('Hi') < $end->format('Hi')) {
                 $openingHours[$start->format('H:i')] = $start->format('H:i');
-                $start->modify('30 minutes');
+                if ($start->format('Hi') >= '1200' && $start->format('Hi') <= '1400') {
+                    $start->modify('10 minutes');
+                } else {
+                    $start->modify('30 minutes');
+                }
             }
         }
 
