@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html {{ sonata_seo_html_attributes() }} class="no-js"> <!--<![endif]-->
     <head>
 
-		{% set ipAddress = ['82.231.144.171', '82.226.50.177'] %}
+		{% set ipAddress = ['82.231.144.171', '82.226.50.177', '81.80.82.30'] %}
 		{% if not app.debug %}
 			{% if app.request.server.get('REMOTE_ADDR') not in ipAddress %}
 				<script type="text/javascript">

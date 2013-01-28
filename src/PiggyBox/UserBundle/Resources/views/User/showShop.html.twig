@@ -29,16 +29,16 @@
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
                                 <li class="active">
-								<a onclick="_gaq.push(['_trackEvent', 'SHOP', 'produits-a-commander', {{shop.slug}}]);" href="#shop" data-toggle="tab">Produits à commander</a>
+								<a  href="#shop" data-toggle="tab">Produits à commander</a>
                                 </li>
                                 <li class="">
-								<a onclick="_gaq.push(['_trackEvent', 'SHOP', 'fiche-pratique', {{shop.slug}}]);" href="#fiche" data-toggle="tab">Fiche Pratique</a>
+								<a  href="#fiche" data-toggle="tab">Fiche Pratique</a>
                                 </li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
                                     <a data-toggle="">Avis</a>
                                 </li>
-								<li><a onclick="_gaq.push(['_trackEvent', 'SHOP', 'photos', {{shop.slug}}]);" href="#photos" data-toggle="tab">Photos</a></li>
+								<li><a  href="#photos" data-toggle="tab">Photos</a></li>
                             </ul>
                         </div>
 
@@ -115,4 +115,7 @@
 	}
 </script>
 
+<script type="text/javascript">
+	_kmq.push(['record', 'Viewed Commerce Page', {'Nom du commerce':{{shop.name}} }]);
+</script>
 {% endblock %}
