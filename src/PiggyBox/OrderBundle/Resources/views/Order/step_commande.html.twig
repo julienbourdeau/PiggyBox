@@ -120,17 +120,17 @@
 								</td>
 								<td class="col3" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 									<span>
-										{{orderDetail.vars.value.product.price}}
+										{{orderDetail.vars.value.product.price|number_format(2,',',' ')}}
 									</span> €
 								</td>
 								<td class="col4" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 									<span>
-										{{orderDetail.vars.value.product.weightPrice}}
+										{{orderDetail.vars.value.product.weightPrice|number_format(2,',',' ')}}
 									</span> €
 								</td>
 								<td class="col5" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
 									<span>
-										{{orderDetail.vars.value.totalPrice }}
+										{{orderDetail.vars.value.totalPrice|number_format(2,',',' ') }}
 									</span> €
 								</td>
 								<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
