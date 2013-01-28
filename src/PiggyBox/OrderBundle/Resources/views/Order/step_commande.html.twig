@@ -177,7 +177,7 @@
 											</span> €
 										</td>
 										<td class="col6" id="{{loop.index0}}-{{order.vars.value.shop.slug}}">
-											<a onclick="_gaq.push(['_trackEvent', 'Panier', 'Supprimer', {{order.vars.value.shop.slug}}]);" id="remove-order-detail" class="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="{{order.vars.value.shop.slug}}" href="#"><i class="icon-trash"></i>
+											<a  id="remove-order-detail" class="{{loop.index0}}-{{order.vars.value.shop.slug}}" rel="{{order.vars.value.shop.slug}}" href="#"><i class="icon-trash"></i>
 											</a>
 										</td>
 									</tr>
@@ -219,7 +219,7 @@
         <div class="row">
             <div class="toolbar">
                 <div class="span6">
-                    <a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Retour au shop', {{order.vars.value.shop.name}}]);" href="{{ path('user_show_shop', {'shop_slug': order.vars.value.shop.slug }) }}" class="btn btn-small"><i class="icon-arrow-left"></i> Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
+                    <a  href="{{ path('user_show_shop', {'shop_slug': order.vars.value.shop.slug }) }}" class="btn btn-small"><i class="icon-arrow-left"></i> Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
                 </div>
             </div>
         </div>
@@ -231,7 +231,7 @@
         <div class="row">
             <div class="toolbar">
                 <div class="span6">
-                    <a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Trouver dautres commercants', 'link']);" href="{{path('shops')}}" class="btn"><i class="icon-map-marker"></i> Trouver d'autres commerçants</a>
+                    <a  href="{{path('shops')}}" class="btn"><i class="icon-map-marker"></i> Trouver d'autres commerçants</a>
                 </div>
                 <div class="span6 text-right">
                     <button class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
@@ -286,7 +286,7 @@
                 <div class="page-header">
                     <h1>Votre panier <small>Vos commandes en cours</small> </h1>
                 </div>
-				<strong>Votre panier est actuellement vide : </strong><a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Voir commercants de proximite', 'Message de panier vide']);" href="{{path('shops')}}">Voir vos commerçants de proximité</a>
+				<strong>Votre panier est actuellement vide : </strong><a  href="{{path('shops')}}">Voir vos commerçants de proximité</a>
             </div>
         </div>
     </div>
