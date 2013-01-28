@@ -15,7 +15,7 @@
 	{% if product.menuItems|length > 0 and product.discount|length == 0 %}
 		<div class="ribbon ribbon-formule"></div>
 	{% endif %}
-	
+
 	{% if product.discount|length > 0 %}
 		<div class="ribbon ribbon-{{product.discount.discountName}}"></div>
 	{% endif %}

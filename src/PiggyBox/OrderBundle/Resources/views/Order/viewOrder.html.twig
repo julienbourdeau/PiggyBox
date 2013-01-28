@@ -96,7 +96,7 @@ $(document).ready(function() {
 
 		{% if step == 'step_paiement' %}
 			_kmq.push(['record', 'Visited order payment page']);
-			_kmq.push(['set', {'Cart size':'{{piggybox_product_number_in_cart()}}'}]);			
+			_kmq.push(['set', {'Cart size':'{{piggybox_product_number_in_cart()}}'}]);
 		{% endif %}
 
 		{% if step == 'step_confirmation' %}
@@ -105,7 +105,7 @@ $(document).ready(function() {
 			{% for order in orders %}
 				{% set result = result + order.totalPrice %}
 			{% endfor %}
-			_kmq.push(['record', 'Billed', {'Billing amount' => {{result|number_format(2, ',', ' ')}} }]);			
+			_kmq.push(['record', 'Billed', {'Billing amount' => {{result|number_format(2, ',', ' ')}} }]);
 		{% endif %}
 	{% endif %}
 </script>
