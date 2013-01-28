@@ -29,7 +29,7 @@ class MenuController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();		
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $menus = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($user->getOwnShop());
 
