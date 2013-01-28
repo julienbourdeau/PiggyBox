@@ -59,7 +59,7 @@
 						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
 						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
 					{% endif %}
-					<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to Cart', {'Shop Name':{{shop.name}}, 'Product Name': {{product.name}} }]);">Ajouter</button>
+					<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'false' }]);">Ajouter</button>
 					{{ form_widget(form[product.id]._token) }}
 				</form>
 			</div>

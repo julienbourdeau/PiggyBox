@@ -116,6 +116,15 @@
 </script>
 
 <script type="text/javascript">
-	_kmq.push(['record', 'Viewed Commerce Page', {'Nom du commerce':{{shop.name}} }]);
+	{% if app.request.attributes.get('_route') == 'view_product_details' %}
+		_kmq.push(['record', 'Viewed product', {'Shop name':'{{shop.name}}', 'Product name':'{{product.name}}' }]);
+	{% elseif app.request.attributes.get('_route') == 'user_show_menus' %}
+	_kmq.push(['record', 'Viewed menu', {'Shop name':'{{shop.name}}', 'Menu name':'{{menu.title}}' }]);
+	{% elseif category_slug == 'menus' %}
+		_kmq.push(['record', 'Viewed menu line', {'Shop name':'{{shop.name}}' }]);
+	{% else %}
+		_kmq.push(['record', 'Viewed product line', {'Shop name':'{{shop.name}}' }]);
+	{% endif %}
 </script>
+
 {% endblock %}
