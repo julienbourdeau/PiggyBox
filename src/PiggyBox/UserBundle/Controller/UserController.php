@@ -31,7 +31,7 @@ class UserController extends Controller
     public function indexAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         $map = $this->get('ivory_google_map.map');
 
@@ -213,8 +213,8 @@ class UserController extends Controller
     public function shopsAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Rechercher des commerçants");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Rechercher des commerçants");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -395,8 +395,8 @@ class UserController extends Controller
     public function shopsNantesAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Nantes");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Nantes");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -451,8 +451,8 @@ class UserController extends Controller
     public function shopsPoitiersAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Poitiers");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Poitiers");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -500,8 +500,8 @@ class UserController extends Controller
     public function ccmAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Comment ça marche");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Comment ça marche");
+
         return array();
     }
 
@@ -512,8 +512,8 @@ class UserController extends Controller
     public function legalAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Mentions légales");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Mentions légales");
+
         return array();
     }
 
@@ -524,8 +524,8 @@ class UserController extends Controller
     public function aboutAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle("Côtelettes & Tarte aux Fraises - Qui sommes nous");
-		
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Qui sommes nous");
+
         return array();
     }
 
@@ -562,7 +562,7 @@ class UserController extends Controller
         $breadcrumbs->addItem($data['product']->getName(), $this->get("router")->generate('view_product_details', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug, 'product_slug' => $product_slug)));
 
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
+        $seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
         return $data;
     }
@@ -577,7 +577,7 @@ class UserController extends Controller
     public function showShopAction(Request $req, Shop $shop, $category_slug)
     {
         $seoPage = $this->get('sonata.seo.page');
-		
+
         $data = array();
         $data['shop'] = $shop;
         $data['category_slug'] = $category_slug;
@@ -590,13 +590,14 @@ class UserController extends Controller
         if ($category_slug == "default") {
             $data['products'] = $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             $data = $this->createOrderDetailForm($products, $data);
-			$seoPage->setTitle($data['shop']->getName()." sur Côtelettes & Tarte aux Fraises");		
+            $seoPage->setTitle($data['shop']->getName()." sur Côtelettes & Tarte aux Fraises");
 
             return $data;
         }
 
         if ($category_slug == "menus") {
-			$seoPage->setTitle("Formules au commerce ".$data['shop']->getName());					
+            $seoPage->setTitle("Formules au commerce ".$data['shop']->getName());
+
             return $data;
         }
 
@@ -617,7 +618,7 @@ class UserController extends Controller
         }
         $data['products'] = $products;
         $data = $this->createOrderDetailForm($products, $data);
-		$seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
+        $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
         return $data;
     }
@@ -632,8 +633,8 @@ class UserController extends Controller
     public function createMenuDetailAction(Request $req, Menu $menu)
     {
         $seoPage = $this->get('sonata.seo.page');
-		$seoPage->setTitle($menu->getTitle()." au commerce ".$menu->getShop()->getName()." sur Côtelettes & Tarte aux Fraises");
-		
+        $seoPage->setTitle($menu->getTitle()." au commerce ".$menu->getShop()->getName()." sur Côtelettes & Tarte aux Fraises");
+
         $menuDetail = new MenuDetail();
         $menuDetail->setMenu($menu);
         $em = $this->getDoctrine()->getManager();
