@@ -60,6 +60,9 @@ class OrderController extends Controller
      */
     public function viewOrderAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Mon panier - Côtelettes & Tarte aux Fraises");
+
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository('PiggyBoxOrderBundle:Cart')->findBySession($cart->getId());
@@ -79,6 +82,9 @@ class OrderController extends Controller
      */
     public function submitCartAction(Request $req)
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Mes disponibilités - Côtelettes & Tarte aux Fraises");
+
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
 
@@ -143,6 +149,9 @@ class OrderController extends Controller
      */
     public function submitCartForDateTimeAction(Request $req)
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Mes disponibilités - Côtelettes & Tarte aux Fraises");
+
         $cart = $this->get('piggy_box_cart.provider')->getCart();
         $em = $this->getDoctrine()->getManager();
 
@@ -167,6 +176,9 @@ class OrderController extends Controller
      */
     public function validationAction(Request $req)
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Méthodes de paiement - Côtelettes & Tarte aux Fraises");
+
         $cart = $this->get('piggy_box_cart.provider')->getCart();
 
         foreach ($cart->getOrders() as $order) {
@@ -189,6 +201,9 @@ class OrderController extends Controller
      */
     public function confirmationAction(Request $req)
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Récapitulatif de ma commande - Côtelettes & Tarte aux Fraises");
+
         $user = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $data['orders'] = $em->getRepository('PiggyBoxOrderBundle:Order')->getOrdersByUser($user->getId());
