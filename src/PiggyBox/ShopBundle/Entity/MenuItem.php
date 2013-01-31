@@ -61,7 +61,7 @@ class MenuItem
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
-    private $deletedAt;	
+    private $deletedAt;
 
     /**
      * Get id
@@ -209,20 +209,20 @@ class MenuItem
     /**
      * Set deletedAt
      *
-     * @param \DateTime $deletedAt
+     * @param  \DateTime $deletedAt
      * @return MenuItem
      */
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
-    
+
         return $this;
     }
 
     /**
      * Get deletedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
