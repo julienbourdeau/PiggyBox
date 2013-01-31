@@ -191,6 +191,8 @@
             </div>
         </div>
 
+		{{ form_widget(order.note) }}
+
 		<div class="row">
 			<div class="span12">
 				<input name="reload" class="pull-right btn btn-small btn-info" type="submit" value="Mettre à jour mon panier">
@@ -224,6 +226,7 @@
             </div>
         </div>
 
+		{{ form_widget(order.note) }}
     </div>
 	{% endfor %}
 
