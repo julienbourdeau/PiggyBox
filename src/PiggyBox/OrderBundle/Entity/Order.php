@@ -440,20 +440,20 @@ class Order
     /**
      * Set note
      *
-     * @param string $note
+     * @param  string $note
      * @return Order
      */
     public function setNote($note)
     {
         $this->note = $note;
-    
+
         return $this;
     }
 
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
