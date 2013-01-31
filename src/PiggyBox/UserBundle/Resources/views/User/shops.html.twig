@@ -73,7 +73,7 @@
 
                 <h3 class="text-centered"><i class="icon-map-marker"></i> Nantes</h3>
 
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', 'boucherie-zola']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="box bottom-marged">
+                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="box bottom-marged">
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
                                 <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
@@ -93,7 +93,7 @@
                     </div>
                 </a>
 
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOP', 'go-to', 'boucherie-des-gourmets']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
+                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -115,7 +115,7 @@
                 </a>
 
                 <div class="ribbon ribbon-coming-soon"></div>
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}"#} class="box bottom-marged box-muted">
+                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}"#} class="box bottom-marged box-muted">
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
                                 <img src="{{ asset('bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine.jpg')}}" alt="">
@@ -135,7 +135,7 @@
                     </div>
                 </a>
 
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOP', 'go-to', 'boucherie-copernic']);" href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="box bottom-marged">
+                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -155,7 +155,7 @@
                     </div>
                 </a>
 
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', 'le-boulanger-de-zola']);" href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="box bottom-marged">
+                <a  href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="box bottom-marged">
 
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
@@ -248,7 +248,7 @@
                 </a>
 
                 <div class="ribbon ribbon-coming-soon"></div>
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-garenne'}) }}"#} class="box bottom-marged box-muted">
+                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-garenne'}) }}"#} class="box bottom-marged box-muted">
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
                                 <img src="{{ asset('bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne.jpg')}}" alt="">
@@ -269,7 +269,7 @@
                 </a>
 
                 <div class="ribbon ribbon-coming-soon"></div>
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-grand-large'}) }}"#} class="box bottom-marged box-muted">
+                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-grand-large'}) }}"#} class="box bottom-marged box-muted">
                     <div class="row-fluid">
                         <div class="shop-thumbnail span4">
                                 <img src="{{ asset('bundles/piggyboxuser/img/banette-temp.jpg')}}" alt="">
@@ -308,9 +308,7 @@
 
 {{parent()}}
 
-
 {{ google_map_js(map) }}
-
 
 <script type="text/javascript">
 
@@ -338,6 +336,8 @@
             {{map.javascriptVariable}}.setZoom(11);
         }
     );
+
+	_kmq.push(['record', 'Viewed Rechercher des commerçants Page']);
 
 </script>
 

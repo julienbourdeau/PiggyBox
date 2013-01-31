@@ -66,6 +66,12 @@
 						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
                     </div>
                 </div>
+                <div class="control-group">
+                    <label class="control-label" for="">Un super commentaire méga moche</label>
+                    <div class="controls">
+						{{ form_widget(order.note, { 'attr': {'class': 'inline-quantity'} }) }}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -76,7 +82,7 @@
         <div class="row">
             <div class="toolbar">
                 <div class="span6">
-                    <a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Retour a letape precedente', 'etape: date-heure']);" href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
+                    <a  href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
                     <button href="#" class="btn btn-large btn-primary">
