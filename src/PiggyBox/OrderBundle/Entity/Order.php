@@ -23,9 +23,9 @@ class Order
     private $id;
 
     /**
-     * @var string $note
+     * @var text $note
      *
-     * @ORM\Column(name="note", type="string", nullable=true)
+     * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
 
@@ -121,29 +121,6 @@ class Order
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set note
-     *
-     * @param  string $note
-     * @return Order
-     */
-    public function setNote($note)
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
-    /**
-     * Get note
-     *
-     * @return string
-     */
-    public function getNote()
-    {
-        return $this->note;
     }
 
     /**
@@ -458,5 +435,28 @@ class Order
     public function getOrderNumber()
     {
         return $this->order_number;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Order
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }
