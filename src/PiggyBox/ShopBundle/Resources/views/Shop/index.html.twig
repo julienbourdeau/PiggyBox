@@ -102,7 +102,7 @@
 					{% if order.note is not null %}
 						<div class="alert alert-info">
 							<div class="label label-info">Note du client</div>
-							<p>Merci de mettre toute ma commande sous vide</p>
+							<p>{{ order.note }}</p>
 						</div>
 					{% endif %}
                 </div>
@@ -211,7 +211,7 @@
 					{% if order.note is not null %}
 						<div class="alert alert-info">
 							<div class="label label-info">Note du client</div>
-							<p>Merci de mettre toute ma commande sous vide</p>
+							<p>{{ order.note}}</p>
 						</div>
 					{% endif %}
                 </div>

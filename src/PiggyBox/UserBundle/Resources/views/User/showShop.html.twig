@@ -29,16 +29,16 @@
                         <div id="entry-nav">
                             <ul class="nav nav-tabs">
                                 <li class="active">
-								<a onclick="_gaq.push(['_trackEvent', 'SHOP', 'produits-a-commander', {{shop.slug}}]);" href="#shop" data-toggle="tab">Produits à commander</a>
+								<a  href="#shop" data-toggle="tab">Produits à commander</a>
                                 </li>
                                 <li class="">
-								<a onclick="_gaq.push(['_trackEvent', 'SHOP', 'fiche-pratique', {{shop.slug}}]);" href="#fiche" data-toggle="tab">Fiche Pratique</a>
+								<a  href="#fiche" data-toggle="tab">Fiche Pratique</a>
                                 </li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
                                     <a data-toggle="">Avis</a>
                                 </li>
-								<li><a onclick="_gaq.push(['_trackEvent', 'SHOP', 'photos', {{shop.slug}}]);" href="#photos" data-toggle="tab">Photos</a></li>
+								<li><a  href="#photos" data-toggle="tab">Photos</a></li>
                             </ul>
                         </div>
 
@@ -113,6 +113,18 @@
 			alert("cool");
 		});
 	}
+</script>
+
+<script type="text/javascript">
+	{% if app.request.attributes.get('_route') == 'view_product_details' %}
+		_kmq.push(['record', 'Viewed product', {'Shop name':'{{shop.name}}', 'Product name':'{{product.name}}' }]);
+	{% elseif app.request.attributes.get('_route') == 'user_show_menus' %}
+	_kmq.push(['record', 'Viewed menu', {'Shop name':'{{shop.name}}', 'Menu name':'{{menu.title}}' }]);
+	{% elseif category_slug == 'menus' %}
+		_kmq.push(['record', 'Viewed menu line', {'Shop name':'{{shop.name}}' }]);
+	{% else %}
+		_kmq.push(['record', 'Viewed product line', {'Shop name':'{{shop.name}}' }]);
+	{% endif %}
 </script>
 
 {% endblock %}

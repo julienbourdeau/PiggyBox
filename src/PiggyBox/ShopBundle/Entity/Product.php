@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="piggybox_product")
  * @ORM\HasLifecycleCallbacks
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\ProductRepository")
  */
 class Product
@@ -189,6 +190,11 @@ class Product
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
      **/
     private $menuItems;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     public function getAbsolutePath()
     {
@@ -825,5 +831,28 @@ class Product
     public function getMenuItems()
     {
         return $this->menuItems;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param  \DateTime $deletedAt
+     * @return Product
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
