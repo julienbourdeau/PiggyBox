@@ -620,6 +620,17 @@ class UserController extends Controller
         $data = $this->createOrderDetailForm($products, $data);
         $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
+          ////////////////////////////////////////////////////////
+         ///////// HERE TEMP DATA POOP //////////////////////////
+        ////////////////////////////////////////////////////////
+           // TODO: 
+          //      1. Selectionner 3 produits au hasard avec des promo
+         //       2. Les foutre dans la variable nommé promos
+        //        3. Dire que c'est super
+
+        $data['promos'] = $products;
+
+
         return $data;
     }
 
