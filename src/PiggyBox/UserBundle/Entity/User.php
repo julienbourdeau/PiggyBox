@@ -3,12 +3,14 @@
 namespace PiggyBox\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * PiggyBox\UserBundle\Entity\User
  *
  * @ORM\Table(name="piggybox_user")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="PiggyBox\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser
@@ -57,6 +59,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="user")
      **/
     private $orders;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -201,5 +208,28 @@ class User extends BaseUser
     public function getPhoneNumber()
     {
         return $this->phone_number;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param  \DateTime $deletedAt
+     * @return User
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

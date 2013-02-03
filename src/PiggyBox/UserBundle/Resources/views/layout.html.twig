@@ -4,25 +4,25 @@
 <!--[if IE 8]>         <html {{ sonata_seo_html_attributes() }} class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html {{ sonata_seo_html_attributes() }} class="no-js"> <!--<![endif]-->
     <head>
-		<script type="text/javascript">
-		  var _kmq = _kmq || [];
-		  var _kmk = _kmk || 'f4d5ae9ff76793e60ae18b41930f8212c5407238';
-		  function _kms(u){
-			setTimeout(function(){
-			  var d = document, f = d.getElementsByTagName('script')[0],
-			  s = d.createElement('script');
-			  s.type = 'text/javascript'; s.async = true; s.src = u;
-			  f.parentNode.insertBefore(s, f);
-			}, 1);
-		  }
-		  _kms('//i.kissmetrics.com/i.js');
-		  _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-		</script>
 
-		{% if app.user %}
-		<script type="text/javascript">
-			_kmq.push(['identify', {{app.user.email}}]);  // Replace "id-placeholder" with code that gets the user's ID, username, or email address.
-		</script>
+		{% set ipAddress = ['82.231.144.171', '82.226.50.177', '81.80.82.30'] %}
+		{% if not app.debug %}
+			{% if app.request.server.get('REMOTE_ADDR') not in ipAddress %}
+				<script type="text/javascript">
+				  var _kmq = _kmq || [];
+				  var _kmk = _kmk || '4a321920f92588b834662ec35269bb4e59c7e108';
+				  function _kms(u){
+					setTimeout(function(){
+					  var d = document, f = d.getElementsByTagName('script')[0],
+					  s = d.createElement('script');
+					  s.type = 'text/javascript'; s.async = true; s.src = u;
+					  f.parentNode.insertBefore(s, f);
+					}, 1);
+				  }
+				  _kms('//i.kissmetrics.com/i.js');
+				  _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+				</script>
+			{% endif %}
 		{% endif %}
 
         <meta charset="utf-8">
@@ -162,7 +162,7 @@
 
                     <div class="span4">
                         <h3 class="no-margin">Lancement <sup class="label label-important">Beta</sup> </h3>
-                        <p><em>Cotelettes & tarte aux fraises</em> vient d'être lancé sur Nantes, bientot d'autres commerces seront disponibles: </p>
+                        <p><em>Cotelettes & tarte aux fraises</em> vient d'être lancé sur Nantes et Poitiers, bientot d'autres commerces seront disponibles: </p>
                             <ul class="list">
                                 <li>Boulangeries</li>
                                 <li>Primeurs</li>
@@ -222,12 +222,10 @@
 
         <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery-1.8.1.min.js')}}"></script>
         <script src="{{ asset('bundles/piggyboxuser/js/vendor/bootstrap.min.js')}}"></script>
-
 		<script src="{{ asset('bundles/piggyboxuser/js/main.js')}}"></script>
 
 		{% if not app.debug %}
         <script type="text/javascript">
-
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-35281175-1']);
           _gaq.push(['_setDomainName', 'cotelettes-tarteauxfraises.com']);
@@ -238,10 +236,13 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
           })();
-
         </script>
+		{% endif %}
 
-
+		{% if app.user %}
+		<script type="text/javascript">
+			_kmq.push(['identify', '{{app.user.email}}']);
+		</script>
 		{% endif %}
 
 		{% endblock %}

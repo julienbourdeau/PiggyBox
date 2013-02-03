@@ -36,16 +36,16 @@
         <div class="row">
             <div class="span12">
                 <div class="page-header">
-                    <h1>Merci <small>Confirmation et marche à suivre</small></h1>
+                    <h1>Votre commande a été envoyé à votre commerçant <small>Confirmation et marches à suivre</small></h1>
                 </div>
 
-                <p>Merci d'avoir commandé sur <em>"<a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Commande validee', 'Veuillez trouver ci-dessous les details de vos commandes']);" href="http://cotelettes-tarteauxfraises.com">Côtelettes & Tarte aux fraises</a>"</em>. Veuillez trouver ci-dessous les détails de vos commandes et la marche a suivre pour les récuperer.</p>
+                <p>Merci d'avoir commandé sur <em>"<a  href="http://cotelettes-tarteauxfraises.com">Côtelettes & Tarte aux fraises</a>"</em>. Veuillez trouver ci-dessous les détails de vos commandes et la marche a suivre pour les récuperer.</p>
             </div>
         </div>
 
         <div class="row">
             <div class="span12">
-                <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
+                <a  href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
                 </div>
                 <div> à partir de </div>
                 <div class="bottom-marged">
-                    <strong><i class="icon-time"></i> {{ order.pickupatDate.date|date("l d F") }} {{ order.pickupatTime.date|date("G:i") }}</strong>.
+                    <strong><i class="icon-time"></i> {{ order.pickupatDate.date|localizeddate('full','none') }} {{ order.pickupatTime.date|date("G:i") }}</strong>.
                 </div>
                 <div class="">
                     Votre commande est <strong>à payer en magasin</strong>.
@@ -165,7 +165,7 @@
 
         <div class="row">
             <div class="span12">
-                <a onclick="_gaq.push(['_trackEvent', 'PANIER', 'Imprimer le recapitulatif', 'Impresssion']);" href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
+                <a  href="javascript:window.print()" class="btn pull-right"><i class="icon-print"></i> Imprimer le récapitulatif</a>
             </div>
         </div>
 

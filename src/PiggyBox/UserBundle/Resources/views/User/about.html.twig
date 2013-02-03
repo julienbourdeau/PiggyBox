@@ -33,7 +33,7 @@
 	        			<img src="http://placehold.it/335x335" class="img-polaroid" alt="">
 	        		</div>
 
-	        		<p><a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="mailto:baptiste@cotelettes-tarteauxfraises.com"><i class="icon-envelope"></i> baptiste@cotelettes-tarteauxfraises.com</a></p>
+	        		<p><a  href="mailto:baptiste@cotelettes-tarteauxfraises.com"><i class="icon-envelope"></i> baptiste@cotelettes-tarteauxfraises.com</a></p>
 
 	        		<ul class="unstyled bottom-marged">
 	        			<li><i class="icon-tags"></i> Audencia <small>Grande Ecole de Management</small></li>
@@ -41,19 +41,19 @@
 	        		</ul>
 
 	        		<div class="text-centered">
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'mail-to', 'baptiste']);" href="https://twitter.com/BaptisteDupuch">
+	        			<a  href="https://twitter.com/BaptisteDupuch">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/twitter.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'profile viadeo', 'profile viadeo']);" href="http://fr.viadeo.com/fr/profile/baptiste.dupuch">
+	        			<a  href="http://fr.viadeo.com/fr/profile/baptiste.dupuch">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/viadeo.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'linkedin', 'baptise']);" href="http://www.linkedin.com/pub/baptiste-dupuch/44/686/b97">
+	        			<a  href="http://www.linkedin.com/pub/baptiste-dupuch/44/686/b97">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/linkedin.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'github', 'baptiste']);" href="https://github.com/dupuchba">
+	        			<a  href="https://github.com/dupuchba">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/github.png')}}" alt="">
 	        			</a>
 	        		</div>
@@ -70,7 +70,7 @@
 	        			<img src="http://placehold.it/335x335" class="img-polaroid" alt="">
 	        		</div>
 
-	        		<p><a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'mail-to', 'julien']);" href="mailto:julien@cotelettes-tarteauxfraises.com"><i class="icon-envelope"></i> julien@cotelettes-tarteauxfraises.com</a></p>
+	        		<p><a  href="mailto:julien@cotelettes-tarteauxfraises.com"><i class="icon-envelope"></i> julien@cotelettes-tarteauxfraises.com</a></p>
 
 	        		<ul class="unstyled bottom-marged">
 	        			<li><i class="icon-tags"></i> City University of Hong Kong</li>
@@ -78,19 +78,19 @@
 	        		</ul>
 
 	        		<div class="text-centered">
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'twitter', 'julien']);" href="https://twitter.com/julienbourdeau">
+	        			<a  href="https://twitter.com/julienbourdeau">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/twitter.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'viadeo', 'julien']);" href="http://fr.viadeo.com/fr/profile/jbourdeau">
+	        			<a  href="http://fr.viadeo.com/fr/profile/jbourdeau">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/viadeo.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'linkedin', 'julien']);" href="http://www.linkedin.com/in/julienbourdeau">
+	        			<a  href="http://www.linkedin.com/in/julienbourdeau">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/linkedin.png')}}" alt="">
 	        			</a>
 	        			&nbsp;
-	        			<a onclick="_gaq.push(['_trackEvent', 'ABOUT', 'github', 'julien']);" href="https://github.com/julienbourdeau/">
+	        			<a  href="https://github.com/julienbourdeau/">
 	        				<img src="{{ asset('bundles/piggyboxuser/img/icons/github.png')}}" alt="">
 	        			</a>
 	        		</div>
@@ -110,4 +110,11 @@
 
 	    </div>
 
+ {% endblock %}
+
+ {% block javascript%}
+ {{ parent() }}
+ <script type="text/javascript">
+	   _kmq.push(['record', 'Viewed Qui sommes Nous Page']);
+</script>
  {% endblock %}

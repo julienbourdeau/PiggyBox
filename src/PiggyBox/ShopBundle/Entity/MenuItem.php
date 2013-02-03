@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * MenuItem
  *
  * @ORM\Table(name="piggybox_menuitem")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity()
  */
 class MenuItem
@@ -56,6 +57,11 @@ class MenuItem
      * @ORM\Column(name="updatedAt", type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -198,5 +204,28 @@ class MenuItem
     public function getMenu()
     {
         return $this->menu;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param  \DateTime $deletedAt
+     * @return MenuItem
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
