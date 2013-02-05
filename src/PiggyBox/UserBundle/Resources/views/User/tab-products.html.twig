@@ -1,10 +1,11 @@
-
-<h2 class="text-centered">Offres spéciales</h2>
-
-<div class="clearfix">
-
-{% for product in promos %}
-
+{% set discountDisplayed = false %}
+{% for product in products %}
+	{% if product.discount is not null %}
+		{% if discountDisplayed == false %}
+			<h2 class="text-centered">Promotions</h2>
+			<div class="clearfix">
+			{% set discountDisplayed = true %}
+		{% endif %}
 	<div class="product-item
 				box
 				box-light
@@ -68,17 +69,18 @@
 		</div>
 
 	</div>
-
-
+	{% endif %}
 {% endfor %}
 
+{% if discountDisplayed == true %}
 </div>
 
 <hr style="background: #222222; height: 4px; margin-bottom: 52px;">
-
 <div class="clearfix">
+{% endif %}
 
 {% for product in products %}
+{% if product.discount is null %}
 
 	<div class="product-item
 				box
@@ -148,6 +150,7 @@
 	</div><div class="clearfix">
 {% endif %}
 
+{% endif %}
 {% endfor %}
 
 </div>
