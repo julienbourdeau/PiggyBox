@@ -191,7 +191,12 @@
             </div>
         </div>
 
-		{{ form_widget(order.note) }}
+		<div class="row">
+            <div class="span10 offset1">
+                <span class="label label-warning" style="padding: 3px 4px 1px;">Note</span> Si besoin, vous pouvez faire une remarque à votre commerçant!<br>
+                {{ form_widget(order.note, { 'attr': {'class': 'span10', 'style': 'border: 1px solid #999;', 'placeholder': 'Exemple: Merci de mettre la sauce séparement'} }) }}
+            </div>
+        </div>
 
 		<div class="row">
 			<div class="span12">
@@ -225,8 +230,6 @@
                 </div>
             </div>
         </div>
-
-		{{ form_widget(order.note) }}
     </div>
 	{% endfor %}
 

@@ -66,16 +66,19 @@
 						{{ form_widget(order.pickupatTime, { 'attr': {'class': 'inline-quantity'} }) }}
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="">Un super commentaire méga moche</label>
-                    <div class="controls">
-						{{ form_widget(order.note, { 'attr': {'class': 'inline-quantity'} }) }}
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
+
+	<div class="container">
+		<div class="row">
+			<div class="span8 offset3">
+				<span class="label label-warning" style="padding: 3px 4px 1px;">Note</span> Donnez quelques détails à votre commerçant <br>
+				{{ form_widget(order.note, { 'attr': {'class': 'span8', 'style': 'border: 1px solid #999;', 'placeholder': 'Exemple: Merci de mettre la sauce séparement'} }) }}
+			</div>
+		</div>
+	</div>
 	{% endfor %}
 
     <div class="container">
