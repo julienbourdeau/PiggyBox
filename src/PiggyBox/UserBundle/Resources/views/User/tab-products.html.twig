@@ -79,14 +79,16 @@
 <div class="clearfix">
 {% endif %}
 
+{% set i = 0 %}
 {% for product in products %}
 {% if product.discount is null %}
+{% set i = i + 1 %}
 
 	<div class="product-item
 				box
 				box-light
 				text-centered
-				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+				{% if i is divisibleby(3) %}product-item-last{% endif %}
 				tous
 				{{product.category.slug}}
 				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
@@ -146,7 +148,7 @@
 
 	</div>
 
-{% if loop.index is divisibleby(3) %}
+{% if i is divisibleby(3) %}
 	</div><div class="clearfix">
 {% endif %}
 
