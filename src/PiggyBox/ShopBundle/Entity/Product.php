@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="piggybox_product")
  * @ORM\HasLifecycleCallbacks
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\ProductRepository")
  */
 class Product
@@ -180,16 +181,20 @@ class Product
     private $category;
 
     /**
+     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Discount")
+     * @ORM\JoinColumn(name="discount_id", referencedColumnName="id")
+     **/
+    private $discount;
+
+    /**
      * @ORM\ManyToMany(targetEntity="PiggyBox\ShopBundle\Entity\MenuItem", mappedBy="products")
      **/
     private $menuItems;
 
     /**
-     * @var boolean $promotion
-     *
-     * @ORM\Column(name="promotion", type="boolean",nullable=true)
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
-    private $promotion = false;
+    private $deletedAt;
 
     public function getAbsolutePath()
     {
@@ -773,6 +778,29 @@ class Product
     }
 
     /**
+     * Set discount
+     *
+     * @param  \PiggyBox\ShopBundle\Entity\Discount $discount
+     * @return Product
+     */
+    public function setDiscount(\PiggyBox\ShopBundle\Entity\Discount $discount = null)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * Get discount
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Discount
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
      * Add menuItems
      *
      * @param  \PiggyBox\ShopBundle\Entity\MenuItem $menuItems
@@ -806,25 +834,25 @@ class Product
     }
 
     /**
-     * Set promotion
+     * Set deletedAt
      *
-     * @param  boolean $promotion
+     * @param  \DateTime $deletedAt
      * @return Product
      */
-    public function setPromotion($promotion)
+    public function setDeletedAt($deletedAt)
     {
-        $this->promotion = $promotion;
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
 
     /**
-     * Get promotion
+     * Get deletedAt
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getPromotion()
+    public function getDeletedAt()
     {
-        return $this->promotion;
+        return $this->deletedAt;
     }
 }

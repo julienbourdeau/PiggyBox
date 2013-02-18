@@ -74,7 +74,7 @@
                         Et d'autres à venir...
                     </div>
                 </div>
-                
+
                 <div id="map-container" class="clearfix">
                     <div id="map-container-left" class="pull-left">
                         {{ google_map_container(map) }}
@@ -92,7 +92,7 @@
         <div class="row bottom-marged">
             <div class="span12 text-centered">
                 <div id="newsletter-container">
-                    
+
                     <!-- Begin MailChimp Signup Form -->
                     <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
                         <label for="mce-EMAIL">Restez informé des nouveautés </label>
@@ -122,13 +122,13 @@
                         </li>
                         <li class="testimonial-item">
                             <div class="quote">&laquo; J'adore mes commerces de proximité mais avec un enfant ce n'était pas toujours simple, maintenant je peux y aller plus souvent! &raquo;</div>
-                            <div class="quote-source">&#9998; Claire, Nantes</div> 
+                            <div class="quote-source">&#9998; Claire, Nantes</div>
                         </li>
                         <li class="testimonial-item last-item">
                             <div class="quote">&laquo; En 2013, j'ai décidé de favoriser la qualité, avec Côtelettes & Tarte aux fraises je trouve ce dont j'ai besoin en quelques clics. &raquo;</div>
-                            <div class="quote-source">&#9998; Pierre, Orvault</div> 
+                            <div class="quote-source">&#9998; Pierre, Orvault</div>
                         </li>
-                    </ul>                    
+                    </ul>
                 </div>
             </div>
             <div class="span4">
@@ -146,13 +146,13 @@
         </div>
         <div class="row bottom-marged">
             <div class="span12 presse-links">
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'startupfactory']);" id="startupfactory" href="http://www.startup-factory.fr/"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'unefilleanantes']);" id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'sunradio']);" id="sunradio" href="http://kwalitylife.com/le-petit-club-03-novembre-sun-radio/"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'atlanpole']);" id="atlanpole" class="last" href="http://www.atlanpole.fr/Atlanpole-Digital-Innovation/liste-des-news/Startup-Factory-by-Atlanpole-Atlantic-2.0-les-8-laureats-de-la-premiere-saison"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'frenchweb']);" id="frenchweb" href="http://frenchweb.fr/startup-factory-les-8-jeunes-pousses-selectionnees-pour-la-1ere-saison-sont/78901"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'journaldesentreprises']);" id="journalentreprise" href="http://www.lejournaldesentreprises.com/national/filinfo/nantes-huit-projets-retenus-par-startup-factory-02-10-2012-161205.php"></a>
-                <a onclick="_gaq.push(['_trackEvent', 'INDEX', 'recommend', 'ouestfrance']);" id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
+                <a  id="startupfactory" href="http://www.startup-factory.fr/"></a>
+                <a  id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
+                <a  id="sunradio" href="http://kwalitylife.com/le-petit-club-03-novembre-sun-radio/"></a>
+                <a  id="atlanpole" class="last" href="http://www.atlanpole.fr/Atlanpole-Digital-Innovation/liste-des-news/Startup-Factory-by-Atlanpole-Atlantic-2.0-les-8-laureats-de-la-premiere-saison"></a>
+                <a  id="frenchweb" href="http://frenchweb.fr/startup-factory-les-8-jeunes-pousses-selectionnees-pour-la-1ere-saison-sont/78901"></a>
+                <a  id="journalentreprise" href="http://www.lejournaldesentreprises.com/national/filinfo/nantes-huit-projets-retenus-par-startup-factory-02-10-2012-161205.php"></a>
+                <a  id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
             </div>
         </div>
     </div>
@@ -187,43 +187,43 @@ $(document).ready(
         var theWidth = 695;
         var theHeight = 266;
         //wrap into mother div
-        $('ul.testimonials').wrap('<div id="mother" />');                    
+        $('ul.testimonials').wrap('<div id="mother" />');
         //assign height width and overflow hidden to mother
         $('#mother').css({
             width: function() {
             return theWidth;
-          }, 
+          },
             height: function() {
             return theHeight;
-          }, 
+          },
             position: 'relative',
-            overflow: 'hidden'      
+            overflow: 'hidden'
         });
-            //get total of image sizes and set as width for ul 
+            //get total of image sizes and set as width for ul
         var totalWidth = theContent.length * theWidth;
         $('ul.testimonials').css({
             width: function(){
-            return totalWidth;  
-        }               
-        });     
-     
+            return totalWidth;
+        }
+        });
+
     }
 );
 
 window.setInterval(function(){
     //console.log("cool");
     var theContent = $('ul.testimonials li');
-    $(theContent).each(     
+    $(theContent).each(
         function(intIndex){
             //console.log(intIndex);
             if ($(this).hasClass('current')) {
                 $(this).parent('ul').animate({
-                    "margin-left": (-(intIndex) * 695)             
+                    "margin-left": (-(intIndex) * 695)
                 }, 1000)
                 $(this).removeClass('current');
                 if ($(this).hasClass('last-item')) {
                     $(this).parent('ul').children().addClass('current');
-                } else {                        
+                } else {
                     $(this).next().addClass('current');
                 }
                 return false;
@@ -231,7 +231,7 @@ window.setInterval(function(){
         }
     );
 }, 5000);
- 
+
 </script>
 
 
@@ -260,7 +260,7 @@ window.setInterval(function(){
         function(){
             $('.nav-tabs-for-map li').removeClass("active");
             $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574)); 
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
             {{map.javascriptVariable}}.setZoom(11);
         }
     );
@@ -268,13 +268,12 @@ window.setInterval(function(){
         function(){
             $('.nav-tabs-for-map li').removeClass("active");
             $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195)); 
-            {{map.javascriptVariable}}.setZoom(12);
+            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
+            {{map.javascriptVariable}}.setZoom(11);
         }
     );
-    
+
+	_kmq.push(['record', 'Viewed home page']);
+
 </script>
-
-
-
 {% endblock %}

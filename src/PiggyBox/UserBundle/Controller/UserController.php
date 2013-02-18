@@ -17,7 +17,6 @@ use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMapBundle\Model\MapTypeId;
-use Ivory\GoogleMapBundle\Model\Events\MouseEvent;
 /**
  * User controller.
  *
@@ -32,9 +31,8 @@ class UserController extends Controller
     public function indexAction()
     {
         $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
-
-        
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -156,6 +154,19 @@ class UserController extends Controller
         $event8->setEventName('click');
         $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
 
+        # Futuroscope
+        $marker9 = $this->get('ivory_google_map.marker');
+        $marker9->setPrefixJavascriptVariable('marker_');
+        $marker9->setPosition(46.660674,0.363318, true);
+        $markerImage9 = $this->get('ivory_google_map.marker_image');
+        $markerImage9->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker9->setIcon($markerImage8);
+
+        $event9 = $this->get('ivory_google_map.event');
+        $event9->setInstance($marker9->getJavascriptVariable());
+        $event9->setEventName('click');
+        $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -165,8 +176,7 @@ class UserController extends Controller
         $map->addMarker($marker6);
         $map->addMarker($marker7);
         $map->addMarker($marker8);
-
-
+        $map->addMarker($marker9);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -179,7 +189,7 @@ class UserController extends Controller
         $event6->setCapture(true);
         $event7->setCapture(true);
         $event8->setCapture(true);
-
+        $event9->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -191,7 +201,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event6);
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
-
+        $map->getEventManager()->addDomEvent($event9);
 
         return array('map' => $map);
     }
@@ -202,6 +212,9 @@ class UserController extends Controller
      */
     public function shopsAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Rechercher des commerçants");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -323,6 +336,19 @@ class UserController extends Controller
         $event8->setEventName('click');
         $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
 
+        # Futuroscope
+        $marker9 = $this->get('ivory_google_map.marker');
+        $marker9->setPrefixJavascriptVariable('marker_');
+        $marker9->setPosition(46.660674,0.363318, true);
+        $markerImage9 = $this->get('ivory_google_map.marker_image');
+        $markerImage9->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
+        $marker9->setIcon($markerImage8);
+
+        $event9 = $this->get('ivory_google_map.event');
+        $event9->setInstance($marker9->getJavascriptVariable());
+        $event9->setEventName('click');
+        $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -332,8 +358,7 @@ class UserController extends Controller
         $map->addMarker($marker6);
         $map->addMarker($marker7);
         $map->addMarker($marker8);
-
-
+        $map->addMarker($marker9);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -346,7 +371,7 @@ class UserController extends Controller
         $event6->setCapture(true);
         $event7->setCapture(true);
         $event8->setCapture(true);
-
+        $event9->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -358,7 +383,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event6);
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
-
+        $map->getEventManager()->addDomEvent($event9);
 
         return array('map' => $map);
     }
@@ -369,6 +394,9 @@ class UserController extends Controller
      */
     public function shopsNantesAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Nantes");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -412,7 +440,7 @@ class UserController extends Controller
         $map->addMarker($marker3);
         $map->addMarker($marker4);
         $map->addMarker($marker8);
-        
+
         return array('map' => $map);
     }
 
@@ -422,6 +450,9 @@ class UserController extends Controller
      */
     public function shopsPoitiersAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Poitiers");
+
         $map = $this->get('ivory_google_map.map');
 
         $map->setPrefixJavascriptVariable('map_');
@@ -468,6 +499,9 @@ class UserController extends Controller
      */
     public function ccmAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Comment ça marche");
+
         return array();
     }
 
@@ -477,6 +511,9 @@ class UserController extends Controller
      */
     public function legalAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Mentions légales");
+
         return array();
     }
 
@@ -486,6 +523,9 @@ class UserController extends Controller
      */
     public function aboutAction()
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Qui sommes nous");
+
         return array();
     }
 
@@ -521,6 +561,9 @@ class UserController extends Controller
         $breadcrumbs->addItem($data['product']->getCategory()->getTitle() , $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug(), 'category_title' => $category_slug)));
         $breadcrumbs->addItem($data['product']->getName(), $this->get("router")->generate('view_product_details', array('shop_slug' => $shop->getSlug(), 'category_slug' => $category_slug, 'product_slug' => $product_slug)));
 
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
+
         return $data;
     }
 
@@ -533,6 +576,8 @@ class UserController extends Controller
      */
     public function showShopAction(Request $req, Shop $shop, $category_slug)
     {
+        $seoPage = $this->get('sonata.seo.page');
+
         $data = array();
         $data['shop'] = $shop;
         $data['category_slug'] = $category_slug;
@@ -545,11 +590,14 @@ class UserController extends Controller
         if ($category_slug == "default") {
             $data['products'] = $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             $data = $this->createOrderDetailForm($products, $data);
+            $seoPage->setTitle($data['shop']->getName()." sur Côtelettes & Tarte aux Fraises");
 
             return $data;
         }
 
         if ($category_slug == "menus") {
+            $seoPage->setTitle("Formules au commerce ".$data['shop']->getName());
+
             return $data;
         }
 
@@ -570,6 +618,7 @@ class UserController extends Controller
         }
         $data['products'] = $products;
         $data = $this->createOrderDetailForm($products, $data);
+        $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
         return $data;
     }
@@ -583,6 +632,9 @@ class UserController extends Controller
      */
     public function createMenuDetailAction(Request $req, Menu $menu)
     {
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle($menu->getTitle()." au commerce ".$menu->getShop()->getName()." sur Côtelettes & Tarte aux Fraises");
+
         $menuDetail = new MenuDetail();
         $menuDetail->setMenu($menu);
         $em = $this->getDoctrine()->getManager();

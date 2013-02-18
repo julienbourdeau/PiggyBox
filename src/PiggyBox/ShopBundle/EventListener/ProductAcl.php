@@ -28,19 +28,20 @@ class ProductAcl
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        $aclProvider = $this->container->get('security.acl.provider');
-        $user = $this->container->get('security.context')->getToken()->getUser();
 
         if ($entity instanceof Product) {
             // Add operator rights to target so it can manage the comments on his person
-                $securityIdentity = UserSecurityIdentity::fromAccount($user);
-                $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-                try {
-                    $acl = $aclProvider->createAcl($objectIdentity);
-                } catch (AclAlreadyExistsException $e) {
-                    $acl = $aclProvider->findAcl($objectIdentity);
-                }
-                $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+    	    $aclProvider = $this->container->get('security.acl.provider');
+	        $user = $this->container->get('security.context')->getToken()->getUser();	
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+			$objectIdentity = ObjectIdentity::fromDomainObject($entity);
+		
+			try {
+				$acl = $aclProvider->createAcl($objectIdentity);
+			} catch (AclAlreadyExistsException $e) {
+				$acl = $aclProvider->findAcl($objectIdentity);
+			}
+			$acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
 
             $aclProvider->updateAcl($acl);
         }

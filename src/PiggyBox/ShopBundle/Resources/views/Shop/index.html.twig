@@ -57,7 +57,7 @@
 												{{orderDetail.product.name}}
 											</strong>
 										</td>
-										<td class="col2">{{orderDetail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
+										<td class="col2">{{orderDetail.quantity}} {% if orderDetail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
 										<td class="col3">{{(orderDetail.totalPrice)|number_format(2, ',', ' ')}} €</td>
 									</tr>
 								{% endif %}
@@ -97,14 +97,15 @@
 
                 </div>
 
-				{% if order.note is not null %}
                 <div class="span4">
-                    <div class="alert alert-info">
-                        <div class="label label-info">Note du client</div>
-                        <p>Merci de mettre toute ma commande sous vide</p>
-                    </div>
+					<h3 clss="no-margin text-centered">No {{order.ordernumber}}</h3>
+					{% if order.note is not null %}
+						<div class="alert alert-info">
+							<div class="label label-info">Note du client</div>
+							<p>{{ order.note }}</p>
+						</div>
+					{% endif %}
                 </div>
-				{% endif %}
 
             </div>
 
@@ -165,7 +166,7 @@
 												{{orderDetail.product.name}}
 											</strong>
 										</td>
-										<td class="col2">{{orderDetail.quantity}} {% if order_detail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
+										<td class="col2">{{orderDetail.quantity}} {% if orderDetail.product.priceType == 'chunk_price' %}pers.{% endif %}</td>
 										<td class="col3">{{(orderDetail.totalPrice)|number_format(2, ',', ' ')}} €</td>
 									</tr>
 								{% endif %}
@@ -204,14 +205,16 @@
                     </table>
 
                 </div>
-				{% if order.note is not null %}
                 <div class="span4">
-                    <div class="alert alert-info">
-                        <div class="label label-info">Note du client</div>
-                        <p>Merci de mettre toute ma commande sous vide</p>
-                    </div>
+
+					<h3 clss="no-margin text-centered">No {{order.ordernumber}}</h3>
+					{% if order.note is not null %}
+						<div class="alert alert-info">
+							<div class="label label-info">Note du client</div>
+							<p>{{ order.note}}</p>
+						</div>
+					{% endif %}
                 </div>
-				{% endif %}
 
             </div>
 

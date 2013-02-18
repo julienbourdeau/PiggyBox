@@ -3818,6 +3818,36 @@ h4 [class^="icon-"] {
 .ribbon-promotion {
   background: url('../img/promotion.png');
 }
+.ribbon-3pour2 {
+  background: url('../img/ribbons/3pour2.png');
+}
+.ribbon-3pour250 {
+  background: url('../img/ribbons/3pour250.png');
+}
+.ribbon-5pour2 {
+  background: url('../img/ribbons/5pour2.png');
+}
+.ribbon-5pour3 {
+  background: url('../img/ribbons/5pour3.png');
+}
+.ribbon-5pour4 {
+  background: url('../img/ribbons/5pour4.png');
+}
+.ribbon-10pour2 {
+  background: url('../img/ribbons/10pour2.png');
+}
+.ribbon-offre-exclusive-vert {
+  background: url('../img/ribbons/offre_exclusive_vert.png');
+}
+.ribbon-offre-speciale-jaune {
+  background: url('../img/ribbons/offre_speciale_jaune.png');
+}
+.ribbon-offre-speciale-vert {
+  background: url('../img/ribbons/offre-speciale-vert.png');
+}
+.ribbon-vente-flash-rouge {
+  background: url('../img/ribbons/vente_flash_rouge.png');
+}
 .selectedItem {
   border: 2px solid #4d9900;
 }
@@ -3876,6 +3906,12 @@ div.image-category:hover img {
 #header .nav-tabs li a:hover {
   background: #f9b1a6;
   color: #222222;
+}
+.baseline {
+  font-size: 21px;
+  font-style: italic;
+  color: #ffffff;
+  padding-left: 45px;
 }
 a#shopping-cart-button {
   display: block;
@@ -4361,6 +4397,89 @@ ul.megalist {
 }
 label[for*="piggybox_orderbundle_carttype_orders"] {
   display: none;
+}
+.topline {
+  font-size: 24px;
+  font-family: "Time New Roman", serif;
+  text-align: center;
+  font-style: italic;
+}
+.slider-sidebar-item {
+  height: 150px;
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+.slider-sidebar-item a.img-link img {
+  width: 333px;
+  height: 148px;
+}
+.slider-sidebar-item a.img-link img {
+  border: 1px solid #222222;
+}
+.slider-sidebar-item a.img-link:hover img {
+  border: 1px solid #ed2b2a;
+}
+ul.nav-tabs-for-map {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+ul.nav-tabs-for-map li {
+  font-size: 18px;
+  margin: 2px 12px 0 -1px;
+  text-align: center;
+  width: 30%;
+}
+ul.nav-tabs-for-map li.active a {
+  background: #222222;
+  color: #ffffff;
+}
+ul.nav-tabs-for-map li.active a:hover {
+  background: #222222;
+  color: #ffffff;
+}
+#map-container {
+  border: 4px solid #222222;
+}
+#map-container-left {
+  width: 691px;
+}
+#map-container-right {
+  width: 356px;
+}
+#newsletter-container {
+  background: url('../img/texture-apple.png') #222222;
+}
+#newsletter-container form {
+  padding: 12px 0;
+  text-transform: uppercase !important;
+  font-size: 18px !important;
+  color: #ffffff;
+}
+ul.testimonials {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+li.testimonial-item {
+  float: left;
+  width: 631px;
+  height: 202px;
+  margin: 0;
+  padding: 32px;
+}
+li.testimonial-item .quote {
+  font-size: 26px;
+  line-height: 36px;
+  font-style: italic;
+  font-family: "Time New Roman", serif;
+  text-align: center;
+}
+li.testimonial-item .quote-source {
+  font-size: 16px;
+  padding-top: 16px;
+  text-align: right;
 }
 /*!
  * Bootstrap Responsive v2.1.1

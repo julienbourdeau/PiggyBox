@@ -83,4 +83,30 @@ $(document).ready(function() {
 	}
 })(jQuery);
 </script>
+
+<script type="text/javascript">
+	{% if step is not defined %}
+		_kmq.push(['record', 'Viewed cart']);
+	{% endif %}
+
+	{% if step is defined %}
+		{% if step == 'step_date_heure' %}
+			_kmq.push(['record', 'Viewed order shipping page']);
+		{% endif %}
+
+		{% if step == 'step_paiement' %}
+			_kmq.push(['record', 'Visited order payment page']);
+			_kmq.push(['set', {'Cart size':'{{piggybox_product_number_in_cart()}}'}]);
+		{% endif %}
+
+		{% if step == 'step_confirmation' %}
+			_kmq.push(['record', 'Completed order']);
+			{% set result = 0 %}
+			{% for order in orders %}
+				{% set result = result + order.totalPrice %}
+			{% endfor %}
+			_kmq.push(['record', 'Billed', {'Billing amount' => {{result|number_format(2, ',', ' ')}} }]);
+		{% endif %}
+	{% endif %}
+</script>
 {% endblock %}

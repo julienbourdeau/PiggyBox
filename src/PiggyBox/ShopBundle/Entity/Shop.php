@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * PiggyBox\ShopBundle\Entity\Shop
  *
  * @ORM\Table(name="piggybox_shop")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="PiggyBox\ShopBundle\Entity\ShopRepository")
  */
 class Shop
@@ -93,6 +94,11 @@ class Shop
      * @ORM\OneToMany(targetEntity="Day", mappedBy="shop", cascade={"persist"})
      **/
     private $opening_days;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * Constructor
@@ -407,5 +413,28 @@ class Shop
     public function getOpeningDays()
     {
         return $this->opening_days;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param  \DateTime $deletedAt
+     * @return Shop
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
