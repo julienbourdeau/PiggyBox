@@ -16,7 +16,7 @@
 	            	<address class="no-margin"> <i class="icon-home"></i> 16 impasse du stade Raymond Durand 44120 Vertou</address>
 	            	<ul class="unstyled">
 	            		<li> <i class="icon-user"></i> <abbr title="Telephone">Tel:</abbr>02 40 37 46 67</li>
-	            		<li> <i class="icon-envelope"></i> <a onclick="_gaq.push(['_trackEvent', 'cat', 'action', 'label']);" href="mailto:team@theboxmake.rs">team@theboxmake.rs</a></li>
+	            		<li> <i class="icon-envelope"></i> <a  href="mailto:team@theboxmake.rs">team@theboxmake.rs</a></li>
 	            		<li> <i class="icon-globe"></i> <a href="http://theboxmake.rs">http://theboxmake.rs</a></li>
 	            	</ul>
 	            	<br>
@@ -25,8 +25,6 @@
 	            		<li> <i class="icon-book"></i> Code NAF 4791B</li>
 	            		<li> <i class="icon-book"></i> RCS de Nantes 789 066 131</li>
 	            	</ul>
-
-
 
 	            	<h3>Hébergement</h3>
 
@@ -40,3 +38,10 @@
 	    </div>
 
  {% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+   _kmq.push(['record', 'Viewed Mentions légales Page']);
+</script>
+{% endblock %}

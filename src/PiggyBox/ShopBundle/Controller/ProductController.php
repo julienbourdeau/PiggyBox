@@ -2,6 +2,7 @@
 
 namespace PiggyBox\ShopBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,10 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\Discount;
+use PiggyBox\ShopBundle\Form\DiscountType;
 use PiggyBox\ShopBundle\Entity\Category;
 use PiggyBox\ShopBundle\Form\ProductType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Product controller.
@@ -22,6 +26,14 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
  */
 class ProductController extends Controller
 {
+    /** @DI\Inject */
+    private $request;
+
+    /** @DI\Inject */
+    private $router;
+
+    /** @DI\Inject("doctrine.orm.entity_manager") */
+    private $em;
 
     /**
      * Lister les produits du magasin, les linker vers le CRUD
@@ -151,6 +163,78 @@ class ProductController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+    }
+
+    /**
+     * Display a form to edit or create a Discount Entity
+     *
+     * @Route("/{id}/discount", name="monmagasin_mesproduits_promotion_edit")
+     * @SecureParam(name="product", permissions="VIEW, EDIT")
+     * @ParamConverter
+     * @Template()
+     */
+    public function editDiscountAction(Product $product)
+    {
+        if ($product->getDiscount() == null) {
+            $discount = new Discount();
+            $product->setDiscount($discount);
+        }
+        if ($product->getDiscount() != null) {
+            $discount = $product->getDiscount();
+        }
+
+        $editForm = $this->createForm(new DiscountType(), $discount);
+        $deleteForm = $this->createDeleteForm($discount->getId());
+
+        if ('POST' === $this->request->getMethod()) {
+            $editForm->bindRequest($this->request);
+
+            if ($editForm->isValid()) {
+
+                $this->em->persist($product);
+                $this->em->persist($discount);
+                $this->em->flush();
+
+                $this->get('session')->getFlashBag()->set('success', 'La promotion a été ajouté avec succès.');
+
+                return new RedirectResponse($this->router->generate('monmagasin_mesproduits'));
+            }
+        }
+
+        return array(
+            'product'     => $product,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Deletes a Discount entity
+     *
+     * @Route("/{id}/{productId}/discount/delete", name="monmagasin_mesproduits_discount_delete")
+     * @ParamConverter
+     * @Method("POST")
+     */
+    public function deleteDiscountAction(Request $request, Discount $discount, $productId)
+    {
+        $form = $this->createDeleteForm($discount->getId());
+        $form->bind($request);
+        $product = $this->em->getRepository('PiggyBoxShopBundle:Product')->findOneById($productId);
+
+        if ($form->isValid()) {
+            try {
+                $product->setDiscount(null);
+                $this->em->persist($product);
+                $this->em->remove($discount);
+                $this->em->flush();
+                $this->get('session')->getFlashBag()->set('success', 'La promotion '.$discount->getDiscountName().' a été supprimé avec succès.');
+            } catch (\Exception $e) {
+                $this->get('logger')->crit($e->getMessage(), array('exception', $e));
+                $this->get('session')->getFlashBag()->set('error', 'Une erreur est survenue, notre équipe a été prévenue');
+            }
+        }
+
+        return new RedirectResponse($this->router->generate('monmagasin_mesproduits'));
     }
 
     /**
