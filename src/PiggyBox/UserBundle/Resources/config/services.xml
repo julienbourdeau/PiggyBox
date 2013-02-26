@@ -5,10 +5,15 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-		<service id="piggybox.user.exception_listener" class="PiggyBox\UserBundle\EventListener\ExceptionListener">
-			<tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
-			<argument type="service" id="mailer" />
-			<argument type="service" id="kernel" />
-		</service>
+      <service id="piggybox.user.exception_listener" class="PiggyBox\UserBundle\EventListener\ExceptionListener">
+        <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
+        <argument type="service" id="mailer" />
+        <argument type="service" id="kernel" />
+      </service>
+
+      <service id="piggybox.user.registration.form.type" class="PiggyBox\UserBundle\Form\RegistrationFormType">
+        <tag name="form.type" alias="piggybox_userbundle_registration"/>
+        <argument>%fos_user.model.user.class%</argument>
+      </service>
     </services>
 </container>
