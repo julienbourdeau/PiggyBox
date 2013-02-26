@@ -1,10 +1,99 @@
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+<div class="container registration">
+    <div class="row">
 
-    <div id="piggybox_register_content" class="">
-    	{{ form_widget(form) }}
+        <div id="content" class="span8 offset2">
+
+            <h1 class="text-centered">Completez votre inscription</h1>
+            <br>
+
+            <h3>L'inscription est obligatoire pour pouvoir commander</h2>
+
+            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal fos_user_registration_register">
+            <div class="control-group">
+
+            <label class="control-label">Civilité</label>
+            <div class="controls">
+                <label class="checkbox inline">
+                  {{form_widget(form.gender.vars.form.children[0])}} M.
+                </label>
+
+                <label class="checkbox inline">
+                  {{form_widget(form.gender.vars.form.children[1])}} Mme
+                </label>
+
+                <label class="checkbox inline">
+                  {{form_widget(form.gender.vars.form.children[2])}} Mlle
+                </label>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Prénom</label>
+                <div class="controls">
+                  {{form_widget(form.firstName, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Nom</label>
+                <div class="controls">
+                  {{form_widget(form.lastName, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Né(e) le</label>
+                <div class="controls">
+                    <div class="row-fluid input-xlarge">
+                      {{form_widget(form.birthday.children.day, {'attr': {'class': 'span4'}})}}
+                      {{form_widget(form.birthday.children.month, {'attr': {'class': 'span4'}})}}
+                      {{form_widget(form.birthday.children.year, {'attr': {'class': 'span4'}})}}
+                    </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="inputEmail">E-mail</label>
+                <div class="controls">
+                  {{form_widget(form.email, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">Confirmez votre E-mail</label>
+                <div class="controls">
+                  {{form_widget(form.username, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="inputPassword">Mot de passe</label>
+                <div class="controls">
+                  {{form_widget(form.plainPassword.first, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="inputPassword">Confirmez votre mot de passe</label>
+                <div class="controls">
+                  {{form_widget(form.plainPassword.second, {'attr': {'class': 'input-xlarge'} })}}
+                </div>
+              </div>
+
+                <p class="small-text">
+                    Avant de vous inscrire sachez que cotelettes-tarteauxfraises.com s’engage à ne divulguer en aucun cas vos informations personnelles à des tiers sans votre accord préalable, et ce par quelque moyen et sur quelque support que ce soit. Consulter notre Politique de Confidentialité et Protection de la Vie Privée.
+                </p>
+
+              <div class="control-group">
+                <div class="controls">
+                    <div class="row-fluid input-xlarge">
+                        <input type="submit" class="btn btn-primary span6 offset3" value="S'inscrire" />
+                    </div>
+                </div>
+              </div>
+
+            {{ form_rest(form)}}
+            </form>
+        </div>
     </div>
-
-    <input type="submit" class="btn btn-large btn-primary btn-block" value="Créez mon compte" />
-    {# {{ 'registration.submit'|trans({}, 'FOSUserBundle') }} #}
-
-</form>
+</div>

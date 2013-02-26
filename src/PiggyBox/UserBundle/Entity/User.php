@@ -5,6 +5,7 @@ namespace PiggyBox\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PiggyBox\UserBundle\Entity\User
@@ -31,18 +32,48 @@ class User extends BaseUser
     }
 
     /**
-     * @var string $name
+     * @var string $lastName
      *
-     * @ORM\Column(name="name", type="string", nullable=true)
+     * @ORM\Column(name="lastName", type="string", nullable=true)
+     *
+     * @Assert\NotBlank(message="SVP, indiquez votre nom.", groups={"Registration", "Profile"})
+     * @Assert\MinLength(limit="3", message="Le nom est trop petit.", groups={"Registration", "Profile"})
+     * @Assert\MaxLength(limit="255", message="Le nom est trop long.", groups={"Registration", "Profile"})
      */
-    private $name;
+    private $lastName;
 
     /**
-     * @var string $phone_number
+     * @var string $firstName
      *
-     * @ORM\Column(name="phone_number", type="string", nullable=true)
+     * @ORM\Column(name="firstName", type="string", nullable=true)
+     *
+     * @Assert\NotBlank(message="SVP, indiquez votre prénom.", groups={"Registration", "Profile"})
+     * @Assert\MinLength(limit="3", message="Le prénom est trop petit.", groups={"Registration", "Profile"})
+     * @Assert\MaxLength(limit="255", message="Le prénom est trop long.", groups={"Registration", "Profile"})
      */
-    private $phone_number;
+    private $firstName;
+
+    /**
+     * @var string $gender
+     *
+     * @ORM\Column(name="gender", type="string", nullable=true)
+     * @Assert\Choice(choices = {"M.", "Mme", "Mlle"}, message = "Choisissez votre civilité.")
+     */
+    private $gender;
+
+    /**
+     * @var string $birthday
+     *
+     * @ORM\Column(name="birthday", type="datetime", nullable=true)
+     */
+    private $birthday;
+
+    /**
+     * @var string $phoneNumber
+     *
+     * @ORM\Column(name="phoneNumber", type="string", nullable=true)
+     */
+    private $phoneNumber;
 
     /**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
@@ -165,52 +196,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set name
-     *
-     * @param  string $name
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set phone_number
-     *
-     * @param  string $phoneNumber
-     * @return User
-     */
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phone_number = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get phone_number
-     *
-     * @return string
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phone_number;
-    }
-
-    /**
      * Set deletedAt
      *
      * @param  \DateTime $deletedAt
@@ -231,5 +216,120 @@ class User extends BaseUser
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param  string $lastName
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param  string $firstName
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param  string $gender
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param  \DateTime $birthday
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param  string $phoneNumber
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
     }
 }
