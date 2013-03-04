@@ -83,6 +83,9 @@ fos_user:
     registration:
         form:
             type: piggybox_userbundle_registration
+    profile:
+        form:
+            type: piggybox_userbundle_profile
 
 
 # AvalancheImagineBundle Configuration

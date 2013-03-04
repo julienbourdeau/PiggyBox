@@ -69,6 +69,13 @@ class User extends BaseUser
     private $birthday;
 
     /**
+     * @var string $city
+     *
+     * @ORM\Column(name="city", type="string", nullable=true)
+     */
+    private $city;
+
+    /**
      * @var string $phoneNumber
      *
      * @ORM\Column(name="phoneNumber", type="string", nullable=true)
@@ -331,5 +338,28 @@ class User extends BaseUser
     public function getPhoneNumber()
     {
         return $this->phoneNumber;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }
