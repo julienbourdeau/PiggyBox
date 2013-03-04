@@ -4,12 +4,11 @@
         <div id="content" class="span8 offset2">
 
             <h1 class="text-centered">Completez votre inscription</h1>
-            <br>
-
             <h3>L'inscription est obligatoire pour pouvoir commander</h2>
 
             <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal fos_user_registration_register">
-            <div class="control-group">
+            {{ form_errors(form) }}
+            <div class="control-group {{ form_errors(form.gender)|length > 0 ? 'error' : '' }}">
 
             <label class="control-label">Civilité</label>
             <div class="controls">
@@ -24,24 +23,27 @@
                 <label class="checkbox inline">
                   {{form_widget(form.gender.vars.form.children[2])}} Mlle
                 </label>
+            {{ form_errors(form.gender) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.firstName)|length > 0 ? 'error' : '' }}">
                 <label class="control-label">Prénom</label>
                 <div class="controls">
                   {{form_widget(form.firstName, {'attr': {'class': 'input-xlarge'} })}}
                 </div>
+            {{ form_errors(form.firstName) }}
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.lastName)|length > 0 ? 'error' : '' }}">
                 <label class="control-label">Nom</label>
                 <div class="controls">
                   {{form_widget(form.lastName, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.lastName) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.birthday)|length > 0 ? 'error' : '' }}">
                 <label class="control-label">Né(e) le</label>
                 <div class="controls">
                     <div class="row-fluid input-xlarge">
@@ -49,34 +51,47 @@
                       {{form_widget(form.birthday.children.month, {'attr': {'class': 'span4'}})}}
                       {{form_widget(form.birthday.children.year, {'attr': {'class': 'span4'}})}}
                     </div>
+                    {{ form_errors(form.birthday) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.city)|length > 0 ? 'error' : '' }}">
+                <label class="control-label">Ville de résidence</label>
+                <div class="controls">
+                  {{form_widget(form.city, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.city) }}
+                </div>
+              </div>
+
+              <div class="control-group {{ form_errors(form.email.first)|length > 0 ? 'error' : '' }}">
                 <label class="control-label" for="inputEmail">E-mail</label>
                 <div class="controls">
-                  {{form_widget(form.email, {'attr': {'class': 'input-xlarge'} })}}
+                  {{form_widget(form.email.first, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.email.first) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.email.first)|length > 0 ? 'error' : '' }}">
                 <label class="control-label">Confirmez votre E-mail</label>
                 <div class="controls">
-                  {{form_widget(form.username, {'attr': {'class': 'input-xlarge'} })}}
+                  {{form_widget(form.email.second, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.email.first) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.plainPassword.first)|length > 0 ? 'error' : '' }}">
                 <label class="control-label" for="inputPassword">Mot de passe</label>
                 <div class="controls">
                   {{form_widget(form.plainPassword.first, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.plainPassword.first) }}
                 </div>
               </div>
 
-              <div class="control-group">
+              <div class="control-group {{ form_errors(form.plainPassword.first)|length > 0 ? 'error' : '' }}">
                 <label class="control-label" for="inputPassword">Confirmez votre mot de passe</label>
                 <div class="controls">
                   {{form_widget(form.plainPassword.second, {'attr': {'class': 'input-xlarge'} })}}
+                  {{ form_errors(form.plainPassword.first) }}
                 </div>
               </div>
 

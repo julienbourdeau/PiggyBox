@@ -16,7 +16,8 @@ use PiggyBox\ShopBundle\Entity\Menu;
 use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ivory\GoogleMapBundle\Model\MapTypeId;
+use Ivory\GoogleMap\MapTypeId;
+
 /**
  * User controller.
  *
