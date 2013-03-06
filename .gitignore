@@ -26,3 +26,5 @@ app/config/parameters.yml
 composer.lock
 
 .codemod.bookmark
+--help
+codemod.py

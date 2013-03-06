@@ -1,6 +1,84 @@
-<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal fos_user_profile_edit">
+{{ form_errors(form) }}
+
+<div class="control-group {{ form_errors(form.email)|length > 0 ? 'error' : '' }}">
+  <label class="control-label" for="inputEmail">E-mail</label>
+  <div class="controls">
+    {{form_widget(form.email, {'attr': {'class': 'input-xlarge'} })}}
+    {{ form_errors(form.email) }}
+  </div>
+</div>
+
+<div class="control-group {{ form_errors(form.gender)|length > 0 ? 'error' : '' }}">
+
+<label class="control-label">Civilité</label>
+<div class="controls">
+    <label class="checkbox inline">
+      {{form_widget(form.gender.vars.form.children[0])}} M.
+    </label>
+
+    <label class="checkbox inline">
+      {{form_widget(form.gender.vars.form.children[1])}} Mme
+    </label>
+
+    <label class="checkbox inline">
+      {{form_widget(form.gender.vars.form.children[2])}} Mlle
+    </label>
+{{ form_errors(form.gender) }}
     </div>
+  </div>
+
+  <div class="control-group {{ form_errors(form.firstName)|length > 0 ? 'error' : '' }}">
+    <label class="control-label">Prénom</label>
+    <div class="controls">
+      {{form_widget(form.firstName, {'attr': {'class': 'input-xlarge'} })}}
+    </div>
+{{ form_errors(form.firstName) }}
+  </div>
+
+  <div class="control-group {{ form_errors(form.lastName)|length > 0 ? 'error' : '' }}">
+    <label class="control-label">Nom</label>
+    <div class="controls">
+      {{form_widget(form.lastName, {'attr': {'class': 'input-xlarge'} })}}
+      {{ form_errors(form.lastName) }}
+    </div>
+  </div>
+
+  <div class="control-group {{ form_errors(form.birthday)|length > 0 ? 'error' : '' }}">
+    <label class="control-label">Né(e) le</label>
+    <div class="controls">
+        <div class="row-fluid input-xlarge">
+          {{form_widget(form.birthday.children.day, {'attr': {'class': 'span4'}})}}
+          {{form_widget(form.birthday.children.month, {'attr': {'class': 'span4'}})}}
+          {{form_widget(form.birthday.children.year, {'attr': {'class': 'span4'}})}}
+        </div>
+        {{ form_errors(form.birthday) }}
+    </div>
+  </div>
+
+  <div class="control-group {{ form_errors(form.city)|length > 0 ? 'error' : '' }}">
+    <label class="control-label">Ville de résidence</label>
+    <div class="controls">
+        {{form_widget(form.city, {'attr': {'class': 'input-xlarge'} })}}
+        {{ form_errors(form.city) }}
+    </div>
+  </div>
+
+<div class="control-group {{ form_errors(form.phoneNumber)|length > 0 ? 'error' : '' }}">
+  <label class="control-label" for="inputEmail">Tél. Mobile</label>
+  <div class="controls">
+    {{form_widget(form.phoneNumber, {'attr': {'class': 'input-xlarge'} })}}
+    {{ form_errors(form.phoneNumber) }}
+  </div>
+</div>
+
+  <div class="control-group">
+    <div class="controls">
+        <div class="row-fluid input-xlarge">
+            <input type="submit" class="btn btn-primary span9 offset2" value="Valider les modifications" />
+        </div>
+    </div>
+  </div>
+
+{{ form_rest(form)}}
 </form>
