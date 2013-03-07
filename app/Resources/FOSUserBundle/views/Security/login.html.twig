@@ -50,7 +50,7 @@
 			<form action="{{ path("fos_user_security_check") }}" method="post">
 			    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-			    <label for="username">Nom d'utilisateur</label>
+			    <label for="username">Adresse email</label>
 			    <input type="text" id="username" class="span4" name="_username" value="{{ last_username }}" required="required" />
 
 			    <br />
@@ -71,7 +71,7 @@
         <div class="span4 offset2">
         	<h1 class="text-centered">Pas encore inscrit?</h1>
         	<p>Créez un compte rapidement et simplement</p>
-			{% render "FOSUserBundle:Registration:register" %}
+			    <a class="btn btn-primary btn-block" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
         </div>
 
     </div>

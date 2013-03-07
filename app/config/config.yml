@@ -80,6 +80,13 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: PiggyBox\UserBundle\Entity\User
+    registration:
+        form:
+            type: piggybox_userbundle_registration
+    profile:
+        form:
+            type: piggybox_userbundle_profile
+
 
 # AvalancheImagineBundle Configuration
 avalanche_imagine:

@@ -32,6 +32,7 @@
         "bcc/cron-manager-bundle": "*",
         "craue/twigextensions-bundle": "dev-master",
 		"whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
+        "willdurand/geocoder": "*",	
         "egeloen/google-map-bundle": "dev-master"
     },
     "scripts": {

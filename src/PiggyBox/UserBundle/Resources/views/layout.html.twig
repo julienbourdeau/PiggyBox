@@ -45,7 +45,9 @@
         {% endblock %}
 
     </head>
-    <body>
+
+    <body data-spy="scroll" data-target=".bs-docs-sidebar" style="zoom: 1;" data-twttr-rendered="true">
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -70,7 +72,7 @@
                                 <div class="user-bar text-right clearfix">
                                     <ul class="nav nav-pills nav-pills-red no-margin pull-right">
                                         {% if app.user %}
-                                            <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.username }}</small></a></li>
+                                            <li><a href="{{ path('fos_user_profile_show') }}"><strong>Mon compte </strong> <small>{{ app.user.email }}</small></a></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
 
                                             {% if "ROLE_SHOP" in app.user.roles %}
