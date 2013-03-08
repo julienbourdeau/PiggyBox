@@ -26,22 +26,39 @@ class OrderType extends AbstractType
                 }
 
                 if ($event->getData()) {
-                    $closeDays = array();
+                    $closedDays = array();
+                    $startToday = true;
+                    $today = new \DateTime('now');
 
                     if ($event->getData()->getShop() !== null) {
                         $openingDays = $event->getData()->getShop()->getOpeningDays();
 
                         foreach ($openingDays as $day) {
                             if (!$day->getOpen()) {
-                                array_push($closeDays, $day->getDayOfTheWeek());
+                                array_push($closedDays, $day->getDayOfTheWeek());
+                            }
+                        }
+
+
+                        if (!in_array($today->format('N'), $closedDays)) {
+                            foreach ($openingDays as $day) {
+                                if ($today->format('N') == $day->getDayOfTheWeek()) {
+                                    $today->modify('120 minutes');
+                                    $closingTime = ($day->getToTimeAfternoon() != null) ? $day->getToTimeAfternoon(): $day->getToTimeMorning();
+
+                                   if($today->format('H:i') > $closingTime->format('H:i')) {
+                                      $startToday = false; 
+                                   }
+                                }
                             }
                         }
                     }
 
                     $event->getForm()->add(
                         $formFactory->createNamed('pickupatDate',new DateUniqueSelectorType(),null ,array(
-                            'number_of_days' => 8,
-                            'closed_days' => $closeDays,
+                            'number_of_days' => 18,
+                            'closed_days' => $closedDays,
+                            'start_today' => $startToday,
                         ))
                     );
                 }
