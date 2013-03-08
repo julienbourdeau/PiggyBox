@@ -161,6 +161,9 @@ class OrderManager
         $openingHours = array();
         $today = new \DateTime('now');
 
+        //temps de préparation, à changer
+        $today->modify('120 minutes');
+
         if ($today->format('YYYY/mm/dd') == $date->format('YYYY/mm/dd')) {
             if ($today->format('H:i') > $day->getFromTimeMorning()->format('H:i') && $today->format('H:i') < $day->getToTimeMorning()->format('H:i')) {
                 $openingHours = $this->getTimeInterval($today, $day->getToTimeMorning(), $openingHours);
