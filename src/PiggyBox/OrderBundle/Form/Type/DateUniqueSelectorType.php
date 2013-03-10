@@ -270,16 +270,20 @@ class DateUniqueSelectorType extends AbstractType
     private function listUniqueDate($number_of_days, $closed_days, $start_today)
     {
         $result = array();
+        $weekBuffer = array();
 
         $today = new \DateTime('now');
-        if($start_today == false) {
+        if ($start_today == false) {
             $today->modify('+1 day');
         }
 
         for ($i=0; $i < $number_of_days; $i++) {
             if (!in_array($today->format('N'), $closed_days)) {
-//				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');
-                $result[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');
+                $weekBuffer[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');
+            }
+            if ($today->format('N') == 7) {
+                (empty($result)) ? ($result['Cette semaine'] = $weekBuffer): ($result['Semaine Num. '.$today->format('W')] = $weekBuffer);
+                $weekBuffer = array();
             }
             $today->modify('+1 day');
         }
