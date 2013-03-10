@@ -2,24 +2,25 @@
 
 {% block content %}
 
-	{% if step is not defined %}
-		{% form_theme form 'PiggyBoxUserBundle:Form:fields.html.twig' %}
-		{% include 'PiggyBoxOrderBundle:Order:step_commande.html.twig' %}
-	{% endif %}
+    {% if step is not defined %}
+        {% form_theme form 'PiggyBoxUserBundle:Form:fields.html.twig' %}
 
-	{% if step is defined %}
-		{% if step == 'step_date_heure' %}
-			{% include 'PiggyBoxOrderBundle:Order:step_date_heure.html.twig' %}
-		{% endif %}
+        {% include 'PiggyBoxOrderBundle:Order:step_commande.html.twig' %}
+    {% endif %}
 
-		{% if step == 'step_paiement' %}
-			{% include 'PiggyBoxOrderBundle:Order:step_paiement.html.twig' %}
-		{% endif %}
+    {% if step is defined %}
+        {% if step == 'step_date_heure' %}
+            {% include 'PiggyBoxOrderBundle:Order:step_date_heure.html.twig' %}
+        {% endif %}
 
-		{% if step == 'step_confirmation' %}
-			{% include 'PiggyBoxOrderBundle:Order:step_confirmation.html.twig' %}
-		{% endif %}
-	{% endif %}
+        {% if step == 'step_paiement' %}
+            {% include 'PiggyBoxOrderBundle:Order:step_paiement.html.twig' %}
+        {% endif %}
+
+        {% if step == 'step_confirmation' %}
+            {% include 'PiggyBoxOrderBundle:Order:step_confirmation.html.twig' %}
+        {% endif %}
+    {% endif %}
 
 {% endblock %}
 
@@ -31,82 +32,66 @@
 <script type="text/javascript">
 (function ($) {
 $(document).ready(function() {
-	$('select').change(function (e) {
-		var target = $(this);
-		var selectDateId = $(this).attr('id');
-		var selectTimeId = $(this).attr('id').replace("pickupatDate_date", "pickupatTime_time");
-		var selectTime = $('select#'+selectTimeId);
-		var shop_id = target.parent().parent().parent();
+    $('select').change(function (e) {
+        var target = $(this);
+        var selectTimeId = $(this).attr('id').replace("pickupatDate_date", "pickupatTime_time");
+        var selectTime = $('select#'+selectTimeId);
+        var shop_id = target.parent().parent().parent();
 
-   	    if (shop_id.attr('data-load-shop')) {
-   	        $.ajax({
-   	            url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
-   	            dataType: 'json',
-   	            success: function (data) {
+        if (shop_id.attr('data-load-shop')) {
+            $.ajax({
+                url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : target.val()}),
+                dataType: 'json',
+                success: function (data) {
 
-				var select = selectTime;
-				addOptionsToSelect(select, data.content);
+                    var select = selectTime;
+                    addOptionsToSelect(select, data.content);
 
-					if(isEmpty(data.content)){
-						var selectDate = document.getElementById(selectDateId);
-						selectDate.remove("0");
+                }
+            });
+        }
+    }).trigger('change');
+});
 
-						$.ajax({
-							url: Routing.generate('view_opening_hours', { "shop_id": shop_id.attr('data-load-shop'), "time_string" : selectDate.options[0].value}),
-							dataType: 'json',
-							success: function (data) {
-							var select = selectTime;
-							addOptionsToSelect(select, data.content);
-							}
-						});
-					}
-				}
-    	        });
-    	    }
-    	}).trigger('change');
-	});
+$('select').select2();
 
-	function isEmpty(val){
-    	return (val === undefined || val == null || val.length <= 0) ? true : false;
-	}
+function addOptionsToSelect(select, content){
+    if(select.prop) {
+        var options = select.prop('options');
+    }
 
-	function addOptionsToSelect(select, content){
-		if(select.prop) {
-		  var options = select.prop('options');
-		}
-
-		else {
-			var options = select.attr('options');
-		}
-		$('option', select).remove();
-		select.append(content);
-	}
+    else {
+        var options = select.attr('options');
+    }
+    $('option', select).remove();
+    select.append(content);
+}
 })(jQuery);
 </script>
 
 <script type="text/javascript">
-	{% if step is not defined %}
-		_kmq.push(['record', 'Viewed cart']);
-	{% endif %}
+{% if step is not defined %}
+    _kmq.push(['record', 'Viewed cart']);
+{% endif %}
 
-	{% if step is defined %}
-		{% if step == 'step_date_heure' %}
-			_kmq.push(['record', 'Viewed order shipping page']);
-		{% endif %}
+{% if step is defined %}
+    {% if step == 'step_date_heure' %}
+        _kmq.push(['record', 'Viewed order shipping page']);
+    {% endif %}
 
-		{% if step == 'step_paiement' %}
-			_kmq.push(['record', 'Visited order payment page']);
-			_kmq.push(['set', {'Cart size':'{{piggybox_product_number_in_cart()}}'}]);
-		{% endif %}
+    {% if step == 'step_paiement' %}
+        _kmq.push(['record', 'Visited order payment page']);
+        _kmq.push(['set', {'Cart size':'{{piggybox_product_number_in_cart()}}'}]);
+    {% endif %}
 
-		{% if step == 'step_confirmation' %}
-			_kmq.push(['record', 'Completed order']);
-			{% set result = 0 %}
-			{% for order in orders %}
-				{% set result = result + order.totalPrice %}
-			{% endfor %}
-			_kmq.push(['record', 'Billed', {'Billing amount' => {{result|number_format(2, ',', ' ')}} }]);
-		{% endif %}
-	{% endif %}
+    {% if step == 'step_confirmation' %}
+        _kmq.push(['record', 'Completed order']);
+        {% set result = 0 %}
+        {% for order in orders %}
+            {% set result = result + order.totalPrice %}
+        {% endfor %}
+        _kmq.push(['record', 'Billed', {'Billing amount' => {{result|number_format(2, ',', ' ')}} }]);
+    {% endif %}
+{% endif %}
 </script>
 {% endblock %}

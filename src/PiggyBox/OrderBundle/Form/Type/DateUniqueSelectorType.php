@@ -72,7 +72,7 @@ class DateUniqueSelectorType extends AbstractType
 
             if ('choice' === $options['widget']) {
                 // Only pass a subset of the options to children
-                $dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days']);
+                $dateOption['choices'] = $this->listUniqueDate($options['number_of_days'], $options['closed_days'], $options['start_today']);
                 //$dayOptions['choices'] = $this->formatTimestamps($formatter, '/d+/', $this->listDays($options['days']));
                 //$dayOptions['empty_value'] = $options['empty_value']['day'];
             }
@@ -201,6 +201,7 @@ class DateUniqueSelectorType extends AbstractType
             'compound'       => $compound,
             'number_of_days' => 8,
             'closed_days'       => array(),
+            'start_today'       => true,
         ));
 
         $resolver->setNormalizers(array(
@@ -266,16 +267,23 @@ class DateUniqueSelectorType extends AbstractType
         return $timestamps;
     }
 
-    private function listUniqueDate($number_of_days, $closed_days)
+    private function listUniqueDate($number_of_days, $closed_days, $start_today)
     {
         $result = array();
+        $weekBuffer = array();
 
         $today = new \DateTime('now');
+        if ($start_today == false) {
+            $today->modify('+1 day');
+        }
 
         for ($i=0; $i < $number_of_days; $i++) {
             if (!in_array($today->format('N'), $closed_days)) {
-//				$result[$today->format('l jS F Y')] = $today->format('l jS F Y');
-                $result[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');
+                $weekBuffer[$this->twig_localized_date_filter($today,'full','none','en_EN')] = $this->twig_localized_date_filter($today,'full','none','fr_FR');
+            }
+            if ($today->format('N') == 7) {
+                (empty($result)) ? ($result['Cette semaine'] = $weekBuffer): ($result['Semaine Num. '.$today->format('W')] = $weekBuffer);
+                $weekBuffer = array();
             }
             $today->modify('+1 day');
         }
