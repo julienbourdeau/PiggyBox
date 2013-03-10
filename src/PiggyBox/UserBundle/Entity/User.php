@@ -343,20 +343,20 @@ class User extends BaseUser
     /**
      * Set city
      *
-     * @param string $city
+     * @param  string $city
      * @return User
      */
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
