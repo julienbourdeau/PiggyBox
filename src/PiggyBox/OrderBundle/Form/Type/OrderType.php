@@ -39,15 +39,14 @@ class OrderType extends AbstractType
                             }
                         }
 
-
                         if (!in_array($today->format('N'), $closedDays)) {
                             foreach ($openingDays as $day) {
                                 if ($today->format('N') == $day->getDayOfTheWeek()) {
                                     $today->modify('120 minutes');
                                     $closingTime = ($day->getToTimeAfternoon() != null) ? $day->getToTimeAfternoon(): $day->getToTimeMorning();
 
-                                   if($today->format('H:i') > $closingTime->format('H:i')) {
-                                      $startToday = false; 
+                                   if ($today->format('H:i') > $closingTime->format('H:i')) {
+                                      $startToday = false;
                                    }
                                 }
                             }
