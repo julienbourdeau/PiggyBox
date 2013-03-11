@@ -11,6 +11,11 @@
         <argument type="service" id="kernel" />
       </service>
 
+      <service id="piggybox.user.registration_success" class="PiggyBox\UserBundle\EventListener\RegistrationSuccessListener">
+        <tag name="kernel.event_subscriber" />
+        <argument type="service" id="router" />
+      </service>
+
       <service id="piggybox.user.registration_initialization" class="PiggyBox\UserBundle\EventListener\RegistrationInitializeListener">
         <tag name="kernel.event_subscriber" />
       </service>
