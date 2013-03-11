@@ -25,30 +25,32 @@ class OrderEmailler
         $entity = $event->getOrder();
 
         if ($entity instanceof Order) {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Validation de commande - Côtelettes & Tarte aux Fraises')
-                ->setFrom('lifo@cotelettes-tarteauxfraises.com')
-                ->setTo($entity->getUser()->getEmail());
-            $message->addBcc('baptiste@cotelettes-tarteauxfraises.com');
+            if (!in_array($this->container->get('kernel')->getEnvironment(), array('dev', 'test'))) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Validation de commande - Côtelettes & Tarte aux Fraises')
+                    ->setFrom('lifo@cotelettes-tarteauxfraises.com')
+                    ->setTo($entity->getUser()->getEmail());
+                $message->addBcc('baptiste@cotelettes-tarteauxfraises.com');
 
-            $header = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/email-banner-commande-validee.jpg'));
-            $tick = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/tick.png'));
-            $mapmarker = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/mapmarker.png'));
-            $highlightmarker = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/highlightmarker.png'));
-            $footer = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/email-footer.jpg'));
+                $header = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/email-banner-commande-validee.jpg'));
+                $tick = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/tick.png'));
+                $mapmarker = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/mapmarker.png'));
+                $highlightmarker = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/highlightmarker.png'));
+                $footer = $message->embed(\Swift_Image::fromPath('../web/bundles/piggyboxorder/img/email-footer.jpg'));
 
-            $message->setBody($this->container->get('templating')->render(
-                    'PiggyBoxOrderBundle:Order:email.html.twig',
-                    array('order' => $entity,
-                          'header' => $header,
-                          'tick' => $tick,
-                          'mapmarker' => $mapmarker,
-                          'highlightmarker' => $highlightmarker,
-                          'footer' => $footer,
-                        )), 'text/html')
-            ;
+                $message->setBody($this->container->get('templating')->render(
+                        'PiggyBoxOrderBundle:Order:email.html.twig',
+                        array('order' => $entity,
+                              'header' => $header,
+                              'tick' => $tick,
+                              'mapmarker' => $mapmarker,
+                              'highlightmarker' => $highlightmarker,
+                              'footer' => $footer,
+                            )), 'text/html')
+                ;
 
-            $this->container->get('mailer')->send($message);
+                $this->container->get('mailer')->send($message);
+            }
         }
     }
 
@@ -57,15 +59,22 @@ class OrderEmailler
         $entity = $event->getOrder();
 
         if ($entity instanceof Order) {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('commande Passée - Côtelettes & Tarte aux Fraises')
-                ->setFrom('lifo@cotelettes-tarteauxfraises.com')
-                ->setTo('baptiste@cotelettes-tarteauxfraises.com');
+            if (!in_array($this->container->get('kernel')->getEnvironment(), array('dev', 'test'))) {
+                $em = $this->container->get('doctrine.orm.default_entity_manager');
+                $user = $em->getRepository('PiggyBoxUserBundle:User')->findOneByOwnshop($entity->getShop());
 
-            $message->setBody('Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().' par l\'utilisateur : '.$entity->getUser()->getEmail(), 'text/html')
-            ;
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Commande Passée - Côtelettes & Tarte aux Fraises')
+                    ->setFrom('lifo@cotelettes-tarteauxfraises.com')
+                    ->setTo($user->getEmail());
+                $message->addBcc('julien@cotelettes-tarteauxfraises.com');
+                $message->addBcc('baptiste@cotelettes-tarteauxfraises.com');
 
-            $this->container->get('mailer')->send($message);
+                $message->setBody('Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().' par l\'utilisateur : '.$entity->getUser()->getEmail(), 'text/html')
+                ;
+
+                $this->container->get('mailer')->send($message);
+            }
         }
     }
 }
