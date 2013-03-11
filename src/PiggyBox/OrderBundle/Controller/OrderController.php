@@ -164,6 +164,8 @@ class OrderController extends Controller
             $em->flush();
         }
 
+        $this->get('request')->getSession()->set('_piggybox.redirect_after_registration', new \DateTime('now'));
+
         return $this->redirect($this->generateUrl('validate_order'));
     }
 
