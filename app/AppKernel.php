@@ -21,21 +21,22 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new PiggyBox\OrderBundle\PiggyBoxOrderBundle(),
             new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
-			new PiggyBox\UserBundle\PiggyBoxUserBundle(),
+            new PiggyBox\UserBundle\PiggyBoxUserBundle(),
 
-	    	//third-party bundle
-		    new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-		    new FOS\UserBundle\FOSUserBundle(),
-	    	new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),		
-			new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-			new Sonata\SeoBundle\SonataSeoBundle(),
-			new BCC\CronManagerBundle\BCCCronManagerBundle(),
-			new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
-			new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
-	        new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            //third-party bundle
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Sonata\SeoBundle\SonataSeoBundle(),
+            new BCC\CronManagerBundle\BCCCronManagerBundle(),
+            new Craue\TwigExtensionsBundle\CraueTwigExtensionsBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new Liip\CodeBundle\LiipCodeBundle(),
 
-			//bundles for category in PiggyBoxShopBundle
-			new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            //bundles for category in PiggyBoxShopBundle
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
