@@ -165,3 +165,8 @@ craue_twig_extensions: ~
 
 # WhiteOctoberBreadcrumbsBundle configuration
 white_october_breadcrumbs: ~
+
+# LiipCodeBundle configuration
+liip_code:
+    edit_command: "vim -f"
+    view_command: "vim -f"

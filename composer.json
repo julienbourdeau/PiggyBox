@@ -33,7 +33,8 @@
         "craue/twigextensions-bundle": "dev-master",
 		"whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
         "willdurand/geocoder": "*",	
-        "egeloen/google-map-bundle": "dev-master"
+        "egeloen/google-map-bundle": "dev-master",
+        "liip/code-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
