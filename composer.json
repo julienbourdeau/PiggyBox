@@ -31,7 +31,7 @@
         "sonata-project/seo-bundle": "*",
         "bcc/cron-manager-bundle": "*",
         "craue/twigextensions-bundle": "dev-master",
-		"whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
+		"whiteoctober/breadcrumbs-bundle": "dev-master",
         "willdurand/geocoder": "*",	
         "egeloen/google-map-bundle": "dev-master",
         "liip/code-bundle": "dev-master"
