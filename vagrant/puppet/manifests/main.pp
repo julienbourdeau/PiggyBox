@@ -4,8 +4,8 @@ include php5
 # If you want PHP 5.4 uncomment the following line, and comment out the php53debian line
 #  then run "vagrant provision" and you should have php 5.4
 
-#include php54dotdeb
-include php53debian
+include php54dotdeb
+#include php53debian
 
 include otherstuff
 include apache
