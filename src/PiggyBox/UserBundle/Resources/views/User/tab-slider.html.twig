@@ -91,6 +91,13 @@
                                             <img src="{{ asset(path) }}" alt="">
                                         </div>
                                     {% endfor %}
+                                {% elseif (shop.slug == 'boucherie-morel') %}
+                                    {% for count in range(1, 6) %}
+                                        <div class="item">
+                                            {% set path = "bundles/piggyboxuser/img/carousel/boucherie-morel/boucherie-morel-" ~ count ~ ".jpg" %}
+                                            <img src="{{ asset(path) }}" alt="">
+                                        </div>
+                                    {% endfor %}
                                 {% endif %}
                             </div>
 
