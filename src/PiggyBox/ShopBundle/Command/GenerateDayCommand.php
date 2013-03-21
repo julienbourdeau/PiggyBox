@@ -80,13 +80,13 @@ class GenerateDayCommand extends ContainerAwareCommand
                 'A partir de quelle heure ouvre t-il l\'après-midi ? (e.g 13:30)',
                 null
             );
-            $monday->setFromTimeAfternoon($setFromTimeAfternoon);
+            $monday->setFromTimeAfternoon(new \DateTime($setFromTimeAfternoon));
             $setToTimeAfternoon = $dialog->ask(
                 $output,
                 'A partir de quelle heure ferme t-il le soir? (e.g 21:30)',
                 null
             );
-            $monday->setToTimeAfternoon($setToTimeAfternoon);
+            $monday->setToTimeAfternoon(new \DateTime($setToTimeAfternoon));
 
         $shop->addOpeningDay($monday);
         }
@@ -95,7 +95,3 @@ class GenerateDayCommand extends ContainerAwareCommand
         $em->flush();
     }
 }
-//Bux => Lundi au dimanche sauf mercredi de 6H30 à 21H00
-//La garenne => Lundi à samedi 6H30 à 20H30
-//Grand large => Lundi au samedi, 6H30 à 20H00
-//Futuroscope => Lundi à Samedi, 6H30 à 20H30
