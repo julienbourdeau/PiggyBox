@@ -17,7 +17,7 @@ include symfony
 #  then run "vagrant provision"
 # The database is named `symfony`, the user is `symfony` and the password `Shub9aiJ`
 
-#include mysql
+include mysql
 
 
 class apt_update {
@@ -77,6 +77,11 @@ class php5 {
     package { ["php5-xdebug", "php5-intl", "php5-sqlite"]:
         ensure => latest,
         require => Package["libapache2-mod-php5"],
+        notify => Service["apache2"]
+    }
+
+    package { "php5-gd":
+        ensure => latest,
         notify => Service["apache2"]
     }
 
@@ -187,9 +192,9 @@ class mysql {
         require => Package["mysql-server"],
     }
 
-    mysqldb { "symfony":
-        user => "symfony",
-        password => "Shub9aiJ"
+    mysqldb { "piggybox_prod_v2":
+        user => "root",
+        password => "root"
     }
 
     package { ["mysql-client", "mysql-server"]:
