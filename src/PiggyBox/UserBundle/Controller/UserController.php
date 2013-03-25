@@ -214,7 +214,7 @@ class UserController extends Controller
     public function shopsAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Rechercher des commerçants");
+        $seoPage->setTitle("Tous les commerçants de proximité - Côtelettes & Tarte aux Fraises");
 
         $map = $this->get('ivory_google_map.map');
 
