@@ -168,6 +168,16 @@ class UserController extends Controller
         $event9->setEventName('click');
         $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
 
+        # Morel - reze
+        $marker10 = $this->get('ivory_google_map.marker');
+        $marker10->setPrefixJavascriptVariable('marker_');
+        $marker10->setPosition(47.1849,-1.546154, true);
+
+        $event10 = $this->get('ivory_google_map.event');
+        $event10->setInstance($marker10->getJavascriptVariable());
+        $event10->setEventName('click');
+        $event10->setHandle('function(){showShopInMap("boucherie-morel")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -178,6 +188,7 @@ class UserController extends Controller
         $map->addMarker($marker7);
         $map->addMarker($marker8);
         $map->addMarker($marker9);
+        $map->addMarker($marker10);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -191,6 +202,7 @@ class UserController extends Controller
         $event7->setCapture(true);
         $event8->setCapture(true);
         $event9->setCapture(true);
+        $event10->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -203,6 +215,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
+        $map->getEventManager()->addDomEvent($event10);
 
         return array('map' => $map);
     }
@@ -350,6 +363,16 @@ class UserController extends Controller
         $event9->setEventName('click');
         $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
 
+        # Morel - reze
+        $marker10 = $this->get('ivory_google_map.marker');
+        $marker10->setPrefixJavascriptVariable('marker_');
+        $marker10->setPosition(47.1849,-1.546154, true);
+
+        $event10 = $this->get('ivory_google_map.event');
+        $event10->setInstance($marker10->getJavascriptVariable());
+        $event10->setEventName('click');
+        $event10->setHandle('function(){showShopInMap("boucherie-morel")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -360,6 +383,7 @@ class UserController extends Controller
         $map->addMarker($marker7);
         $map->addMarker($marker8);
         $map->addMarker($marker9);
+        $map->addMarker($marker10);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -373,6 +397,7 @@ class UserController extends Controller
         $event7->setCapture(true);
         $event8->setCapture(true);
         $event9->setCapture(true);
+        $event10->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -385,6 +410,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
+        $map->getEventManager()->addDomEvent($event10);
 
         return array('map' => $map);
     }
