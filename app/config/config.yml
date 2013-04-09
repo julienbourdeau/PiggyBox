@@ -134,8 +134,8 @@ sonata_seo:
         title:            Côtelettes & Tarte aux Fraises
         metas:
             name:
-                keywords:             Boucherie Charcuterie Traiteur Terroir Nantes Sautrons Saint-Herblain horaires adresse telephone
-                description:          Site dédié aux commerçants de proximité
+                keywords:             Boucherie Charcuterie Boulangerie Cremerie Nantes Sautrons Saint-Herblain horaires adresse telephone
+                description:          Vos commerçants de proximité en ligne. Recherchez, Découvrez, Commandez!
                 robots:               index, follow
 
             property:
@@ -148,7 +148,35 @@ sonata_seo:
                 'og:title':     Côtelettes & Tarte aux Fraises
                 'og:url':       www.cotelettes-tarteauxfraises.com
                 'og:site_name':     Côtelettes & Tarte aux Fraises
-                'og:description':    Le terroir dans sa poche 
+                'og:description':    Vos commerçants de proximité en ligne: Recherchez, Découvrez, Commandez!
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+                #'X-Ua-Compatible':      IE=EmulateIE7
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+            #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+    shop:
+        title:            Commerce  - Côtelettes & Tarte aux Fraises
+        metas:
+            name:
+                keywords:             Boucherie Charcuterie Boulangerie Cremerie Nantes Sautrons Saint-Herblain horaires adresse telephone
+                description:          Vos commerçants de proximité en ligne. Recherchez, Découvrez, Commandez!
+                robots:               index, follow
+
+            property:
+                # Facebook application settings
+                #'fb:app_id':          XXXXXX
+                #'fb:admins':          admin1, admin2
+
+                # Open Graph information
+                # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
+                'og:title':     Côtelettes & Tarte aux Fraises
+                'og:url':       www.cotelettes-tarteauxfraises.com
+                'og:site_name':     Côtelettes & Tarte aux Fraises
+                'og:description':    Vos commerçants de proximité en ligne: Recherchez, Découvrez, Commandez!
 
             http-equiv:
                 'Content-Type':         text/html; charset=utf-8

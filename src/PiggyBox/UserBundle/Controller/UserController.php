@@ -168,6 +168,16 @@ class UserController extends Controller
         $event9->setEventName('click');
         $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
 
+        # Morel - reze
+        $marker10 = $this->get('ivory_google_map.marker');
+        $marker10->setPrefixJavascriptVariable('marker_');
+        $marker10->setPosition(47.1849,-1.546154, true);
+
+        $event10 = $this->get('ivory_google_map.event');
+        $event10->setInstance($marker10->getJavascriptVariable());
+        $event10->setEventName('click');
+        $event10->setHandle('function(){showShopInMap("boucherie-morel")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -178,6 +188,7 @@ class UserController extends Controller
         $map->addMarker($marker7);
         $map->addMarker($marker8);
         $map->addMarker($marker9);
+        $map->addMarker($marker10);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -191,6 +202,7 @@ class UserController extends Controller
         $event7->setCapture(true);
         $event8->setCapture(true);
         $event9->setCapture(true);
+        $event10->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -203,6 +215,7 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
+        $map->getEventManager()->addDomEvent($event10);
 
         return array('map' => $map);
     }
@@ -214,7 +227,7 @@ class UserController extends Controller
     public function shopsAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Rechercher des commerçants");
+        $seoPage->setTitle("Tous les commerçants de proximité - Côtelettes & Tarte aux Fraises");
 
         $map = $this->get('ivory_google_map.map');
 
@@ -350,6 +363,16 @@ class UserController extends Controller
         $event9->setEventName('click');
         $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
 
+        # Morel - reze
+        $marker10 = $this->get('ivory_google_map.marker');
+        $marker10->setPrefixJavascriptVariable('marker_');
+        $marker10->setPosition(47.1849,-1.546154, true);
+
+        $event10 = $this->get('ivory_google_map.event');
+        $event10->setInstance($marker10->getJavascriptVariable());
+        $event10->setEventName('click');
+        $event10->setHandle('function(){showShopInMap("boucherie-morel")}');
+
         $map->addMarker($marker1);
         $map->addMarker($marker1bis);
         $map->addMarker($marker2);
@@ -360,6 +383,7 @@ class UserController extends Controller
         $map->addMarker($marker7);
         $map->addMarker($marker8);
         $map->addMarker($marker9);
+        $map->addMarker($marker10);
 
         // It can only be used with a DOM event
         // By default, the capture flag is false
@@ -373,6 +397,7 @@ class UserController extends Controller
         $event7->setCapture(true);
         $event8->setCapture(true);
         $event9->setCapture(true);
+        $event10->setCapture(true);
 
         // Add a DOM event
         $map->getEventManager()->addDomEvent($event1);
@@ -385,114 +410,11 @@ class UserController extends Controller
         $map->getEventManager()->addDomEvent($event7);
         $map->getEventManager()->addDomEvent($event8);
         $map->getEventManager()->addDomEvent($event9);
+        $map->getEventManager()->addDomEvent($event10);
 
         return array('map' => $map);
     }
-
-    /**
-     * @Template()
-     * @Route("les-commercants/nantes", name="shops_nantes")
-     */
-    public function shopsNantesAction()
-    {
-        $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Nantes");
-
-        $map = $this->get('ivory_google_map.map');
-
-        $map->setPrefixJavascriptVariable('map_');
-        $map->setHtmlContainerId('map_canvas');
-        $map->setAsync(false);
-
-        $map->setCenter(47.223066, -1.552162, true);
-        $map->setMapOption('zoom', 11);
-
-        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
-
-        $map->setStylesheetOptions(array(
-            'width' => '100%',
-            'height' => '400px'
-        ));
-
-        // Configure your marker options
-        $marker1 = $this->get('ivory_google_map.marker');
-        $marker1->setPrefixJavascriptVariable('marker_');
-        $marker1->setPosition(47.2144380, -1.585360, true);
-
-        $marker2 = $this->get('ivory_google_map.marker');
-        $marker2->setPrefixJavascriptVariable('marker_');
-        $marker2->setPosition(47.215545,-1.564271, true);
-
-        $marker3 = $this->get('ivory_google_map.marker');
-        $marker3->setPrefixJavascriptVariable('marker_');
-        $marker3->setPosition(47.229044,-1.57163, true);
-
-        $marker4 = $this->get('ivory_google_map.marker');
-        $marker4->setPrefixJavascriptVariable('marker_');
-        $marker4->setPosition(47.214962,-1.55429, true);
-
-        # Les mimines
-        $marker8 = $this->get('ivory_google_map.marker');
-        $marker8->setPrefixJavascriptVariable('marker_');
-        $marker8->setPosition(47.275619,-1.466761, true);
-
-        $map->addMarker($marker1);
-        $map->addMarker($marker2);
-        $map->addMarker($marker3);
-        $map->addMarker($marker4);
-        $map->addMarker($marker8);
-
-        return array('map' => $map);
-    }
-
-    /**
-     * @Template()
-     * @Route("les-commercants/poitiers", name="shops_poitiers")
-     */
-    public function shopsPoitiersAction()
-    {
-        $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Les commerçants à Poitiers");
-
-        $map = $this->get('ivory_google_map.map');
-
-        $map->setPrefixJavascriptVariable('map_');
-        $map->setHtmlContainerId('map_canvas');
-        $map->setAsync(false);
-
-        $map->setCenter(46.582462, 0.340405, true);
-        $map->setMapOption('zoom', 12);
-
-        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
-
-        $map->setStylesheetOptions(array(
-            'width' => '100%',
-            'height' => '400px'
-        ));
-
-        // Configure your marker options
-
-        # Epi de blais
-        $marker5 = $this->get('ivory_google_map.marker');
-        $marker5->setPrefixJavascriptVariable('marker_');
-        $marker5->setPosition(46.594289,0.36257, true);
-
-        # La garenne
-        $marker6 = $this->get('ivory_google_map.marker');
-        $marker6->setPrefixJavascriptVariable('marker_');
-        $marker6->setPosition(46.556027,0.304871, true);
-
-        # Inopinee
-        $marker7 = $this->get('ivory_google_map.marker');
-        $marker7->setPrefixJavascriptVariable('marker_');
-        $marker7->setPosition(46.564791,0.356863, true);
-
-        $map->addMarker($marker5);
-        $map->addMarker($marker6);
-        $map->addMarker($marker7);
-
-        return array('map' => $map);
-    }
+    
 
     /**
      * @Template()
@@ -501,7 +423,7 @@ class UserController extends Controller
     public function ccmAction()
     {
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - Comment ça marche");
+        $seoPage->setTitle("Commander en ligne dans ses commerces de proximité - Côtelettes & Tarte aux Fraises");
 
         return array();
     }
@@ -533,7 +455,7 @@ class UserController extends Controller
     /**
      * Affiche le détail par produit
      *
-     * @Route("commerce/{shop_slug}/{category_slug}/{product_slug}", name="view_product_details")
+     * @Route("commerce/{shop_slug}/produits/{category_slug}/{product_slug}", name="view_product_details")
      * @ParamConverter("shop", options={"mapping": {"shop_slug": "slug"}})
      * @Template("PiggyBoxUserBundle:User:showShop.html.twig")
      */
@@ -568,15 +490,17 @@ class UserController extends Controller
         return $data;
     }
 
+
     /**
      * Récupère les produits d'un magasin selon la catégorie
      *
-     * @Route("commerce/{shop_slug}/{category_slug}", name="user_show_shop", defaults={"category_slug"="default"})
+     * @Route("commerce/{shop_slug}/produits/{category_slug}", name="user_show_shop", defaults={"category_slug"="default"})
      * @ParamConverter("shop", options={"mapping": {"shop_slug": "slug"}})
      * @Template()
      */
     public function showShopAction(Request $req, Shop $shop, $category_slug)
     {
+
         $seoPage = $this->get('sonata.seo.page');
 
         $data = array();
@@ -623,6 +547,42 @@ class UserController extends Controller
 
         return $data;
     }
+
+
+    /**
+     * @Route("commerce/{shop_slug}/informations-et-details", name="user_show_shop_info")
+     * @Template()
+     */
+    public function showShopInfoAction($shop_slug)
+    {
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises");
+
+        $em = $this->getDoctrine()->getManager();
+        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+        
+        return $data;
+    }
+
+
+    /**
+     * @Route("commerce/{shop_slug}/photos", name="user_show_shop_photo")
+     * @Template()
+     */
+    public function showShopPhotosAction($shop_slug)
+    {
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises");
+
+        $em = $this->getDoctrine()->getManager();
+        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+        
+        return $data;
+    }
+
+
 
     /**
      * Récupère les formules pour laisser choisir l'utilisateur son menu
