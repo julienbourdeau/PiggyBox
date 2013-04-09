@@ -80,11 +80,6 @@ class php5 {
         notify => Service["apache2"]
     }
 
-    package { "php5-gd":
-        ensure => latest,
-        notify => Service["apache2"]
-    }
-
     package { "php5-suhosin":
         ensure => purged,
         notify => Service["apache2"]
@@ -192,9 +187,9 @@ class mysql {
         require => Package["mysql-server"],
     }
 
-    mysqldb { "piggybox_prod_v2":
-        user => "root",
-        password => "root"
+    mysqldb { "symfony":
+        user => "symfony",
+        password => "Shub9aiJ"
     }
 
     package { ["mysql-client", "mysql-server"]:
