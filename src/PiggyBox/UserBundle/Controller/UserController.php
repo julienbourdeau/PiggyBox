@@ -414,7 +414,6 @@ class UserController extends Controller
 
         return array('map' => $map);
     }
-    
 
     /**
      * @Template()
@@ -490,7 +489,6 @@ class UserController extends Controller
         return $data;
     }
 
-
     /**
      * Récupère les produits d'un magasin selon la catégorie
      *
@@ -561,7 +559,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
-        
+
         return $data;
     }
 
@@ -578,7 +576,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
-        
+
         return $data;
     }
 

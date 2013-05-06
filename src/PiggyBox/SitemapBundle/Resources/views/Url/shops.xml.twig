@@ -1,0 +1,47 @@
+    <url>
+        <loc>{{ path('user_show_shop_info', {'shop_slug': shop.slug})|piggybox_sitemap_url_absolute}}</loc>
+        <lastmod>{{ shop.updatedAt|piggybox_sitemap_date}}</lastmod>
+        {#<priority>{{ bundle.score }}</priority>#}
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>{{ path('user_show_shop_photo', {'shop_slug': shop.slug})|piggybox_sitemap_url_absolute}}</loc>
+        <lastmod>{{ shop.updatedAt|piggybox_sitemap_date}}</lastmod>
+        {#<priority>{{ bundle.score }}</priority>#}
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>{{ path('user_show_shop', {'shop_slug': shop.slug, 'category_slug': ''})|piggybox_sitemap_url_absolute}}</loc>
+        <lastmod>{{ shop.updatedAt|piggybox_sitemap_date}}</lastmod>
+        {#<priority>{{ bundle.score }}</priority>#}
+        <changefreq>weekly</changefreq>
+    </url>
+
+        {% set categorySlugBufferId = [] %}
+        {% for product in shop.products %}
+    <url>
+        <loc>{{ path('view_product_details', {'shop_slug': shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug})|piggybox_sitemap_url_absolute}}</loc>
+        <lastmod>{{ product.updatedAt|piggybox_sitemap_date}}</lastmod>
+        {#<priority>{{ bundle.score }}</priority>#}
+        <changefreq>weekly</changefreq>
+        <image:image>
+        {% set image = '/media/cache/my_thumb/'~product.getWebPath %}
+            <image:loc>{{ image|piggybox_sitemap_url_absolute }}</image:loc>
+            <image:title>{{product.name}}</image:title>
+            <image:caption>{{product.name}}</image:caption>
+        </image:image>
+    </url>
+
+        {% if product.category.id not in categorySlugBufferId %}
+            {% set categorySlugBufferId = categorySlugBufferId|merge([product.category.id]) %}
+    <url>
+        <loc>{{ path('user_show_shop', {'shop_slug': shop.slug, 'category_slug': product.category.slug})|piggybox_sitemap_url_absolute}}</loc>
+        <lastmod>{{ product.updatedAt|piggybox_sitemap_date}}</lastmod>
+        {#<priority>{{ bundle.score }}</priority>#}
+        <changefreq>weekly</changefreq>
+    </url>
+    {% endif %}
+
+    {% endfor %}
