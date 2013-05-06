@@ -4646,4 +4646,55 @@ li.testimonial-item .quote-source {
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+.ribbon2 {
+  font-size: 16px !important;
+  /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
 
+  width: 100%;
+  position: relative;
+  background: #ed2b2a;
+  color: #fff;
+  text-align: center;
+  padding: 1em 2em;
+  /* Adjust to suit */
+
+  margin: 2em auto 3em;
+  /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
+
+}
+.ribbon2:before,
+.ribbon2:after {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: -1em;
+  border: 1.5em solid #ed2b2a;
+  z-index: -1;
+}
+.ribbon2:before {
+  left: -2em;
+  border-right-width: 1.5em;
+  border-left-color: transparent;
+}
+.ribbon2:after {
+  right: -2em;
+  border-left-width: 1.5em;
+  border-right-color: transparent;
+}
+.ribbon2 .ribbon2-content:before,
+.ribbon2 .ribbon2-content:after {
+  content: "";
+  position: absolute;
+  display: block;
+  border-style: solid;
+  border-color: #ed2b2a transparent transparent transparent;
+  bottom: -1em;
+}
+.ribbon2 .ribbon2-content:before {
+  left: 0;
+  border-width: 1em 0 0 1em;
+}
+.ribbon2 .ribbon2-content:after {
+  right: 0;
+  border-width: 1em 1em 0 0;
+}
