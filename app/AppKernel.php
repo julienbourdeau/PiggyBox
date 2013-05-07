@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new PiggyBox\OrderBundle\PiggyBoxOrderBundle(),
             new PiggyBox\ShopBundle\PiggyBoxShopBundle(),
             new PiggyBox\UserBundle\PiggyBoxUserBundle(),
+            new PiggyBox\SitemapBundle\PiggyBoxSitemapBundle(),
 
             //third-party bundle
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),

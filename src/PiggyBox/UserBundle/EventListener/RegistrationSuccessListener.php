@@ -33,12 +33,12 @@ class RegistrationSuccessListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if($request->getSession()->has('_piggybox.redirect_after_registration')) {
+        if ($request->getSession()->has('_piggybox.redirect_after_registration')) {
             $isRedirected = $request->getSession()->get('_piggybox.redirect_after_registration');
             $today = new \DateTime('now');
             $today->modify('-5 minutes');
 
-            if($isRedirected > $today) {
+            if ($isRedirected > $today) {
                 $url = $this->router->generate('validate_order');
                 $event->setResponse(new RedirectResponse($url));
             }

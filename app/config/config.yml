@@ -198,3 +198,7 @@ white_october_breadcrumbs: ~
 liip_code:
     edit_command: "vim -f"
     view_command: "vim -f"
+
+
+piggy_box_sitemap:
+    base_url: http://cotelettes-tarteauxfraises.com
