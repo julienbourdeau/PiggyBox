@@ -1,4 +1,49 @@
 # www.robotstxt.org/
 # www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
 
+Sitemap: http://cotelettes-tarteauxfraises.com/sitemap.xml
+
 User-agent: *
+Disallow: /category/
+Disallow: /category/move-up/*
+Disallow: /category/move-down/*
+Disallow: /category/show/*
+Disallow: /category/delete/*
+Disallow: /category/edit/*
+Disallow: /category/add
+Disallow: /category/save
+Disallow: /monmagasin/formule/
+Disallow: /monmagasin/formule/{id}/show
+Disallow: /monmagasin/formule/nouveau
+Disallow: /monmagasin/formule/create
+Disallow: /monmagasin/formule/{id}/edit
+Disallow: /monmagasin/formule/{id}/update
+Disallow: /monmagasin/formule/{id}/delete
+Disallow: /monmagasin/mesproduits/*
+Disallow: /monmagasin/mesproduits/nouveau
+Disallow: /monmagasin/mesproduits/create
+Disallow: /monmagasin/mesproduits/*/edit
+Disallow: /monmagasin/mesproduits/*/discount
+Disallow: /monmagasin/mesproduits/*/{productId}/discount/delete
+Disallow: /monmagasin/mesproduits/*/update
+Disallow: /monmagasin/mesproduits/*/delete
+Disallow: /monmagasin/mesproduits/*/activate
+Disallow: /monmagasin/new
+Disallow: /monmagasin/create
+Disallow: /checkout/*
+Disallow: /checkout/
+Disallow: /checkout/date-heure
+Disallow: /checkout/status/
+Disallow: /checkout/validation
+Disallow: /checkout/confirmation
+Disallow: /checkouthoraires/*/*.*
+Disallow: /checkout/change/status/*/*
+Disallow: /cron-manager/
+Disallow: /cron-manager/*/edit
+Disallow: /cron-manager/add
+Disallow: /cron-manager/*/wakeup
+Disallow: /cron-manager/*/suspend
+Disallow: /cron-manager/*/remove
+Disallow: /cron-manager/*/file/*
+
+
