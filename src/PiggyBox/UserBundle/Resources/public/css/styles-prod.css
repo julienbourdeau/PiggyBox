@@ -4037,6 +4037,7 @@ div.image-category:hover img {
 }
 #header .header-content ul.nav {
   color: #ffffff;
+  margin-top: 25px !important;
 }
 #header .header-content ul.nav a {
   color: #ffffff;
@@ -4067,7 +4068,8 @@ div.image-category:hover img {
   font-size: 21px;
   font-style: italic;
   color: #ffffff;
-  padding-left: 45px;
+  padding-left: 10px;
+  margin-top: -30px !important;
 }
 a#shopping-cart-button {
   display: block;
@@ -4555,10 +4557,77 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   display: none;
 }
 .topline {
-  font-size: 24px;
-  font-family: "Time New Roman", serif;
+  font-size: 32px;
+  font-family: 'Museo-500', Georgia, 'Times New Roman', Times, serif;
   text-align: center;
-  font-style: italic;
+  line-height: 35px;
+}
+#background-sexy-picture {
+  background: url(http://fc01.deviantart.net/fs71/i/2012/233/4/1/tarte_vanille_fraise___strawberry_pie___113_by_claralg-d5bvulu.jpg);
+  background-size: cover;
+  padding: 20px;
+  height: 100%;
+  margin-bottom: 30px;
+}
+#background-sexy-picture .map-container {
+  padding: 0 15px 0 15px;
+}
+#background-sexy-picture ol.nav {
+  color: #ffffff;
+  margin-top: 25px !important;
+}
+#background-sexy-picture ol.nav a {
+  color: #ffffff;
+}
+#background-sexy-picture ol.nav a:hover {
+  background: #ed2b2a;
+  text-decoration: none;
+}
+#background-sexy-picture ol.nav li {
+  display: inline;
+}
+#background-sexy-picture h3 {
+  color: white;
+  margin: 0px !important;
+  text-align: inherit;
+  font-size: 42px !important;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 3px;
+  display: inline;
+}
+#background-sexy-picture h4 {
+  color: white;
+  margin: 0px !important;
+  text-align: inherit;
+  font-size: 24px !important;
+  font-family: 'Museo-500', Georgia, 'Times New Roman', Times, serif;
+  font-weight: lighter !important;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 5px;
+  display: inline;
+  float: right;
+}
+#background-sexy-picture h4 a {
+  color: #ffffff;
+}
+#city-not-available {
+  background: url(http://pix.toile-libre.org/upload/original/1369405112.png);
+  width: 1055px;
+  height: 508px;
+  border: 4px black solid;
+}
+#city-not-available .content {
+  width: 700px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.9);
+  margin: auto;
+  margin-top: 90px;
+  border-radius: 3px;
+  padding: 20px;
+  text-align: center;
+}
+#map-anchor h1 {
+  font-size: 32px !important;
 }
 .slider-sidebar-item {
   height: 150px;
@@ -4581,11 +4650,20 @@ ul.nav-tabs-for-map {
   overflow: hidden;
   border: 0;
 }
+ul.nav-tabs-for-map .map-available-city-label {
+  padding-top: 7px;
+}
 ul.nav-tabs-for-map li {
   font-size: 18px;
   margin: 2px 12px 0 -1px;
   text-align: center;
-  width: 30%;
+  width: 160px;
+}
+ul.nav-tabs-for-map li:hover {
+  cursor: pointer;
+}
+ul.nav-tabs-for-map li.map-available-city-label:hover {
+  cursor: default !important;
 }
 ul.nav-tabs-for-map li.active a {
   background: #222222;
@@ -4613,6 +4691,9 @@ ul.nav-tabs-for-map li.active a:hover {
   font-size: 18px !important;
   color: #ffffff;
 }
+#mother {
+  margin: auto;
+}
 ul.testimonials {
   margin: 0;
   padding: 0;
@@ -4621,9 +4702,9 @@ ul.testimonials {
 li.testimonial-item {
   float: left;
   width: 631px;
-  height: 202px;
+  height: 150px;
   margin: 0;
-  padding: 32px;
+  padding: 0 32px 0 32px;
 }
 li.testimonial-item .quote {
   font-size: 26px;
@@ -4636,6 +4717,144 @@ li.testimonial-item .quote-source {
   font-size: 16px;
   padding-top: 16px;
   text-align: right;
+}
+/** DROPDOWN MENU **/
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+::selection {
+  background: transparent;
+}
+::-moz-selection {
+  background: transparent;
+}
+.wrapper-demo {
+  margin: 60px 0 0 0;
+  *zoom: 1;
+  font-weight: 400;
+}
+.wrapper-demo:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.wrapper-dropdown-5 {
+  /* Size & position */
+
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+  padding: 12px 15px;
+  /* Styles */
+
+  background: #d21f1e;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #d21f1e 0%, #b52120 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d21f1e), color-stop(100%, #b52120));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #d21f1e 0%, #b52120 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #d21f1e 0%, #b52120 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #d21f1e 0%, #b52120 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #d21f1e 0%, #b52120 100%);
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+/* Little arrow */
+.wrapper-dropdown-5:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -3px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: white transparent;
+}
+.wrapper-dropdown-5 .dropdown {
+  /* Size & position */
+
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  left: -25px;
+  right: 0;
+  /* Styles */
+
+  border-radius: 0 0 5px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+  list-style: none;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  /* Hiding */
+
+  max-height: 0;
+  overflow: hidden;
+}
+.wrapper-dropdown-5 .dropdown li {
+  padding: 0 10px ;
+}
+.wrapper-dropdown-5 .dropdown li:hover {
+  background: #f8f8f8;
+}
+.wrapper-dropdown-5 .dropdown li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 10px 0;
+  transition: all 0.3s ease-out;
+  border-bottom: 1px solid #e6e8ea;
+}
+.wrapper-dropdown-5 .dropdown li:last-of-type a {
+  border: none;
+}
+.wrapper-dropdown-5 .dropdown li i {
+  margin-right: 5px;
+  color: inherit;
+  vertical-align: middle;
+}
+/* Active state */
+.wrapper-dropdown-5.active {
+  border-radius: 5px 5px 0 0;
+  box-shadow: none;
+  border-bottom: none;
+}
+.wrapper-dropdown-5.active:after {
+  border-color: white transparent;
+}
+.wrapper-dropdown-5.active .dropdown {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  max-height: 400px;
 }
 /*!
  * Bootstrap Responsive v2.1.1

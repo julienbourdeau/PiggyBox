@@ -4,11 +4,27 @@
 
 <div id="sidebar-default" class="home-map-sidebar-item" style="padding: 12px 24px;">
 
-	<h4 style="font-weight: normal;">Cliquez sur un commerce pour le voir en details</h4>
+	<h4 style="font-weight: normal; font-size:14px; text-align:center;">Cliquez sur un commerce pour le voir en details</h4>
 
-	<hr>
+	<hr style="margin:0 0 20px 0;">
 
-	<h4>Légende</h4>
+	<p style="text-align:center;">Voici les villes où vous pouvez faire vos courses dès aujourd'hui :<p>
+	<div id="dd" class="wrapper-dropdown-5" tabindex="1">
+		<i class="icon-map-marker icon-white"></i> {{ visitor_big_city }}
+		<ul class="dropdown">
+			{% for city in available_cities if city != visitor_big_city %}
+				<li><a href="#"><i class="icon-map-marker"></i>{{ city }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<div style="position:relative;top:170px;left:55px;">
+		<a href="#" class="btn btn-info btn-large">Voir les boutiques <i class="icon-white icon-arrow-right"></i></a>
+	</div>
+
+
+
+	<!-- <h4>Légende</h4>
 
 	<table class="table table-bordered">
 		<tr>
@@ -41,7 +57,7 @@
 			</td>
 			<td>Caviste</td>
 		</tr>
-	</table>
+	</table>-->
 
 </div>
 
