@@ -9,6 +9,7 @@ web/uploads/*
 web/bundles/*
 web/adminer-3.6.1-mysql.php
 web/adminer-3.7.0-mysql.php
+web/adminer-3.6.4-mysql.php
 web/adminer.php
 web/media/*
 web/.htaccess
@@ -22,6 +23,7 @@ app/config/parameters.yml
 
 # Vim files
 *.swp
+*.DS_Store
 
 # Misc
 composer.lock

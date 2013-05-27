@@ -188,8 +188,8 @@ class mysql {
     }
 
     mysqldb { "symfony":
-        user => "symfony",
-        password => "Shub9aiJ"
+        user => "root",
+        password => "root"
     }
 
     package { ["mysql-client", "mysql-server"]:
