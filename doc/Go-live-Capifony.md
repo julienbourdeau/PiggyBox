@@ -7,13 +7,17 @@
 
 ## 1 Installation de la gem Capifony l'environnement client
 
-```gem install capifony```
+```bash
+gem install capifony
+```
 
 ## 2 Mise en place de Capifony sur un projet Symfony
 
 Commande à exécuter à la racine du projet:
 
-```capifony .```
+```bash
+capifony .
+```
 
 Capifony se met alors en place sur le projet existant.
 
@@ -92,11 +96,15 @@ after "deploy", "deploy:cleanup"
 
 On installe la Gem:
 
-```gem install capifony```
+```bash
+gem install capifony
+```
 
 Puis on se déplace dans le dossier définie dans **deploy_to** dans **deploy.rb** , et on exécute:
 
-```cap deploy:setup```
+```bash
+cap deploy:setup
+```
 
 Cette commande permet de créer l'arborescence nécessaire au déploiement:
 
@@ -111,7 +119,9 @@ Shared permet de garder les fichiers nécessaires à toutes les releases en lien
 
 Lors du premier déploiement et uniquement lors du premier, il faut éxecuter depuis le client:
 
-```cap deploy:cold```
+```bash
+cap deploy:cold
+```
 
 Elle permet de créer la première release sur le serveur et de créer le lien symbolique current.
 
@@ -121,7 +131,9 @@ Ce lien sera changé à chaque nouveau déploiement, vers la nouvelle release.
 
 Pour déployer sur le serveur de production on utilise la commande:
 
-```cap deploy```
+```bash
+cap deploy
+```
 
 Une nouvelle release est alors effectuée, et le lien symbolique "current" est dirigé vers cette nouvelle release.
 
@@ -133,7 +145,9 @@ Une nouvelle release est alors effectuée, et le lien symbolique "current" est d
 
 En cas de dysfonctionnement de la nouvelle release où que Julien a tout cassé, effectué la commande:
 
-```cap deploy:rollback```
+```bash
+cap deploy:rollback
+```
 
 Cette commande redirigera rapidement le lien current vers la release précédant cette release défectueuse, puis la supprimera.
 
