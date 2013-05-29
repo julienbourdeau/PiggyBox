@@ -3,323 +3,58 @@
 {% block content %}
 
 
-    <div class="container">
-        <div class="row bottom-marged">
-            {#
-            <div class="span12">
-                <h1 class="text-centered">Où sont vos commerces</h1>
-            </div>
+    {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
 
-            <div class="span9">
-                {{ google_map_container(map) }}
-            </div>
-            <div class="span3">
-                <div class="well">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Choisissez votre ville</li>
-                        <li class=""><a href="{{ path('shops_nantes') }}">Nantes</a></li>
-						<li><a href="{{ path('shops_poitiers') }}">Poitiers</a></li>
-                    </ul>
-                </div>
-            </div>
-            #}
-            <div class="span12">
-                <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
 
-                <div class="row-fluid">
-                    <div class="span6">
-                        <ul class="nav nav-tabs nav-tabs-for-map">
-                            <li class="">
-                                <a id="map-recenter-nantes">Nantes</a>
-                            </li>
-                            <li>
-                            <a id="map-recenter-poitiers">Poitiers</a>
-                            </li>
-                            <li class="disabled">
-                                <a>Paris</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="span6" style="padding-top: 12px;">
-                        Et d'autres à venir...
-                    </div>
-                </div>
-
-                <div id="map-container" class="clearfix">
-                    <div id="map-container-left" class="pull-left">
-                        {{ google_map_container(map) }}
-                    </div>
-                    <div id="map-container-right" class="pull-left">
-                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% if visitorBigCity != "none" %}
 
     <div class="container">
         <div class="row bottom-marged">
             <div class="span12">
 
-                <h1 class="text-centered">Nos commerces sélectionnés</h1>
+                <h1 class="text-centered" id="shoppers">Voici les commerces de {{ visitorBigCity }} :</h1>
 
             </div>
         </div>
     </div>
 
-    <div class="container">
+        <div class="container">
         <div class="row">
-            <div class="span6">
-
-                <h3 class="text-centered"><i class="icon-map-marker"></i> Nantes</h3>
-
-                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="box bottom-marged">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/zola.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie de Zola</h2>
-                            <h4>Une boucherie au coeur du quartier Zola</h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-                                        Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.
-                                    </p>
+            {% for shopper in shoppersDetails %}
+                <div class="span6">
+                    <a  href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}" class="box bottom-marged">
+                        <div class="row-fluid">
+                            <div class="shop-thumbnail span4">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
+                            </div>
+                            <div class="span8">
+                                <h2 class="no-margin">{{ shopper.name }}</h2>
+                                <h4>{{ shopper.slogan }}</h4>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <p class="small-text">
+                                            {{ shopper.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="btn btn-block btn-primary">
+                                    <i class="icon-home icon-white"></i> Visiter le magasin
                                 </div>
                             </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
                         </div>
-                    </div>
-                </a>
-
-                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="box bottom-marged">
-
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/boucherie-jauneau.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie des Gourmets</h2>
-                            <h4>Boucherie traditionnelle aux Hauts Pavés</h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-                                        Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
-                        </div>
-                    </div>
-                </a>
-
-                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-morel'}) }}" class="box bottom-marged">
-
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/boucherie-morel/boucherie-morel-th.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie Morel</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-                                        Anne et Lionel Morel et toute leur équipe vous proposent un très large choix de produits.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
-                        </div>
-                    </div>
-                </a>
-
-                <a  href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="box bottom-marged">
-
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/copernic.jpg')}}" alt="">
-
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie Copernic</h2>
-                            <h4>Chez mon Boucher rue Copernic</h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.</p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
-                        </div>
-                    </div>
-                </a>
-
-                <a  href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="box bottom-marged">
-
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/carousel/leboulangerdezola/le-boulanger-de-zola.jpg')}}" alt="">
-
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Le Boulanger de Zola</h2>
-                            <h4>Du pain naturel et bon</h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.</p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
-                        </div>
-                    </div>
-                </a>
-
-                <div class="ribbon ribbon-coming-soon"></div>
-                <div class="box bottom-marged box-muted">
-
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                            <img src="{{ asset('bundles/piggyboxuser/img/bouffay.jpg')}}" alt="">
-
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Boucherie du Bouffay</h2>
-                            <h4>Boucherie officielle du voyage à Nantes</h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text"><em>Bientôt disponible pour la commande en ligne</em></p>
-                                </div>
-                            </div>
-                            <a class="btn btn-block"> <i class="icon-home"></i> Magasin bientôt en ligne</a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
+            {% endfor %}
 
-                <div class="ribbon ribbon-coming-soon"></div>
-                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}"#} class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Banette La Mimine</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Visiter le magasin</div>
-                        </div>
-                    </div>
-                </a>
-
-
-            </div>
-
-            <div class="span6">
-
-                <h3 class="text-centered"><i class="icon-map-marker"></i> Poitiers</h3>
-
-
-                <div class="ribbon ribbon-coming-soon"></div>
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-futuroscope'}) }}"#} class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/banette-futuroscope/banette-futuroscope-th.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Banette Futuroscope</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
-                        </div>
-                    </div>
-                </a>
-
-
-                <div class="ribbon ribbon-coming-soon"></div>
-                <a onclick="_gaq.push(['_trackEvent', 'SHOWSHOPS', 'go-to', '']);" {#href="{{ path('user_show_shop', {'shop_slug':'banette-buxerolles'}) }}"#} class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/banette-buxerolles/banette-buxerolles-0.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Banette Buxerolles</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
-                        </div>
-                    </div>
-                </a>
-
-                <div class="ribbon ribbon-coming-soon"></div>
-                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-la-garenne'}) }}"#} class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Banette La Garenne</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
-                        </div>
-                    </div>
-                </a>
-
-                <div class="ribbon ribbon-coming-soon"></div>
-                <a  {#href="{{ path('user_show_shop', {'shop_slug':'banette-grand-large'}) }}"#} class="box bottom-marged box-muted">
-                    <div class="row-fluid">
-                        <div class="shop-thumbnail span4">
-                                <img src="{{ asset('bundles/piggyboxuser/img/banette-temp.jpg')}}" alt="">
-                        </div>
-                        <div class="span8">
-                            <h2 class="no-margin">Banette Grand Large</h2>
-                            <h4></h4>
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <p class="small-text">
-
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="btn btn-block btn-primary"> <i class="icon-home icon-white"></i> Magasin bientôt en ligne</div>
-                        </div>
-                    </div>
-                </a>
-
-
-            </div>
-
-            <div class="span12">
-                <h3>Et bien d'autres dans les jours à venir...</h3>
+            <div class="span8 offset4">
+                <h3>D'autres commerces seront disponibles très bientôt...</h3>
             </div>
 
 
         </div>
     </div>
+</div>
+{% endif %}
 
 
 
@@ -332,34 +67,7 @@
 {{ google_map_js(map) }}
 
 <script type="text/javascript">
-
-
-    function showShopInMap($slug) {
-        $('.home-map-sidebar-item').hide();
-        var id = "#sidebar-" + $slug;
-        $(id).show();
-    }
-
-
-    $("#map-recenter-nantes").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-    $("#map-recenter-poitiers").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-
 	_kmq.push(['record', 'Viewed Rechercher des commerçants Page']);
-
 </script>
 
 {% endblock %}

@@ -1,0 +1,68 @@
+<div id="map-anchor" class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+
+                {% if visitorBigCity != "none" %}
+
+                    <h1 class="text-centered" style="border-bottom:0px !important;">
+                        Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :
+                    </h1>
+
+                    <div id="map-container" class="clearfix">
+                        <div id="map-container-left" class="pull-left">
+                            {{ google_map_container(map) }}
+                        </div>
+                        <div id="map-container-right" class="pull-left">
+                            {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
+                        </div>
+                    </div>
+
+
+                {% else %}
+
+                    <h1 class="text-centered" style="border-bottom:0px !important;">
+                        Faîtes vos courses dans les commerces de {{ visitorCity }} :
+                    </h1>
+
+                    <div id="city-not-available">
+                       <div class="content">
+                        <h3 style="line-height:32px;">Ho non, aucun commerce n'est <br />disponible dans votre ville ! :(</h3>
+
+                        <p style="margin-top:30px;">
+                            Si vous souhaitez être prévenu de notre arrivée à {{ visitorCity }} <br />et dans les environs,
+                            laissez-nous votre adresse mail :
+                        </p>
+                        <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
+                        <input type="email" value="" name="EMAIL" class="required email input-xlarge" id="mce-EMAIL" placeholder="votre@adresse.com">
+                        <input type="submit" value="Valider" name="subscribe" id="mc-embedded-subscribe" class="btn btn-warning">
+                        <div class="clear">
+                            <div class="response" id="mce-error-response" style="display:none"></div>
+                            <div class="response" id="mce-success-response" style="display:none"></div>
+                        </div>
+                    </form>
+
+                    <hr />
+
+                        <div id="dd" class="wrapper-dropdown-5" tabindex="1" style="width:300px;">
+                            <a href="#" class="selectedCity">
+                                <i class="icon-map-marker icon-white"></i>
+                                Voir les villes disponibles
+                            </a>
+
+                            <ul class="dropdown" style="width:300px;background:white;">
+                                {% for city, coordinates in availableCities if city != visitorBigCity %}
+                                    <li>
+                                        <a href="{{ path('shops') }}/{{ city }}"><i class="icon-map-marker"></i>  {{ city }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                       </div>
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
