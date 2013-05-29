@@ -8,7 +8,7 @@ set :password, "J1My5DuE"
 
 set :repository,  "git@github.com:dupuchba/PiggyBox.git"
 set :scm,         :git
-set :branch, 	  "master" 
+set :branch, 	  "feature-capifony" 
 set :ssh_options,   :forward_agent => true
 set :shared_files,      ["app/config/parameters.yml", "web/.htaccess"]
 set :shared_children,     [app_path + "/logs", app_path + "/sessions", web_path + "/uploads", web_path + "/media"]
