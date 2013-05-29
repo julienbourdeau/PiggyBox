@@ -33,6 +33,7 @@
         "craue/twigextensions-bundle": "dev-master",
 		"whiteoctober/breadcrumbs-bundle": "dev-master",
         "willdurand/geocoder": "*",	
+        "kriswallsmith/buzz": "@stable",
         "egeloen/google-map-bundle": "dev-master",
         "liip/code-bundle": "dev-master"
     },
