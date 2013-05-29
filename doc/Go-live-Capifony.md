@@ -155,4 +155,4 @@ Cette commande redirigera rapidement le lien current vers la release précédant
 # 9 Sources
 * http://capifony.org/ Site officiel de Capifony avec un bon tuto sur son fonctionnement
 * http://capitate.rubyforge.org/recipes/deploy.html Information sur les différentes commandes disponibles
-* http://rubygems.org/ Site pour installer RubyGems
+* http://rubygems.org/pages/download Download et installation de RubyGems
