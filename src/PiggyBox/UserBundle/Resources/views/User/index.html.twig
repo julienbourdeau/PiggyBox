@@ -19,7 +19,7 @@
             <div class="span12">
                 <div class="topline">
                     Ne faîtes plus <strong>jamais</strong> la queue pendant vos courses.<br />
-                    Commandez en 3 clics. Récuperez vos achats. Savourez. 
+                    Commandez en 3 clics. Récuperez vos achats. Savourez.
                 </div>
             </div>
         </div>
@@ -30,103 +30,50 @@
                 <div class="span12">
                     <h3 class="text-centered bottom-marged">Comment ça marche ?</h3>
                 </div>
-                <img src="http://pix.toile-libre.org/upload/original/1369230714.png" style="margin-left:60px" />
-                <h4 class="text-centered bottom-marged"><a href="#map-anchor">Cliquez ici pour commencer →</a></h4>
-
-                <!--
-                <div class="span6">
-                    <h3 class="text-centered bottom-marged">Reportage sur France 3</h3>
-                    <iframe width="515" height="280" src="http://www.youtube.com/embed/jrNPccEcV_I" frameborder="0" allowfullscreen></iframe>
-                </div>
-                -->
+                <img src="{{ asset('bundles/piggyboxuser/img/home-blocs-3steps.png')}}" style="margin-left:60px" />
+                <h4 class="text-centered bottom-marged">
+                    <a href="#map-anchor">Cliquez ici pour commencer ↓</a>
+                </h4>
             </div>
         </div>
     </div>
 
+    {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
 
-    <div id="map-anchor" class="container">
+    <div class="container">
         <div class="row bottom-marged">
-            <div class="span12">
 
-                {% if visitor_big_city != "none" %}
-
-                    <h1 class="text-centered" style="border-bottom:0px !important;">
-                        Faîtes vos courses dans les commerces de {{ visitor_big_city }} : 
-                    </h1>
-                    
-                    <div id="map-container" class="clearfix">
-                        <div id="map-container-left" class="pull-left">
-                            {{ google_map_container(map) }}
-                        </div>
-                        <div id="map-container-right" class="pull-left">
-                            {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
-                        </div>
-                    </div>
-
-
-                {% else %}
-
-                    <h1 class="text-centered" style="border-bottom:0px !important;">
-                        Faîtes vos courses dans les commerces de {{ visitor_city }} : 
-                    </h1>
-
-                    <div id="city-not-available">
-                       <div class="content">
-                        <h3 style="line-height:32px;">Ho non, aucun commerce n'est <br />disponible dans votre ville ! :(</h3>
-
-                        <p style="margin-top:30px;">
-                            Si vous souhaitez être prévenu de notre arrivée à {{ visitor_city }} <br />et dans les environs,
-                            laissez-nous votre adresse mail :
-                        </p>
-                        <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
-                        <input type="email" value="" name="EMAIL" class="required email input-xlarge" id="mce-EMAIL" placeholder="votre@adresse.com">
-                        <input type="submit" value="Valider" name="subscribe" id="mc-embedded-subscribe" class="btn btn-warning">
-                        <div class="clear">
-                            <div class="response" id="mce-error-response" style="display:none"></div>
-                            <div class="response" id="mce-success-response" style="display:none"></div>
-                        </div>
-                    </form>
-
-                       </div>
-                    </div>
-
-                {% endif %}
-
-            </div>
         </div>
     </div>
 
     <div class="container">
+
         <div class="row bottom-marged">
             <div class="span12">
                 <h1 class="text-centered">Ils parlent de nous</h1>
             </div>
-        </div>
-        <div class="row bottom-marged">
-            
-            <div class="container">
-                <div class="row bottom-marged">
-                    <div class="span8">
-                        <div id="testimonials-container" class="hide">
-                            <ul class="testimonials">
-                                <li class="testimonial-item current">
-                                    <div class="quote">&laquo; En faisant la queue à la boulangerie je me suis dit qu'il était temps d'utiliser ce service! &raquo;</div>
-                                    <div class="quote-source">&#9998; Jonathan, Nantes</div>
-                                </li>
-                                <li class="testimonial-item">
-                                    <div class="quote">&laquo; J'adore mes commerces de proximité mais avec un enfant ce n'était pas toujours simple, maintenant je peux y aller plus souvent! &raquo;</div>
-                                    <div class="quote-source">&#9998; Claire, Nantes</div>
-                                </li>
-                                <li class="testimonial-item last-item">
-                                    <div class="quote">&laquo; En 2013, j'ai décidé de favoriser la qualité, avec Côtelettes & Tarte aux fraises je trouve ce dont j'ai besoin en quelques clics. &raquo;</div>
-                                    <div class="quote-source">&#9998; Pierre, Orvault</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
+            <div class="span6 offset2">
+                <div id="testimonials-container" class="hide">
+                    <ul class="testimonials">
+                        <li class="testimonial-item current">
+                            <div class="quote">&laquo; En faisant la queue à la boulangerie je me suis dit qu'il était temps d'utiliser ce service! &raquo;</div>
+                            <div class="quote-source">&#9998; Jonathan, Nantes</div>
+                        </li>
+                        <li class="testimonial-item">
+                            <div class="quote">&laquo; J'adore mes commerces de proximité mais avec un enfant ce n'était pas toujours simple, maintenant je peux y aller plus souvent! &raquo;</div>
+                            <div class="quote-source">&#9998; Claire, Nantes</div>
+                        </li>
+                        <li class="testimonial-item last-item">
+                            <div class="quote">&laquo; En 2013, j'ai décidé de favoriser la qualité, avec Côtelettes & Tarte aux fraises je trouve ce dont j'ai besoin en quelques clics. &raquo;</div>
+                            <div class="quote-source">&#9998; Pierre, Orvault</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </div>
 
+        <div class="row bottom-marged">
             <div class="span12 presse-links">
                 <a  id="startupfactory" href="http://www.startup-factory.fr/"></a>
                 <a  id="unefilleanantes" href="http://www.unefilleanantes.com/?p=1633"></a>
@@ -137,6 +84,7 @@
                 <a  id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
             </div>
         </div>
+
     </div>
 
 
@@ -166,35 +114,6 @@
 
 <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
 
-<!-- Dropdown Menu Ville -->
-<script type="text/javascript">
-            function DropDown(el) {
-                this.dd = el;
-                this.initEvents();
-            }
-            DropDown.prototype = {
-                initEvents : function() {
-                    var obj = this;
-
-                    obj.dd.on('click', function(event){
-                        $(this).toggleClass('active');
-                        event.stopPropagation();
-                    }); 
-                }
-            }
-
-            $(function() {
-
-                var dd = new DropDown( $('#dd') );
-
-                $(document).click(function() {
-                    // all dropdowns
-                    $('.wrapper-dropdown-5').removeClass('active');
-                });
-
-            });
-</script>
-<!-- / Dropdown -->
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -209,23 +128,10 @@
 
 $(document).ready(function() {
 
-        /* Smooth Scroll Begin */
-        $('a[href^="#"]').on('click',function (e) {
-            e.preventDefault();
-            var target = this.hash,
-            $target = $(target);
-            $('html, body').stop().animate({
-                'scrollTop': $target.offset().top
-            }, 900, 'swing', function () {
-                window.location.hash = target;
-            });
-        });
-        /* Smooth Scroll End */
-
         $('#testimonials-container').removeClass('hide');
         var theContent = $('ul.testimonials li');
-        var theWidth = 695;
-        var theHeight = 266;
+        var theWidth = 665;
+        var theHeight = 200;
         //wrap into mother div
         $('ul.testimonials').wrap('<div id="mother" />');
         //assign height width and overflow hidden to mother
@@ -239,7 +145,8 @@ $(document).ready(function() {
             position: 'relative',
             overflow: 'hidden'
         });
-            //get total of image sizes and set as width for ul
+        
+        //get total of image sizes and set as width for ul
         var totalWidth = theContent.length * theWidth;
         $('ul.testimonials').css({
             width: function(){
@@ -251,14 +158,13 @@ $(document).ready(function() {
 );
 
 window.setInterval(function(){
-    //console.log("cool");
     var theContent = $('ul.testimonials li');
     $(theContent).each(
-        function(intIndex){
-            //console.log(intIndex);
+        function(intIndex)
+        {
             if ($(this).hasClass('current')) {
                 $(this).parent('ul').animate({
-                    "margin-left": (-(intIndex) * 695)
+                    "margin-left": (-(intIndex) * 630)
                 }, 1000)
                 $(this).removeClass('current');
                 if ($(this).hasClass('last-item')) {
@@ -281,39 +187,6 @@ window.setInterval(function(){
 
 
 <script type="text/javascript">
-
-
-    function showShopInMap($slug) {
-        $('.home-map-sidebar-item').hide();
-        var id = "#sidebar-" + $slug;
-        $(id).show();
-    }
-
-    $('#banette-link').click(
-        function(){
-            window.location = '#map-anchor';
-            $('#map-recenter-poitiers').trigger('click');
-        }
-    );
-
-    $("#map-recenter-nantes").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-    $("#map-recenter-poitiers").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-
 	_kmq.push(['record', 'Viewed home page']);
-
 </script>
 {% endblock %}

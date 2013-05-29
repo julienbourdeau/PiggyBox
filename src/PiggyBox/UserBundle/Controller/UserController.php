@@ -17,6 +17,10 @@ use PiggyBox\OrderBundle\Form\Type\OrderDetailType;
 use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMap\MapTypeId;
+use Geocoder\HttpAdapter\CurlHttpAdapter;
+use Geocoder\Geocoder;
+use Geocoder\Provider\FreeGeoIpProvider;
+use Geocoder\Provider\GoogleMapsProvider;
 
 /**
  * User controller.
@@ -31,312 +35,60 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        
-        // Geocoder
-        $request = Request::createFromGlobals();
-
-        // Choix du provider + de l'adapter (CURL)
-        $adapter  = new \Geocoder\HttpAdapter\CurlHttpAdapter();
-        $geocoder = new \Geocoder\Geocoder();
-        $geocoder->registerProviders(array(new \Geocoder\Provider\FreeGeoIpProvider($adapter),));
-
-        // Geocode visitor IP
-        // $georesponse->getCity(), getCountry, getLatitude, getLongitude.....
-        //$georesponse = $geocoder->geocode("173.194.34.55"); // Roubaix
-        $georesponse = $geocoder->geocode("82.231.144.171"); // Autour de nantes
-
-        // Distance entre le visiteur et les villes de CETAF
-        $big_city = "none";     // La grosse ville proche du visiteur
-        $perimeter_kms = 100;   // Le perimetre autour d'une big city
-        $available_cities = array("Nantes", "Poitier"); // Les big cities de CTAF
-
-        $directions = $this->get('ivory_google_map.directions');
-        foreach($available_cities as $city)
-        {
-            $direcresponse = $directions->route($georesponse->getCity(), $city);
-
-            // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
-            // Si ça n'existe pas (pas de route dispo), on quitte.
-            if(!isset($direcresponse->getRoutes()[0])) break;
-
-            $distance = $direcresponse->getRoutes()[0]->getLegs()[0]->getDistance()->getValue();
-            if($distance <= $perimeter_kms*1000)
-            {
-                $big_city = $city;
-                break;
-            }
-        }
-
-        /*echo $big_city;
-        exit(0);*/
+        // Geoloc
+        $geoVisitorData = $this->getGeoVisitorData();
 
         // SEO
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
-        // Config technique
-        $map = $this->get('ivory_google_map.map');
-        $map->setPrefixJavascriptVariable('map_');
-        $map->setHtmlContainerId('map_canvas');
-        $map->setAsync(false);
+        // Map + Markers
+        $map = $this->configureGoogleMap($geoVisitorData['visitorBigCity']);
+        $map = $this->configureMarkers($map);
 
-        // Désactive le scroll - Désactive les boutons d'UI relou
-        // See : https://developers.google.com/maps/documentation/javascript/controls#DisablingDefaults
-        $map->setMapOption('scrollwheel', false);
-        $map->setMapOption('disableDefaultUI', true);
-        $map->setMapOption('zoomControl', true);
-        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
-
-        // Place la carte au bon endroit en fonction de la geoloc
-        $map->setCenter($georesponse->getLatitude(), $georesponse->getLongitude(), true);
-        $map->setMapOption('zoom', 10);
-
-        // Style
-        $map->setStylesheetOptions(array(
-            'width' => '100%',
-            'height' => '500px'
-        ));
-
-        // Gestion des markers
-        // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
-        // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
-        $marker_icon_boulangerie    = "http://pix.toile-libre.org/upload/original/1369398619.png";
-        $marker_icon_vianderie      = "http://pix.toile-libre.org/upload/original/1369399798.png";
-        $magasins = array(
-                'boucherie-zola'            => array(47.214048,-1.585698,$marker_icon_vianderie),
-                'le-boulanger-de-zola'      => array(47.214061, -1.585741,$marker_icon_vianderie),
-                'boucherie-copernic'        => array(47.215545,-1.564271,$marker_icon_vianderie),
-                'boucherie-des-gourmets'    => array(47.229044,-1.57163,$marker_icon_vianderie),
-                'boucherie-du-bouffay'      => array(47.214962,-1.55429,$marker_icon_vianderie),
-                'boucherie-morel'           => array(47.1849,-1.546154,$marker_icon_vianderie),
-
-                'banette-buxerolles'        => array(46.594289,0.36257,$marker_icon_boulangerie),
-                'banette-la-garenne'        => array(46.556027,0.304871,$marker_icon_boulangerie),
-                'banette-grand-large'       => array(46.564791,0.356863,$marker_icon_boulangerie),
-                'banette-la-mimine'         => array(47.275619,-1.466761,$marker_icon_boulangerie),
-                'banette-futuroscope'       => array(46.660674,0.363318,$marker_icon_boulangerie),
-            );
-
-
-        // Génération des markers
-        foreach($magasins as $name => $value)
-        {
-            $marker[$name] = $this->get('ivory_google_map.marker');
-            $marker[$name]->setPrefixJavascriptVariable('marker_');
-            $marker[$name]->setPosition($value[0], $value[1], true);
-            $marker[$name]->setIcon($value[2]);
-
-            $event[$name] = $this->get('ivory_google_map.event');
-            $event[$name]->setInstance($marker[$name]->getJavascriptVariable());
-            $event[$name]->setEventName('click');
-            $event[$name]->setHandle('function(){showShopInMap("'.$name.'")}');
-
-            $map->addMarker($marker[$name]);
-            $event[$name]->setCapture(true);
-            $map->getEventManager()->addDomEvent($event[$name]);
-        }
+        // Magasins détails
+        $shoppersDetails = $this->getShoppersDetails($geoVisitorData['visitorBigCity']);
 
         return array(
-                        'map'               => $map, 
-                        'visitor_city'      => $georesponse->getCity(), 
-                        'visitor_big_city'  => $big_city,
-                        'available_cities'  => $available_cities,
-                    );
+            'map'              => $map,
+            'visitorCity'      => $geoVisitorData['visitorCity'],
+            'visitorBigCity'   => $geoVisitorData['visitorBigCity'],
+            'availableCities'  => $this->getAvailableCities(),
+            'shoppersDetails'  => $shoppersDetails,
+        );
     }
 
     /**
      * @Template()
-     * @Route("les-commercants", name="shops")
+     * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"}) 
      */
-    public function shopsAction()
+    public function shopsAction($city)
     {
+        // Geoloc (forcé avec $city si != none)
+        $geoVisitorData = $this->getGeoVisitorData($city);
+
+        // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "none"
+        if(!($this->array_ikey_exists($city, $this->getAvailableCities())) && $city != "none") 
+            $geoVisitorData['visitorBigCity'] = "none";
+
+        // SEO
         $seoPage = $this->get('sonata.seo.page');
-        $seoPage->setTitle("Tous les commerçants de proximité - Côtelettes & Tarte aux Fraises");
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
-        $map = $this->get('ivory_google_map.map');
+        // Map + Markers
+        $map = $this->configureGoogleMap($geoVisitorData['visitorBigCity']);
+        $map = $this->configureMarkers($map);
 
-        $map->setPrefixJavascriptVariable('map_');
-        $map->setHtmlContainerId('map_canvas');
-        $map->setAsync(false);
+        // Magasins détails
+        $shoppersDetails = $this->getShoppersDetails($geoVisitorData['visitorBigCity']);
 
-        $map->setCenter(46.875213, -0.296631, true);
-        $map->setMapOption('zoom', 8);
-
-        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
-
-        $map->setStylesheetOptions(array(
-            'width' => '100%',
-            'height' => '500px'
-        ));
-
-        # zola
-        $marker1 = $this->get('ivory_google_map.marker');
-        $marker1->setPrefixJavascriptVariable('marker_');
-        $marker1->setPosition(47.214048, -1.585698, true);
-
-        $event1 = $this->get('ivory_google_map.event');
-        $event1->setInstance($marker1->getJavascriptVariable());
-        $event1->setEventName('click');
-        $event1->setHandle('function(){showShopInMap("boucherie-zola")}');
-
-        # le boulanger de zola
-        $marker1bis = $this->get('ivory_google_map.marker');
-        $marker1bis->setPrefixJavascriptVariable('marker_');
-        $marker1bis->setPosition(47.214061, -1.585741, true);
-        $markerImage1bis = $this->get('ivory_google_map.marker_image');
-        $markerImage1bis->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker1bis->setIcon($markerImage1bis);
-
-        $event1bis = $this->get('ivory_google_map.event');
-        $event1bis->setInstance($marker1bis->getJavascriptVariable());
-        $event1bis->setEventName('click');
-        $event1bis->setHandle('function(){showShopInMap("le-boulanger-de-zola")}');
-
-        # copernic
-        $marker2 = $this->get('ivory_google_map.marker');
-        $marker2->setPrefixJavascriptVariable('marker_');
-        $marker2->setPosition(47.215545,-1.564271, true);
-
-        $event2 = $this->get('ivory_google_map.event');
-        $event2->setInstance($marker2->getJavascriptVariable());
-        $event2->setEventName('click');
-        $event2->setHandle('function(){showShopInMap("boucherie-copernic")}');
-
-        # gourmets
-        $marker3 = $this->get('ivory_google_map.marker');
-        $marker3->setPrefixJavascriptVariable('marker_');
-        $marker3->setPosition(47.229044,-1.57163, true);
-
-        $event3 = $this->get('ivory_google_map.event');
-        $event3->setInstance($marker3->getJavascriptVariable());
-        $event3->setEventName('click');
-        $event3->setHandle('function(){showShopInMap("boucherie-des-gourmets")}');
-
-        # bouffay
-        $marker4 = $this->get('ivory_google_map.marker');
-        $marker4->setPrefixJavascriptVariable('marker_');
-        $marker4->setPosition(47.214962,-1.55429, true);
-
-        $event4 = $this->get('ivory_google_map.event');
-        $event4->setInstance($marker4->getJavascriptVariable());
-        $event4->setEventName('click');
-        $event4->setHandle('function(){showShopInMap("boucherie-du-bouffay")}');
-
-        # Epi de blais
-        $marker5 = $this->get('ivory_google_map.marker');
-        $marker5->setPrefixJavascriptVariable('marker_');
-        $marker5->setPosition(46.594289,0.36257, true);
-
-        $event5 = $this->get('ivory_google_map.event');
-        $event5->setInstance($marker5->getJavascriptVariable());
-        $event5->setEventName('click');
-        $event5->setHandle('function(){showShopInMap("banette-buxerolles")}');
-        $markerImage5 = $this->get('ivory_google_map.marker_image');
-        $markerImage5->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker5->setIcon($markerImage5);
-
-        # La garenne
-        $marker6 = $this->get('ivory_google_map.marker');
-        $marker6->setPrefixJavascriptVariable('marker_');
-        $marker6->setPosition(46.556027,0.304871, true);
-        $markerImage6 = $this->get('ivory_google_map.marker_image');
-        $markerImage6->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker6->setIcon($markerImage6);
-
-        $event6 = $this->get('ivory_google_map.event');
-        $event6->setInstance($marker6->getJavascriptVariable());
-        $event6->setEventName('click');
-        $event6->setHandle('function(){showShopInMap("banette-la-garenne")}');
-
-        # Inopinee
-        $marker7 = $this->get('ivory_google_map.marker');
-        $marker7->setPrefixJavascriptVariable('marker_');
-        $marker7->setPosition(46.564791,0.356863, true);
-        $markerImage7 = $this->get('ivory_google_map.marker_image');
-        $markerImage7->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker7->setIcon($markerImage7);
-
-        $event7 = $this->get('ivory_google_map.event');
-        $event7->setInstance($marker7->getJavascriptVariable());
-        $event7->setEventName('click');
-        $event7->setHandle('function(){showShopInMap("banette-grand-large")}');
-
-        # Les mimines
-        $marker8 = $this->get('ivory_google_map.marker');
-        $marker8->setPrefixJavascriptVariable('marker_');
-        $marker8->setPosition(47.275619,-1.466761, true);
-        $markerImage8 = $this->get('ivory_google_map.marker_image');
-        $markerImage8->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker8->setIcon($markerImage8);
-
-        $event8 = $this->get('ivory_google_map.event');
-        $event8->setInstance($marker8->getJavascriptVariable());
-        $event8->setEventName('click');
-        $event8->setHandle('function(){showShopInMap("banette-la-mimine")}');
-
-        # Futuroscope
-        $marker9 = $this->get('ivory_google_map.marker');
-        $marker9->setPrefixJavascriptVariable('marker_');
-        $marker9->setPosition(46.660674,0.363318, true);
-        $markerImage9 = $this->get('ivory_google_map.marker_image');
-        $markerImage9->setUrl('http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png');
-        $marker9->setIcon($markerImage8);
-
-        $event9 = $this->get('ivory_google_map.event');
-        $event9->setInstance($marker9->getJavascriptVariable());
-        $event9->setEventName('click');
-        $event9->setHandle('function(){showShopInMap("banette-futuroscope")}');
-
-        # Morel - reze
-        $marker10 = $this->get('ivory_google_map.marker');
-        $marker10->setPrefixJavascriptVariable('marker_');
-        $marker10->setPosition(47.1849,-1.546154, true);
-
-        $event10 = $this->get('ivory_google_map.event');
-        $event10->setInstance($marker10->getJavascriptVariable());
-        $event10->setEventName('click');
-        $event10->setHandle('function(){showShopInMap("boucherie-morel")}');
-
-        $map->addMarker($marker1);
-        $map->addMarker($marker1bis);
-        $map->addMarker($marker2);
-        $map->addMarker($marker3);
-        $map->addMarker($marker4);
-        $map->addMarker($marker5);
-        $map->addMarker($marker6);
-        $map->addMarker($marker7);
-        $map->addMarker($marker8);
-        $map->addMarker($marker9);
-        $map->addMarker($marker10);
-
-        // It can only be used with a DOM event
-        // By default, the capture flag is false
-        $event1->setCapture(true);
-        $event1bis->setCapture(true);
-        $event2->setCapture(true);
-        $event3->setCapture(true);
-        $event4->setCapture(true);
-        $event5->setCapture(true);
-        $event6->setCapture(true);
-        $event7->setCapture(true);
-        $event8->setCapture(true);
-        $event9->setCapture(true);
-        $event10->setCapture(true);
-
-        // Add a DOM event
-        $map->getEventManager()->addDomEvent($event1);
-        $map->getEventManager()->addDomEvent($event1bis);
-        $map->getEventManager()->addDomEvent($event2);
-        $map->getEventManager()->addDomEvent($event3);
-        $map->getEventManager()->addDomEvent($event4);
-        $map->getEventManager()->addDomEvent($event5);
-        $map->getEventManager()->addDomEvent($event6);
-        $map->getEventManager()->addDomEvent($event7);
-        $map->getEventManager()->addDomEvent($event8);
-        $map->getEventManager()->addDomEvent($event9);
-        $map->getEventManager()->addDomEvent($event10);
-
-        return array('map' => $map);
+        return array(
+            'map'              => $map,
+            'visitorCity'      => $geoVisitorData['visitorCity'],
+            'visitorBigCity'   => $geoVisitorData['visitorBigCity'],
+            'availableCities'  => $this->getAvailableCities(),
+            'shoppersDetails'  => $shoppersDetails,
+        );
     }
 
     /**
@@ -581,5 +333,262 @@ class UserController extends Controller
         }
 
         return $data;
+    }
+
+    /**
+     * array_key_exists function but case INsensitive
+     * @param  string $needle   La clef à chercher
+     * @param  array $haystack  L'array à fouiller
+     * @return bool             true|false
+     */ 
+    private function array_ikey_exists($needle, $haystack) 
+    {
+        $keys = array_keys($haystack);
+        return in_array(strtolower($needle), array_map('strtolower', $keys));
+    }   
+
+    /**
+     * Retourne une Google Map bien configurée
+     * @param [string] $city La ville sur laquelle centrer la map
+     * @return [object] Une Google Map configurée
+     */
+    private function configureGoogleMap($city)
+    {
+        $availableCities = $this->getAvailableCities();
+
+        $map = $this->get('ivory_google_map.map');
+        $map->setPrefixJavascriptVariable('map_');
+        $map->setHtmlContainerId('map_canvas');
+        $map->setAsync(false);
+        $map->setMapOption('scrollwheel', false);
+        $map->setMapOption('disableDefaultUI', true);
+        $map->setMapOption('zoomControl', true);
+        $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
+        $map->setMapOption('zoom', 10);
+        $map->setStylesheetOptions(array(
+            'width' => '100%',
+            'height' => '500px'
+        ));
+
+        if($city != "none") $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true);
+
+        return $map;
+    }
+
+    /**
+     * Ajoute les markers sur $map
+     * @param [object] $map La carte bien configurée
+     */
+    private function configureMarkers($map)
+    {
+        // Gestion des markers
+        // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
+        // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
+        $marker_icon_boulangerie    = "http://pix.toile-libre.org/upload/original/1369398619.png";
+        $marker_icon_vianderie      = "http://pix.toile-libre.org/upload/original/1369399798.png";
+        $magasins = array(
+                'boucherie-zola'            => array(47.214048,-1.585698,$marker_icon_vianderie),
+                'boucherie-copernic'        => array(47.215545,-1.564271,$marker_icon_vianderie),
+                'boucherie-des-gourmets'    => array(47.229044,-1.57163,$marker_icon_vianderie),
+                'boucherie-du-bouffay'      => array(47.214962,-1.55429,$marker_icon_vianderie),
+                'boucherie-morel'           => array(47.1849,-1.546154,$marker_icon_vianderie),
+
+                'le-boulanger-de-zola'      => array(47.214061, -1.585741,$marker_icon_boulangerie),
+                'banette-buxerolles'        => array(46.594289,0.36257,$marker_icon_boulangerie),
+                'banette-la-garenne'        => array(46.556027,0.304871,$marker_icon_boulangerie),
+                'banette-grand-large'       => array(46.564791,0.356863,$marker_icon_boulangerie),
+                'banette-la-mimine'         => array(47.275619,-1.466761,$marker_icon_boulangerie),
+                'banette-futuroscope'       => array(46.660674,0.363318,$marker_icon_boulangerie),
+            );
+
+        // Génération des markers
+        foreach ($magasins as $name => $value) {
+            $marker[$name] = $this->get('ivory_google_map.marker');
+            $marker[$name]->setPrefixJavascriptVariable('marker_');
+            $marker[$name]->setPosition($value[0], $value[1], true);
+            $marker[$name]->setIcon($value[2]);
+
+            $event[$name] = $this->get('ivory_google_map.event');
+            $event[$name]->setInstance($marker[$name]->getJavascriptVariable());
+            $event[$name]->setEventName('click');
+            $event[$name]->setHandle('function(){showShopInMap("'.$name.'")}');
+
+            $map->addMarker($marker[$name]);
+            $event[$name]->setCapture(true);
+            $map->getEventManager()->addDomEvent($event[$name]);
+        }
+
+        return $map;
+    }
+
+    /**
+     * Récupère des info sur la position du visiteur
+     * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
+     * @return [array] visitorCity, bigCity, geoResponse
+     */
+    private function getGeoVisitorData($city="none")
+    {
+        // Geocoder
+        $request  = Request::createFromGlobals();
+        $adapter  = new CurlHttpAdapter();
+        $geocoder = new Geocoder();
+        $geocoder->registerProviders(array(
+                                    new FreeGeoIpProvider($adapter),
+                                    new GoogleMapsProvider($adapter),
+                                    ));
+
+        // Geolocalize Visitor by IP or City (if forced)
+        if($city == "none")
+            $georesponse = $geocoder
+                            ->using('free_geo_ip')
+                            ->geocode("82.231.144.171"); // Autour de nantes
+                            //->geocode("173.194.34.55"); // Roubaix
+                            
+            // $georesponse = $geocoder->geocode($request->getClientIp());
+        else
+            $georesponse = $geocoder
+                            ->using('google_maps')
+                            ->geocode($city." France"); // Force city
+
+        // Si on n'a pas trouvé de ville avec la geoloc, on en force une.
+        if ($georesponse->getCity()) $visitorCity = $georesponse->getCity();
+        else $visitorCity = "Nantes";
+
+        // Cherche la "bigCity" (ville où CETAF a des commerces) aux alentours du visiteur.
+        // S'il est dans un rayon de $perimeterKms, alors on lui dit qu'il appartient à la bigCity.
+        // Sinon, on lui dit que CETAF n'est pas dispo chez lui.
+        // Au final, $bigCity contient la ville la plus proche du visiteur avec des commerces.
+        // S'il n'y en a aucune, $bigCity contient "none".
+        $bigCity           =  "none";                       // La grosse ville proche du visiteur
+        $perimeterKms      =  100;                          // Le perimètre autour d'une big city
+        $availableCities   =  $this->getAvailableCities();
+        $directions        =  $this->get('ivory_google_map.directions');
+
+        foreach ($availableCities as $city => $coordinate) {
+            // Direction entre la ville du visiteur et une bigCity
+            $direcresponse = $directions->route($georesponse->getCity(), $city);
+
+            // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
+            // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
+            if(!isset($direcresponse->getRoutes()[0])) break;
+
+            $distance = $direcresponse->getRoutes()[0]->getLegs()[0]->getDistance()->getValue();
+            if ($distance <= $perimeterKms*1000) {
+                $bigCity = $city;
+                break;
+            }
+        }
+
+        return array(
+            'visitorCity'       => $visitorCity,        // La ville exacte du visiteur
+            'visitorBigCity'    => $bigCity,            // La ville dispo la plus proche (ou "none")
+            'geoResponse'       => $georesponse,        // Raw object response
+        );
+    }
+
+    /**
+     * Retourne les informations sur les magasins de $city
+     * @param  string $city   La ville dont on veut les magasins
+     * @return array          Informations sur les magasins.
+     */
+    private function getShoppersDetails($city)
+    {
+        $city = strtolower($city);
+        $content = array();
+
+        if($city == "nantes")
+        {
+            $content = array(
+                array(
+                'slug' => "boucherie-zola",
+                'img' => array('/zola.jpg'),
+                'name' => "Boucherie de Zola",
+                'slogan' => "Une boucherie au coeur du quartier Zola",
+                'description' => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
+                ),
+                array(
+                'slug' => "boucherie-des-gourmets",
+                'img' => array('/boucherie-jauneau.jpg'),
+                'name' => "Boucherie des Gourmets",
+                'slogan' => "Boucherie traditionnelle aux Hauts Pavés",
+                'description' => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
+                ),
+                array(
+                'slug' => "banette-la-mimine",
+                'img' => array('/carousel/la-mimine/banette-la-mimine.jpg'),
+                'name' => "Banette La Mimine",
+                'slogan' => "",
+                'description' => "",
+                ),
+                array(
+                'slug' => "boucherie-copernic",
+                'img' => array('/copernic.jpg'),
+                'name' => "Boucherie Copernic",
+                'slogan' => "Chez mon Boucher rue Copernic",
+                'description' => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
+                ),
+                array(
+                'slug' => "le-boulanger-de-zola",
+                'img' => array('/carousel/leboulangerdezola/le-boulanger-de-zola.jpg'),
+                'name' => "Le Boulanger de Zola",
+                'slogan' => "Du pain naturel et bon",
+                'description' => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
+                ),
+                array(
+                'slug' => "boucherie-du-bouffay",
+                'img' => array('/bouffay.jpg'),
+                'name' => "Boucherie du Bouffay",
+                'slogan' => "Boucherie officielle du voyage à Nantes",
+                'description' => "Bientôt disponible pour la commande en ligne",
+                ),
+            );
+        }
+        elseif($city == "poitiers")
+        {
+            $content = array(
+                array(
+                'slug' => "banette-futuroscope",
+                'img' => array('/carousel/banette-futuroscope/banette-futuroscope-th.jpg'),
+                'name' => "Banette Futuroscope",
+                'slogan' => "Bientôt disponible pour la commande en ligne",
+                'description' => "",
+                ),
+                array(
+                'slug' => "banette-buxerolles",
+                'img' => array('/carousel/banette-buxerolles/banette-buxerolles-0.jpg'),
+                'name' => "Banette Buxerolles",
+                'slogan' => "Bientôt disponible pour la commande en ligne",
+                'description' => "",
+                ),
+                array(
+                'slug' => "banette-la-garenne",
+                'img' => array('/carousel/poitiers-sud/banette-la-garenne.jpg'),
+                'name' => "Banette La Garenne",
+                'slogan' => "Bientôt disponible pour la commande en ligne",
+                'description' => "",
+                ),
+                array(
+                'slug' => "banette-grand-large",
+                'img' => array('/banette-temp.jpg'),
+                'name' => "Banette Grand Large",
+                'slogan' => "Bientôt disponible pour la commande en ligne",
+                'description' => "",
+                ),
+            );
+        }
+
+        return $content;
+    }
+
+    /**
+     * Retourne les listes dispo sur CETAF avec leurs coordonnées latitude,longitude
+     * @return [array] (ville => array(), ville => array())
+     */
+    private function getAvailableCities()
+    {
+        return array(
+                "Nantes"    => array('lat' => 47.21837, 'long' => -1.55362),
+                "Poitiers"  => array('lat' => 46.58022, 'long' => 0.34037),
+                );
     }
 }
