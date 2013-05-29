@@ -83,17 +83,32 @@
                                                  <li><a href="{{ path('moncommerce_mescommandes') }}">Mon Magasin</a></li>
                                             {% endif %}
                                         {% else %}
-                                            <li><a href="{{ path('fos_user_security_login') }}">Créer un compte</a></li>
+                                            <li><a href="{{ path('fos_user_registration_register') }}">Créer un compte</a></li>
                                             <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
                                         {% endif %}
+    
+                                            <li>
+                                                <a id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right text-centered">
+                                                    <strong><i class="icon-shopping-cart"></i> Panier</strong>
+                                                    <br>
+                                                    {% if piggybox_product_number_in_cart() > 0 %}
+                                                        <span class="badge badge-success">{{piggybox_product_number_in_cart()}}</span> produit(s)
+                                                    {% else %}
+                                                        <small>Actuellement vide</small>
+                                                    {% endif %}
+                                                </a>
+                                            </li>
+
                                     </ul>
+
+
                                 </div>
 
 
             <div class="clearfix">
                 <div class="row-fluid">
                     <div class="span5 offset3 baseline">
-                        “ Le drive des commerçants de quartier „
+                        <!-- “ Le drive des commerçants de quartier „ -->
                     </div>
                 </div>
             </div>
@@ -144,7 +159,7 @@
 
                 <div class="row">
 
-                    
+
                     <div class="span2">
                         <!--<div class="help-contact text-centered">
                             <img src="{{ asset('bundles/piggyboxuser/img/help-telephone.png')}}" alt="">
@@ -153,7 +168,7 @@
                         </div>
                         -->
                     </div>
-                    
+
 
                     <div class="span4">
                         <h3 class="no-margin">Lancement</h3>
@@ -190,7 +205,7 @@
 
                 </div>
 
-       
+
 
                 <div class="row">
                     <div id="legal-line" class="span12">
@@ -232,6 +247,119 @@
 			_kmq.push(['identify', '{{app.user.email}}']);
 		</script>
 		{% endif %}
+
+        {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
+        {% if app.request.attributes.get('_route') == "home" or app.request.attributes.get('_route') == "shops" %}
+
+         <script>
+
+            /* Smooth Scroll Begin */
+            $('a[href^="#"]').on('click',function (e) {
+                e.preventDefault();
+                var target = this.hash,
+                $target = $(target);
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                }, 900, 'swing', function () {
+                    window.location.hash = target;
+                });
+            });
+            /* Smooth Scroll End */
+        
+            // Afficher une boutique à droite de la map   
+            function showShopInMap($slug) {
+                $('.home-map-sidebar-item').hide();
+                var id = "#sidebar-" + $slug;
+                $(id).show();
+            }
+
+            // Fermer une boutique ouverte
+            $(".hideShop").click(function() {
+                var id = $(this).parent().parent().attr('id');
+                $('#'+id).hide();
+                $('#sidebar-default').show();
+            });
+
+            // Clic sur un item du menu des villes
+            var selectedCity = '{{ visitorBigCity }}';
+            selectedCity = selectedCity.toLowerCase();
+            $("[id^='map-recenter-']").on('click', function(e){
+
+                // Déplace la carte en fonction de la ville cliquée
+                if($(this).attr('id') == "map-recenter-nantes")
+                {
+                    {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
+                    {{map.javascriptVariable}}.setZoom(11);
+                }
+                else if($(this).attr('id') == "map-recenter-poitiers")
+                {
+                    {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
+                    {{map.javascriptVariable}}.setZoom(11);
+                }
+
+                // Met à jour le menu déroulant lorsqu'on clique sur une ville
+                var cityToken = $(this).text().trim().toLowerCase();
+                $("a.selectedCity").html('<i class="icon-map-marker icon-white"></i> '+capitaliseFirstLetter(cityToken));
+                $("a.selectedCity").attr('id','map-recenter-'+cityToken);
+                $(this).html('<i class="icon-map-marker"></i>  '+capitaliseFirstLetter(selectedCity));
+                $(this).attr('id','map-recenter-'+selectedCity);
+                // Met à jour le bouton "commencer mon shopping à ..."
+                $('.beginCityShopping').html(capitaliseFirstLetter(cityToken));
+
+                selectedCity = cityToken;
+            });
+
+                /**
+                 * Redirige l'utilisateur vers la boutique séléctionnée
+                 */
+                function goShops()
+                {
+                    window.location.replace("{{ path('shops') }}/"+selectedCity+"#shoppers");
+                }
+
+
+                /**
+                 * Met la première lettre d'une chaine en majuscule
+                 * @param  {string} string La chaine
+                 * @return {string}
+                 */
+                function capitaliseFirstLetter(string)
+                {
+                    return string.charAt(0).toUpperCase() + string.slice(1);
+                }
+
+                // -- DROPDOWN MENU VILLE --
+                function DropDown(el) {
+                    this.dd = el;
+                    this.initEvents();
+                }
+                DropDown.prototype = {
+                    initEvents : function() {
+                        var obj = this;
+
+                        obj.dd.on('click', function(event){
+                            $(this).toggleClass('active');
+                            event.stopPropagation();
+                        });
+                    }
+                }
+
+                $(function() {
+
+                    var dd = new DropDown( $('#dd') );
+
+                    $(document).click(function() {
+                        // all dropdowns
+                        $('.wrapper-dropdown-5').removeClass('active');
+                    });
+
+                });
+                // -- END DROPDOWN --
+            
+        </script>
+
+        {% endif %}
+
 
 		{% endblock %}
 

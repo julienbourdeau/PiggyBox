@@ -9,286 +9,49 @@
 	<hr style="margin:0 0 20px 0;">
 
 	<p style="text-align:center;">Voici les villes où vous pouvez faire vos courses dès aujourd'hui :<p>
+
 	<div id="dd" class="wrapper-dropdown-5" tabindex="1">
-		<i class="icon-map-marker icon-white"></i> {{ visitor_big_city }}
+		<a id="map-recenter-{{ visitorBigCity | lower }}" class="selectedCity">
+			<i class="icon-map-marker icon-white"></i> 
+			{{ visitorBigCity }}
+		</a>
+
 		<ul class="dropdown">
-			{% for city in available_cities if city != visitor_big_city %}
-				<li><a href="#"><i class="icon-map-marker"></i>{{ city }}</a></li>
+			{% for city, coordinates in availableCities if city != visitorBigCity %}
+				<li>
+					<a id="map-recenter-{{ city | lower }}"><i class="icon-map-marker"></i>  {{ city }}</a>
+				</li>
 			{% endfor %}
 		</ul>
 	</div>
-	
-	<div style="position:relative;top:170px;left:55px;">
-		<a href="#" class="btn btn-info btn-large">Voir les boutiques <i class="icon-white icon-arrow-right"></i></a>
+
+	<div style="position:relative;top:170px;left:30px">
+			<a href="#" onclick="goShops()" class="btn btn-info btn-large">
+				Commencer mon shopping <br />à <span class="beginCityShopping">{{ visitorBigCity }}</span> 
+				<i class="icon-white icon-arrow-right"></i>
+			</a>
 	</div>
-
-
-
-	<!-- <h4>Légende</h4>
-
-	<table class="table table-bordered">
-		<tr>
-			<td style="text-align: center;">
-				<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png" alt="">
-			</td>
-			<td>Boucherie</td>
-		</tr>
-		<tr>
-			<td style="text-align: center;">
-				<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/yellow-dot.png" alt="">
-			</td>
-			<td>Boulangerie</td>
-		</tr>
-		<tr>
-			<td style="text-align: center;">
-				<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png" alt="">
-			</td>
-			<td>Primeur</td>
-		</tr>
-		<tr>
-			<td style="text-align: center;">
-				<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/orange-dot.png" alt="">
-			</td>
-			<td>Crèmerie</td>
-		</tr>
-		<tr>
-			<td style="text-align: center;">
-				<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png" alt="">
-			</td>
-			<td>Caviste</td>
-		</tr>
-	</table>-->
-
 </div>
 
+ 
+ {% for shopper in shoppersDetails %}
+	 <div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item hide">
 
-{#
- # BOUCHERIE-ZOLA
- #}
+		<div id="photo-container">
+		    <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}">
+		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" width="360" alt="">
+		    </a>
+		</div>
+		<div id="content-container" class="text-centered">
+		    <h3>{{ shopper.name }}</h3>
 
-<div id="sidebar-boucherie-zola" class="home-map-sidebar-item hide">
+		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-large">
+		    	Visiter la boutique <i class="icon-arrow-right"></i>
+		    </a>
 
-	<div id="photo-container">
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}">
-	    	<img src="{{asset('bundles/piggyboxuser/img/zola.jpg')}}" width="360px" alt="">
-	    </a>
+		    <br /><br />
+		    <a class="hideShop"><i class="icon-remove-sign"></i> Fermer l'aperçu</a>
+		</div>
+
 	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Boucherie de Zola</h3>
-
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-zola'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>
-	</div>
-
-</div>
-
-
-{#
- # BOUCHERIE-DES-GOURMETS
- #}
-
-<div id="sidebar-boucherie-des-gourmets" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}">
-	    	<img src="{{asset('bundles/piggyboxuser/img/boucherie-jauneau.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Boucherie des Gourmets</h3>
-
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-des-gourmets'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>
-	</div>
-
-</div>
-
-
-{#
- # BOUCHERIE-COPERNIC
- #}
-
-<div id="sidebar-boucherie-copernic" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}">
-	    	<img src="{{asset('bundles/piggyboxuser/img/copernic.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Boucherie Copernic</h3>
-
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-copernic'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>
-	</div>
-
-</div>
-
-
-{#
- # LE-BOULANGER-DE-ZOLA
- #}
-
-<div id="sidebar-le-boulanger-de-zola" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-	    <a href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}">
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/leboulangerdezola/le-boulanger-de-zola.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Le Boulanger de Zola</h3>
-
-	    <a href="{{ path('user_show_shop', {'shop_slug':'le-boulanger-de-zola'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>
-	</div>
-
-</div>
-
-
-{#
- # Boucherie du bouffay
- #}
-
-<div id="sidebar-boucherie-du-bouffay" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/bouffay.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Boucherie du bouffay</h3>
-
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-{#
- # BANETTE-BUXEROLLES
- #}
-
-<div id="sidebar-banette-buxerolles" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/banette-buxerolles/banette-buxerolles-0.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Banette Buxerolles</h3>
-
-	    {#<a href="{{ path('user_show_shop', {'shop_slug':'banette-buxerolles'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>#}
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-{#
- # BANETTE-LA-GARENNE
- #}
-
-<div id="sidebar-banette-la-garenne" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/poitiers-sud/banette-la-garenne.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Banette La Garenne</h3>
-
-	    {#<a href="{{ path('user_show_shop', {'shop_slug':'banette-la-garenne'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>#}
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-{#
- # BANETTE-GRAND-LARGE
- #}
-
-<div id="sidebar-banette-grand-large" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/banette-temp.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Banette Grand Large</h3>
-
-	    {#<a href="{{ path('user_show_shop', {'shop_slug':'banette-grand-large'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>#}
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-{#
- # BANETTE-LA-MIMINE
- #}
-
-<div id="sidebar-banette-la-mimine" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/la-mimine/banette-la-mimine.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Banette La Mimine</h3>
-
-	    {#<a href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>#}
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-
-{#
- # BANETTE-FUTUROSCOPE
- #}
-
-<div id="sidebar-banette-futuroscope" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-		<div class="ribbon ribbon-coming-soon"></div>
-	    <a>
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/banette-futuroscope/banette-futuroscope-th.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Banette Futuroscope</h3>
-
-	    {#<a href="{{ path('user_show_shop', {'shop_slug':'banette-la-mimine'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>#}
-	    <a  class="btn btn-large disabled"><i class="icon-time"></i> Bientôt disponible </a>
-	</div>
-
-</div>
-
-
-{#
- # BOUCHERIE-MOREL
- #}
-
-<div id="sidebar-boucherie-morel" class="home-map-sidebar-item hide">
-
-	<div id="photo-container">
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-morel'}) }}">
-	    	<img src="{{asset('bundles/piggyboxuser/img/carousel/boucherie-morel/boucherie-morel-th.jpg')}}" width="360px" alt="">
-	    </a>
-	</div>
-	<div id="content-container" class="text-centered">
-	    <h3>Boucherie Morel</h3>
-
-	    <a href="{{ path('user_show_shop', {'shop_slug':'boucherie-morel'}) }}" class="btn btn-large">Visiter la boutique <i class="icon-arrow-right"></i></a>
-	</div>
-
-</div>
+{% endfor %}

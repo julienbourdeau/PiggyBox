@@ -243,9 +243,9 @@ div.image-category:hover {
 a#shopping-cart-button {
 	display: block;
 	background: @grayLighter;
-	color: @grayDarker;
+	color: @grayDarker !important;
 	line-height: @baseFontSize;
-	padding: 4px 16px;
+	padding: 4px 16px 0 20px;
 	.border-radius(5px);
 	small {
 		font-size: 12px;
@@ -783,13 +783,7 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
 
 #background-sexy-picture
 {
-	//background:url(http://farm7.staticflickr.com/6094/6344259408_155baa605f_b.jpg); 
-	//background:url(http://pix.toile-libre.org/upload/original/1369216914.jpg); 
-	//background:url(http://farm8.staticflickr.com/7286/8738098431_4389464322_h.jpg); 
-	//background:url(http://farm6.staticflickr.com/5317/5914253230_2f5421796c_b.jpg); 
-	//background:url(http://pix.toile-libre.org/upload/original/1369232828.jpg); 
-	//background:url(http://pix.toile-libre.org/upload/original/1369232944.jpg); 
-	background:url(http://fc01.deviantart.net/fs71/i/2012/233/4/1/tarte_vanille_fraise___strawberry_pie___113_by_claralg-d5bvulu.jpg); 
+	background:url(../img/home-background-3steps.jpg); 
 	background-size:cover;
 	padding:20px;
 	height:100%;
@@ -847,7 +841,7 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
 
 #city-not-available
 {
-	background:url(http://pix.toile-libre.org/upload/original/1369405112.png); 
+	background:url(../img/home-map-background.png); 
 	width:1055px; 
 	height:508px; 
 	border:4px black solid;
@@ -855,9 +849,10 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
 	.content
 	{
 		width:700px;
-		height:300px; 
+		height:380px; 
 		background:rgba(255,255,255,.9);
-		margin:auto;margin-top:90px;
+		margin:auto;
+		margin-top:50px;
 		border-radius:3px;
 		padding:20px;
 		text-align:center;
@@ -929,6 +924,21 @@ ul.nav-tabs-for-map {
 			color: @white;
 		}
 	}
+}
+
+a.selectedCity
+{
+	color:white;
+}
+
+.hideShop
+{
+	color:#949494 !important;
+}
+
+.hideShop:hover
+{
+	cursor:pointer;
 }
 
 #map-container {

@@ -4074,9 +4074,9 @@ div.image-category:hover img {
 a#shopping-cart-button {
   display: block;
   background: #eeeeee;
-  color: #222222;
+  color: #222222 !important;
   line-height: 16px;
-  padding: 4px 16px;
+  padding: 4px 16px 0 20px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -4563,7 +4563,7 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   line-height: 35px;
 }
 #background-sexy-picture {
-  background: url(http://fc01.deviantart.net/fs71/i/2012/233/4/1/tarte_vanille_fraise___strawberry_pie___113_by_claralg-d5bvulu.jpg);
+  background: url(../img/home-background-3steps.jpg);
   background-size: cover;
   padding: 20px;
   height: 100%;
@@ -4611,17 +4611,17 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   color: #ffffff;
 }
 #city-not-available {
-  background: url(http://pix.toile-libre.org/upload/original/1369405112.png);
+  background: url(../img/home-map-background.png);
   width: 1055px;
   height: 508px;
   border: 4px black solid;
 }
 #city-not-available .content {
   width: 700px;
-  height: 300px;
+  height: 380px;
   background: rgba(255, 255, 255, 0.9);
   margin: auto;
-  margin-top: 90px;
+  margin-top: 50px;
   border-radius: 3px;
   padding: 20px;
   text-align: center;
@@ -4673,6 +4673,15 @@ ul.nav-tabs-for-map li.active a:hover {
   background: #222222;
   color: #ffffff;
 }
+a.selectedCity {
+  color: white;
+}
+.hideShop {
+  color: #949494 !important;
+}
+.hideShop:hover {
+  cursor: pointer;
+}
 #map-container {
   border: 4px solid #222222;
 }
@@ -4691,9 +4700,6 @@ ul.nav-tabs-for-map li.active a:hover {
   font-size: 18px !important;
   color: #ffffff;
 }
-#mother {
-  margin: auto;
-}
 ul.testimonials {
   margin: 0;
   padding: 0;
@@ -4702,9 +4708,9 @@ ul.testimonials {
 li.testimonial-item {
   float: left;
   width: 631px;
-  height: 150px;
+  height: 202px;
   margin: 0;
-  padding: 0 32px 0 32px;
+  padding: 32px;
 }
 li.testimonial-item .quote {
   font-size: 26px;
