@@ -36,23 +36,23 @@ class UserController extends Controller
     public function indexAction()
     {
         // Geoloc
-        $geoVisitorData = $this->getGeoVisitorData();
+        $geoDataVisitor = $this->getGeoDataVisitor();
 
         // SEO
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        $map = $this->configureGoogleMap($geoVisitorData['visitorBigCity']);
+        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
         $map = $this->configureMarkers($map);
 
         // Magasins détails
-        $shoppersDetails = $this->getShoppersDetails($geoVisitorData['visitorBigCity']);
+        $shoppersDetails = $this->getShoppersDetails($geoDataVisitor['visitorBigCity']);
 
         return array(
             'map'              => $map,
-            'visitorCity'      => $geoVisitorData['visitorCity'],
-            'visitorBigCity'   => $geoVisitorData['visitorBigCity'],
+            'visitorCity'      => $geoDataVisitor['visitorCity'],
+            'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
         );
@@ -60,32 +60,32 @@ class UserController extends Controller
 
     /**
      * @Template()
-     * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"}) 
+     * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"})
      */
     public function shopsAction($city)
     {
         // Geoloc (forcé avec $city si != none)
-        $geoVisitorData = $this->getGeoVisitorData($city);
+        $geoDataVisitor = $this->getGeoDataVisitor($city);
 
         // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "none"
-        if(!($this->array_ikey_exists($city, $this->getAvailableCities())) && $city != "none") 
-            $geoVisitorData['visitorBigCity'] = "none";
+        if(!($this->array_ikey_exists($city, $this->getAvailableCities())) && $city != "none")
+            $geoDataVisitor['visitorBigCity'] = "none";
 
         // SEO
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        $map = $this->configureGoogleMap($geoVisitorData['visitorBigCity']);
+        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
         $map = $this->configureMarkers($map);
 
         // Magasins détails
-        $shoppersDetails = $this->getShoppersDetails($geoVisitorData['visitorBigCity']);
+        $shoppersDetails = $this->getShoppersDetails($geoDataVisitor['visitorBigCity']);
 
         return array(
             'map'              => $map,
-            'visitorCity'      => $geoVisitorData['visitorCity'],
-            'visitorBigCity'   => $geoVisitorData['visitorBigCity'],
+            'visitorCity'      => $geoDataVisitor['visitorCity'],
+            'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
         );
@@ -338,18 +338,19 @@ class UserController extends Controller
     /**
      * array_key_exists function but case INsensitive
      * @param  string $needle   La clef à chercher
-     * @param  array $haystack  L'array à fouiller
-     * @return bool             true|false
-     */ 
-    private function array_ikey_exists($needle, $haystack) 
+     * @param  array  $haystack L'array à fouiller
+     * @return bool   true|false
+     */
+    private function array_ikey_exists($needle, $haystack)
     {
         $keys = array_keys($haystack);
+
         return in_array(strtolower($needle), array_map('strtolower', $keys));
-    }   
+    }
 
     /**
      * Retourne une Google Map bien configurée
-     * @param [string] $city La ville sur laquelle centrer la map
+     * @param  [string] $city La ville sur laquelle centrer la map
      * @return [object] Une Google Map configurée
      */
     private function configureGoogleMap($city)
@@ -370,7 +371,8 @@ class UserController extends Controller
             'height' => '500px'
         ));
 
-        if($city != "none") $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true);
+        // On centre sur la ville si l'utilisateur est localisé
+        if ($city != "none") { $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true); }
 
         return $map;
     }
@@ -384,21 +386,21 @@ class UserController extends Controller
         // Gestion des markers
         // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
         // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
-        $marker_icon_boulangerie    = "http://pix.toile-libre.org/upload/original/1369398619.png";
-        $marker_icon_vianderie      = "http://pix.toile-libre.org/upload/original/1369399798.png";
+        $markerIconBread    = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconBread.png";
+        $markerIconMeat     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconMeat.png";
         $magasins = array(
-                'boucherie-zola'            => array(47.214048,-1.585698,$marker_icon_vianderie),
-                'boucherie-copernic'        => array(47.215545,-1.564271,$marker_icon_vianderie),
-                'boucherie-des-gourmets'    => array(47.229044,-1.57163,$marker_icon_vianderie),
-                'boucherie-du-bouffay'      => array(47.214962,-1.55429,$marker_icon_vianderie),
-                'boucherie-morel'           => array(47.1849,-1.546154,$marker_icon_vianderie),
+                'boucherie-zola'            => array(47.214048,-1.585698,$markerIconMeat),
+                'boucherie-copernic'        => array(47.215545,-1.564271,$markerIconMeat),
+                'boucherie-des-gourmets'    => array(47.229044,-1.57163,$markerIconMeat),
+                'boucherie-du-bouffay'      => array(47.214962,-1.55429,$markerIconMeat),
+                'boucherie-morel'           => array(47.1849,-1.546154,$markerIconMeat),
 
-                'le-boulanger-de-zola'      => array(47.214061, -1.585741,$marker_icon_boulangerie),
-                'banette-buxerolles'        => array(46.594289,0.36257,$marker_icon_boulangerie),
-                'banette-la-garenne'        => array(46.556027,0.304871,$marker_icon_boulangerie),
-                'banette-grand-large'       => array(46.564791,0.356863,$marker_icon_boulangerie),
-                'banette-la-mimine'         => array(47.275619,-1.466761,$marker_icon_boulangerie),
-                'banette-futuroscope'       => array(46.660674,0.363318,$marker_icon_boulangerie),
+                'le-boulanger-de-zola'      => array(47.214061, -1.585741,$markerIconBread),
+                'banette-buxerolles'        => array(46.594289,0.36257,$markerIconBread),
+                'banette-la-garenne'        => array(46.556027,0.304871,$markerIconBread),
+                'banette-grand-large'       => array(46.564791,0.356863,$markerIconBread),
+                'banette-la-mimine'         => array(47.275619,-1.466761,$markerIconBread),
+                'banette-futuroscope'       => array(46.660674,0.363318,$markerIconBread),
             );
 
         // Génération des markers
@@ -424,9 +426,9 @@ class UserController extends Controller
     /**
      * Récupère des info sur la position du visiteur
      * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
-     * @return [array] visitorCity, bigCity, geoResponse
+     * @return [array]   visitorCity, bigCity, geoResponse
      */
-    private function getGeoVisitorData($city="none")
+    private function getGeoDataVisitor($city="none")
     {
         // Geocoder
         $request  = Request::createFromGlobals();
@@ -437,22 +439,20 @@ class UserController extends Controller
                                     new GoogleMapsProvider($adapter),
                                     ));
 
-        // Geolocalize Visitor by IP or City (if forced)
-        if($city == "none")
+        // Géolocalise via l'IP si aucune ville n'est forcée
+        if ($city == "none") {
             $georesponse = $geocoder
                             ->using('free_geo_ip')
-                            ->geocode("82.231.144.171"); // Autour de nantes
-                            //->geocode("173.194.34.55"); // Roubaix
-                            
-            // $georesponse = $geocoder->geocode($request->getClientIp());
-        else
+                            ->geocode($request->getClientIp());
+        } else {
             $georesponse = $geocoder
                             ->using('google_maps')
                             ->geocode($city." France"); // Force city
+        }
 
         // Si on n'a pas trouvé de ville avec la geoloc, on en force une.
         if ($georesponse->getCity()) $visitorCity = $georesponse->getCity();
-        else $visitorCity = "Nantes";
+        else $visitorCity = "Paris";
 
         // Cherche la "bigCity" (ville où CETAF a des commerces) aux alentours du visiteur.
         // S'il est dans un rayon de $perimeterKms, alors on lui dit qu'il appartient à la bigCity.
@@ -488,16 +488,15 @@ class UserController extends Controller
 
     /**
      * Retourne les informations sur les magasins de $city
-     * @param  string $city   La ville dont on veut les magasins
-     * @return array          Informations sur les magasins.
+     * @param  string $city La ville dont on veut les magasins
+     * @return array  Informations sur les magasins.
      */
     private function getShoppersDetails($city)
     {
         $city = strtolower($city);
         $content = array();
 
-        if($city == "nantes")
-        {
+        if ($city == "nantes") {
             $content = array(
                 array(
                 'slug' => "boucherie-zola",
@@ -542,9 +541,7 @@ class UserController extends Controller
                 'description' => "Bientôt disponible pour la commande en ligne",
                 ),
             );
-        }
-        elseif($city == "poitiers")
-        {
+        } elseif ($city == "poitiers") {
             $content = array(
                 array(
                 'slug' => "banette-futuroscope",
