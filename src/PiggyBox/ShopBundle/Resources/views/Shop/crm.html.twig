@@ -1,0 +1,16 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+
+{% block body %}
+{% include 'PiggyBoxShopBundle:Shop:crm_sub_header.html.twig'%}
+
+<div id="main">
+	<div id="primary" class="site-content container">
+		<h2>Liste des clients <sup id="super-badge" class="badge badge-success"></h2>
+	</div>
+</div>
+
+
+{{ shop.slug }}
+
+{% endblock %}
