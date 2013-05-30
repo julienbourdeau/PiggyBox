@@ -94,14 +94,7 @@ after "deploy", "deploy:cleanup"
 
 ## 4 Configuration du serveur de production
 
-On installe la Gem:
-
-```bash
-gem install capifony
-```
-
-Puis on se déplace dans le dossier définie dans **deploy_to** dans **deploy.rb** , et on exécute:
-
+Pour configurer le serveur de production, on utilise la commande:
 ```bash
 cap deploy:setup
 ```
@@ -111,8 +104,8 @@ Cette commande permet de créer l'arborescence nécessaire au déploiement:
 * releases
 * shared
 
-Releases permet de stocker toutes les releases du site.
-Shared permet de garder les fichiers nécessaires à toutes les releases en liens symboliques (sessions, logs, parameters...)
+-> Releases permet de stocker toutes les releases du site.
+-> Shared permet de garder les fichiers nécessaires à toutes les releases en liens symboliques (sessions, logs, parameters...)
 
 
 ## 5 Premier déploiement
