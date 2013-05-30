@@ -383,41 +383,28 @@ class UserController extends Controller
      */
     private function configureMarkers($map)
     {
-        // Gestion des markers
-        // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
-        // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
-        $markerIconBread    = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconBread.png";
-        $markerIconMeat     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconMeat.png";
-        $magasins = array(
-                'boucherie-zola'            => array(47.214048,-1.585698,$markerIconMeat),
-                'boucherie-copernic'        => array(47.215545,-1.564271,$markerIconMeat),
-                'boucherie-des-gourmets'    => array(47.229044,-1.57163,$markerIconMeat),
-                'boucherie-du-bouffay'      => array(47.214962,-1.55429,$markerIconMeat),
-                'boucherie-morel'           => array(47.1849,-1.546154,$markerIconMeat),
 
-                'le-boulanger-de-zola'      => array(47.214061, -1.585741,$markerIconBread),
-                'banette-buxerolles'        => array(46.594289,0.36257,$markerIconBread),
-                'banette-la-garenne'        => array(46.556027,0.304871,$markerIconBread),
-                'banette-grand-large'       => array(46.564791,0.356863,$markerIconBread),
-                'banette-la-mimine'         => array(47.275619,-1.466761,$markerIconBread),
-                'banette-futuroscope'       => array(46.660674,0.363318,$markerIconBread),
-            );
+        $availableCities = $this->getAvailableCities();
+        foreach($availableCities as $city => $coordinates) {
 
-        // Génération des markers
-        foreach ($magasins as $name => $value) {
-            $marker[$name] = $this->get('ivory_google_map.marker');
-            $marker[$name]->setPrefixJavascriptVariable('marker_');
-            $marker[$name]->setPosition($value[0], $value[1], true);
-            $marker[$name]->setIcon($value[2]);
+            $shoppers = $this->getShoppersDetails($city);
 
-            $event[$name] = $this->get('ivory_google_map.event');
-            $event[$name]->setInstance($marker[$name]->getJavascriptVariable());
-            $event[$name]->setEventName('click');
-            $event[$name]->setHandle('function(){showShopInMap("'.$name.'")}');
+            // Génération des markers
+            foreach ($shoppers as $shopper) {
+                $marker[$shopper['slug']] = $this->get('ivory_google_map.marker');
+                $marker[$shopper['slug']]->setPrefixJavascriptVariable('marker_');
+                $marker[$shopper['slug']]->setPosition($shopper['coordinates'][0], $shopper['coordinates'][1], true);
+                $marker[$shopper['slug']]->setIcon($shopper['coordinates'][2]);
 
-            $map->addMarker($marker[$name]);
-            $event[$name]->setCapture(true);
-            $map->getEventManager()->addDomEvent($event[$name]);
+                $event[$shopper['slug']] = $this->get('ivory_google_map.event');
+                $event[$shopper['slug']]->setInstance($marker[$shopper['slug']]->getJavascriptVariable());
+                $event[$shopper['slug']]->setEventName('click');
+                $event[$shopper['slug']]->setHandle('function(){showShopInMap("'.$shopper['slug'].'")}');
+
+                $map->addMarker($marker[$shopper['slug']]);
+                $event[$shopper['slug']]->setCapture(true);
+                $map->getEventManager()->addDomEvent($event[$shopper['slug']]);
+            }
         }
 
         return $map;
@@ -496,80 +483,97 @@ class UserController extends Controller
         $city = strtolower($city);
         $content = array();
 
+        // Gestion des markers
+        // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
+        // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
+        $markerIconBread    = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconBread.png";
+        $markerIconMeat     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconMeat.png";
+
         if ($city == "nantes") {
             $content = array(
                 array(
-                'slug' => "boucherie-zola",
-                'img' => array('/zola.jpg'),
-                'name' => "Boucherie de Zola",
-                'slogan' => "Une boucherie au coeur du quartier Zola",
-                'description' => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
+                'slug'          => "boucherie-zola",
+                'img'           => array('/zola.jpg'),
+                'name'          => "Boucherie de Zola",
+                'slogan'        => "Une boucherie au coeur du quartier Zola",
+                'description'   => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
+                'comingSoon'    => false,
+                'coordinates'   => array(47.214048,-1.585698,$markerIconMeat),
                 ),
                 array(
-                'slug' => "boucherie-des-gourmets",
-                'img' => array('/boucherie-jauneau.jpg'),
-                'name' => "Boucherie des Gourmets",
-                'slogan' => "Boucherie traditionnelle aux Hauts Pavés",
-                'description' => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
+                'slug'          => "boucherie-des-gourmets",
+                'img'           => array('/boucherie-jauneau.jpg'),
+                'name'          => "Boucherie des Gourmets",
+                'slogan'        => "Boucherie traditionnelle aux Hauts Pavés",
+                'description'   => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
+                'comingSoon'    => false,
+                'coordinates'   => array(47.229044,-1.57163,$markerIconMeat),
                 ),
                 array(
-                'slug' => "banette-la-mimine",
-                'img' => array('/carousel/la-mimine/banette-la-mimine.jpg'),
-                'name' => "Banette La Mimine",
-                'slogan' => "",
-                'description' => "",
+                'slug'          => "boucherie-copernic",
+                'img'           => array('/copernic.jpg'),
+                'name'          => "Boucherie Copernic",
+                'slogan'        => "Chez mon Boucher rue Copernic",
+                'description'   => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
+                'comingSoon'    => false,
+                'coordinates'   => array(47.215545,-1.564271,$markerIconMeat),
                 ),
                 array(
-                'slug' => "boucherie-copernic",
-                'img' => array('/copernic.jpg'),
-                'name' => "Boucherie Copernic",
-                'slogan' => "Chez mon Boucher rue Copernic",
-                'description' => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
+                'slug'          => "le-boulanger-de-zola",
+                'img'           => array('/carousel/leboulangerdezola/le-boulanger-de-zola.jpg'),
+                'name'          => "Le Boulanger de Zola",
+                'slogan'        => "Du pain naturel et bon",
+                'description'   => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
+                'comingSoon'    => false,
+                'coordinates'   => array(47.214061, -1.585741,$markerIconBread),
                 ),
                 array(
-                'slug' => "le-boulanger-de-zola",
-                'img' => array('/carousel/leboulangerdezola/le-boulanger-de-zola.jpg'),
-                'name' => "Le Boulanger de Zola",
-                'slogan' => "Du pain naturel et bon",
-                'description' => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
-                ),
-                array(
-                'slug' => "boucherie-du-bouffay",
-                'img' => array('/bouffay.jpg'),
-                'name' => "Boucherie du Bouffay",
-                'slogan' => "Boucherie officielle du voyage à Nantes",
-                'description' => "Bientôt disponible pour la commande en ligne",
+                'slug'          => "boucherie-morel",
+                'img'           => array('/carousel/boucherie-morel/boucherie-morel-th.jpg'),
+                'name'          => "La Boucherie Morel",
+                'slogan'        => "Boucherie Morel au coeur de Rezé",
+                'description'   => "Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.",
+                'comingSoon'    => false,
+                'coordinates'   => array(47.1849,-1.546154,$markerIconMeat),
                 ),
             );
         } elseif ($city == "poitiers") {
             $content = array(
                 array(
-                'slug' => "banette-futuroscope",
-                'img' => array('/carousel/banette-futuroscope/banette-futuroscope-th.jpg'),
-                'name' => "Banette Futuroscope",
-                'slogan' => "Bientôt disponible pour la commande en ligne",
-                'description' => "",
+                'slug'          => "banette-futuroscope",
+                'img'           => array('/carousel/banette-futuroscope/banette-futuroscope-th.jpg'),
+                'name'          => "Banette Futuroscope",
+                'slogan'        => "Bientôt disponible pour la commande en ligne",
+                'description'   => "",
+                'comingSoon'    => true,
+                'coordinates'   => array(46.660674,0.363318,$markerIconBread),
                 ),
                 array(
-                'slug' => "banette-buxerolles",
-                'img' => array('/carousel/banette-buxerolles/banette-buxerolles-0.jpg'),
-                'name' => "Banette Buxerolles",
-                'slogan' => "Bientôt disponible pour la commande en ligne",
-                'description' => "",
+                'slug'          => "banette-buxerolles",
+                'img'           => array('/carousel/banette-buxerolles/banette-buxerolles-0.jpg'),
+                'name'          => "Banette Buxerolles",
+                'slogan'        => "Bientôt disponible pour la commande en ligne",
+                'description'   => "",
+                'comingSoon'    => true,
+                'coordinates'   => array(46.594289,0.36257,$markerIconBread),
                 ),
                 array(
-                'slug' => "banette-la-garenne",
-                'img' => array('/carousel/poitiers-sud/banette-la-garenne.jpg'),
-                'name' => "Banette La Garenne",
-                'slogan' => "Bientôt disponible pour la commande en ligne",
-                'description' => "",
+                'slug'          => "banette-la-garenne",
+                'img'           => array('/carousel/poitiers-sud/banette-la-garenne.jpg'),
+                'name'          => "Banette La Garenne",
+                'slogan'        => "Bientôt disponible pour la commande en ligne",
+                'description'   => "",
+                'comingSoon'    => true,
+                'coordinates'   => array(46.556027,0.304871,$markerIconBread),
                 ),
                 array(
-                'slug' => "banette-grand-large",
-                'img' => array('/banette-temp.jpg'),
-                'name' => "Banette Grand Large",
-                'slogan' => "Bientôt disponible pour la commande en ligne",
-                'description' => "",
+                'slug'          => "banette-grand-large",
+                'img'           => array('/banette-temp.jpg'),
+                'name'          => "Banette Grand Large",
+                'slogan'        => "Bientôt disponible pour la commande en ligne",
+                'description'   => "",
+                'comingSoon'    => true,
+                'coordinates'   => array(46.564791,0.356863,$markerIconBread),
                 ),
             );
         }

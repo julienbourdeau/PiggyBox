@@ -20,30 +20,53 @@
 
         <div class="container">
         <div class="row">
-            {% for shopper in shoppersDetails %}
+            {% 
+                for shopper in shoppersDetails 
+            %}
                 <div class="span6">
-                    <a  href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}" class="box bottom-marged">
-                        <div class="row-fluid">
-                            <div class="shop-thumbnail span4">
-                                    <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
-                            </div>
-                            <div class="span8">
-                                <h2 class="no-margin">{{ shopper.name }}</h2>
-                                <h4>{{ shopper.slogan }}</h4>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <p class="small-text">
-                                            {{ shopper.description }}
-                                        </p>
+
+                    {% if shopper.comingSoon %} 
+                        <div class="ribbon ribbon-coming-soon"></div>
+                    {% endif %}
+
+                    {% if shopper.comingSoon == false %} 
+                        <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}" class="box bottom-marged">
+                    {% else %}
+                        <a href="#" class="box bottom-marged box-muted">
+                    {% endif %} 
+
+                            <div class="row-fluid">
+                                <div class="shop-thumbnail span4">
+                                        <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
+                                </div>
+                                <div class="span8">
+                                    <h2 class="no-margin">{{ shopper.name }}</h2>
+                                    <h4>{{ shopper.slogan }}</h4>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <p class="small-text">
+                                                {{ shopper.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="btn btn-block btn-primary">
+                                        <i class="icon-home icon-white"></i> 
+                                        {% if shopper.comingSoon %}
+                                            Magasin bientôt en ligne
+                                        {% else %}
+                                            Visiter le magasin
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <div class="btn btn-block btn-primary">
-                                    <i class="icon-home icon-white"></i> Visiter le magasin
-                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+
                 </div>
+
+                {% if loop.index is even %}
+                    <div class="clear"></div>
+                {% endif %}
+
             {% endfor %}
 
             <div class="span8 offset4">
