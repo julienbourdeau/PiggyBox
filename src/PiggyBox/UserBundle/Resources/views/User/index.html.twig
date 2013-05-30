@@ -18,100 +18,42 @@
         <div class="row bottom-marged">
             <div class="span12">
                 <div class="topline">
-                    Commandez en ligne dans vos commerces de proximité et ne faites plus la queue
+                    Ne faîtes plus <strong>jamais</strong> la queue pendant vos courses.<br />
+                    Commandez en 3 clics. Récuperez vos achats. Savourez.
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span4">
-                <h3 class="text-centered bottom-marged">Comment ça marche</h3>
-                <ol style="font-size: 200%; margin-left: 42px;">
-                    <li style="margin-bottom: 32px;">Découvrez <br /> <small style="font-size: 60%;">des nouveaux commerces</small></li>
-
-                    <li style="margin-bottom: 32px;">Commandez <br /> <small style="font-size: 60%;">vos produits de qualité</small></li>
-
-                    <li>Retirer <br /> <small style="font-size: 60%;">tout sans faire la queue</small></li>
-                </ol>
-            </div>
-
-            <div class="span2">
-                <h3 class="text-centered bottom-marged">Presse</h3>
-
-                <img src="{{ asset('bundles/piggyboxuser/img/logo-presse.png')}}" alt="">
-            </div>
-
-            <div class="span6">
-                <h3 class="text-centered bottom-marged">Reportage sur France 3</h3>
-                <iframe width="515" height="280" src="http://www.youtube.com/embed/jrNPccEcV_I" frameborder="0" allowfullscreen></iframe>
+    <div id="background-sexy-picture">
+        <div class="map-container">
+            <div class="row bottom-marged">
+                <div class="span12">
+                    <h3 class="text-centered bottom-marged">Comment ça marche ?</h3>
+                </div>
+                <img src="{{ asset('bundles/piggyboxuser/img/home-blocs-3steps.png')}}" style="margin-left:60px" />
+                <h4 class="text-centered bottom-marged">
+                    <a href="#map-anchor">Cliquez ici pour commencer ↓</a>
+                </h4>
             </div>
         </div>
     </div>
 
-    <div id="map-anchor" class="container">
+    {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
+
+    <div class="container">
+        <div class="row bottom-marged">
+
+        </div>
+    </div>
+
+    <div class="container">
+
         <div class="row bottom-marged">
             <div class="span12">
-                <h1 class="text-centered">Choisissez votre commerçant de proximité</h1>
-
-                <div class="row-fluid">
-                    <div class="span6">
-                        <ul class="nav nav-tabs nav-tabs-for-map">
-                            <li class="">
-                                <a id="map-recenter-nantes">Nantes</a>
-                            </li>
-                            <li>
-							<a id="map-recenter-poitiers">Poitiers</a>
-                            </li>
-                            <li class="disabled">
-                                <a>Paris</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="span6" style="padding-top: 12px;">
-                        Et d'autres à venir...
-                    </div>
-                </div>
-
-                <div id="map-container" class="clearfix">
-                    <div id="map-container-left" class="pull-left">
-                        {{ google_map_container(map) }}
-                    </div>
-                    <div id="map-container-right" class="pull-left">
-                        {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
-                    </div>
-                </div>
+                <h1 class="text-centered">Ils parlent de nous</h1>
             </div>
-        </div>
-    </div>
 
-
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span12 text-centered">
-                <div id="newsletter-container">
-
-                    <!-- Begin MailChimp Signup Form -->
-                    <form action="http://theboxmake.us6.list-manage.com/subscribe/post?u=7c75c0d9a364017b8e8d9282b&amp;id=ce6741fec0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="form-inline clearfix validate" target="_blank" novalidate>
-                        <label for="mce-EMAIL">Restez informé des nouveautés </label>
-                        <input type="email" value="" name="EMAIL" class="required email input-xlarge" id="mce-EMAIL">
-                        <input type="submit" value="Tenez moi au courant !" name="subscribe" id="mc-embedded-subscribe" class="btn btn-large">
-                        <div class="clear">
-                            <div class="response" id="mce-error-response" style="display:none"></div>
-                            <div class="response" id="mce-success-response" style="display:none"></div>
-                        </div>
-                    </form>
-                    <!--End mc_embed_signup-->
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span8">
+            <div class="span6 offset2">
                 <div id="testimonials-container" class="hide">
                     <ul class="testimonials">
                         <li class="testimonial-item current">
@@ -129,19 +71,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="span4">
-                <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC%25C3%25B4telettes-Tarte-aux-fraises%2F389516231125842&amp;width=335&amp;height=250&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;border_color&amp;header=true&amp;appId=260550777370634" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:335px; height:266px;" allowTransparency="true"></iframe>
-            </div>
         </div>
-    </div>
 
-
-    <div class="container">
-        <div class="row bottom-marged">
-            <div class="span12">
-                <h1 class="text-centered">Ils parlent de nous</h1>
-            </div>
-        </div>
         <div class="row bottom-marged">
             <div class="span12 presse-links">
                 <a  id="startupfactory" href="http://www.startup-factory.fr/"></a>
@@ -153,6 +84,7 @@
                 <a  id="ouestfrance" class="last" href="http://www.entreprises.ouest-france.fr/article/nantes-digital-8-entreprises-accompagnees-au-demarrage-03-10-2012-69372"></a>
             </div>
         </div>
+
     </div>
 
 
@@ -182,6 +114,7 @@
 
 <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
 
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#slider').nivoSlider();
@@ -193,12 +126,12 @@
 <script>
 
 
-$(document).ready(
-    function() {
+$(document).ready(function() {
+
         $('#testimonials-container').removeClass('hide');
         var theContent = $('ul.testimonials li');
-        var theWidth = 695;
-        var theHeight = 266;
+        var theWidth = 665;
+        var theHeight = 200;
         //wrap into mother div
         $('ul.testimonials').wrap('<div id="mother" />');
         //assign height width and overflow hidden to mother
@@ -212,7 +145,8 @@ $(document).ready(
             position: 'relative',
             overflow: 'hidden'
         });
-            //get total of image sizes and set as width for ul
+
+        //get total of image sizes and set as width for ul
         var totalWidth = theContent.length * theWidth;
         $('ul.testimonials').css({
             width: function(){
@@ -224,14 +158,13 @@ $(document).ready(
 );
 
 window.setInterval(function(){
-    //console.log("cool");
     var theContent = $('ul.testimonials li');
     $(theContent).each(
-        function(intIndex){
-            //console.log(intIndex);
+        function(intIndex)
+        {
             if ($(this).hasClass('current')) {
                 $(this).parent('ul').animate({
-                    "margin-left": (-(intIndex) * 695)
+                    "margin-left": (-(intIndex) * 630)
                 }, 1000)
                 $(this).removeClass('current');
                 if ($(this).hasClass('last-item')) {
@@ -254,39 +187,6 @@ window.setInterval(function(){
 
 
 <script type="text/javascript">
-
-
-    function showShopInMap($slug) {
-        $('.home-map-sidebar-item').hide();
-        var id = "#sidebar-" + $slug;
-        $(id).show();
-    }
-
-    $('#banette-link').click(
-        function(){
-            window.location = '#map-anchor';
-            $('#map-recenter-poitiers').trigger('click');
-        }
-    );
-
-    $("#map-recenter-nantes").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-    $("#map-recenter-poitiers").click(
-        function(){
-            $('.nav-tabs-for-map li').removeClass("active");
-            $(this).parent("li").addClass("active");
-            {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
-            {{map.javascriptVariable}}.setZoom(11);
-        }
-    );
-
 	_kmq.push(['record', 'Viewed home page']);
-
 </script>
 {% endblock %}
