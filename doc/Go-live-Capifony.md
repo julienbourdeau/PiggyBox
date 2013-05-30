@@ -5,13 +5,13 @@
 1. Ruby
 2. RubyGems
 
-## 1 Installation de la gem Capifony l'environnement client
+## 1. Installation de la gem Capifony l'environnement client
 
 ```bash
 gem install capifony
 ```
 
-## 2 Mise en place de Capifony sur un projet Symfony
+## 2. Mise en place de Capifony sur un projet Symfony
 
 Commande à exécuter à la racine du projet:
 
@@ -21,7 +21,7 @@ capifony .
 
 Capifony se met alors en place sur le projet existant.
 
-## 3 Configuration de Capifony
+## 3. Configuration de Capifony
 
 Capifony crée deux fichiers: Capfile à la racine du projet, et /app/config/deploy.rb.
 
@@ -92,7 +92,7 @@ after "deploy", "deploy:cleanup"
 * Les commandes après le déploiements sont le changement de propriétaire de la nouvelle release, ainsi que la suppression des releases obsolètes.
 
 
-## 4 Configuration du serveur de production
+## 4. Configuration du serveur de production
 
 Pour configurer le serveur de production, on utilise la commande:
 ```bash
@@ -108,7 +108,7 @@ Releases permet de stocker toutes les releases du site.
 Shared permet de garder les fichiers nécessaires à toutes les releases en liens symboliques (sessions, logs, parameters...)
 
 
-## 5 Premier déploiement
+## 5. Premier déploiement
 
 Lors du premier déploiement et uniquement lors du premier, il faut éxecuter depuis le client:
 
@@ -120,7 +120,7 @@ Elle permet de créer la première release sur le serveur et de créer le lien s
 
 Ce lien sera changé à chaque nouveau déploiement, vers la nouvelle release.
 
-## 6 Déploiements
+## 6. Déploiements
 
 Pour déployer sur le serveur de production on utilise la commande:
 
@@ -130,11 +130,11 @@ cap deploy
 
 Une nouvelle release est alors effectuée, et le lien symbolique "current" est dirigé vers cette nouvelle release.
 
-## 7 Check
+## 7. Check
 
 * http://www.cotelettes-tarteauxfraises.com
 
-## 8 Rollback
+## 8. Rollback
 
 En cas de dysfonctionnement de la nouvelle release où que Julien a tout cassé, effectué la commande:
 
@@ -145,7 +145,7 @@ cap deploy:rollback
 Cette commande redirigera rapidement le lien current vers la release précédant cette release défectueuse, puis la supprimera.
 
 
-# 9 Sources
+# 9. Sources
 * http://capifony.org/ Site officiel de Capifony avec un bon tuto sur son fonctionnement
 * http://capitate.rubyforge.org/recipes/deploy.html Information sur les différentes commandes disponibles
 * http://rubygems.org/pages/download Download et installation de RubyGems
