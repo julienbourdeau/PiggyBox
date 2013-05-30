@@ -33,3 +33,4 @@ composer.lock
 codemod.py
 tags
 php-cs-fixer.phar
+app/sessions
