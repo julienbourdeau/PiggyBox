@@ -438,8 +438,12 @@ class UserController extends Controller
         }
 
         // Si on n'a pas trouvé de ville avec la geoloc, on en force une.
-        if ($georesponse->getCity()) $visitorCity = $georesponse->getCity();
-        else $visitorCity = "Paris";
+        if ($georesponse->getCity()) {
+            $visitorCity = $georesponse->getCity();
+        }
+        else {
+            $visitorCity = "Paris";
+        }
 
         // Cherche la "bigCity" (ville où CETAF a des commerces) aux alentours du visiteur.
         // S'il est dans un rayon de $perimeterKms, alors on lui dit qu'il appartient à la bigCity.
@@ -457,7 +461,9 @@ class UserController extends Controller
 
             // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
             // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
-            if(!isset($direcresponse->getRoutes()[0])) break;
+            if(!isset($direcresponse->getRoutes()[0])) {
+                break;
+            }
 
             $distance = $direcresponse->getRoutes()[0]->getLegs()[0]->getDistance()->getValue();
             if ($distance <= $perimeterKms*1000) {
