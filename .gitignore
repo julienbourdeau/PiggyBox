@@ -15,6 +15,7 @@ web/media/*
 web/.htaccess
 bin
 composer.phar
+components/*
 
 # Configuration files
 app/config/parameters.ini
