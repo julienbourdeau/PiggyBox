@@ -104,8 +104,8 @@ Cette commande permet de créer l'arborescence nécessaire au déploiement:
 * releases
 * shared
 
--> Releases permet de stocker toutes les releases du site.
--> Shared permet de garder les fichiers nécessaires à toutes les releases en liens symboliques (sessions, logs, parameters...)
+Releases permet de stocker toutes les releases du site.
+Shared permet de garder les fichiers nécessaires à toutes les releases en liens symboliques (sessions, logs, parameters...)
 
 
 ## 5 Premier déploiement
