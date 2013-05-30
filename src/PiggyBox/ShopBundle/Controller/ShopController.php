@@ -163,4 +163,25 @@ class ShopController extends Controller
             'form'   => $form->createView(),
         );
     }
+
+    /**
+     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page
+     *
+     * @SecureReturn(permissions="VIEW")
+     * @Route("/clients", name="crm_index", defaults={"_format"="html"})
+     * @Template()
+     */
+    public function crmAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $data = array();
+
+        $em = $this->getDoctrine()->getManager();
+        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug("boucherie-zola");
+
+        $data['clients']=
+
+        return $data;
+    }
 }
