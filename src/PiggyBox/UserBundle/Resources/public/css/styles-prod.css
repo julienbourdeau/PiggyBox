@@ -1510,6 +1510,9 @@ legend + .control-group {
 .form-horizontal .form-actions {
   padding-left: 180px;
 }
+#piggybox_orderbundle_orderdetailtype_quantity {
+  height: 27px;
+}
 /*
 .registration {
     label,
