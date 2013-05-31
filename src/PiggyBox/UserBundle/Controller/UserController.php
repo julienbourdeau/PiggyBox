@@ -415,13 +415,13 @@ class UserController extends Controller
     /**
      * Récupère des info sur la position du visiteur
      * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
-     * @return [array]   visitorCity, bigCity, geoResponse
+     * @return [array]   visitorCity, bigCity, geoResponse 
      */
     private function getGeoDataVisitor($city="none")
     {
         // Geocoder
         $request  = Request::createFromGlobals();
-        $session  = $this->get("session");
+        $session  = $this->get('session');
         $adapter  = new CurlHttpAdapter();
         $geocoder = new Geocoder();
 
