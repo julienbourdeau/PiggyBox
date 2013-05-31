@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\ShopBundle\Entity\Day;
+use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -177,10 +178,15 @@ class ShopController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $data = array();
 
-        $em = $this->getDoctrine()->getManager();
-        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug("boucherie-zola");
+        $shop = $user->getOwnShop()->getSlug();
 
-        $data['clients']=
+        $data['orders_toArchive'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.user_id=u.id AND s.slug="shop_slug"  ASC')
+                                 ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
+                                 ->getResult();
+
+        //$data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneById("1");
+
+        $data['clients'] = $data['shop']->getClients();
 
         return $data;
     }
