@@ -178,15 +178,15 @@ class ShopController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $data = array();
 
-        $shop = $user->getOwnShop()->getSlug();
+        $data['shop'] = $user->getOwnShop();
 
-        $data['orders_toArchive'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.user_id=u.id AND s.slug="shop_slug"  ASC')
+        $data['clients'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.user=u.id AND s.slug=:shop_slug order by u.lastName ASC')
                                  ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
                                  ->getResult();
 
         //$data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneById("1");
 
-        $data['clients'] = $data['shop']->getClients();
+        //$data['clients'] = $data['shop']->getClients();
 
         return $data;
     }
