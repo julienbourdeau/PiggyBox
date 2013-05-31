@@ -27,7 +27,7 @@
 
 			<div class="product-details">
 					<div class="product-name">
-						<h4>{{product.name}}</h4>
+						<h4><a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" style="color: #222222;">{{product.name}}</a></h4>
 					</div>
 			</div>
 
@@ -106,7 +106,7 @@
 
 			<div class="product-details">
 					<div class="product-name">
-						<h4>{{product.name}}</h4>
+						<h4><a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" style="color: #222222;">{{product.name}}</a></h4>
 					</div>
 			</div>
 

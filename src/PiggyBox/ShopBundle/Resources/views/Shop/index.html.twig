@@ -102,7 +102,7 @@
 					{% if order.note is not null %}
 						<div class="alert alert-info">
 							<div class="label label-info">Note du client</div>
-							<p>{{ order.note }}</p>
+							<p>{{ order.note|nl2br }}</p>
 						</div>
 					{% endif %}
                 </div>
@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="span4">
-					<i class="icon-user"></i> <strong>{{order.user.name}}</strong> <br>
+					<i class="icon-user"></i> <strong>{{order.user.firstName}} {{order.user.lastName}}</strong> <br>
 					<i class="icon-signal"></i> {{order.user.phonenumber}}<br>
 					<i class="icon-envelope"></i> {{order.user.email}}
                 </div>
@@ -211,7 +211,7 @@
 					{% if order.note is not null %}
 						<div class="alert alert-info">
 							<div class="label label-info">Note du client</div>
-							<p>{{ order.note}}</p>
+							<p>{{ order.note|nl2br }}</p>
 						</div>
 					{% endif %}
                 </div>
