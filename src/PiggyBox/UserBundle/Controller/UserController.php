@@ -20,7 +20,9 @@ use Ivory\GoogleMap\MapTypeId;
 use Geocoder\HttpAdapter\CurlHttpAdapter;
 use Geocoder\Geocoder;
 use Geocoder\Provider\FreeGeoIpProvider;
+use Geocoder\Provider\MaxMindProvider;
 use Geocoder\Provider\GoogleMapsProvider;
+use Symfony\Component\HttpFoundation\Session;
 
 /**
  * User controller.
@@ -413,23 +415,26 @@ class UserController extends Controller
     /**
      * Récupère des info sur la position du visiteur
      * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
-     * @return [array]   visitorCity, bigCity, geoResponse
+     * @return [array]   visitorCity, bigCity, geoResponse 
      */
     private function getGeoDataVisitor($city="none")
     {
         // Geocoder
         $request  = Request::createFromGlobals();
+        $session  = $this->get('session');
         $adapter  = new CurlHttpAdapter();
         $geocoder = new Geocoder();
+
         $geocoder->registerProviders(array(
-                                    new FreeGeoIpProvider($adapter),
+                                    new FreeGeoIpProvider($adapter), // gratos mais sucks
+                                    new MaxMindProvider($adapter, "7u3qk0raLxe0", 'f'),
                                     new GoogleMapsProvider($adapter),
                                     ));
 
         // Géolocalise via l'IP si aucune ville n'est forcée
         if ($city == "none") {
             $georesponse = $geocoder
-                            ->using('free_geo_ip')
+                            ->using('maxmind')
                             ->geocode($request->getClientIp());
         } else {
             $georesponse = $geocoder
@@ -457,15 +462,15 @@ class UserController extends Controller
 
         foreach ($availableCities as $city => $coordinate) {
             // Direction entre la ville du visiteur et une bigCity
-            $direcresponse = $directions->route($georesponse->getCity(), $city);
+            $direcResponse = $directions->route($visitorCity, $city);
 
             // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
             // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
-            if(!isset($direcresponse->getRoutes()[0])) {
+            if(!isset($direcResponse->getRoutes()[0])) {
                 break;
             }
 
-            $distance = $direcresponse->getRoutes()[0]->getLegs()[0]->getDistance()->getValue();
+            $distance = $direcResponse->getRoutes()[0]->getLegs()[0]->getDistance()->getValue();
             if ($distance <= $perimeterKms*1000) {
                 $bigCity = $city;
                 break;
