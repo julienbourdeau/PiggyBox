@@ -4613,7 +4613,7 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
 #city-not-available {
   background: url(../img/home-map-background.png);
   width: 1055px;
-  height: 518px;
+  height: 528px;
   border: 4px black solid;
 }
 #city-not-available .content {
@@ -4733,12 +4733,6 @@ li.testimonial-item .quote-source {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-::selection {
-  background: transparent;
-}
-::-moz-selection {
-  background: transparent;
 }
 .wrapper-demo {
   margin: 60px 0 0 0;
