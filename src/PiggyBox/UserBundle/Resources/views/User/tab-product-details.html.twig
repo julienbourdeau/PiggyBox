@@ -57,7 +57,7 @@
 
             <div class="product-description">
 	        	{% if product.description is not null %}
-	                <p>{{product.description}}</p>
+	                <p>{{ product.description|nl2br }}</p>
 	            {% else %}
 	            	<p><em>Aucune description disponible</em></p>
 	            {% endif %}
