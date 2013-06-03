@@ -786,7 +786,7 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: 25px;
+  height: 35px;
   padding: 4px 6px;
   margin-bottom: 9px;
   font-size: 16px;
@@ -1510,94 +1510,92 @@ legend + .control-group {
 .form-horizontal .form-actions {
   padding-left: 180px;
 }
+#piggybox_orderbundle_orderdetailtype_quantity {
+  height: 27px;
+}
+/*
 .registration {
-  *zoom: 1;
+    label,
+    input,
+    button,
+    select,
+    textarea {
+      #font > .shorthand((@baseFontSize - 2),normal,@baseLineHeight); // Set size, weight, line-height here
+    }
+
+    // Shared size and type resets
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+      display: inline-block;
+      height: (@baseLineHeight - 5);
+      padding: 4px 6px;
+      margin-bottom: 0px;
+      font-size: @baseFontSize;
+      line-height: @baseLineHeight;
+      color: @gray;
+      .border-radius(@inputBorderRadius);
+    }
+
+    .form-horizontal {
+      // Increase spacing between groups
+      .control-group {
+        margin-bottom: (@baseLineHeight - 15);
+        .clearfix();
+      }
+      // Float the labels left
+      .control-label {
+        float: left;
+        width: @horizontalComponentOffset - 20;
+        padding-top: 5px;
+        text-align: right;
+      }
+      // Move over all input controls and content
+      .controls {
+        // Super jank IE7 fix to ensure the inputs in .input-append and input-prepend
+        // don't inherit the margin of the parent, in this case .controls
+        *display: inline-block;
+        *padding-left: 20px;
+        margin-left: @horizontalComponentOffset;
+        *margin-left: 0;
+        &:first-child {
+          *padding-left: @horizontalComponentOffset;
+        }
+      }
+      // Remove bottom margin on block level help text since that's accounted for on .control-group
+      .help-block {
+        margin-bottom: 0;
+      }
+      // And apply it only to .help-block instances that follow a form control
+      input,
+      select,
+      textarea {
+        + .help-block {
+          margin-top: @baseLineHeight / 2;
+        }
+      }
+      // Move over buttons in .form-actions to align with .controls
+      .form-actions {
+        padding-left: @horizontalComponentOffset;
+      }
+    }
+  .clearfix(); // Adding clearfix to allow for .pull-right button containers
 }
-.registration label,
-.registration input,
-.registration button,
-.registration select,
-.registration textarea {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 25px;
-}
-.registration select,
-.registration textarea,
-.registration input[type="text"],
-.registration input[type="password"],
-.registration input[type="datetime"],
-.registration input[type="datetime-local"],
-.registration input[type="date"],
-.registration input[type="month"],
-.registration input[type="time"],
-.registration input[type="week"],
-.registration input[type="number"],
-.registration input[type="email"],
-.registration input[type="url"],
-.registration input[type="search"],
-.registration input[type="tel"],
-.registration input[type="color"],
-.registration .uneditable-input {
-  display: inline-block;
-  height: 20px;
-  padding: 4px 6px;
-  margin-bottom: 0px;
-  font-size: 16px;
-  line-height: 25px;
-  color: #555555;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-.registration .form-horizontal .control-group {
-  margin-bottom: 10px;
-  *zoom: 1;
-}
-.registration .form-horizontal .control-group:before,
-.registration .form-horizontal .control-group:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.registration .form-horizontal .control-group:after {
-  clear: both;
-}
-.registration .form-horizontal .control-label {
-  float: left;
-  width: 160px;
-  padding-top: 5px;
-  text-align: right;
-}
-.registration .form-horizontal .controls {
-  *display: inline-block;
-  *padding-left: 20px;
-  margin-left: 180px;
-  *margin-left: 0;
-}
-.registration .form-horizontal .controls:first-child {
-  *padding-left: 180px;
-}
-.registration .form-horizontal .help-block {
-  margin-bottom: 0;
-}
-.registration .form-horizontal input + .help-block,
-.registration .form-horizontal select + .help-block,
-.registration .form-horizontal textarea + .help-block {
-  margin-top: 12.5px;
-}
-.registration .form-horizontal .form-actions {
-  padding-left: 180px;
-}
-.registration:before,
-.registration:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.registration:after {
-  clear: both;
-}
+*/
 table {
   max-width: 100%;
   background-color: transparent;
