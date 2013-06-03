@@ -35,6 +35,7 @@ class AppKernel extends Kernel
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Liip\CodeBundle\LiipCodeBundle(),
+            new FOS\FacebookBundle\FOSFacebookBundle(),
 
             //bundles for category in PiggyBoxShopBundle
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
