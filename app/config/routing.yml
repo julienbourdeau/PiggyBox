@@ -53,7 +53,7 @@ BCCCronManagerBundle:
 
 # FOSFacebookBundle routing configuration
 _security_check:
-  pattern:  /login_check
+  pattern:  /login_facebook_check
 
 _security_logout:
   pattern:  /logout

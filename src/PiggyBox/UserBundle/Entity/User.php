@@ -4,7 +4,7 @@ namespace PiggyBox\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -81,6 +81,13 @@ class User extends BaseUser
      * @ORM\Column(name="phoneNumber", type="string", nullable=true)
      */
     private $phoneNumber;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="facebookId", type="string", length=255, nullable=true)
+     */
+    protected $facebookId;
 
     /**
      * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Shop")
@@ -361,5 +368,49 @@ class User extends BaseUser
     public function getCity()
     {
         return $this->city;
+    }
+
+    //public function unserialize($data)
+    //{
+    //    list($this->facebookId, $parentData) = unserialize($data);
+    //    parent::unserialize($parentData);
+    //}
+
+    /**
+     * @param string $facebookId
+     * @return void
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+        $this->setUsername($facebookId);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param Array
+     */
+    public function setFBData($fbdata)
+    {
+        if (isset($fbdata['id'])) {
+            $this->setFacebookId($fbdata['id']);
+            $this->addRole('ROLE_FACEBOOK');
+        }
+        if (isset($fbdata['first_name'])) {
+            $this->setFirstname($fbdata['first_name']);
+        }
+        if (isset($fbdata['last_name'])) {
+            $this->setLastname($fbdata['last_name']);
+        }
+        if (isset($fbdata['email'])) {
+            $this->setEmail($fbdata['email']);
+        }
     }
 }

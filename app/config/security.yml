@@ -7,8 +7,13 @@ security:
         connection: default
 
     providers:
+        chain_provider:
+            chain:
+                providers: [fos_userbundle, my_facebook_provider]
         fos_userbundle:
-            id: fos_user.user_provider.username_email
+            id: fos_user.user_provider.username
+        my_facebook_provider:
+            id: my.facebook.user
 
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
@@ -20,6 +25,13 @@ security:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 use_referer: true
+            fos_facebook:
+                app_url: "http://apps.facebook.com/cotelettes/"
+                server_url: "http://192.168.22.22/"
+                login_path: /login
+                check_path: /login_facebook_check
+                default_target_path: /
+                provider: my_facebook_provider
             logout:       true
             anonymous:    true
 
