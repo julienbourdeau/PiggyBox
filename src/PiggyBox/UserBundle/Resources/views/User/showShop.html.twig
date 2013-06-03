@@ -5,15 +5,15 @@
         <div class="container bottom-marged">
             <div class="row">
 
-                <div id="" class="span8">
-
-                    {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
-
-                </div>
-
                 <div class="sidebar span4">
 
                     {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop} %}
+
+                </div>
+
+                <div id="" class="span8">
+
+                    {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
 
                 </div>
 
@@ -52,7 +52,12 @@
                                 <div id="" class="tab-content">
 
                                     <div id="shop" class="tab-pane active">
-										{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+                                        {% if app.request.attributes.get('_route') == "view_product_details" %}
+									       {{ wo_render_breadcrumbs({separator: ' > ', listId: 'breadcrumbs'}) }}
+                                        {% endif %}
+                                        
+
                                         <div class="product-list">
 											{% if app.request.attributes.get('_route') == 'view_product_details' %}
 												{% form_theme form[product.id] 'PiggyBoxUserBundle:Form:fields.html.twig' %}

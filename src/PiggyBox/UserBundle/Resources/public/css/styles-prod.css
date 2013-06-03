@@ -4142,12 +4142,15 @@ h1 {
   margin-left: 0;
   color: #222222;
 }
+#category_tree .subnav > .active > a {
+  color: #ffffff;
+}
 #entry-content {
   padding: 26px 0px;
   border: 0;
 }
 .product-item {
-  width: 219px;
+  width: 245px;
   margin: 0 23px 46px 0;
   padding: 12px;
   *zoom: 1;
