@@ -412,5 +412,19 @@ class User extends BaseUser
         if (isset($fbdata['email'])) {
             $this->setEmail($fbdata['email']);
         }
+        if (isset($fbdata['birthday'])) {
+            $this->setBirthday(new \Datetime($fbdata['birthday']));
+        }
+        if (isset($fbdata['location'])) {
+            $this->setCity($fbdata['location']['name']);
+        }
+        if (isset($fbdata['gender'])) {
+            if ($fbdata['gender'] == 'male') {
+                $this->setGender('M.');
+            }
+            if ($fbdata['gender'] == 'female') {
+                $this->setGender('Mme');
+            }
+        }
     }
 }
