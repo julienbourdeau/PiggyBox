@@ -2,6 +2,7 @@
  # DEFAULT
  #}
 
+{#
 <div id="sidebar-default" class="home-map-sidebar-item" style="padding: 12px 24px;">
 
 	<h4 style="font-weight: normal; font-size:14px; text-align:center;">Cliquez sur un commerce pour le voir en details</h4>
@@ -32,25 +33,42 @@
 			</a>
 	</div>
 </div>
-
+#}
 
  {% for shopper in shoppersDetails %}
-	 <div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item hide">
+	<div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item" style="display:none;">
+
+		<div class="content-container text-centered" style="padding-top:20px; margin-bottom:30px;">
+			<h3>{{ shopper.name }}</h3>
+			<p style="margin-top:20px;">{{ shopper.slogan }}</p>
+		</div>
 
 		<div id="photo-container">
 		    <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}">
-		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" width="360" alt="">
+		    	<img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="" style="width:260px;">
 		    </a>
 		</div>
-		<div id="content-container" class="text-centered">
-		    <h3>{{ shopper.name }}</h3>
 
-		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-large">
-		    	Visiter la boutique <i class="icon-arrow-right"></i>
+		<!--<div class="dotted"></div>-->
+
+		<div class="content-container text-centered button-go-shop-sidebar">
+		    
+			{% if shopper.comingSoon == false %}	
+		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-danger btn-large">
+		    	<i class="icon-circle-arrow-right icon-white"></i> Venez voir ses produits !
 		    </a>
+		    {% else %}
+		    <div class="box-muted">
+			    <a href="#" class="btn btn-danger btn-large">
+			    	<i class="icon-circle-arrow-right icon-white"></i> Bientôt disponible
+			    </a>
+		    </div>
+		    {% endif %}
 
-		    <br /><br />
-		    <a class="hideShop"><i class="icon-remove-sign"></i> Fermer l'aperçu</a>
+            <a class="hideShop">
+                <span class="cross">☓</span> Fermer cette boutique
+            </a>
+
 		</div>
 
 	</div>

@@ -21,8 +21,14 @@ framework:
 
 # Twig Configuration
 twig:
+    globals:
+        web_path: %web_path%
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+
+# Parameters
+parameters:
+    web_path: %kernel.root_dir%/../web/
 
 # Assetic Configuration
 assetic:
@@ -203,3 +209,8 @@ liip_code:
 
 piggy_box_sitemap:
     base_url: http://cotelettes-tarteauxfraises.com
+
+# IvoryGooglMapBundle configuration
+ivory_google_map:
+    api:
+        libraries: [ "places"]
