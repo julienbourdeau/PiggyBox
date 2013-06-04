@@ -433,9 +433,16 @@ class UserController extends Controller
 
         // Géolocalise via l'IP si aucune ville n'est forcée
         if ($city == "none") {
-            $georesponse = $geocoder
-                            ->using('maxmind')
-                            ->geocode($request->getClientIp());
+            if (in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
+                $georesponse = $geocoder
+                    ->using('maxmind')
+                    ->geocode('82.231.144.71');
+            }
+            if (!in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
+                $georesponse = $geocoder
+                    ->using('maxmind')
+                    ->geocode($request->getClientIp());
+            }
         } else {
             $georesponse = $geocoder
                             ->using('google_maps')
