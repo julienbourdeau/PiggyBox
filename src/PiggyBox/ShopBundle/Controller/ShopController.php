@@ -184,6 +184,16 @@ class ShopController extends Controller
                                  ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
                                  ->getResult();
 
+        /*$data['nbCommandes'] = $em->createQuery('SELECT COUNT(:user_id) FROM PiggyBoxUserBundle:User u, PiggyBoxShopBundle:Shop s WHERE s.shop=:shop_id and o.user_id=:user_id')
+                                 ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                 ->setParameter('user_id', $user->getOwnShop()->getClients())
+                                 ->getSingleScalarResult(); */
+                                 
+        //Fonction donnant le nombre de commandes archivé en fonction du commerce                        
+        $data['totalCommandes'] = $em->createQuery('SELECT COUNT (o.id) FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s WHERE o.shop=s.id AND o.status=\'archived\' AND s.id =:shop_id')
+                                    ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                    ->getSingleScalarResult();
+
         //$data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneById("1");
 
         //$data['clients'] = $data['shop']->getClients();
