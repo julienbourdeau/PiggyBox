@@ -41,6 +41,8 @@ class FacebookProvider implements UserProviderInterface
 
         try {
             $fbdata = $this->facebook->api('/me');
+//            $fbdata = $this->facebook->api('/me/permissions');
+            var_dump($fbdata['link'].'/picture');die();
         } catch (FacebookApiException $e) {
             $fbdata = null;
         }
