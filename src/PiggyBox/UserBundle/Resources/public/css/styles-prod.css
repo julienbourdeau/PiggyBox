@@ -4230,6 +4230,22 @@ h1 {
   color: #222222;
   text-align: center;
 }
+.home-map-sidebar-item h3 {
+  display: inline;
+  border-bottom: 2px dotted black;
+}
+.home-map-sidebar-item #photo-container {
+  text-align: center;
+}
+.home-map-sidebar-item #photo-container .shopper-img-sidebar {
+  width: 300px;
+  margin: auto;
+}
+.home-map-sidebar-item .button-go-shop-sidebar {
+  padding-top: 20px;
+  margin-top: 20px;
+  padding: 20px;
+}
 #shop-infos {
   height: 300px;
 }
@@ -4563,8 +4579,12 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   line-height: 35px;
 }
 #background-sexy-picture {
-  background: url(../img/home-background-3steps.jpg);
+  background: url(../img/home-background-3steps.jpg) no-repeat center center;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
+  background-position: 0% 20%;
   padding: 20px;
   height: 100%;
   margin-bottom: 30px;
@@ -4677,27 +4697,33 @@ a.selectedCity {
   color: white;
 }
 .hideShop {
-  color: #949494 !important;
+  color: #6e6e6e;
 }
 .hideShop:hover {
   cursor: pointer;
 }
 #map-container {
   border: 4px solid #222222;
+  height: 508px;
 }
 #map-container-left {
   width: 1047px;
   position: absolute;
 }
 #map-container-right {
-  display: none;
-  width: 0px;
+  opacity: 0;
+  position: absolute;
+  z-index: 5;
+  width: 356px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.85);
+  left: 1088px;
 }
 #map-container-above {
   position: relative;
   z-index: 4;
   width: 100%;
-  height: 508px;
+  height: 500px;
   background: rgba(255, 255, 255, 0.35);
   margin: 0px;
   padding: 0px;
@@ -4831,6 +4857,7 @@ a.selectedCity {
 #map-container-above a.go-map:hover {
   text-decoration: none;
   background: #fef6f6;
+  cursor: pointer;
 }
 #map-container-above .dotted-separator {
   border-top: 2px dotted #c3c3c3;
@@ -4868,6 +4895,10 @@ li.testimonial-item .quote-source {
   font-size: 16px;
   padding-top: 16px;
   text-align: right;
+}
+.hideShop {
+  font-size: 12px;
+  display: block;
 }
 /** DROPDOWN MENU **/
 *,

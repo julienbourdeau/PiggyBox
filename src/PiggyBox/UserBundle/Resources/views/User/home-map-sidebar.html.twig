@@ -35,22 +35,31 @@
 
 
  {% for shopper in shoppersDetails %}
-	 <div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item hide">
+	<div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item">
+
+	<div class="content-container text-centered" style="padding-top:20px; margin-bottom:30px;">
+		<h3>{{ shopper.name }}</h3>
+		<p style="margin-top:20px;">{{ shopper.slogan }}</p>
+
+	</div>
 
 		<div id="photo-container">
 		    <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}">
-		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" width="360" alt="">
+		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" class="shopper-img-sidebar" alt="{{ shopper.name }}">
 		    </a>
 		</div>
-		<div id="content-container" class="text-centered">
-		    <h3>{{ shopper.name }}</h3>
 
-		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-large">
-		    	Visiter la boutique <i class="icon-arrow-right"></i>
+		<!--<div class="dotted"></div>-->
+
+		<div class="content-container text-centered button-go-shop-sidebar">
+		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-danger btn-large">
+		    	<i class="icon-circle-arrow-right icon-white"></i> Venez voir ses produits !
 		    </a>
 
-		    <br /><br />
-		    <a class="hideShop"><i class="icon-remove-sign"></i> Fermer l'aperçu</a>
+            <a class="hideShop">
+                <span class="cross">☓</span> Fermer cette boutique
+            </a>
+
 		</div>
 
 	</div>

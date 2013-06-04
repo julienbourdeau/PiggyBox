@@ -6,11 +6,11 @@
 
                     <h1 class="text-centered" style="border-bottom:0px !important;">
                         <!--Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :-->
-                        Laissez-nous vous aider à trouver <br />les commerces proches de chez vous :
+                        Laissez-nous vous aider à trouver <br />les commerces proches de chez vous
                     </h1>
 
                     
-                    <div id="map-container" class="clearfix">
+                    <div id="map-container">
 
                         <div id="map-container-left" class="pull-left">
                             {{ google_map_container(map) }}
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="dotted-separator" style="margin-bottom:10px;"></div>
 
-                                <a href="#" class="close-popunder go-map">
+                                <a class="close-popunder go-map">
                                     <span class="cross">☓</span> Vous pouvez fermer cette fenêtre et naviguer sur notre carte de {{ visitorBigCity }}
                                     en cliquant ici..
                                 </a>
@@ -73,6 +73,7 @@
                         </div>
                     </div>
 
+                    <div class="clearfix"></div>
 
 
                 {% else %}

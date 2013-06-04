@@ -246,7 +246,9 @@
 
 
         <!-- ICI LE GOOGLE SUGGEST -->
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true">
+        </script>
+        
         <script type="text/javascript">
 
             // Autocomplete Form Homepage
@@ -275,25 +277,30 @@
             /* Smooth Scroll End */
 
             // Afficher une boutique à droite de la map
+            // Over marker
+            var shopShown = false;
             function showShopInMap($slug) {
                 $('.home-map-sidebar-item').hide();
-                var id = "#sidebar-" + $slug;
-                $(id).show();
+                $("#sidebar-" + $slug).fadeIn(600);
+                var leftValue = (shopShown) ? 0:200;
+                shopShown = true;
+                $('#map-container-right').animate({opacity: 1,left: '-='+leftValue}, 400, function(){});
             }
 
-            // Fermer une boutique ouverte
+            // Fermer une boutique ouverte dans la sidebar
             $(".hideShop").click(function() {
                 var id = $(this).parent().parent().attr('id');
                 $('#'+id).hide();
-                $('#sidebar-default').show();
+
+                // Effet sexy lorsqu'on cache une boutique de la sidebar
+                $('#map-container-right').animate({opacity: 0,left: '+=200'}, 400, function(){});
+                shopShown = false;
             });
 
             // Fermeture du popover sur la carte grisée
             $(".close-popunder").click(function(e) {
-                $("#map-container-above").hide();
-                $("#map-container-left").css('width','691px');
-                $("#map-container-right").css('width','356px');
-                $("#map-container-right").show();
+                $('#map-container-above').css('background','none');
+                $('.type-street').animate({opacity: 0}, 700, function(){$("#map-container-above").hide()});
             });
 
             // Clic sur un item du menu des villes

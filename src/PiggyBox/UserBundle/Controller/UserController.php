@@ -404,8 +404,8 @@ class UserController extends Controller
 
                 $event[$shopper['slug']] = $this->get('ivory_google_map.event');
                 $event[$shopper['slug']]->setInstance($marker[$shopper['slug']]->getJavascriptVariable());
-                $event[$shopper['slug']]->setEventName('click');
-                $event[$shopper['slug']]->setHandle('function(){showShopInMap("'.$shopper['slug'].'")}');
+                $event[$shopper['slug']]->setEventName('mouseover');
+                $event[$shopper['slug']]->setHandle('function(){showShopInMap("'.$shopper['slug'].'");}');
 
                 $map->addMarker($marker[$shopper['slug']]);
                 $event[$shopper['slug']]->setCapture(true);
@@ -463,11 +463,15 @@ class UserController extends Controller
         $bigCity           =  "none";                       // La grosse ville proche du visiteur
         $perimeterKms      =  100;                          // Le perimètre autour d'une big city
         $availableCities   =  $this->getAvailableCities();
-        $directions        =  $this->get('ivory_google_map.directions');
+        $directions        =  $this->get('ivory_google_map.directions');    
+
+        //echo "STATUS = ".$directions->getStatus()."\n";
+        //echo "<pre>".print_r($directions,true)."</pre>";
+        //exit(0);
 
         foreach ($availableCities as $city => $coordinate) {
             // Direction entre la ville du visiteur et une bigCity
-            $direcResponse = $directions->route($visitorCity, $city);
+            $direcResponse = $directions->route($visitorCity." France", $city." France");
 
             // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
             // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
