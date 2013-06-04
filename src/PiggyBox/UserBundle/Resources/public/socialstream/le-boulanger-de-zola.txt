@@ -1,0 +1,5 @@
+2013-06-11 09:34:26|Visite|Adam a visité la boutique.
+2013-06-11 09:40:31|Commande|Reynaud a commandé Batard aux graines.
+2013-06-11 09:45:41|Visite|Edmond a visité la boutique.
+2013-06-11 09:48:39|Visite|Inconnu a visité la boutique.
+2013-06-11 09:49:21|Commande|Inconnu a commandé Le PdT (à la pomme de terre).
