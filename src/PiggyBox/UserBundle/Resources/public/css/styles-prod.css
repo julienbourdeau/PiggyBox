@@ -4225,7 +4225,7 @@ h1 {
 .sidebar h1 {
   font-size: 30px;
   padding-bottom: 8px;
-  margin: 0;
+  margin: 0 0 16px 0;
   font-family: 'Museo-300';
   color: #222222;
   text-align: center;
@@ -4289,6 +4289,18 @@ table.pricing-variable-unit-price td.select-size {
 }
 .toolbar:after {
   clear: both;
+}
+.shop-toolbar {
+  width: 200px;
+  margin: 0 auto;
+}
+.shop-toolbar .btn {
+  margin-bottom: 12px;
+  text-align: left;
+  padding-left: 9px;
+}
+.shop-toolbar .btn i {
+  margin-right: 2px;
 }
 #shopping-cart-progess-bar {
   margin: 18px 0 52px 0;
