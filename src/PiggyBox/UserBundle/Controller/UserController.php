@@ -18,6 +18,7 @@ use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMap\MapTypeId;
 use Geocoder\HttpAdapter\CurlHttpAdapter;
+use Geocoder\HttpAdapter\BuzzHttpAdapter;
 use Geocoder\Geocoder;
 use Geocoder\Provider\FreeGeoIpProvider;
 use Geocoder\Provider\MaxMindProvider;
@@ -39,6 +40,8 @@ class UserController extends Controller
     {
         // Geoloc
         $geoDataVisitor = $this->getGeoDataVisitor();
+        $latitude  = $geoDataVisitor['geoResponse']->getLatitude();
+        $longitude = $geoDataVisitor['geoResponse']->getLongitude();
 
         // SEO
         $seoPage = $this->get('sonata.seo.page');
@@ -57,6 +60,7 @@ class UserController extends Controller
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
+            'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
     }
 
@@ -78,7 +82,7 @@ class UserController extends Controller
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
+        $map = $this->configureGoogleMap("none");
         $map = $this->configureMarkers($map);
 
         // Magasins détails
@@ -367,7 +371,7 @@ class UserController extends Controller
         $map->setMapOption('disableDefaultUI', true);
         $map->setMapOption('zoomControl', true);
         $map->setMapOption('mapTypeId', MapTypeId::ROADMAP);
-        $map->setMapOption('zoom', 10);
+        $map->setMapOption('zoom', 12);
         $map->setStylesheetOptions(array(
             'width' => '100%',
             'height' => '500px'
@@ -421,21 +425,22 @@ class UserController extends Controller
     {
         // Geocoder
         $request  = Request::createFromGlobals();
-        $session  = $this->get('session');
+
         $adapter  = new CurlHttpAdapter();
         $geocoder = new Geocoder();
 
         $geocoder->registerProviders(array(
                                     new FreeGeoIpProvider($adapter), // gratos mais sucks
-                                    new MaxMindProvider($adapter, "7u3qk0raLxe0", 'f'),
+                                    //new MaxMindProvider($adapter, "7u3qk0raLxe0", 'f'),
                                     new GoogleMapsProvider($adapter),
                                     ));
 
         // Géolocalise via l'IP si aucune ville n'est forcée
         if ($city == "none") {
             $georesponse = $geocoder
-                            ->using('maxmind')
-                            ->geocode($request->getClientIp());
+                            ->using('free_geo_ip')
+                            //->geocode($request->getClientIp());
+                            ->geocode("82.231.144.171");
         } else {
             $georesponse = $geocoder
                             ->using('google_maps')

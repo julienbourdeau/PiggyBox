@@ -5,17 +5,74 @@
                 {% if visitorBigCity != "none" %}
 
                     <h1 class="text-centered" style="border-bottom:0px !important;">
-                        Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :
+                        <!--Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :-->
+                        Laissez-nous vous aider à trouver <br />les commerces proches de chez vous :
                     </h1>
 
+                    
                     <div id="map-container" class="clearfix">
+
                         <div id="map-container-left" class="pull-left">
                             {{ google_map_container(map) }}
                         </div>
                         <div id="map-container-right" class="pull-left">
                             {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
                         </div>
+
+                        <div id="map-container-above">
+                            <div class="clearfix"></div>
+                            <div class="type-street">
+
+                                <button type="button" class="close close-popunder">&times;</button>
+
+                                <h3>Trouvez vos commerces en 1 clic :</h3>
+                                <form action="#" action="post">
+                                    <div class="form-street">
+                                        <input type="text" name="street_name" id="street_name" placeholder="Rue beauregard nantes" /> 
+                                        <input type="submit" value="VALIDER">
+                                        <span class="undertext"><i class="icon-hand-up icon-white"></i> 
+                                            Tapotez les premières lettres de votre rue, on se charge du reste.
+                                        </span>
+                                    </div>
+                                </form>
+
+                                <div class="dotted-separator"></div>
+                                <div class="promoted-shopper">
+                                    {% set link = path('user_show_shop', {'shop_slug':'boucherie-copernic'}) %}
+                                
+                                   
+                                <a href="{{ link }}">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" />
+                                </a>
+
+                                    <h4>
+                                        <a href="{{ link }}">
+                                            <i class="icon-bookmark"></i> Recommandé pour vous
+                                        </a>
+                                    </h4>
+                                    <p class="promoted-content">
+                                        Atout charme : de la bonne bouffe.<br />
+                                        1 Rue Copernic, 44000 Nantes<br />
+                                        <a href="{{ link }}">
+                                            Voir ses produits et commander maintenant »
+                                        </a>
+                                    </p>
+
+                                    <div class="clearfix"></div>
+                                 
+
+                                </div>
+                                <div class="dotted-separator" style="margin-bottom:10px;"></div>
+
+                                <a href="#" class="close-popunder go-map">
+                                    <span class="cross">☓</span> Vous pouvez fermer cette fenêtre et naviguer sur notre carte de {{ visitorBigCity }}
+                                    en cliquant ici..
+                                </a>
+
+                            </div>
+                        </div>
                     </div>
+
 
 
                 {% else %}

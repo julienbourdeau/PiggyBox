@@ -244,8 +244,23 @@
         {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
         {% if app.request.attributes.get('_route') == "home" or app.request.attributes.get('_route') == "shops" %}
 
-         <script>
 
+        <!-- ICI LE GOOGLE SUGGEST -->
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+        <script type="text/javascript">
+
+            // Autocomplete Form Homepage
+            var input = document.getElementById("street_name");
+            var options = {
+              types: ['(cities)'],
+              componentRestrictions: {country: 'fr'}
+            };
+
+            autocomplete = new google.maps.places.Autocomplete(input, options); 
+        </script>
+        <!-- // END -->
+
+        <script type="text/javascript">
             /* Smooth Scroll Begin */
             $('a[href^="#"]').on('click',function (e) {
                 e.preventDefault();
@@ -273,6 +288,14 @@
                 $('#sidebar-default').show();
             });
 
+            // Fermeture du popover sur la carte grisée
+            $(".close-popunder").click(function(e) {
+                $("#map-container-above").hide();
+                $("#map-container-left").css('width','691px');
+                $("#map-container-right").css('width','356px');
+                $("#map-container-right").show();
+            });
+
             // Clic sur un item du menu des villes
             var selectedCity = '{{ visitorBigCity }}';
             selectedCity = selectedCity.toLowerCase();
@@ -282,12 +305,12 @@
                 if($(this).attr('id') == "map-recenter-nantes")
                 {
                     {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
-                    {{map.javascriptVariable}}.setZoom(11);
+                    {{map.javascriptVariable}}.setZoom(12);
                 }
                 else if($(this).attr('id') == "map-recenter-poitiers")
                 {
                     {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
-                    {{map.javascriptVariable}}.setZoom(11);
+                    {{map.javascriptVariable}}.setZoom(12);
                 }
 
                 // Met à jour le menu déroulant lorsqu'on clique sur une ville
