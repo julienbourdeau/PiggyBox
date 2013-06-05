@@ -11,8 +11,11 @@
         <div id="content" class="span3 bs-docs-sidebar">
             <ul class="nav nav-list bs-docs-sidenav" data-spy="affix" data-offset-top="200">
                 <li><i class="icon-chevron-right"></i><a href="#details">Mes coordonnées</a></li>
+                
+                {% if not is_granted('ROLE_FACEBOOK') %}
                 <li><i class="icon-chevron-right"></i><a href="#password">Mon mot de passe</a></li>
-            </ul>
+                {% endif %}
+             </ul>
         </div>
 
         <div id="content" class="span9">
@@ -23,12 +26,14 @@
                 {% render 'FOSUserBundle:Profile:edit' %}
             </section>
 
+            {% if not is_granted('ROLE_FACEBOOK') %}
             <section id="password" data-offset-top="200">
                 <h1 class="text-centered">Mon mot de passe</h2>
                 <br/>
                 <p class="text-small">Pour procéder au changement de votre mot de passe, veuillez entrer les informations suivantes :</p>
                 {% render 'FOSUserBundle:ChangePassword:changePassword' %}
             </section>
+            {% endif %}
         </div>
 
     </div>
