@@ -99,6 +99,11 @@ class User extends BaseUser
     private $orders;
 
     /**
+     * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Client", mappedBy="user")
+     **/
+    private $clients;
+
+    /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
@@ -361,5 +366,38 @@ class User extends BaseUser
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Add clients
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Client $clients
+     * @return User
+     */
+    public function addClient(\PiggyBox\ShopBundle\Entity\Client $clients)
+    {
+        $this->clients[] = $clients;
+    
+        return $this;
+    }
+
+    /**
+     * Remove clients
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Client $clients
+     */
+    public function removeClient(\PiggyBox\ShopBundle\Entity\Client $clients)
+    {
+        $this->clients->removeElement($clients);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        return $this->clients;
     }
 }

@@ -98,6 +98,12 @@ class Order
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Client", inversedBy="shops")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
+
+    /**
      * @var integer $order_number
      *
      * @ORM\Column(name="order_number", type="integer",nullable=true)
@@ -458,5 +464,28 @@ class Order
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \PiggyBox\ShopBundle\Entity\Client $client
+     * @return Order
+     */
+    public function setClient(\PiggyBox\ShopBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+    
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \PiggyBox\ShopBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

@@ -74,18 +74,6 @@ class Shop
     private $products;
 
     /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales")
-     * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
-     **/
-    private $sales;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="PiggyBox\UserBundle\Entity\User", inversedBy="shops")
-     * @ORM\JoinTable(name="shops_clients")
-     **/
-    private $clients;
-
-    /**
      * @ORM\OneToMany(targetEntity="PiggyBox\OrderBundle\Entity\Order", mappedBy="shop")
      **/
     private $orders;
@@ -94,6 +82,11 @@ class Shop
      * @ORM\OneToMany(targetEntity="Day", mappedBy="shop", cascade={"persist"})
      **/
     private $opening_days;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PiggyBox\ShopBundle\Entity\Client", mappedBy="shop")
+     **/
+    private $clients;
 
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
@@ -290,29 +283,6 @@ class Shop
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * Set sales
-     *
-     * @param  PiggyBox\ShopBundle\Entity\Sales $sales
-     * @return Shop
-     */
-    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
-    {
-        $this->sales = $sales;
-
-        return $this;
-    }
-
-    /**
-     * Get sales
-     *
-     * @return PiggyBox\ShopBundle\Entity\Sales
-     */
-    public function getSales()
-    {
-        return $this->sales;
     }
 
     /**

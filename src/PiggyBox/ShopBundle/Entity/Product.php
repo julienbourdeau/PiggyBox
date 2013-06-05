@@ -169,12 +169,6 @@ class Product
     public $file;
 
     /**
-     * @ORM\OneToOne(targetEntity="PiggyBox\ShopBundle\Entity\Sales", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
-     **/
-    private $sales;
-
-    /**
      * @ORM\ManyToOne(targetEntity="PiggyBox\ShopBundle\Entity\Category", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      **/
@@ -657,29 +651,6 @@ class Product
     public function getShop()
     {
         return $this->shop;
-    }
-
-    /**
-     * Set sales
-     *
-     * @param  \PiggyBox\ShopBundle\Entity\Sales $sales
-     * @return Product
-     */
-    public function setSales(\PiggyBox\ShopBundle\Entity\Sales $sales = null)
-    {
-        $this->sales = $sales;
-
-        return $this;
-    }
-
-    /**
-     * Get sales
-     *
-     * @return \PiggyBox\ShopBundle\Entity\Sales
-     */
-    public function getSales()
-    {
-        return $this->sales;
     }
 
     /**
