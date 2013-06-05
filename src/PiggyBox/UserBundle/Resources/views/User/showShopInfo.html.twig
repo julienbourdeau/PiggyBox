@@ -3,17 +3,17 @@
 {% block content %}
 
         <div class="container bottom-marged">
-            <div class="row">
-
-                <div id="" class="span8">
-
-                    {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
-
-                </div>
+            <div class="row shop-header">
 
                 <div class="sidebar span4">
 
                     {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop} %}
+
+                </div>
+
+                <div id="" class="span8">
+
+                    {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
 
                 </div>
 

@@ -226,16 +226,27 @@
             <p>Lorem ipsum dolor sit amet Consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
 
             <div class="shop-toolbar">
-                <div class="">
-                    <a href="#" class="btn btn-inverse btn-block"><i class="icon-user icon-white"></i> Afficher le numéro</a>
-                    <div class="phone-number hide">02 40 75 65 73</div>
-                </div>
-                <div class="">
-                    <a href="mailto:morel.lionel@boucherdefrance.fr" class="btn btn-inverse btn-block"><i class="icon-envelope icon-white"></i> Contacter par email</a>
-                </div>
-                <div class="">
-                    <a href="#" class="btn btn-inverse btn-block"><i class="icon-home icon-white"></i> Localiser sur la carte</a>
-                </div>
+
+                    <a id="show-phone-number" class="btn btn-inverse btn-block" 
+                    data-toggle="popover" 
+                    data-placement="top" 
+                    data-content="<div class='phone-number-popover'>02 40 75 65 73</div>" 
+                    data-title="<i class='icon-comment'></i> Appelez votre commerçant">
+                        <i class="icon-comment icon-white"></i> Afficher le numéro
+                    </a>
+
+                    <a href="mailto:morel.lionel@boucherdefrance.fr" class="btn btn-inverse btn-block">
+                        <i class="icon-envelope icon-white"></i> Contacter par email
+                    </a>
+
+                    <a href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}#horaires" class="btn btn-small" style="width: 48%;">
+                        <i class="icon-time"></i> Horaires
+                    </a>
+
+                    <a href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}#map-large" class="btn btn-small" style="width: 45%; margin-left: 5%;">
+                        <i class="icon-map-marker"></i> Carte
+                    </a>
+
             </div>
 
 
@@ -248,3 +259,4 @@
     {% endif %}
 
 </div>
+
