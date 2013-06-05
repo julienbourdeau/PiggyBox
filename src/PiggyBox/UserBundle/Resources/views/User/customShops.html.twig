@@ -1,0 +1,76 @@
+{% extends 'PiggyBoxUserBundle::layout.html.twig' %}
+
+
+{% block stylesheets %}
+
+{{parent()}}
+
+<link rel="stylesheet" href="{{ asset('bundles/piggyboxuser/css/themes/bar/bar.css')}}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('bundles/piggyboxuser/css/nivo-slider.css')}}" type="text/css" media="screen" />
+
+{% endblock %}
+
+
+{% block content %}
+
+<div id="custom-shops">
+    <div class="container">
+        <div class="row bottom-marged">
+            <div class="span12">
+            	
+        		<h2>Voici les commerces les plus proches de chez vous :</h2>
+                <div class="dotted-separator"></div>
+                <div class="promoted-shopper">
+                    {% set link = path('user_show_shop', {'shop_slug':'boucherie-copernic'}) %}
+                
+                   
+                <a href="{{ link }}">
+                    <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" />
+                </a>
+
+                    <h4>
+                        <a href="{{ link }}">
+                            <i class="icon-bookmark"></i> Boucherie Copernic
+                        </a>
+                    </h4>
+                    <p class="promoted-content">
+                        Atout charme : de la bonne bouffe.<br />
+                        1 Rue Copernic, 44000 Nantes<br />
+
+                        <a href="{{ link }}">
+                            Voir ses produits et commander maintenant »
+                        </a>
+                    </p>
+
+                    <div class="clearfix"></div>
+                 
+
+                </div>
+                <div class="dotted-separator" style="margin-bottom:10px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+{{parent()}}
+
+<script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#slider').nivoSlider();
+    });
+</script>
+
+
+<script type="text/javascript">
+	_kmq.push(['record', 'Viewed home page']);
+</script>
+{% endblock %}

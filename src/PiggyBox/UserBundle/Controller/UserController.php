@@ -64,6 +64,17 @@ class UserController extends Controller
         );
     }
 
+
+    /**
+     * @Template()
+     * @Route("vos-commerces", name="customShops")
+     */
+    public function customShopsAction()
+    {
+
+        return array();
+    }
+
     /**
      * @Template()
      * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"})
@@ -376,9 +387,12 @@ class UserController extends Controller
             'width' => '100%',
             'height' => '500px'
         ));
+        $map->setLibraries(array('places'));
 
         // On centre sur la ville si l'utilisateur est localisé
-        if ($city != "none") { $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true); }
+        if ($city != "none") { 
+            $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true); 
+        }
 
         return $map;
     }
