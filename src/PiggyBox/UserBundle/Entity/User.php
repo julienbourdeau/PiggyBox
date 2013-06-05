@@ -413,8 +413,11 @@ class User extends BaseUser
         if (isset($fbdata['email'])) {
             $this->setEmail($fbdata['email']);
         }
-        if (isset($fbdata['birthday'])) {
-            $this->setBirthday(new \Datetime($fbdata['birthday']));
+        if (isset($fbdata['age_range']['age_range']['min'])) {
+            $birthDate = new \Datetime('now');
+            $birthDate->modify('-'.$fbdata['age_range']['age_range']['min'].' year');
+            $birthDate->setDate($birthDate->format('Y'),'1','1');
+            $this->setBirthday($birthDate);
         }
         if (isset($fbdata['location'])) {
             $this->setCity($fbdata['location']['name']);
