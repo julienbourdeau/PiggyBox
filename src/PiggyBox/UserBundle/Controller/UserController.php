@@ -18,12 +18,10 @@ use PiggyBox\ShopBundle\Form\MenuDetailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ivory\GoogleMap\MapTypeId;
 use Geocoder\HttpAdapter\CurlHttpAdapter;
-use Geocoder\HttpAdapter\BuzzHttpAdapter;
 use Geocoder\Geocoder;
 use Geocoder\Provider\FreeGeoIpProvider;
 use Geocoder\Provider\MaxMindProvider;
 use Geocoder\Provider\GoogleMapsProvider;
-use Symfony\Component\HttpFoundation\Session;
 
 /**
  * User controller.
@@ -64,14 +62,12 @@ class UserController extends Controller
         );
     }
 
-
     /**
      * @Template()
      * @Route("vos-commerces", name="customShops")
      */
     public function customShopsAction()
     {
-
         return array();
     }
 
@@ -387,11 +383,10 @@ class UserController extends Controller
             'width' => '100%',
             'height' => '500px'
         ));
-        $map->setLibraries(array('places'));
 
         // On centre sur la ville si l'utilisateur est localisé
-        if ($city != "none") { 
-            $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true); 
+        if ($city != "none") {
+            $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true);
         }
 
         return $map;
@@ -405,7 +400,7 @@ class UserController extends Controller
     {
 
         $availableCities = $this->getAvailableCities();
-        foreach($availableCities as $city => $coordinates) {
+        foreach ($availableCities as $city => $coordinates) {
 
             $shoppers = $this->getShoppersDetails($city);
 
@@ -433,7 +428,7 @@ class UserController extends Controller
     /**
      * Récupère des info sur la position du visiteur
      * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
-     * @return [array]   visitorCity, bigCity, geoResponse 
+     * @return [array]   visitorCity, bigCity, geoResponse
      */
     private function getGeoDataVisitor($city="none")
     {
@@ -464,8 +459,7 @@ class UserController extends Controller
         // Si on n'a pas trouvé de ville avec la geoloc, on en force une.
         if ($georesponse->getCity()) {
             $visitorCity = $georesponse->getCity();
-        }
-        else {
+        } else {
             $visitorCity = "Paris";
         }
 
@@ -477,7 +471,7 @@ class UserController extends Controller
         $bigCity           =  "none";                       // La grosse ville proche du visiteur
         $perimeterKms      =  100;                          // Le perimètre autour d'une big city
         $availableCities   =  $this->getAvailableCities();
-        $directions        =  $this->get('ivory_google_map.directions');    
+        $directions        =  $this->get('ivory_google_map.directions');
 
         //echo "STATUS = ".$directions->getStatus()."\n";
         //echo "<pre>".print_r($directions,true)."</pre>";
@@ -489,7 +483,7 @@ class UserController extends Controller
 
             // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
             // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
-            if(!isset($direcResponse->getRoutes()[0])) {
+            if (!isset($direcResponse->getRoutes()[0])) {
                 break;
             }
 

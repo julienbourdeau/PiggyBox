@@ -203,3 +203,8 @@ liip_code:
 
 piggy_box_sitemap:
     base_url: http://cotelettes-tarteauxfraises.com
+
+# IvoryGooglMapBundle configuration
+ivory_google_map:
+    api:
+        libraries: [ "places"]
