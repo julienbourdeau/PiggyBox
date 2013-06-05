@@ -993,16 +993,69 @@ a.selectedCity
 	left:1088px; // 888px
 }
 
+#custom-shops .promoted-shopper,
+#custom-shops .dotted-separator
+{
+	width:800px;
+}
+
+
+#custom-shops .promoted-shopper, 
+#map-container-above .promoted-shopper {
+
+	background:#f7f7f7;
+	padding:13px 0 13px 20px;
+
+	p {
+		line-height: 20px;
+	}
+
+	img {
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		width:25%;
+		float:left;
+		margin-right:10px;
+		-webkit-box-shadow: 0 8px 6px -6px #656565;
+   		-moz-box-shadow: 0 8px 6px -6px #656565;
+        box-shadow: 0 8px 6px -6px #656565;
+	}
+
+	.promoted-content {
+		
+	}
+
+	h4
+	{
+		display:block;
+
+		a {
+			text-decoration: none;
+			color:black;
+		}
+
+		a:hover
+		{
+			border-bottom:1px dotted black;
+		}
+
+	}
+}
+
 #custom-shops {
-	background:url(http://cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/carousel/boucherie-des-gourmets/boucherie-gourmets-jauneau-charcuterie.jpg) no-repeat center center;
+
+	
+	//border:9px solid yellow;
+	/*
 	-moz-background-size: cover;
 	-webkit-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	background-position: 0% 20%;
+	background-position: 0% 20%;*/
 }
 
-#map-container-above, #custom-shops {
+#map-container-above {
 	//display:none; // A SUPPRIMER //
 	position:relative;
 	z-index:4;
@@ -1108,48 +1161,6 @@ a.selectedCity
 		}
 	}
 
-	.promoted-shopper {
-
-		background:#f7f7f7;
-		padding:13px 0 13px 20px;
-
-		p {
-			line-height: 20px;
-		}
-
-		img {
-			-webkit-border-radius: 2px;
-			-moz-border-radius: 2px;
-			border-radius: 2px;
-			width:25%;
-			float:left;
-			margin-right:10px;
-			-webkit-box-shadow: 0 8px 6px -6px #656565;
-	   		-moz-box-shadow: 0 8px 6px -6px #656565;
-	        box-shadow: 0 8px 6px -6px #656565;
-		}
-
-		.promoted-content {
-			
-		}
-
-		h4
-		{
-			display:block;
-
-			a {
-				text-decoration: none;
-				color:black;
-			}
-
-			a:hover
-			{
-				border-bottom:1px dotted black;
-			}
-
-		}
-	}
-
 	a.go-map
 	{
 		font-size:12px;
@@ -1171,12 +1182,12 @@ a.selectedCity
 		cursor:pointer;
 
 	}
+}
 
-	.dotted-separator {
-		border-top:2px dotted #c3c3c3; 
-		height:1px;
-	}
 
+.dotted-separator {
+	border-top:2px dotted #c3c3c3; 
+	height:1px;
 }
 
 

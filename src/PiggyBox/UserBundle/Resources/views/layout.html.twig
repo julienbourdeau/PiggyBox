@@ -255,9 +255,11 @@
 
                 // Autocomplete Form Homepage
                 var input = document.getElementById("street_name");
-                var options = {
-                  types: ['(cities)'],
-                  componentRestrictions: {country: 'fr'}
+                var options = {                
+                  types: ['geocode'],
+                  componentRestrictions: {country: 'fr'},
+                  location: [{{coordinates.latitude}}, {{coordinates.longitude}}],
+                  radius:50000
                 };
 
                 autocomplete = new google.maps.places.Autocomplete(input, options);
