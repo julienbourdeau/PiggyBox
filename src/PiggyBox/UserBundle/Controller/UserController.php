@@ -243,6 +243,23 @@ class UserController extends Controller
 
 
     /**
+     * @Route("commerce/{shop_slug}/horaires-ouvertures", name="user_show_shop_opening_time")
+     * @Template()
+     */
+    public function showShopOpeningTimeAction($shop_slug)
+    {
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises");
+
+        $em = $this->getDoctrine()->getManager();
+        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+
+        return $data;
+    }
+
+
+    /**
      * @Route("commerce/{shop_slug}/photos", name="user_show_shop_photo")
      * @Template()
      */

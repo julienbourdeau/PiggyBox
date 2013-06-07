@@ -32,7 +32,14 @@
 								<a  href="#shop">Produits à commander</a>
                                 </li>
                                 <li class="">
-								<a  href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}">Fiche Pratique</a>
+    								<a  href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}">
+                                        Fiche Pratique
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a  href="{{ path('user_show_shop_opening_time', {'shop_slug': shop.slug}) }}">
+                                        Horaires
+                                    </a>
                                 </li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
