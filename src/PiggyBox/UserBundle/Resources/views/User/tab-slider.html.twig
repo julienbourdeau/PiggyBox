@@ -4,10 +4,15 @@
         <div class="carousel-inner">
 
             {% for count in range(0, 10) %}
-                <div class="item {% if count == 1 %}active{%endif%}">
-                    {% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/slider-photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}
-                    <img src="{{ asset(path) }}" alt="">
-                </div>
+
+                {% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/slider-photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}      
+
+                {% if file_exists( web_path ~ path ) %}
+                    <div class="item {% if count == 1 %}active{%endif%}">
+                            <img src="{{ asset(path) }}" alt="">
+                    </div>
+                {% endif %}
+
             {% endfor %}
             
 

@@ -1,9 +1,15 @@
 
 {% for count in range(0, 10) %}
-	{#  TODO AJOUTER IF FILE EXIST #}
-	<div class="">
-		{% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}
-		<img src="{{ asset(path) }}" alt="">
-		<hr />
-	</div>
+
+	{% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}
+
+    {% if file_exists( web_path ~ path ) %}
+		
+		<div class="">
+			<img src="{{ asset(path) }}" alt="">
+			<hr />
+		</div>
+
+	{% endif %}
+
 {% endfor %}
