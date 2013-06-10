@@ -164,6 +164,10 @@ class UserController extends Controller
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
+        $shoppers = $this->getShoppersDetails("nantes");
+        $slug = $shop->getSlug();
+        $data['shopper'] = $shoppers[$slug];
+
         return $data;
     }
 
@@ -184,6 +188,12 @@ class UserController extends Controller
         $data['category_slug'] = $category_slug;
         $em = $this->getDoctrine()->getManager();
         $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
+
+
+        $shoppers = $this->getShoppersDetails("nantes");
+        $slug = $shop->getSlug();
+        $data['shopper'] = $shoppers[$slug];
+
 
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem($shop->getName(), $this->get("router")->generate('user_show_shop', array('shop_slug' => $shop->getSlug())));
@@ -221,6 +231,11 @@ class UserController extends Controller
         $data = $this->createOrderDetailForm($products, $data);
         $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
+
+        $shoppers = $this->getShoppersDetails("nantes");
+        $slug = $shop->getSlug();
+        $data['shopper'] = $shoppers[$slug];
+        
         return $data;
     }
 
@@ -237,6 +252,29 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+        
+        $shoppers = $this->getShoppersDetails("nantes");
+        $data['shopper'] = $shoppers[$shop_slug];
+
+        return $data;
+    }
+
+
+    /**
+     * @Route("commerce/{shop_slug}/horaires-ouvertures", name="user_show_shop_opening_time")
+     * @Template()
+     */
+    public function showShopOpeningTimeAction($shop_slug)
+    {
+
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises");
+
+        $em = $this->getDoctrine()->getManager();
+        $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+        
+        $shoppers = $this->getShoppersDetails("nantes");
+        $data['shopper'] = $shoppers[$shop_slug];
 
         return $data;
     }
@@ -254,6 +292,9 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
+        
+        $shoppers = $this->getShoppersDetails("nantes");
+        $data['shopper'] = $shoppers[$shop_slug];
 
         return $data;
     }
@@ -509,50 +550,61 @@ class UserController extends Controller
 
         if ($city == "nantes") {
             $content = array(
-                array(
-                'slug'          => "boucherie-zola",
-                'img'           => array('/zola.jpg'),
-                'name'          => "Boucherie de Zola",
-                'slogan'        => "Une boucherie au coeur du quartier Zola",
-                'description'   => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
-                'comingSoon'    => false,
-                'coordinates'   => array(47.214048,-1.585698,$markerIconMeat),
+                'boucherie-zola' => array(
+                    'slug'          => "boucherie-zola",
+                    'img'           => array('/zola.jpg'),
+                    'name'          => "Boucherie de Zola",
+                    'slogan'        => "Une boucherie au coeur du quartier Zola",
+                    'description'   => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.214048,-1.585698,$markerIconMeat),
+                    'telephone'     => "02 40 46 50 42",
+                    'email'         => "zola@boucherdefrance.fr",
+                    ''
                 ),
-                array(
-                'slug'          => "boucherie-des-gourmets",
-                'img'           => array('/boucherie-jauneau.jpg'),
-                'name'          => "Boucherie des Gourmets",
-                'slogan'        => "Boucherie traditionnelle aux Hauts Pavés",
-                'description'   => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
-                'comingSoon'    => false,
-                'coordinates'   => array(47.229044,-1.57163,$markerIconMeat),
+                'boucherie-des-gourmets' => array(
+                    'slug'          => "boucherie-des-gourmets",
+                    'img'           => array('/boucherie-jauneau.jpg'),
+                    'name'          => "Boucherie des Gourmets",
+                    'slogan'        => "Boucherie traditionnelle aux Hauts Pavés",
+                    'description'   => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.229044,-1.57163,$markerIconMeat),
+                    'telephone'     => "02 72 89 08 53",
+                    'email'         => "boucherie.jauneau@hotmail.fr",
                 ),
-                array(
-                'slug'          => "boucherie-copernic",
-                'img'           => array('/copernic.jpg'),
-                'name'          => "Boucherie Copernic",
-                'slogan'        => "Chez mon Boucher rue Copernic",
-                'description'   => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
-                'comingSoon'    => false,
-                'coordinates'   => array(47.215545,-1.564271,$markerIconMeat),
+                'boucherie-copernic' => array(
+                    'slug'          => "boucherie-copernic",
+                    'img'           => array('/copernic.jpg'),
+                    'name'          => "Boucherie Copernic",
+                    'slogan'        => "Chez mon Boucher rue Copernic",
+                    'description'   => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.215545,-1.564271,$markerIconMeat),
+                    'telephone'     => "02 40 40 85 68",
+                    'email'         => "boucherie.copernic@orange.fr",
                 ),
-                array(
-                'slug'          => "le-boulanger-de-zola",
-                'img'           => array('/carousel/leboulangerdezola/le-boulanger-de-zola.jpg'),
-                'name'          => "Le Boulanger de Zola",
-                'slogan'        => "Du pain naturel et bon",
-                'description'   => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
-                'comingSoon'    => false,
-                'coordinates'   => array(47.214061, -1.585741,$markerIconBread),
+                'le-boulanger-de-zola' => array(
+                    'slug'          => "le-boulanger-de-zola",
+                    'img'           => array('/carousel/leboulangerdezola/le-boulanger-de-zola.jpg'),
+                    'name'          => "Le Boulanger de Zola",
+                    'slogan'        => "Du pain naturel et bon",
+                    'description'   => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.214061, -1.585741,$markerIconBread),
+                    'telephone'     => "02 40 46 44 39",
+                    'email'         => "leboulangerdezola@free.fr",
                 ),
-                array(
-                'slug'          => "boucherie-morel",
-                'img'           => array('/carousel/boucherie-morel/boucherie-morel-th.jpg'),
-                'name'          => "La Boucherie Morel",
-                'slogan'        => "Boucherie Morel au coeur de Rezé",
-                'description'   => "Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.",
-                'comingSoon'    => false,
-                'coordinates'   => array(47.1849,-1.546154,$markerIconMeat),
+                'boucherie-morel' => array(
+                    'slug'          => "boucherie-morel",
+                    'img'           => array('/carousel/boucherie-morel/boucherie-morel-th.jpg'),
+                    'name'          => "La Boucherie Morel",
+                    'slogan'        => "Boucherie Morel au coeur de Rezé",
+                    'description'   => "Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.1849,-1.546154,$markerIconMeat),
+                    'telephone'     => "02 40 75 65 73",
+                    'email'         => "morel.lionel@boucherdefrance.fr",
                 ),
             );
         } elseif ($city == "poitiers") {
