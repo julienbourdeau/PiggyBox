@@ -3,6 +3,11 @@
 
 	<div id="horaires" class="">
 		{% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/horaires/horaires-" ~ shop.slug ~ ".png" %}
-		<img src="{{ asset(path) }}" alt="">
-	</div>
 
+		{% if file_exists( web_path ~ path ) %}
+			<img src="{{ asset(path) }}" alt="">
+		{% else %}
+			Horaires non disponibles
+		{% endif %}
+
+	</div>
