@@ -387,7 +387,7 @@ class UserController extends Controller
     {
 
         $availableCities = $this->getAvailableCities();
-        foreach($availableCities as $city => $coordinates) {
+        foreach ($availableCities as $city => $coordinates) {
 
             $shoppers = $this->getShoppersDetails($city);
 
@@ -415,7 +415,7 @@ class UserController extends Controller
     /**
      * Récupère des info sur la position du visiteur
      * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
-     * @return [array]   visitorCity, bigCity, geoResponse 
+     * @return [array]   visitorCity, bigCity, geoResponse
      */
     private function getGeoDataVisitor($city="none")
     {
@@ -452,8 +452,7 @@ class UserController extends Controller
         // Si on n'a pas trouvé de ville avec la geoloc, on en force une.
         if ($georesponse->getCity()) {
             $visitorCity = $georesponse->getCity();
-        }
-        else {
+        } else {
             $visitorCity = "Paris";
         }
 
@@ -473,7 +472,7 @@ class UserController extends Controller
 
             // Le "[0]" vient de "la route 0", car gMaps en propose toujours 2 ou 3. On prend la meilleure.
             // Si ça n'existe pas (pas de route dispo, plutôt rare), on quitte.
-            if(!isset($direcResponse->getRoutes()[0])) {
+            if (!isset($direcResponse->getRoutes()[0])) {
                 break;
             }
 

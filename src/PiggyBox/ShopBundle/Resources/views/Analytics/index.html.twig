@@ -1,0 +1,23 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+{% block body%}
+
+{% include 'PiggyBoxShopBundle:Analytics:analytics_sub_header.html.twig' %}
+<div id="main">
+	<div id="primary" class="site-content container">
+
+
+	<div class="page-header">
+		<h1>Analytics of the fucking damned shop</h1>
+	</div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/auth_util.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/core_reporting_api_v3_reference.js') }}"></script>
+{% endblock %}

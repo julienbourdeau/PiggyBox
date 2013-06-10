@@ -20,20 +20,20 @@
 
         <div class="container">
         <div class="row">
-            {% 
-                for shopper in shoppersDetails 
+            {%
+                for shopper in shoppersDetails
             %}
                 <div class="span6">
 
-                    {% if shopper.comingSoon %} 
+                    {% if shopper.comingSoon %}
                         <div class="ribbon ribbon-coming-soon"></div>
                     {% endif %}
 
-                    {% if shopper.comingSoon == false %} 
+                    {% if shopper.comingSoon == false %}
                         <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}" class="box bottom-marged">
                     {% else %}
                         <a href="#" class="box bottom-marged box-muted">
-                    {% endif %} 
+                    {% endif %}
 
                             <div class="row-fluid">
                                 <div class="shop-thumbnail span4">
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="btn btn-block btn-primary">
-                                        <i class="icon-home icon-white"></i> 
+                                        <i class="icon-home icon-white"></i>
                                         {% if shopper.comingSoon %}
                                             Magasin bientôt en ligne
                                         {% else %}
