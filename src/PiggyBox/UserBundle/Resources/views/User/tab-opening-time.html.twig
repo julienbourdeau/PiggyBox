@@ -2,7 +2,7 @@
 	<h2>{{ shop.name }}: Horaires d'ouverture</h2>
 
 	<div id="horaires" class="">
-		{% set path = "bundles/piggyboxuser/img/horaires/horaires-" ~ shop.slug ~ ".png" %}
+		{% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/horaires/horaires-" ~ shop.slug ~ ".png" %}
 		<img src="{{ asset(path) }}" alt="">
 	</div>
 
