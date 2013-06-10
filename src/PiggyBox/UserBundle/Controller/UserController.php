@@ -164,6 +164,10 @@ class UserController extends Controller
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
+        $shoppers = $this->getShoppersDetails("nantes");
+        $slug = $shop->getSlug();
+        $data['shopper'] = $shoppers[$slug];
+
         return $data;
     }
 
@@ -228,6 +232,10 @@ class UserController extends Controller
         $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
 
+        $shoppers = $this->getShoppersDetails("nantes");
+        $slug = $shop->getSlug();
+        $data['shopper'] = $shoppers[$slug];
+        
         return $data;
     }
 
