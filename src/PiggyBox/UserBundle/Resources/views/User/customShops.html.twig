@@ -17,60 +17,81 @@
         <div class="row bottom-marged">
             <div id="custom-shops" class="span12">
 
-        		<h2>Voici les commerces les plus proches de chez vous :</h2>
+                <h2 class="text-centered">
+                    Voici les {{ nbShoppers }} commerces les plus proches de chez vous :
+                </h2>
+    
+                {% for shopper in shoppersDetails | slice(0,nbShoppers) %}
                 <div class="dotted-separator"></div>
                 <div class="promoted-shopper">
-                    {% set link = path('user_show_shop', {'shop_slug':'boucherie-copernic'}) %}
+                    {% set link = path('user_show_shop', {'shop_slug': shopper.slug }) %}
 
+                <div class="span4">
+                    <a href="{{ link }}">
+                        <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" class="shop"/>
+                    </a>
+                </div>
 
-                <a href="{{ link }}">
-                    <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" style="width:20%;" />
-                </a>
-
+                <div class="span4">
                     <h4>
                         <a href="{{ link }}">
-                            <i class="icon-bookmark"></i> Boucherie Copernic
+                           {{ shopper.name }}
                         </a>
                     </h4>
-                    <p class="promoted-content">
-                        Atout charme : de la bonne bouffe.<br />
-                        1 Rue Copernic, 44000 Nantes<br />
+                    <p class="promoted-content" style="line-height:26px;">
+                        <i class="icon-heart"></i> {{ shopper.slogan }}.<br />
+                        <i class="icon-home"></i> {{ shopper.address }}<br />
+                        <i class="icon-road"></i> A {{ shopper.niceDistanceFromMe }} de chez vous.<br />
 
-                        <a href="{{ link }}">
-                            Voir ses produits et commander maintenant »
-                        </a>
+                        <!--<a href="{{ link }}" class="show-shop-cta">
+                            Voir tous ses produits »
+                        </a>-->
                     </p>
 
+                    <div id="social-magic-amazing">
+                        {% for data in shopper.fakeSocialStream | slice(0,3) %}
+                            <p><span class="label label-info">{{ data.label }}</span> {{ data.text }} <span class="time">{{ data.ago }}</span></p>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <div class="span3 slider">
+                    <div id="photo-slider">
+                        <div id="shopCarousel{{ loop.index }}" class="carousel slide">
+                            <div class="carousel-inner">
+
+                                {% for product in shopper.products %}
+                                    <div class="item {% if loop.first %}active{% endif %} text-centered">
+                                        <a href="{{ link }}">
+                                            <img src="{{ product.webPath | apply_filter('my_thumb') }}" alt="{{ product.name }}">
+                                        </a>
+                                        <p>{{ product.name }}<br />
+                                        ({{ product.price }} €)</p>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                            <p><a href="{{ link }}">VOIR LA BOUTIQUE »</a></p>
+
+                            <!-- Carousel nav -->
+                            <a class="carousel-control left" href="#shopCarousel{{ loop.index }}" data-slide="prev">&lsaquo;</a>
+                            <a class="carousel-control right" href="#shopCarousel{{ loop.index }}" data-slide="next">&rsaquo;</a>
+                        </div>
+                    </div>
+                </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="dotted-separator"></div>
-                                <div class="promoted-shopper">
-                    {% set link = path('user_show_shop', {'shop_slug':'boucherie-copernic'}) %}
+                <br />
+                {% endfor %}
 
- 
-                <a href="{{ link }}">
-                    <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" style="width:20%;" />
-                </a>
-
-                    <h4>
-                        <a href="{{ link }}">
-                            <i class="icon-bookmark"></i> Boucherie Copernic
-                        </a>
-                    </h4>
-                    <p class="promoted-content">
-                        Atout charme : de la bonne bouffe.<br />
-                        1 Rue Copernic, 44000 Nantes<br />
-
-                        <a href="{{ link }}">
-                            Voir ses produits et commander maintenant »
-                        </a>
-                    </p>
-
-                    <div class="clearfix"></div>
-                </div>
-                <div class="dotted-separator"></div>
-
+                
             </div>
+            
+            {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
+
         </div>
     </div>
 
@@ -79,20 +100,19 @@
 
 
 {% block javascript %}
+    {{parent()}}
 
-{{parent()}}
+    <script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
 
-<script src="{{ asset('bundles/piggyboxuser/js/vendor/jquery.nivo.slider.pack.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#slider').nivoSlider();
+        });
+    </script>
 
+    {{ google_map_js(map) }}
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#slider').nivoSlider();
-    });
-</script>
-
-
-<script type="text/javascript">
-	_kmq.push(['record', 'Viewed home page']);
-</script>
+    <script type="text/javascript">
+        _kmq.push(['record', 'Viewed home page']);
+    </script>
 {% endblock %}

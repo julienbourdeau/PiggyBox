@@ -893,7 +893,13 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
 #map-anchor {
 
 	h1{
-		font-size:32px !important;
+		font-size:32px;
+		border-bottom:0px !important;
+		line-height: 32px;
+
+		span {
+			font-size:18px;
+		}
 	}
 
 }
@@ -982,6 +988,7 @@ a.selectedCity
 	width:1047px;
 	position: absolute;
 }
+
 #map-container-right {
 	//display:none;
 	opacity:0;
@@ -993,14 +1000,6 @@ a.selectedCity
 	left:1088px; // 888px
 }
 
-#custom-shops .promoted-shopper,
-#custom-shops .dotted-separator
-{
-	width:800px;
-}
-
-
-#custom-shops .promoted-shopper, 
 #map-container-above .promoted-shopper {
 
 	background:#f7f7f7;
@@ -1043,17 +1042,96 @@ a.selectedCity
 	}
 }
 
+// Promoted Shopper particulier pour la page customShops
+#custom-shops .promoted-shopper {
+
+	height:300px;
+	background:#f7f7f7;
+	padding:13px 0 13px 0px;
+
+	p {
+		line-height: 20px;
+	}
+
+	img.shop {
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		height:260px;
+		width:310px;
+		margin-right:10px;
+		-webkit-box-shadow: 0 8px 6px -6px #656565;
+   		-moz-box-shadow: 0 8px 6px -6px #656565;
+        box-shadow: 0 8px 6px -6px #656565;
+	}
+
+	h4
+	{
+		display:block;
+		font-size:24px;
+
+		a {
+			text-decoration: none;
+			color:black;
+		}
+
+		a:hover
+		{
+			border-bottom:1px dotted black;
+		}
+
+	}
+}
+
 #custom-shops {
 
-	
-	//border:9px solid yellow;
-	/*
-	-moz-background-size: cover;
-	-webkit-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	background-position: 0% 20%;*/
+	a.show-shop-cta { background:#e9ffd2; padding:3px;}
+
+	.slider .carousel-inner img { margin:auto;}
+	.slider .carousel p { text-align:center; }
+	.slider {
+		height:260px;
+		background:white;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		background:white;
+		border:1px solid #b0b0b0;
+	}
+
+	#social-magic-amazing {
+
+		background:#fcfcfc;
+		border:1px solid #e8e8e6;
+		height:108px;
+		margin-top:30px;
+
+		.label {
+			font-size:10px;
+			font-family: Arial;
+		}
+
+		.time {
+			font-size:8px;
+			font-style: italic;
+			color:#6a6a6a;
+		}
+	}
+
+	#social-magic-amazing p	{
+		display:block;
+		border-bottom:1px dashed #dddddd;
+		font-size:12px;
+		margin:0px;
+		padding:3px;
+		padding-left:5px;
+	}
+
+	#social-magic-amazing p:last-child	{
+		border-bottom:0px !important;
+	}
 }
+
 
 #map-container-above {
 	//display:none; // A SUPPRIMER //
@@ -1064,6 +1142,8 @@ a.selectedCity
 	background:rgba(255,255,255,.35);
 	margin:0px;
 	padding:0px;
+
+
 
 	.type-street {
 

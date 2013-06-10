@@ -1,10 +1,6 @@
 {% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
-{% block content %}
-
-
-    {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
-
+{% block content %} 
 
     {% if visitorBigCity != "none" %}
 
@@ -69,16 +65,13 @@
 
             {% endfor %}
 
-            <div class="span8 offset4">
-                <h3>D'autres commerces seront disponibles très bientôt...</h3>
-            </div>
-
 
         </div>
     </div>
 </div>
 {% endif %}
 
+{% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
 
 
 {% endblock %}

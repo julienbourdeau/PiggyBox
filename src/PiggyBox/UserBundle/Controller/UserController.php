@@ -22,6 +22,7 @@ use Geocoder\Geocoder;
 use Geocoder\Provider\FreeGeoIpProvider;
 use Geocoder\Provider\MaxMindProvider;
 use Geocoder\Provider\GoogleMapsProvider;
+use Symfony\Component\Finder\Finder;
 
 /**
  * User controller.
@@ -58,17 +59,59 @@ class UserController extends Controller
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
+            'promotedShopper'  => $shoppersDetails[0],
             'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
     }
 
     /**
      * @Template()
-     * @Route("vos-commerces", name="customShops")
+     * @Route("vos-commerces/{nbShoppers}", name="customShops", defaults={"nbShoppers"=2})
      */
-    public function customShopsAction()
+    public function customShopsAction($nbShoppers)
     {
-        return array();
+        
+        // Geoloc
+        $geoDataVisitor = $this->getGeoDataVisitor();
+        $latitude  = $geoDataVisitor['geoResponse']->getLatitude();
+        $longitude = $geoDataVisitor['geoResponse']->getLongitude();
+
+        // Get POST (and force it if empty)
+        $street_name = $this->get('request')->request->get('street_name',$geoDataVisitor['visitorBigCity']);
+
+        // SEO
+        $seoPage = $this->get('sonata.seo.page');
+        $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
+
+        // Map + Markers
+        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
+        $map = $this->configureMarkers($map);
+
+        // Magasins détails w/ _tri par distance_
+        $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance($geoDataVisitor['visitorBigCity'],$street_name);
+
+        // Récupérer les produits des N premiers commerces.
+        $em = $this->getDoctrine()->getManager();
+        for($i=0;$i<$nbShoppers;$i++)
+        {
+            $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shoppersDetailsByDistance[$i]['slug']);
+            $products = $em->getRepository('PiggyBoxShopBundle:Product')->findProductsByRandom($shop->getId(),4);
+            shuffle($products);
+
+            $shoppersDetailsByDistance[$i]['products'] = $products;
+            $shoppersDetailsByDistance[$i]['fakeSocialStream'] = $this->getFakeSocialStream($shoppersDetailsByDistance[$i]['slug']);
+        }
+
+        return array(
+            'map'              => $map,
+            'visitorCity'      => $geoDataVisitor['visitorCity'],
+            'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
+            'availableCities'  => $this->getAvailableCities(),
+            'shoppersDetails'  => $shoppersDetailsByDistance,
+            'promotedShopper'  => $shoppersDetailsByDistance[0],
+            'nbShoppers'       => $nbShoppers, // Nb de shoppers à indiquer "proche de chez vous"
+            'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
+        );
     }
 
     /**
@@ -77,19 +120,21 @@ class UserController extends Controller
      */
     public function shopsAction($city)
     {
-        // Geoloc (forcé avec $city si != none)
-        $geoDataVisitor = $this->getGeoDataVisitor($city);
-
         // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "none"
         if(!($this->array_ikey_exists($city, $this->getAvailableCities())) && $city != "none")
-            $geoDataVisitor['visitorBigCity'] = "none";
+            $city = "none";
+
+        // Geoloc (forcé avec $city si != none)
+        $geoDataVisitor = $this->getGeoDataVisitor($city);
+        $latitude  = $geoDataVisitor['geoResponse']->getLatitude();
+        $longitude = $geoDataVisitor['geoResponse']->getLongitude();
 
         // SEO
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        $map = $this->configureGoogleMap("none");
+        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
         $map = $this->configureMarkers($map);
 
         // Magasins détails
@@ -101,6 +146,8 @@ class UserController extends Controller
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
+            'promotedShopper'  => $shoppersDetails[0],
+            'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
     }
 
@@ -473,10 +520,6 @@ class UserController extends Controller
         $availableCities   =  $this->getAvailableCities();
         $directions        =  $this->get('ivory_google_map.directions');
 
-        //echo "STATUS = ".$directions->getStatus()."\n";
-        //echo "<pre>".print_r($directions,true)."</pre>";
-        //exit(0);
-
         foreach ($availableCities as $city => $coordinate) {
             // Direction entre la ville du visiteur et une bigCity
             $direcResponse = $directions->route($visitorCity." France", $city." France");
@@ -523,8 +566,9 @@ class UserController extends Controller
                 'slug'          => "boucherie-zola",
                 'img'           => array('/zola.jpg'),
                 'name'          => "Boucherie de Zola",
-                'slogan'        => "Une boucherie au coeur du quartier Zola",
+                'slogan'        => "Venez déguster leurs délicieuses lasagnes.",
                 'description'   => "Stéphane et Myriam Bourdeau ont le plaisir de vous accueillir à Zola. Profitez d'un espace convivial au coeur d'une place dynamique et d'un grand parking gratuit.",
+                'address'       => "6 place Emile Zola 44100 Nantes",
                 'comingSoon'    => false,
                 'coordinates'   => array(47.214048,-1.585698,$markerIconMeat),
                 ),
@@ -534,6 +578,7 @@ class UserController extends Controller
                 'name'          => "Boucherie des Gourmets",
                 'slogan'        => "Boucherie traditionnelle aux Hauts Pavés",
                 'description'   => "Marie-Noëlle & Bruno vous accueillent au rond point de Vannes depuis 1996 dans une boutique chaleureuse.",
+                'address'       => "136 rue des hauts pavés 44000 Nantes",
                 'comingSoon'    => false,
                 'coordinates'   => array(47.229044,-1.57163,$markerIconMeat),
                 ),
@@ -543,6 +588,7 @@ class UserController extends Controller
                 'name'          => "Boucherie Copernic",
                 'slogan'        => "Chez mon Boucher rue Copernic",
                 'description'   => "Jérome et Nadine Hamard ainsi que leurs deux employés vous accueillent dans leur boutique ambiance “boucherie Parisienne”.",
+                'address'       => "1 Rue Copernic 44000 Nantes",
                 'comingSoon'    => false,
                 'coordinates'   => array(47.215545,-1.564271,$markerIconMeat),
                 ),
@@ -552,6 +598,7 @@ class UserController extends Controller
                 'name'          => "Le Boulanger de Zola",
                 'slogan'        => "Du pain naturel et bon",
                 'description'   => "Eric et Séverine vous proposent des pains sains à base de farines naturelles. Venez découvrir leurs pains originaux.",
+                'address'       => "6 place Emile Zola 44100 Nantes",
                 'comingSoon'    => false,
                 'coordinates'   => array(47.214061, -1.585741,$markerIconBread),
                 ),
@@ -561,6 +608,7 @@ class UserController extends Controller
                 'name'          => "La Boucherie Morel",
                 'slogan'        => "Boucherie Morel au coeur de Rezé",
                 'description'   => "Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.",
+                'address'       => "6 Rue Aristide Briand, 44400 Rezé",
                 'comingSoon'    => false,
                 'coordinates'   => array(47.1849,-1.546154,$markerIconMeat),
                 ),
@@ -573,6 +621,7 @@ class UserController extends Controller
                 'name'          => "Banette Futuroscope",
                 'slogan'        => "Bientôt disponible pour la commande en ligne",
                 'description'   => "",
+                'address'       => "Rue beauregard, 44000 Nantes",
                 'comingSoon'    => true,
                 'coordinates'   => array(46.660674,0.363318,$markerIconBread),
                 ),
@@ -582,6 +631,7 @@ class UserController extends Controller
                 'name'          => "Banette Buxerolles",
                 'slogan'        => "Bientôt disponible pour la commande en ligne",
                 'description'   => "",
+                'address'       => "Rue beauregard, 44000 Nantes",
                 'comingSoon'    => true,
                 'coordinates'   => array(46.594289,0.36257,$markerIconBread),
                 ),
@@ -591,6 +641,7 @@ class UserController extends Controller
                 'name'          => "Banette La Garenne",
                 'slogan'        => "Bientôt disponible pour la commande en ligne",
                 'description'   => "",
+                'address'       => "Rue beauregard, 44000 Nantes",
                 'comingSoon'    => true,
                 'coordinates'   => array(46.556027,0.304871,$markerIconBread),
                 ),
@@ -600,6 +651,7 @@ class UserController extends Controller
                 'name'          => "Banette Grand Large",
                 'slogan'        => "Bientôt disponible pour la commande en ligne",
                 'description'   => "",
+                'address'       => "Rue beauregard, 44000 Nantes",
                 'comingSoon'    => true,
                 'coordinates'   => array(46.564791,0.356863,$markerIconBread),
                 ),
@@ -619,5 +671,155 @@ class UserController extends Controller
                 "Nantes"    => array('lat' => 47.21837, 'long' => -1.55362),
                 "Poitiers"  => array('lat' => 46.58022, 'long' => 0.34037),
                 );
+    }
+
+    /**
+     * Trie les commerçants dans l'ordre décroissants de distance (+ proche au - proche)
+     * @param  $bigCity  La bigCity du visiteur
+     * @param  $address  L'adresse de départ
+     * @return           Un array avec les slugs des commerçants
+     */
+    private function getShoppersDetailsByDistance($bigCity, $address)
+    {
+        $adapter  = new CurlHttpAdapter();
+        $geocoder = new Geocoder();
+
+        $geocoder->registerProviders(array(new GoogleMapsProvider($adapter)));
+        $georesponse = $geocoder
+                            ->using('google_maps')
+                            ->geocode($address);
+
+        $latitudeStart = $georesponse->getLatitude();
+        $longitudeStart = $georesponse->getLongitude();
+
+        // Récupère la distance entre l'utilisateur et chaque commerce de $bigCity
+        $shoppersDetails = $this->getShoppersDetails($bigCity);
+        foreach($shoppersDetails as $index => $shopper)
+        {
+            $latitudeEnd = $shopper['coordinates'][0];
+            $longitudeEnd = $shopper['coordinates'][1];
+            // La distance en mètre, brute.
+            $shoppersDetails[$index]['distanceFromMe'] = $this->getDistanceBetweenPoints($latitudeStart, $longitudeStart, 
+                                                                         $latitudeEnd, $longitudeEnd)['meters'];
+
+            // Une belle distance, pour l'affichage.
+            $shoppersDetails[$index]['niceDistanceFromMe'] = $this->getNiceDistance($shoppersDetails[$index]['distanceFromMe']);
+        }
+
+        // Extrait chaque colonne du tableau dans un tableau à part
+        // Obligatoire pour array_multisort
+        $array_keys = array_keys($shoppersDetails[0]);
+        $multisortFunction = 'array_multisort($distanceFromMe, SORT_ASC,';
+        foreach($array_keys as $key)
+        {
+            $$key = array_map(create_function('$arr', 'return $arr["'.$key.'"];'), $shoppersDetails);
+            
+            // On ajoute "distanceFromMe" à la main plus haut pour qu'il soit premier
+            // car c'est cette valeur qui est prioritaire au niveau du tri
+            if($key != 'distanceFromMe') {
+                $multisortFunction .= "$$key,";
+            }
+        }
+
+        // Trie le tableau en utilisant la "requête" générée dans la string
+        $multisortFunction = rtrim($multisortFunction, ',');
+        $multisortFunction .= ');';
+        eval($multisortFunction);
+
+        // Réassemble les tableaux de colonne en tableau de lignes
+        $result = array();
+        foreach ($array_keys as $key) {
+            $content = $$key;
+            foreach($content as $index => $data) {
+                $result[$index][$key] = $data;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Calcule la distance entre 2 points
+     * @param  [type] $latitude1  
+     * @param  [type] $longitude1 
+     * @param  [type] $latitude2  
+     * @param  [type] $longitude2 
+     * @return [type] Un array avec la valeur en plusieurs unités
+     */
+    private function getDistanceBetweenPoints($latitude1, $longitude1, $latitude2, $longitude2) 
+    {
+        $theta = $longitude1 - $longitude2;
+        $miles = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+        $miles = acos($miles);
+        $miles = rad2deg($miles);
+        $miles = $miles * 60 * 1.1515;
+        $feet = $miles * 5280;
+        $yards = $feet / 3;
+        $kilometers = $miles * 1.609344;
+        $meters = $kilometers*1000;
+        return compact('miles','feet','yards','kilometers','meters'); 
+    }
+
+    /**
+     * Retourne une belle distance ("35km", "700m"...)
+     * @param  [type] $distance La distance en mètre
+     * @return [type]           La jolie string
+     */
+    private function getNiceDistance($distance)
+    {
+        if($distance < 1000) {
+            return round($distance)." mètres";
+        }
+        else {
+          return round($distance/1000,2)." kms";
+        }
+    }
+
+    /**
+     * Lit le fichier de la boutique et récupère les info à afficher
+     * @return [type] [description]
+     */
+    private function getFakeSocialStream($slug)
+    {
+        $finder = new Finder();
+        $content = array();
+
+        $finder->name("$slug.txt");
+        foreach ($finder->in(__DIR__.'/../Resources/public/socialstream/') as $file) {
+            $contents = $file->getContents();
+            $lines = explode("\n",$contents);
+            foreach($lines as $line){
+                $data = explode('|',$line);
+                if(strtotime($data[0]) <= time()){
+                    $content[] = array('label'=>$data[1], 'text'=>$data[2], 'ago'=>$this->relative_time($data[0]));
+                }
+            }
+        }
+        return $content;
+    }
+
+    private function relative_time($date = NULL) 
+    {
+        $diff = time() - strtotime($date);
+        if ($diff<60)
+            return "il y a ". $diff . " seconde" . $this->plural($diff);
+        $diff = round($diff/60);
+        if ($diff<60)
+            return "il y a ". $diff . " minute" . $this->plural($diff);
+        $diff = round($diff/60);
+        if ($diff<24)
+            return "il y a environ ". $diff . " heure" . $this->plural($diff);
+        $diff = round($diff/24);
+        if ($diff<7)
+            return "il y a ". $diff . " jour" . $this->plural($diff);
+        $diff = round($diff/7);
+        if ($diff<4)
+            return "il y a ". $diff . " semaine" . $this->plural($diff);
+        return "le " . date("F j, Y", strtotime($date));        
+    }
+
+    private function plural($num = NULL) 
+    {
+        if ($num != 1) return "s";
     }
 }

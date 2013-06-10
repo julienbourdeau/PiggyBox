@@ -4,10 +4,16 @@
 
                 {% if visitorBigCity != "none" %}
 
-                    <h1 class="text-centered" style="border-bottom:0px !important;">
-                        <!--Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :-->
-                        Laissez-nous vous aider à trouver <br />les commerces proches de chez vous
-                    </h1>
+                    {% if app.request.attributes.get('_route') == "customShops" %}
+                        <h1 class="text-centered" style="margin-top:40px;">
+                            Et voici tous nos commerces à {{ visitorBigCity }}<br />
+                            <span>Glissez votre souris sur un point pour visiter le commerce</span>
+                        </h1>
+                    {% else %}
+                        <h1 class="text-centered">
+                            Laissez-nous vous aider à trouver <br />les commerces proches de chez vous
+                        </h1>
+                    {% endif %}
 
 
                     <div id="map-container">
@@ -16,17 +22,20 @@
                             {{ google_map_container(map) }}
                         </div>
                         <div id="map-container-right" class="pull-left">
+                            <!-- C'est là que ça bug -->
                             {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
                         </div>
 
                         <div id="map-container-above">
+
                             <div class="clearfix"></div>
+
                             <div class="type-street">
 
                                 <button type="button" class="close close-popunder">&times;</button>
 
                                 <h3>Trouvez vos commerces en 1 clic :</h3>
-                                <form action="#" action="post">
+                                <form action="{{ path('customShops') }}" method="POST">
                                     <div class="form-street">
                                         <input type="text" name="street_name" id="street_name" placeholder="Rue beauregard nantes" />
                                         <input type="submit" value="VALIDER">
@@ -38,11 +47,11 @@
 
                                 <div class="dotted-separator"></div>
                                 <div class="promoted-shopper">
-                                    {% set link = path('user_show_shop', {'shop_slug':'boucherie-copernic'}) %}
+                                    {% set link = path('user_show_shop', {'shop_slug':promotedShopper.slug}) %}
 
 
                                 <a href="{{ link }}">
-                                    <img src="{{ asset('bundles/piggyboxuser/img/copernic_promoted.png')}}" />
+                                    <img src="{{ asset('bundles/piggyboxuser/img/') ~ promotedShopper.img[0]}}" />
                                 </a>
 
                                     <h4>
@@ -51,10 +60,11 @@
                                         </a>
                                     </h4>
                                     <p class="promoted-content">
-                                        Atout charme : de la bonne bouffe.<br />
-                                        1 Rue Copernic, 44000 Nantes<br />
+                                        <strong>{{ promotedShopper.name }}</strong><br />
+                                        {{ promotedShopper.slogan }}.<br />
+                                        {{ promotedShopper.address }}<br />
                                         <a href="{{ link }}">
-                                            Voir ses produits et commander maintenant »
+                                            Voir les produits et commander maintenant »
                                         </a>
                                     </p>
 
@@ -72,6 +82,7 @@
                             </div>
                         </div>
                     </div>
+                    <p class="text-centered">Voir les commerces de toutes nos villes : <a href="{{ path('shops') }}/nantes">Nantes</a> | <a href="{{ path('shops') }}/poitiers">Poitiers</a></p>
 
                     <div class="clearfix"></div>
 

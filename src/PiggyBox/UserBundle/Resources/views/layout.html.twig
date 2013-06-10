@@ -247,7 +247,9 @@
 
         {% block javascript_custom_code %}
         {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
-            {% if app.request.attributes.get('_route') == "home" or app.request.attributes.get('_route') == "shops" %}
+            {% if app.request.attributes.get('_route') == "home" 
+                    or app.request.attributes.get('_route') == "shops"
+                    or app.request.attributes.get('_route') == "customShops" %}
 
 
             <!-- ICI LE GOOGLE SUGGEST -->
@@ -268,7 +270,7 @@
 
             <script type="text/javascript">
                 /* Smooth Scroll Begin */
-                $('a[href^="#"]').on('click',function (e) {
+                $('a[href$="-anchor"]').on('click',function (e) {
                     e.preventDefault();
                     var target = this.hash,
                     $target = $(target);
@@ -301,11 +303,22 @@
                     shopShown = false;
                 });
 
-                // Fermeture du popover sur la carte grisée
+                // Fermeture du popover sur la carte grisée en cliquant sur la croix
                 $(".close-popunder").click(function(e) {
+                    hide_popunder();
+                });
+
+                function hide_popunder()
+                {
                     $('#map-container-above').css('background','none');
                     $('.type-street').animate({opacity: 0}, 700, function(){$("#map-container-above").hide()});
-                });
+                }
+
+                // Fermeture automatique du popunder sur la page customShop
+                // On ne veut pas afficher "choix de la rue" sur cette page
+                {% if app.request.attributes.get('_route') == "customShops" %}
+                    hide_popunder();
+                {% endif %}
 
                 // Clic sur un item du menu des villes
                 var selectedCity = '{{ visitorBigCity }}';

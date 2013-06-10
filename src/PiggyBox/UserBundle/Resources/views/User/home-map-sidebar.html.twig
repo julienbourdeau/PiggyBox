@@ -37,15 +37,14 @@
  {% for shopper in shoppersDetails %}
 	<div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item">
 
-	<div class="content-container text-centered" style="padding-top:20px; margin-bottom:30px;">
-		<h3>{{ shopper.name }}</h3>
-		<p style="margin-top:20px;">{{ shopper.slogan }}</p>
-
-	</div>
+		<div class="content-container text-centered" style="padding-top:20px; margin-bottom:30px;">
+			<h3>{{ shopper.name }}</h3>
+			<p style="margin-top:20px;">{{ shopper.slogan }}</p>
+		</div>
 
 		<div id="photo-container">
 		    <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}">
-		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" class="shopper-img-sidebar" alt="{{ shopper.name }}">
+		    	<!-- <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" class="shopper-img-sidebar" alt="{{ shopper.name }}"> -->
 		    </a>
 		</div>
 
