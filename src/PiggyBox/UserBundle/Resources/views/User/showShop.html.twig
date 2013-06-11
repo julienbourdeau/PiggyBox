@@ -3,17 +3,17 @@
 {% block content %}
 
         <div class="container bottom-marged">
-            <div class="row">
+            <div class="row shop-header">
+
+                <div class="sidebar span4">
+
+                    {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop, 'shopper': shopper } %}
+
+                </div>
 
                 <div id="" class="span8">
 
                     {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
-
-                </div>
-
-                <div class="sidebar span4">
-
-                    {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop} %}
 
                 </div>
 
@@ -32,7 +32,14 @@
 								<a  href="#shop">Produits à commander</a>
                                 </li>
                                 <li class="">
-								<a  href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}">Fiche Pratique</a>
+    								<a  href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}">
+                                        Fiche Pratique
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a  href="{{ path('user_show_shop_opening_time', {'shop_slug': shop.slug}) }}">
+                                        Horaires
+                                    </a>
                                 </li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>
@@ -52,7 +59,12 @@
                                 <div id="" class="tab-content">
 
                                     <div id="shop" class="tab-pane active">
-										{{ wo_render_breadcrumbs({separator: '>', listId: 'breadcrumbs'}) }}
+
+                                        {% if app.request.attributes.get('_route') == "view_product_details" %}
+									       {{ wo_render_breadcrumbs({separator: ' > ', listId: 'breadcrumbs'}) }}
+                                        {% endif %}
+                                        
+
                                         <div class="product-list">
 											{% if app.request.attributes.get('_route') == 'view_product_details' %}
 												{% form_theme form[product.id] 'PiggyBoxUserBundle:Form:fields.html.twig' %}
@@ -99,24 +111,18 @@
             });
         </script>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('span#quantity').click(function() {
-			alert("cool");
-		});
-	}
-</script>
 
-<script type="text/javascript">
-	{% if app.request.attributes.get('_route') == 'view_product_details' %}
-		_kmq.push(['record', 'Viewed product', {'Shop name':'{{shop.name}}', 'Product name':'{{product.name}}' }]);
-	{% elseif app.request.attributes.get('_route') == 'user_show_menus' %}
-	_kmq.push(['record', 'Viewed menu', {'Shop name':'{{shop.name}}', 'Menu name':'{{menu.title}}' }]);
-	{% elseif category_slug == 'menus' %}
-		_kmq.push(['record', 'Viewed menu line', {'Shop name':'{{shop.name}}' }]);
-	{% else %}
-		_kmq.push(['record', 'Viewed product line', {'Shop name':'{{shop.name}}' }]);
-	{% endif %}
-</script>
+
+        <script type="text/javascript">
+        	{% if app.request.attributes.get('_route') == 'view_product_details' %}
+        		_kmq.push(['record', 'Viewed product', {'Shop name':'{{shop.name}}', 'Product name':'{{product.name}}' }]);
+        	{% elseif app.request.attributes.get('_route') == 'user_show_menus' %}
+        	_kmq.push(['record', 'Viewed menu', {'Shop name':'{{shop.name}}', 'Menu name':'{{menu.title}}' }]);
+        	{% elseif category_slug == 'menus' %}
+        		_kmq.push(['record', 'Viewed menu line', {'Shop name':'{{shop.name}}' }]);
+        	{% else %}
+        		_kmq.push(['record', 'Viewed product line', {'Shop name':'{{shop.name}}' }]);
+        	{% endif %}
+        </script>
 
 {% endblock %}

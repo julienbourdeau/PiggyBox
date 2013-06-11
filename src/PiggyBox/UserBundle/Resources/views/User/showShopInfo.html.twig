@@ -3,17 +3,17 @@
 {% block content %}
 
         <div class="container bottom-marged">
-            <div class="row">
+            <div class="row shop-header">
+
+                <div class="sidebar span4">
+
+                    {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop, 'shopper': shopper} %}
+
+                </div>
 
                 <div id="" class="span8">
 
                     {% include 'PiggyBoxUserBundle:User:tab-slider.html.twig' with {'shop': shop} %}
-
-                </div>
-
-                <div class="sidebar span4">
-
-                    {% include 'PiggyBoxUserBundle:User:tab-shop-infos.html.twig' with {'shop': shop} %}
 
                 </div>
 
@@ -33,6 +33,11 @@
                                 </li>
                                 <li class="active">
 								    <a>Fiche Pratique</a>
+                                </li>
+                                <li class="">
+                                    <a  href="{{ path('user_show_shop_opening_time', {'shop_slug': shop.slug}) }}">
+                                        Horaires
+                                    </a>
                                 </li>
                                 <li class="disabled">
                                     <div class="coming-soon-small"></div>

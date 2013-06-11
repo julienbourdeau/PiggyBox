@@ -62,7 +62,7 @@
 // Components: Popovers
 @import "modals.less";
 //@import "tooltip.less";
-//@import "popovers.less";
+@import "popovers.less";
 
 // Components: Misc
 //@import "thumbnails.less";
@@ -295,21 +295,29 @@ h1 {
 #entry-nav ul.nav {
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
-	border: 0;
-	border-bottom: 6px solid @grayDarker;
+	//overflow: hidden;
+	//border: 0;
+	border-bottom: 1px solid @grayDarker;
 	li {
 		font-size: 21px;
 		line-height: 28px;
 		margin: 0 24px 0 0;
+		a {
+			margin-bottom: -1px;
+			color: @gray;
+			border-top: 1px solid @grayLight;
+			border-right: 1px solid @grayLight;
+			border-left: 1px solid @grayLight;
+		}
 	}
 	li.active {
-		margin-top: 2px;
+		margin-top: 1px;
 		a {
-			background: @grayDarker;
-			color: @white;
-			border: 0;
-			//.box-shadowed;
+			color: @grayDarker;
+			border-top: 1px solid @grayDarker;
+			border-right: 1px solid @grayDarker;
+			border-left: 1px solid @grayDarker;
+			border-bottom: 1px solid @white;
 		}
 	}
 }
@@ -327,17 +335,22 @@ h1 {
 	}
 
 }
+#category_tree .subnav > .active > a {
+	color: @white;
+}
 
 #entry-content {
 	padding: 26px 0px;
-	border: 0;
-	//.box-shadowed;
+	margin-bottom: 36px;
+	border-right: 1px solid @grayDarker;
+	border-left: 1px solid @grayDarker;
+	border-bottom: 1px solid @grayDarker;
 }
 
 
 // PRODUCT
 .product-item {
-	width: 219px;
+	width: 240px;
 	margin: 0 23px 46px 0;
 	padding: 12px;
 	.clearfix;
@@ -389,7 +402,8 @@ h1 {
 	margin-right: 0;
 }
 .product-item-single {
-	width: 95%;
+	width: 100%;
+	margin-right: 0;
 	p {
 		line-height: 21px;
 	}
@@ -409,7 +423,7 @@ h1 {
 	h1 {
 		font-size: 30px; 
 		padding-bottom: 8px;
-		margin: 0;
+		margin: 0 0 16px 0;
 		font-family: 'Museo-300'; 
 		color: @grayDarker; 
 		text-align: center;
@@ -443,6 +457,9 @@ h1 {
 	}
 }
 
+.shop-header {
+	min-height: 360px;
+}
 	
 #shop-infos {
 	height: 300px;
@@ -450,6 +467,12 @@ h1 {
 		height: 192px;
 		margin: 8px 0;
 	}
+}
+
+.phone-number-popover {
+	text-align: center;
+	font-size: 24px;
+	font-family: arial;
 }
 
 table.pricing {
@@ -507,6 +530,18 @@ table.pricing-variable-unit-price {
 .toolbar {
 	margin: 32px 0;
 	.clearfix;
+}
+.shop-toolbar {
+	width: 200px;
+	margin: 0 auto;
+	.btn {
+		margin-bottom: 12px;
+		text-align: left;
+		padding-left: 9px;
+		i {
+			margin-right: 2px;
+		}
+	}
 }
 
 #shopping-cart-progess-bar {

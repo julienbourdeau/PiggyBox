@@ -220,6 +220,12 @@
         <script src="{{ asset('bundles/piggyboxuser/js/vendor/bootstrap.min.js')}}"></script>
 		<script src="{{ asset('bundles/piggyboxuser/js/main.js')}}"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("a[data-toggle=popover]").popover()
+            });
+        </script>
+        
 		{% if not app.debug %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
