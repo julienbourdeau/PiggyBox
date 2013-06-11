@@ -4,18 +4,87 @@
 
                 {% if visitorBigCity != "none" %}
 
-                    <h1 class="text-centered" style="border-bottom:0px !important;">
-                        Faîtes vos courses dans les commerces de <span class="beginCityShopping">{{ visitorBigCity }}</span> :
-                    </h1>
+                    {% if app.request.attributes.get('_route') == "customShops" %}
+                        <h1 class="text-centered" style="margin-top:40px;">
+                            Et voici tous nos commerces à {{ visitorBigCity }}<br />
+                            <span>Glissez votre souris sur un point pour visiter le commerce</span>
+                        </h1>
+                    {% else %}
+                        <h1 class="text-centered">
+                            Laissez-nous vous aider à trouver <br />les commerces proches de chez vous
+                        </h1>
+                    {% endif %}
 
-                    <div id="map-container" class="clearfix">
+
+                    <div id="map-container">
+
                         <div id="map-container-left" class="pull-left">
                             {{ google_map_container(map) }}
                         </div>
                         <div id="map-container-right" class="pull-left">
+                            <!-- C'est là que ça bug -->
                             {% include 'PiggyBoxUserBundle:User:home-map-sidebar.html.twig' %}
                         </div>
+
+                        <div id="map-container-above">
+
+                            <div class="clearfix"></div>
+
+                            <div class="type-street">
+
+                                <button type="button" class="close close-popunder">&times;</button>
+
+                                <h3>Trouvez vos commerces en 1 clic :</h3>
+                                <form action="{{ path('customShops') }}" method="POST">
+                                    <div class="form-street">
+                                        <input type="text" name="street_name" id="street_name" placeholder="Rue charles de gaulles {{ visitorBigCity }}" />
+                                        <input type="submit" value="VALIDER">
+                                        <span class="undertext"><i class="icon-hand-up icon-white"></i>
+                                            Tapotez les premières lettres de votre rue et de votre ville, on se charge du reste.
+                                        </span>
+                                    </div>
+                                </form>
+
+                                <div class="dotted-separator"></div>
+                                <div class="promoted-shopper">
+                                    {% set link = path('user_show_shop', {'shop_slug':promotedShopper.slug}) %}
+
+
+                                <a href="{{ link }}">
+                                    <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ promotedShopper.slug }}/thumbnails/{{ promotedShopper.slug }}-0.jpg" alt="">
+                                </a>
+
+                                    <h4>
+                                        <a href="{{ link }}">
+                                            <i class="icon-bookmark"></i> Recommandé pour vous
+                                        </a>
+                                    </h4>
+                                    <p class="promoted-content">
+                                        <strong>{{ promotedShopper.name }}</strong><br />
+                                        {{ promotedShopper.slogan }}.<br />
+                                        {{ promotedShopper.address }}<br />
+                                        <a href="{{ link }}">
+                                            Voir les produits et commander maintenant »
+                                        </a>
+                                    </p>
+
+                                    <div class="clearfix"></div>
+
+
+                                </div>
+                                <div class="dotted-separator" style="margin-bottom:10px;"></div>
+
+                                <a class="close-popunder go-map">
+                                    <span class="cross">☓</span> Vous pouvez fermer cette fenêtre et naviguer sur notre carte de {{ visitorBigCity }}
+                                    en cliquant ici..
+                                </a>
+
+                            </div>
+                        </div>
                     </div>
+                    <p class="text-centered">Voir les commerces de toutes nos villes : <a href="{{ path('shops') }}/nantes">Nantes</a> | <a href="{{ path('shops') }}/poitiers">Poitiers</a></p>
+
+                    <div class="clearfix"></div>
 
 
                 {% else %}

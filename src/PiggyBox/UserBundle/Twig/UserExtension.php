@@ -1,16 +1,13 @@
-<?php 
+<?php
 
 namespace PiggyBox\UserBundle\Twig;
-
-use \Twig_Filter_Function;
-use \Twig_Filter_Method;
 
 class UserExtension extends \Twig_Extension
 {
 
     /**
      * Return the functions registered as twig extensions
-     * 
+     *
      * @return array
      */
     public function getFunctions()
