@@ -1,2 +1,10 @@
-13-06-09 18:42:00|Commande|Julie a commandé du paté
-13-06-09 18:42:00|Visite|Inconnu a visité la boutique
+2013-06-11 09:40:41|Visite|Inconnu a visité la boutique.
+2013-06-11 09:43:39|Visite|Serge a visité la boutique.
+2013-06-11 09:48:31|Commande|Auguste a commandé Cuisse de Canard Confit.
+2013-06-11 09:50:26|Visite|Félix a visité la boutique.
+2013-06-11 10:06:31|Commande|Inconnu a commandé Roti de Porc Filet.
+2013-06-11 10:09:21|Visite|Monique a visité la boutique.
+2013-06-11 10:10:39|Visite|Thomas a visité la boutique.
+2013-06-11 10:12:41|Visite|Francine a visité la boutique.
+2013-06-11 10:16:21|Visite|Germaine a visité la boutique.
+2013-06-11 10:27:26|Visite|Inconnu a visité la boutique.

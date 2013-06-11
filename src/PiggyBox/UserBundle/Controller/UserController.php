@@ -95,7 +95,7 @@ class UserController extends Controller
         for($i=0;$i<$nbShoppers;$i++)
         {
             $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shoppersDetailsByDistance[$i]['slug']);
-            $products = $em->getRepository('PiggyBoxShopBundle:Product')->findProductsByRandom($shop->getId(),4);
+            $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
             shuffle($products);
 
             $shoppersDetailsByDistance[$i]['products'] = $products;
@@ -104,6 +104,7 @@ class UserController extends Controller
 
         return array(
             'map'              => $map,
+            'street_name'      => $street_name,
             'visitorCity'      => $geoDataVisitor['visitorCity'],
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
@@ -487,7 +488,7 @@ class UserController extends Controller
 
         $geocoder->registerProviders(array(
                                     new FreeGeoIpProvider($adapter), // gratos mais sucks
-                                    //new MaxMindProvider($adapter, "7u3qk0raLxe0", 'f'),
+                                    new MaxMindProvider($adapter, "7u3qk0raLxe0", 'f'),
                                     new GoogleMapsProvider($adapter),
                                     ));
 
@@ -777,27 +778,71 @@ class UserController extends Controller
 
     /**
      * Lit le fichier de la boutique et récupère les info à afficher
+     * Le contenu du fichier est du plus récent au plus ancien
      * @return [type] [description]
      */
     private function getFakeSocialStream($slug)
     {
-        $finder = new Finder();
-        $content = array();
+        $periodUpdateInHour = 1;
+        $slugFile = __DIR__."/../Resources/public/socialstream/$slug.txt";
+        $handle = fopen($slugFile, 'a+');
+        $lastStreamUpdate = filemtime($slugFile);
 
-        $finder->name("$slug.txt");
-        foreach ($finder->in(__DIR__.'/../Resources/public/socialstream/') as $file) {
-            $contents = $file->getContents();
-            $lines = explode("\n",$contents);
-            foreach($lines as $line){
-                $data = explode('|',$line);
+        // Si le fichier de stream n'a pas été updaté depuis 1h, on le remplit
+        if($lastStreamUpdate < time()-($periodUpdateInHour*60*60))
+        {
+            // Génère une ligne avec un prénom ou "inconnu"
+            srand((double)microtime()*1000000);
+            if(rand(0,4)%2 == 0) {
+                $tablePrenoms = file(__DIR__."/../Resources/public/socialstream/prenoms.txt");
+                $randomPrenom = ucfirst(rtrim($tablePrenoms[rand(0,count($tablePrenoms))]));
+            }
+            else {
+                $randomPrenom = "Inconnu";
+            }
+            
+            // Génère une date comprise entre maintenant et $periodUpdateInHour
+            $date = date('Y-m-d H:i:s', time()-(rand(0,60)*60*$periodUpdateInHour));
+
+            // Génère une action
+            if(rand(0,4)%5 == 0) {
+                $em = $this->getDoctrine()->getManager();
+                $shop = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($slug);
+                $products = $em->getRepository('PiggyBoxShopBundle:Product')->findByActiveProduct($shop->getId());
+                shuffle($products);
+
+                $action = 'Commande';
+                $text = ' a commandé '.$products[0]->getName().'.';
+            } else {
+                $action = 'Visite';
+                $text = ' a visité la boutique.';
+            }
+
+            // Écrit la ligne
+            fputs($handle,$date."|".$action."|".$randomPrenom.$text."\n");
+        }
+
+        // Extrait les données du fichier pour l'affichage
+        fseek($handle,0);
+        $content = array();
+        while (($buffer = fgets($handle, 4096)) !== false) {
+                $data = explode('|',$buffer);
                 if(strtotime($data[0]) <= time()){
                     $content[] = array('label'=>$data[1], 'text'=>$data[2], 'ago'=>$this->relative_time($data[0]));
                 }
-            }
         }
+        fclose($handle);
+
+        // On prend du plus récent au plus ancien
+        $content = array_reverse($content);
         return $content;
     }
 
+    /**
+     * Retourne un texte type "il y a 10 secondes"
+     * @param  string $date Une date au format string (pas time())
+     * @return string       
+     */
     private function relative_time($date = NULL) 
     {
         $diff = time() - strtotime($date);
@@ -818,8 +863,13 @@ class UserController extends Controller
         return "le " . date("F j, Y", strtotime($date));        
     }
 
+    /**
+     * Retourne un S si $num est > 1
+     * @param  int $num 
+     * @return string 's' ou rien
+     */
     private function plural($num = NULL) 
     {
-        if ($num != 1) return "s";
+        if ($num > 1) return "s";
     }
 }

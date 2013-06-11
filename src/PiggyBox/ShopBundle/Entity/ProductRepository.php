@@ -55,18 +55,6 @@ class ProductRepository extends EntityRepository
             ->getResult();
     }    
 
-    public function findProductsByRandom($shop_id,$nb)
-    {
-        return $this->getEntityManager()
-            ->createQuery('SELECT p FROM PiggyBoxShopBundle:Product p WHERE p.shop=:shop_id AND p.active=1')
-            ->setParameters(array(
-                'shop_id' => $shop_id,
-                ))
-            /*->orderBy('RAND()')
-            ->setMaxResults($nb)*/
-            ->getResult();
-    }
-
     public function findByShopExcludeByCategory($shop_id, $category_id)
     {
         return $this->getEntityManager()

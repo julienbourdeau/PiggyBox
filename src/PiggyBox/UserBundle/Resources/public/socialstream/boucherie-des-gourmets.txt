@@ -1,2 +1,10 @@
-09-06-13 18:42:00|Commande|Norbert a commandé du paté
-09-06-13 18:42:00|Commande|Jacques a visité la boutique
+2013-06-11 09:43:21|Visite|Inconnu a visité la boutique.
+2013-06-11 09:44:26|Visite|Julien a visité la boutique.
+2013-06-11 09:45:39|Visite|Clarisse a visité la boutique.
+2013-06-11 09:47:41|Visite|Martin a visité la boutique.
+2013-06-11 09:55:26|Commande|Adam a commandé Épigramme d'Agneau.
+2013-06-11 09:58:21|Visite|Inconnu a visité la boutique.
+2013-06-11 10:01:39|Visite|Inconnu a visité la boutique.
+2013-06-11 10:15:31|Visite|Raymond a visité la boutique.
+2013-06-11 10:18:41|Visite|Gilles a visité la boutique.
+2013-06-11 10:26:31|Commande|Carole a commandé Côte de Porc Échine.

@@ -4801,6 +4801,7 @@ a.selectedCity {
   border: 1px solid #b0b0b0;
 }
 #custom-shops #social-magic-amazing {
+  overflow: scroll;
   background: #fcfcfc;
   border: 1px solid #e8e8e6;
   height: 108px;
@@ -4825,6 +4826,9 @@ a.selectedCity {
 }
 #custom-shops #social-magic-amazing p:last-child {
   border-bottom: 0px !important;
+}
+#custom-shops h2 span {
+  font-size: 18px;
 }
 #map-container-above {
   position: relative;
