@@ -4597,69 +4597,22 @@ blockquote.homepage img.quotes-close {
   margin-top: 64px;
 }
 .presse-links a {
-  float: left;
-  display: block;
-  margin: 0 100px 32px 0;
-  background-image: url("../img/presse/presse.png");
+  margin-right: 30px;
+  text-decoration: none;
 }
-.presse-links #startupfactory {
-  width: 374px;
-  height: 149px;
-  background-position: 0 0;
+.presse-links a img {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  filter: gray;
 }
-.presse-links #startupfactory:hover {
-  background-position: -374px 0;
-}
-.presse-links #unefilleanantes {
-  width: 116px;
-  height: 129px;
-  background-position: 0 -150px;
-}
-.presse-links #unefilleanantes:hover {
-  background-position: -116px -150px;
-}
-.presse-links #sunradio {
-  width: 130px;
-  height: 130px;
-  background-position: -232px -150px;
-}
-.presse-links #sunradio:hover {
-  background-position: -362px -150px;
-}
-.presse-links #atlanpole {
-  margin-right: 0;
-  width: 110px;
-  height: 159px;
-  background-position: -637px -150px;
-}
-.presse-links #atlanpole:hover {
-  background-position: -520px -150px;
-}
-.presse-links #frenchweb {
-  margin-left: 64px;
-  width: 260px;
-  height: 51px;
-  background-position: 0 -307px;
-}
-.presse-links #frenchweb:hover {
-  background-position: -260px -307px;
-}
-.presse-links #journalentreprise {
-  width: 200px;
-  height: 70px;
-  background-position: 0 -358px;
-}
-.presse-links #journalentreprise:hover {
-  background-position: -200px -358px;
-}
-.presse-links #ouestfrance {
-  margin-right: 0;
-  width: 280px;
-  height: 46px;
-  background-position: 0 -428px;
-}
-.presse-links #ouestfrance:hover {
-  background-position: -280px -428px;
+.presse-links a img:hover {
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  filter: grayscale(0%);
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+  filter: none;
 }
 .step-item {
   float: left;

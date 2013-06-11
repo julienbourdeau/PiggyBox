@@ -52,9 +52,18 @@
 		<!--<div class="dotted"></div>-->
 
 		<div class="content-container text-centered button-go-shop-sidebar">
+		    
+			{% if shopper.comingSoon == false %}	
 		    <a href="{{ path('user_show_shop', {'shop_slug':shopper.slug}) }}" class="btn btn-danger btn-large">
 		    	<i class="icon-circle-arrow-right icon-white"></i> Venez voir ses produits !
 		    </a>
+		    {% else %}
+		    <div class="box-muted">
+			    <a href="#" class="btn btn-danger btn-large">
+			    	<i class="icon-circle-arrow-right icon-white"></i> Bientôt disponible
+			    </a>
+		    </div>
+		    {% endif %}
 
             <a class="hideShop">
                 <span class="cross">☓</span> Fermer cette boutique

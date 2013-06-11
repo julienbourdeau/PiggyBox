@@ -742,9 +742,14 @@ class UserController extends Controller
         $geocoder = new Geocoder();
 
         $geocoder->registerProviders(array(new GoogleMapsProvider($adapter)));
-        $georesponse = $geocoder
-                            ->using('google_maps')
-                            ->geocode($address);
+
+        try {
+            $georesponse = $geocoder->using('google_maps')->geocode($address);
+        } catch(NoResultException $e) {
+            die("omg die");
+            if($bigCity == "none") $bigCity = "nantes";
+            $georesponse = $geocoder->using('google_maps')->geocode($bigCity);
+        }
 
         $latitudeStart = $georesponse->getLatitude();
         $longitudeStart = $georesponse->getLongitude();
