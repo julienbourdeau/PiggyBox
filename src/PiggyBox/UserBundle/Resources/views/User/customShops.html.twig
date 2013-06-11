@@ -21,7 +21,7 @@
                     Voici les {{ nbShoppers }} commerces les plus proches de chez vous :<br />
                     <span>(Depuis {{ street_name }})</span>
                 </h2>
-    
+
                 {% for shopper in shoppersDetails | slice(0,nbShoppers) %}
                 <div class="dotted-separator"></div>
                 <div class="promoted-shopper">
@@ -29,7 +29,7 @@
 
                 <div class="span4">
                     <a href="{{ link }}">
-                        <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
+                        <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="">
                     </a>
                 </div>
 
@@ -51,7 +51,9 @@
 
                     <div id="social-magic-amazing">
                         {% for data in shopper.fakeSocialStream | slice(0,4) %}
-                            <p><span class="label label-info">{{ data.label }}</span> {{ data.text }} <span class="time">{{ data.ago }}</span></p>
+                            <p>
+                                <span class="label label-info">{{ data.label }}</span> {{ data.text }}
+                                <span class="time">{{ data.ago }}</span></p>
                         {% endfor %}
 
                     </div>
@@ -88,9 +90,9 @@
                 <br />
                 {% endfor %}
 
-                
+
             </div>
-            
+
             {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
 
         </div>

@@ -8,3 +8,4 @@
 2013-06-11 10:15:31|Visite|Raymond a visité la boutique.
 2013-06-11 10:18:41|Visite|Gilles a visité la boutique.
 2013-06-11 10:26:31|Commande|Carole a commandé Côte de Porc Échine.
+2013-06-11 12:33:57|Visite|Inconnu a visité la boutique.

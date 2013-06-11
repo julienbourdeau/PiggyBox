@@ -2,6 +2,7 @@
  # DEFAULT
  #}
 
+{#
 <div id="sidebar-default" class="home-map-sidebar-item" style="padding: 12px 24px;">
 
 	<h4 style="font-weight: normal; font-size:14px; text-align:center;">Cliquez sur un commerce pour le voir en details</h4>
@@ -32,7 +33,7 @@
 			</a>
 	</div>
 </div>
-
+#}
 
  {% for shopper in shoppersDetails %}
 	<div id="sidebar-{{ shopper.slug }}" class="home-map-sidebar-item" style="display:none;">
@@ -44,7 +45,7 @@
 
 		<div id="photo-container">
 		    <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}">
-		    	<img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" class="shopper-img-sidebar" alt="{{ shopper.name }}">
+		    	<img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="" style="width:260px;">
 		    </a>
 		</div>
 

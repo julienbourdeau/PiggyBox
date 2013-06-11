@@ -8,3 +8,4 @@
 2013-06-11 10:12:41|Visite|Francine a visité la boutique.
 2013-06-11 10:16:21|Visite|Germaine a visité la boutique.
 2013-06-11 10:27:26|Visite|Inconnu a visité la boutique.
+2013-06-11 12:20:56|Visite|Inconnu a visité la boutique.

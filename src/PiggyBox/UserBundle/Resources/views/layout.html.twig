@@ -225,7 +225,7 @@
                 $("a[data-toggle=popover]").popover()
             });
         </script>
-        
+
 		{% if not app.debug %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
@@ -253,7 +253,7 @@
 
         {% block javascript_custom_code %}
         {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
-            {% if app.request.attributes.get('_route') == "home" 
+            {% if app.request.attributes.get('_route') == "home"
                     or app.request.attributes.get('_route') == "shops"
                     or app.request.attributes.get('_route') == "customShops" %}
 
@@ -263,7 +263,7 @@
 
                 // Autocomplete Form Homepage
                 var input = document.getElementById("street_name");
-                var options = {                
+                var options = {
                   types: ['geocode'],
                   componentRestrictions: {country: 'fr'},
                   location: [{{coordinates.latitude}}, {{coordinates.longitude}}],

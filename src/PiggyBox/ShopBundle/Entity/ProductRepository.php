@@ -53,7 +53,7 @@ class ProductRepository extends EntityRepository
                 ))
             ->setMaxResults(3)
             ->getResult();
-    }    
+    }
 
     public function findByShopExcludeByCategory($shop_id, $category_id)
     {

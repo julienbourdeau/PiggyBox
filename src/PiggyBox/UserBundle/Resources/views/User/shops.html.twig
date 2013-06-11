@@ -1,6 +1,6 @@
 {% extends 'PiggyBoxUserBundle::layout.html.twig' %}
 
-{% block content %} 
+{% block content %}
 
     {% if visitorBigCity != "none" %}
 
@@ -17,7 +17,7 @@
         <div class="container">
         <div class="row">
             {%
-                for shopper in shoppersDetails
+                for shopper in shoppersDetails if shopper.bigCity == (visitorBigCity|lower)
             %}
                 <div class="span6">
 
@@ -33,7 +33,7 @@
 
                             <div class="row-fluid">
                                 <div class="shop-thumbnail span4">
-                                        <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
+                                       <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="">
                                 </div>
                                 <div class="span8">
                                     <h2 class="no-margin">{{ shopper.name }}</h2>

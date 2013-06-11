@@ -5,7 +5,7 @@
 
             {% for count in range(0, 10) %}
 
-                {% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/slider-photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}      
+                {% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/slider-photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}
 
                 {% if file_exists( web_path ~ path ) %}
                     <div class="item {% if count == 1 %}active{%endif%}">
@@ -14,7 +14,7 @@
                 {% endif %}
 
             {% endfor %}
-            
+
 
         </div>
 
