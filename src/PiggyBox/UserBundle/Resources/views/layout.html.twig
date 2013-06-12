@@ -220,6 +220,12 @@
         <script src="{{ asset('bundles/piggyboxuser/js/vendor/bootstrap.min.js')}}"></script>
 		<script src="{{ asset('bundles/piggyboxuser/js/main.js')}}"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("a[data-toggle=popover]").popover()
+            });
+        </script>
+
 		{% if not app.debug %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
@@ -241,122 +247,165 @@
 		</script>
 		{% endif %}
 
-        {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
-        {% if app.request.attributes.get('_route') == "home" or app.request.attributes.get('_route') == "shops" %}
-
-         <script>
-
-            /* Smooth Scroll Begin */
-            $('a[href^="#"]').on('click',function (e) {
-                e.preventDefault();
-                var target = this.hash,
-                $target = $(target);
-                $('html, body').stop().animate({
-                    'scrollTop': $target.offset().top
-                }, 900, 'swing', function () {
-                    window.location.hash = target;
-                });
-            });
-            /* Smooth Scroll End */
-
-            // Afficher une boutique à droite de la map
-            function showShopInMap($slug) {
-                $('.home-map-sidebar-item').hide();
-                var id = "#sidebar-" + $slug;
-                $(id).show();
-            }
-
-            // Fermer une boutique ouverte
-            $(".hideShop").click(function() {
-                var id = $(this).parent().parent().attr('id');
-                $('#'+id).hide();
-                $('#sidebar-default').show();
-            });
-
-            // Clic sur un item du menu des villes
-            var selectedCity = '{{ visitorBigCity }}';
-            selectedCity = selectedCity.toLowerCase();
-            $("[id^='map-recenter-']").on('click', function(e){
-
-                // Déplace la carte en fonction de la ville cliquée
-                if($(this).attr('id') == "map-recenter-nantes")
-                {
-                    {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
-                    {{map.javascriptVariable}}.setZoom(11);
-                }
-                else if($(this).attr('id') == "map-recenter-poitiers")
-                {
-                    {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
-                    {{map.javascriptVariable}}.setZoom(11);
-                }
-
-                // Met à jour le menu déroulant lorsqu'on clique sur une ville
-                var cityToken = $(this).text().trim().toLowerCase();
-                $("a.selectedCity").html('<i class="icon-map-marker icon-white"></i> '+capitaliseFirstLetter(cityToken));
-                $("a.selectedCity").attr('id','map-recenter-'+cityToken);
-                $(this).html('<i class="icon-map-marker"></i>  '+capitaliseFirstLetter(selectedCity));
-                $(this).attr('id','map-recenter-'+selectedCity);
-                // Met à jour le bouton "commencer mon shopping à ..."
-                $('.beginCityShopping').html(capitaliseFirstLetter(cityToken));
-
-                selectedCity = cityToken;
-            });
-
-                /**
-                 * Redirige l'utilisateur vers la boutique séléctionnée
-                 */
-                function goShops()
-                {
-                    window.location.replace("{{ path('shops') }}/"+selectedCity+"#shoppers");
-                }
-
-
-                /**
-                 * Met la première lettre d'une chaine en majuscule
-                 * @param  {string} string La chaine
-                 * @return {string}
-                 */
-                function capitaliseFirstLetter(string)
-                {
-                    return string.charAt(0).toUpperCase() + string.slice(1);
-                }
-
-                // -- DROPDOWN MENU VILLE --
-                function DropDown(el) {
-                    this.dd = el;
-                    this.initEvents();
-                }
-                DropDown.prototype = {
-                    initEvents : function() {
-                        var obj = this;
-
-                        obj.dd.on('click', function(event){
-                            $(this).toggleClass('active');
-                            event.stopPropagation();
-                        });
-                    }
-                }
-
-                $(function() {
-
-                    var dd = new DropDown( $('#dd') );
-
-                    $(document).click(function() {
-                        // all dropdowns
-                        $('.wrapper-dropdown-5').removeClass('active');
-                    });
-
-                });
-                // -- END DROPDOWN --
-
-        </script>
-
-        {% endif %}
 
 
 		{% endblock %}
 
-        {% block javascript_custom_code %} {% endblock %}
+        {% block javascript_custom_code %}
+        {# Ce javascript n'est utile que pour home et shops (les pages avec la google map) #}
+            {% if app.request.attributes.get('_route') == "home"
+                    or app.request.attributes.get('_route') == "shops"
+                    or app.request.attributes.get('_route') == "customShops" %}
+
+
+            <!-- ICI LE GOOGLE SUGGEST -->
+            <script type="text/javascript">
+
+                // Autocomplete Form Homepage
+                var input = document.getElementById("street_name");
+                var options = {
+                  types: ['geocode'],
+                  componentRestrictions: {country: 'fr'},
+                  location: [{{coordinates.latitude}}, {{coordinates.longitude}}],
+                  radius:50000
+                };
+
+                autocomplete = new google.maps.places.Autocomplete(input, options);
+            </script>
+            <!-- // END -->
+
+            <script type="text/javascript">
+                /* Smooth Scroll Begin */
+                $('a[href$="-anchor"]').on('click',function (e) {
+                    e.preventDefault();
+                    var target = this.hash,
+                    $target = $(target);
+                    $('html, body').stop().animate({
+                        'scrollTop': $target.offset().top
+                    }, 900, 'swing', function () {
+                        window.location.hash = target;
+                    });
+                });
+                /* Smooth Scroll End */
+
+                // Afficher une boutique à droite de la map
+                // Over marker
+                var shopShown = false;
+                function showShopInMap($slug) {
+                    $('.home-map-sidebar-item').hide();
+                    $("#sidebar-" + $slug).fadeIn(600);
+                    var leftValue = (shopShown) ? 0:200;
+                    shopShown = true;
+                    $('#map-container-right').animate({opacity: 1,left: '-='+leftValue}, 400, function(){});
+                }
+
+                // Fermer une boutique ouverte dans la sidebar
+                $(".hideShop").click(function() {
+                    var id = $(this).parent().parent().attr('id');
+                    $('#'+id).hide();
+
+                    // Effet sexy lorsqu'on cache une boutique de la sidebar
+                    $('#map-container-right').animate({opacity: 0,left: '+=200'}, 400, function(){});
+                    shopShown = false;
+                });
+
+                // Fermeture du popover sur la carte grisée en cliquant sur la croix
+                $(".close-popunder").click(function(e) {
+                    hide_popunder();
+                });
+
+                function hide_popunder()
+                {
+                    $('#map-container-above').css('background','none');
+                    $('.type-street').animate({opacity: 0}, 700, function(){$("#map-container-above").hide()});
+                }
+
+                // Fermeture automatique du popunder sur la page customShop
+                // On ne veut pas afficher "choix de la rue" sur cette page
+                {% if app.request.attributes.get('_route') == "customShops" %}
+                    hide_popunder();
+                {% endif %}
+
+                // Clic sur un item du menu des villes
+                var selectedCity = '{{ visitorBigCity }}';
+                selectedCity = selectedCity.toLowerCase();
+                $("[id^='map-recenter-']").on('click', function(e){
+
+                    // Déplace la carte en fonction de la ville cliquée
+                    if($(this).attr('id') == "map-recenter-nantes")
+                    {
+                        {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(47.218221,-1.553574));
+                        {{map.javascriptVariable}}.setZoom(12);
+                    }
+                    else if($(this).attr('id') == "map-recenter-poitiers")
+                    {
+                        {{map.javascriptVariable}}.setCenter(new google.maps.LatLng(46.583931,0.340195));
+                        {{map.javascriptVariable}}.setZoom(12);
+                    }
+
+                    // Met à jour le menu déroulant lorsqu'on clique sur une ville
+                    var cityToken = $(this).text().trim().toLowerCase();
+                    $("a.selectedCity").html('<i class="icon-map-marker icon-white"></i> '+capitaliseFirstLetter(cityToken));
+                    $("a.selectedCity").attr('id','map-recenter-'+cityToken);
+                    $(this).html('<i class="icon-map-marker"></i>  '+capitaliseFirstLetter(selectedCity));
+                    $(this).attr('id','map-recenter-'+selectedCity);
+                    // Met à jour le bouton "commencer mon shopping à ..."
+                    $('.beginCityShopping').html(capitaliseFirstLetter(cityToken));
+
+                    selectedCity = cityToken;
+                });
+
+                    /**
+                     * Redirige l'utilisateur vers la boutique séléctionnée
+                     */
+                    function goShops()
+                    {
+                        window.location.replace("{{ path('shops') }}/"+selectedCity+"#shoppers");
+                    }
+
+
+                    /**
+                     * Met la première lettre d'une chaine en majuscule
+                     * @param  {string} string La chaine
+                     * @return {string}
+                     */
+                    function capitaliseFirstLetter(string)
+                    {
+                        return string.charAt(0).toUpperCase() + string.slice(1);
+                    }
+
+                    // -- DROPDOWN MENU VILLE --
+                    function DropDown(el) {
+                        this.dd = el;
+                        this.initEvents();
+                    }
+                    DropDown.prototype = {
+                        initEvents : function() {
+                            var obj = this;
+
+                            obj.dd.on('click', function(event){
+                                $(this).toggleClass('active');
+                                event.stopPropagation();
+                            });
+                        }
+                    }
+
+                    $(function() {
+
+                        var dd = new DropDown( $('#dd') );
+
+                        $(document).click(function() {
+                            // all dropdowns
+                            $('.wrapper-dropdown-5').removeClass('active');
+                        });
+
+                    });
+                    // -- END DROPDOWN --
+
+            </script>
+
+            {% endif %}
+        {% endblock %}
 
     </body>
 </html>
