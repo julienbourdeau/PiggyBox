@@ -60,7 +60,7 @@ class UserController extends Controller
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
-            'promotedShopper'  => reset($shoppersDetails), // premier élément
+            'promotedShopper'  => $shoppersDetails['boucherie-des-gourmets'], // premier élément
             'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
     }
@@ -115,7 +115,7 @@ class UserController extends Controller
             'visitorCity'      => $geoDataVisitor['visitorCity'],
             'visitorBigCity'   => $visitorBigCity,
             'shoppersDetails'  => $shoppersDetailsByDistance,
-            'promotedShopper'  => reset($shoppersDetailsByDistance), // premier élément
+            'promotedShopper'  => $shoppersDetails['boucherie-des-gourmets'], // premier élément
             'nbShoppers'       => $nbShoppers, // Nb de shoppers à indiquer "proche de chez vous"
             'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
@@ -155,7 +155,7 @@ class UserController extends Controller
             'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
             'availableCities'  => $this->getAvailableCities(),
             'shoppersDetails'  => $shoppersDetails,
-            'promotedShopper'  => reset($shoppersDetails),
+            'promotedShopper'  => $shoppersDetails['boucherie-des-gourmets'],
             'coordinates'      => array('latitude'=>$latitude, 'longitude'=>$longitude),
         );
     }
