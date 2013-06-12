@@ -296,7 +296,8 @@
                     $("#sidebar-" + $slug).fadeIn(600);
                     var leftValue = (shopShown) ? 0:200;
                     shopShown = true;
-                    $('#map-container-right').animate({opacity: 1,left: '-='+leftValue}, 400, function(){});
+                    $('#map-container-right').show();
+                    $('#map-container-right').animate({opacity: 1}, 400, function(){});
                 }
 
                 // Fermer une boutique ouverte dans la sidebar
@@ -305,7 +306,8 @@
                     $('#'+id).hide();
 
                     // Effet sexy lorsqu'on cache une boutique de la sidebar
-                    $('#map-container-right').animate({opacity: 0,left: '+=200'}, 400, function(){});
+                    $('#map-container-right').animate({opacity: 0}, 400, function(){});
+                    $('#map-container-right').hide();
                     shopShown = false;
                 });
 
