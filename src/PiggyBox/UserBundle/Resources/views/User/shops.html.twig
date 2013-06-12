@@ -2,10 +2,6 @@
 
 {% block content %}
 
-
-    {% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
-
-
     {% if visitorBigCity != "none" %}
 
     <div class="container">
@@ -20,24 +16,24 @@
 
         <div class="container">
         <div class="row">
-            {% 
-                for shopper in shoppersDetails 
+            {%
+                for shopper in shoppersDetails if shopper.bigCity == (visitorBigCity|lower)
             %}
                 <div class="span6">
 
-                    {% if shopper.comingSoon %} 
+                    {% if shopper.comingSoon %}
                         <div class="ribbon ribbon-coming-soon"></div>
                     {% endif %}
 
-                    {% if shopper.comingSoon == false %} 
+                    {% if shopper.comingSoon == false %}
                         <a href="{{ path('user_show_shop', {'shop_slug': shopper.slug}) }}" class="box bottom-marged">
                     {% else %}
                         <a href="#" class="box bottom-marged box-muted">
-                    {% endif %} 
+                    {% endif %}
 
                             <div class="row-fluid">
                                 <div class="shop-thumbnail span4">
-                                        <img src="{{ asset('bundles/piggyboxuser/img/') ~ shopper.img[0]}}" alt="">
+                                       <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="">
                                 </div>
                                 <div class="span8">
                                     <h2 class="no-margin">{{ shopper.name }}</h2>
@@ -50,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="btn btn-block btn-primary">
-                                        <i class="icon-home icon-white"></i> 
+                                        <i class="icon-home icon-white"></i>
                                         {% if shopper.comingSoon %}
                                             Magasin bientôt en ligne
                                         {% else %}
@@ -69,16 +65,13 @@
 
             {% endfor %}
 
-            <div class="span8 offset4">
-                <h3>D'autres commerces seront disponibles très bientôt...</h3>
-            </div>
-
 
         </div>
     </div>
 </div>
 {% endif %}
 
+{% include 'PiggyBoxUserBundle:User:showMap.html.twig' %}
 
 
 {% endblock %}

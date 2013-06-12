@@ -1,0 +1,5 @@
+2013-06-11 09:33:31|Visite|Catherine a visité la boutique.
+2013-06-11 09:59:39|Visite|Inconnu a visité la boutique.
+2013-06-11 09:59:39|Visite|Sébastien a visité la boutique.
+2013-06-11 10:26:41|Visite|Inconnu a visité la boutique.
+2013-06-11 10:27:21|Commande|Timothée a commandé Rôti de Porc cuit en tranche.
