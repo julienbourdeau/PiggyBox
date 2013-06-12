@@ -4678,6 +4678,14 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   text-align: center;
   line-height: 35px;
 }
+.landing-sexy-picture {
+  margin-bottom: 40px;
+}
+@media screen and (min-width: 1024px) {
+  .landing-sexy-picture {
+    width: 100%;
+  }
+}
 #background-sexy-picture {
   background: url(../img/home-background-3steps.jpg) no-repeat center center;
   -moz-background-size: cover;
@@ -4686,8 +4694,8 @@ label[for*="piggybox_orderbundle_carttype_orders"] {
   background-size: cover;
   background-position: 0% 20%;
   padding: 20px;
-  height: 100%;
-  margin-bottom: 30px;
+  width: 100%;
+  margin: 0px !important;
 }
 #background-sexy-picture .map-container {
   padding: 0 15px 0 15px;
@@ -4816,13 +4824,21 @@ a.selectedCity {
   position: absolute;
 }
 #map-container-right {
-  opacity: 0;
+  display: none;
   position: absolute;
   z-index: 5;
   width: 356px;
   height: 500px;
   background: rgba(255, 255, 255, 0.85);
-  left: 1088px;
+}
+#map-container-right img.shop {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  width: 260px;
+  -webkit-box-shadow: 0 8px 6px -6px #656565;
+  -moz-box-shadow: 0 8px 6px -6px #656565;
+  box-shadow: 0 8px 6px -6px #656565;
 }
 #map-container-above .promoted-shopper {
   background: #f7f7f7;

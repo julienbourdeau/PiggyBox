@@ -11,3 +11,4 @@
 2013-06-11 12:20:56|Visite|Inconnu a visité la boutique.
 2013-06-11 15:42:30|Commande|Inconnu a commandé Escalope de Dinde.
 2013-06-12 07:25:43|Commande|Eugène a commandé Jarret de Boeuf.
+2013-06-12 14:53:31|Commande|Samuel a commandé Cuisse de Pintade Fermière.
