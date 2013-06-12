@@ -22,6 +22,7 @@ use Geocoder\Geocoder;
 use Geocoder\Provider\FreeGeoIpProvider;
 use Geocoder\Provider\MaxMindProvider;
 use Geocoder\Provider\GoogleMapsProvider;
+use Geocoder\Exception\NoResultException;
 
 /**
  * User controller.
@@ -86,7 +87,13 @@ class UserController extends Controller
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Magasins détails w/ _tri par distance_
-        $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
+        try {
+            $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
+        } catch(NoResultException $e) {
+            $street_name = "Nantes";
+            $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
+        }
+        
 
         // Récupérer les produits des N premiers commerces.
         $keys = array_keys($shoppersDetailsByDistance);
@@ -129,9 +136,13 @@ class UserController extends Controller
      */
     public function shopsAction($city)
     {
+        // Formatage de la city
+        $city = ucfirst(strtolower($city));
+
         // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "none"
-        if(!($this->array_ikey_exists($city, $this->getAvailableCities())) && $city != "none")
+        if(!(array_key_exists($city, $this->getAvailableCities())) && $city != "none") {
             $city = "none";
+        }
 
         // Geoloc (forcé avec $city si != none)
         $geoDataVisitor = $this->getGeoDataVisitor($city);
@@ -143,7 +154,12 @@ class UserController extends Controller
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
+        if($city == "none") {
+            $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
+        }
+        else {
+            $map = $this->configureGoogleMap($city);
+        }
         $map = $this->configureMarkers($map);
 
         // Magasins détails
@@ -538,7 +554,8 @@ class UserController extends Controller
             if (in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
                 $georesponse = $geocoder
                     ->using('free_geo_ip')
-                    ->geocode('82.231.144.71');
+                    ->geocode('82.231.144.71'); // Nantes
+                    // ->geocode('173.194.40.183'); // Mountain View
             }
             if (!in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
                 $georesponse = $geocoder
@@ -738,7 +755,7 @@ class UserController extends Controller
     private function getAvailableCities()
     {
         return array(
-                "Nantes"    => array('lat' => 47.21837, 'long' => -1.55362),
+                "Nantes"    => array('lat' => 47.211406, 'long' => -1.569672),
                 "Poitiers"  => array('lat' => 46.58022, 'long' => 0.34037),
                 );
     }
@@ -755,14 +772,7 @@ class UserController extends Controller
         $geocoder = new Geocoder();
 
         $geocoder->registerProviders(array(new GoogleMapsProvider($adapter)));
-
-        try {
-            $georesponse = $geocoder->using('google_maps')->geocode($address);
-        } catch(NoResultException $e) {
-            //die("omg die");
-            if($bigCity == "none") $bigCity = "nantes";
-            $georesponse = $geocoder->using('google_maps')->geocode($bigCity);
-        }
+        $georesponse = $geocoder->using('google_maps')->geocode($address);
 
         $latitudeStart = $georesponse->getLatitude();
         $longitudeStart = $georesponse->getLongitude();
