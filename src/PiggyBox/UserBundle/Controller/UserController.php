@@ -31,6 +31,8 @@ use Geocoder\Provider\GoogleMapsProvider;
 class UserController extends Controller
 {
     /**
+     * Affiche la carte sur la homepage
+     * 
      * @Template()
      * @Route("/", name="home")
      */
@@ -64,12 +66,13 @@ class UserController extends Controller
     }
 
     /**
+     * Gère la page des commerçants les plus proches de l'internaute + carte
+     * 
      * @Template()
      * @Route("vos-commerces/{nbShoppers}", name="customShops", defaults={"nbShoppers"=2})
      */
     public function customShopsAction($nbShoppers)
     {
-
         // Geoloc
         $geoDataVisitor = $this->getGeoDataVisitor();
         $latitude  = $geoDataVisitor['geoResponse']->getLatitude();
@@ -81,10 +84,6 @@ class UserController extends Controller
         // SEO
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
-
-        // Map + Markers
-        $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
-        $map = $this->configureMarkers($map);
 
         // Magasins détails w/ _tri par distance_
         $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
@@ -104,11 +103,17 @@ class UserController extends Controller
             $shoppersDetailsByDistance[$slug]['fakeSocialStream'] = $this->getFakeSocialStream($slug);
         }
 
+        // Map + Markers
+        // La bigCity du visiteur est celle des commerces les plus proches
+        $visitorBigCity = ucfirst(reset($shoppersDetailsByDistance)['bigCity']);
+        $map = $this->configureGoogleMap($visitorBigCity);
+        $map = $this->configureMarkers($map);
+
         return array(
             'map'              => $map,
             'street_name'      => $street_name,
             'visitorCity'      => $geoDataVisitor['visitorCity'],
-            'visitorBigCity'   => $geoDataVisitor['visitorBigCity'],
+            'visitorBigCity'   => $visitorBigCity,
             'shoppersDetails'  => $shoppersDetailsByDistance,
             'promotedShopper'  => reset($shoppersDetailsByDistance), // premier élément
             'nbShoppers'       => $nbShoppers, // Nb de shoppers à indiquer "proche de chez vous"
@@ -117,6 +122,8 @@ class UserController extends Controller
     }
 
     /**
+     * Page qui liste les commerçants PAR VILLE, joli listing + carte de la ville
+     * 
      * @Template()
      * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"})
      */
@@ -746,7 +753,7 @@ class UserController extends Controller
         try {
             $georesponse = $geocoder->using('google_maps')->geocode($address);
         } catch(NoResultException $e) {
-            die("omg die");
+            //die("omg die");
             if($bigCity == "none") $bigCity = "nantes";
             $georesponse = $geocoder->using('google_maps')->geocode($bigCity);
         }

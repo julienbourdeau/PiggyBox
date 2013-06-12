@@ -29,7 +29,7 @@
 
                 <div class="span4">
                     <a href="{{ link }}">
-                        <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="">
+                        <img src="{{ asset('bundles/piggyboxuser/img/shops/') ~ shopper.slug}}/thumbnails/{{shopper.slug}}-0.jpg" alt="" class="shop">
                     </a>
                 </div>
 
@@ -63,7 +63,7 @@
                 <div class="span3 slider">
                     <div id="photo-slider">
                         <div id="shopCarousel{{ loop.index }}" class="carousel slide">
-                            <div class="carousel-inner">
+                           {#  <div class="carousel-inner">
 
                                 {% for product in shopper.products %}
                                     <div class="item {% if loop.first %}active{% endif %} text-centered">
@@ -75,7 +75,7 @@
                                     </div>
                                 {% endfor %}
 
-                            </div>
+                            </div> #}
                             <p><a href="{{ link }}">VOIR LA BOUTIQUE »</a></p>
 
                             <!-- Carousel nav -->

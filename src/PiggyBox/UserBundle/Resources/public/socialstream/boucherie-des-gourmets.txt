@@ -10,3 +10,4 @@
 2013-06-11 10:26:31|Commande|Carole a commandé Côte de Porc Échine.
 2013-06-11 12:33:57|Visite|Inconnu a visité la boutique.
 2013-06-11 15:27:30|Visite|Hélène a visité la boutique.
+2013-06-12 06:55:44|Commande|Samuel a commandé Pintade Fermière des Landes Label Rouge.
