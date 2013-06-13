@@ -1,4 +1,4 @@
-// Copyright 2012 Google Inc. All Rights Reserved.
+﻿// Copyright 2012 Google Inc. All Rights Reserved.
 
 /* Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,11 @@ var id;
 id = 'ga:64666463';
 
 // Initialize the UI Dates.
-document.getElementById('start-date').value = lastNDays(14);
+document.getElementById('start-date').value = lastNDays(365);
 document.getElementById('end-date').value = lastNDays(0);
+
+var startDate = lastNDays(365);
+var endDate = lastNDays(0);
 
 
 /**
@@ -42,28 +45,28 @@ function makeApiCall() {
     'start-date': document.getElementById('start-date').value,
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:pageviews',
-  }).execute(handleCoreReportingResults);
+  }).execute(pagesView);
   
   gapi.client.analytics.data.ga.get({
     'ids': id,
     'start-date': document.getElementById('start-date').value,
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:visits',
-  }).execute(handleCoreReportingResults);
+  }).execute(visits);
   
   gapi.client.analytics.data.ga.get({
     'ids': id,
     'start-date': document.getElementById('start-date').value,
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:newVisits',
-  }).execute(handleCoreReportingResults);
+  }).execute(newVisits);
   
   gapi.client.analytics.data.ga.get({
     'ids': id,
     'start-date': document.getElementById('start-date').value,
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:avgTimeOnSite',
-  }).execute(handleCoreReportingResults);
+  }).execute(timeOnSite);
   
   gapi.client.analytics.data.ga.get({
     'ids': id,
@@ -71,7 +74,7 @@ function makeApiCall() {
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:visits',
     'dimensions': 'ga:isMobile',
-  }).execute(handleCoreReportingResults);
+  }).execute(isMobile);
   
   
   gapi.client.analytics.data.ga.get({
@@ -80,27 +83,193 @@ function makeApiCall() {
     'end-date': document.getElementById('end-date').value,
     'metrics': 'ga:pageviews',
     'dimensions': 'ga:pagePath',
-	'filters': 'ga:pagePath=@/boucherie-zola',
-  }).execute(handleCoreReportingResults);
+	'sort': '-ga:pageviews',
+	'filters': 'ga:pagePath=@/'+ slug,
+  }).execute(pageCommercant);
+  
+  gapi.client.analytics.data.ga.get({
+    'ids': id,
+    'start-date': document.getElementById('start-date').value,
+    'end-date': document.getElementById('end-date').value,
+    'metrics': 'ga:visits',
+    'dimensions': 'ga:source',
+	'sort': '-ga:visits',
+  }).execute(source);
 }
 
 
+function pagesView(results) {
+  if (!results.code) {
+	var div = document.getElementById('pagesViews');
+    div.innerHTML = results.rows[0];
+	outputToPage(output.join(''));
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+function visits(results) {
+  if (!results.code) {
+    var div = document.getElementById('visitsWebsite');
+    div.innerHTML = results.rows[0];
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+function newVisits(results) {
+  if (!results.code) {
+	var div = document.getElementById('newVisits');
+    div.innerHTML = results.rows[0];
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+function timeOnSite(results) {
+  if (!results.code) {
+	var div = document.getElementById('timeOnSite');
+    var tm=new Date(results.rows[0]*1000) 
+	var minutes=tm.getUTCMinutes(); 
+	var seconds=tm.getUTCSeconds();
+	if (seconds < 10){
+		seconds = '0' + seconds;
+		}
+	div.innerHTML = minutes + ':' + seconds;
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+function isMobile(results) {
+  if (!results.code) {
+	var no= String(results.rows[0]);
+	var yes = String(results.rows[1]);
+	no = parseInt(no.substring(3));
+	yes = parseInt(yes.substring(4));
+	var percent = Math.round(yes*100/(yes+no));
+	var desktop = 100-percent;
+	
+	var wrapper = new google.visualization.ChartWrapper({
+		chartType: 'ColumnChart',
+		dataTable: [['', 'Mobile', 'Ordinateur'],
+					['', percent/100, desktop/100]],
+		options: {'title': 'Utilisateurs sur mobile', vAxis: {format:'#%', minValue:0, maxValue:1}},
+		containerId: 'mobile-chart'
+	});
+	wrapper.draw();
+
+	
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+function pageCommercant(results) {
+  if (!results.code) {
+  var total = 0;
+  var j = 0;
+	//Pour le calcul du nombre de pages vues
+	for (var i=0; i<results.rows.length; i++)
+		{
+		var value = String(results.rows[i]);
+		var number = parseInt(value.indexOf(",")+1)
+			// Pour la recherche du slug des trois produits les plus vus
+			if(j<3 && value.match('produits/[a-z]*/[a-z0-9.-]+'))
+				{
+				j +=1;
+				var slugProduct= String(value.match('produits/[a-z]*/[a-z0-9.-]+'));
+				var number1 = parseInt(slugProduct.indexOf("produits/")+1);
+				slugProduct = slugProduct.substring(9);
+				number1 = slugProduct.indexOf("/")+1;
+				slugProduct = slugProduct.substring(number1);
+				var div = document.getElementById('maxViewArticle');
+				div.innerHTML += slugProduct + '<br/>';
+				}
+		var number = parseInt(value.indexOf(",")+1);
+		value = parseInt(value.substring(number));
+		total += value;
+		}
+	var div = document.getElementById('pagesViewsShop');
+	div.innerHTML = total;
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+
+function source(results) {
+  if (!results.code) {
+  
+  var totalSearch = 0;
+  var totalDirect = 0;
+  var totalAutre = 0;
+  var total = 0;
+  
+	for (var i=0; i<results.rows.length; i++)
+		{
+		var current = results.rows[i];
+		
+		var value = String(current);
+		var number = parseInt(value.indexOf(",")+1);
+		var totalValue = parseInt(value.substring(number));
+		total +=  totalValue;
+		
+		var testSearch = value.indexOf(".");
+		var testDirect = value.indexOf("(direct)");
+			
+		if(testSearch == -1 && testDirect == -1)
+			{
+			totalSearch +=  totalValue;
+			}
+		
+		if(testDirect != -1)
+			{
+			totalDirect += totalValue;
+			}
+			
+		if(testSearch != -1 && testDirect == -1)
+			{
+			totalAutre += totalValue;
+			}
+		}
+	
+	var percentSearch = Math.round((100*totalSearch)/total);
+	var percentDirect = Math.round((100*totalDirect)/total);
+	var percentAutre = Math.round((100*totalAutre)/total);
+	
+	var data = google.visualization.arrayToDataTable([
+    ['Source', 'Pourcentage'],
+    ['Acces direct', percentDirect],
+    ['Trafic de recherche', percentSearch],
+	['Site Référents', percentAutre],
+  ]);
+
+  // Create and draw the visualization.
+	var wrapper = new google.visualization.PieChart(document.getElementById('source-chart'));
+	wrapper.draw(data, {title:"Visites du site"});
+
+  } else {
+    outputToPage('Erreur: ' + results.message);
+  }
+}
+
+  
 /**
  * Handles the response from the CVore Reporting API. If sucessful, the
  * results object from the API is passed to various printing functions.
- * If there was an error, a message with the error is printed to the user.
+ * If Erreur, a message with the error is printed to the user.
  * @param {Object} results The object returned from the API.
  */
 function handleCoreReportingResults(results) {
   if (!results.code) {
-    outputToPage('Query Success');
+    updatePage('Query Success');
     printRows(results);
     outputToPage(output.join(''));
   } else {
-    outputToPage('There was an error: ' + results.message);
+    outputToPage('Erreur: ' + results.message);
   }
 }
-
 
 /**
  * Prints all the column headers and rows of data as an HTML table.
@@ -108,10 +277,11 @@ function handleCoreReportingResults(results) {
  */
 function printRows(results) {
 
+
   if (results.rows && results.rows.length) {
     var table = ['<table>'];
 
-    // Put headers in table.
+   // Put headers in table.
     table.push('<tr>');
     for (var i = 0, header; header = results.columnHeaders[i]; ++i) {
       table.push('<th>', header.name, '</th>');
@@ -121,6 +291,7 @@ function printRows(results) {
     // Put cells in table.
     for (var i = 0, row; row = results.rows[i]; ++i) {
       table.push('<tr><td>', row.join('</td><td>'), '</td></tr>');
+	  
     }
     table.push('</table>');
 
@@ -141,7 +312,6 @@ function outputToPage(output) {
   document.getElementById('output').innerHTML = output;
 }
 
-
 /**
  * Utility method to update the output section of the HTML page. Used
  * to output messages to the user. This appends content to any existing
@@ -149,7 +319,7 @@ function outputToPage(output) {
  * @param {String} output The HTML string to output.
  */
 function updatePage(output) {
-  document.getElementById('output').innerHTML += '<br>' + output;
+  document.getElementById('output').innerHTML += '';
 }
 
 

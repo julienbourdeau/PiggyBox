@@ -5,19 +5,135 @@
 <div id="main">
 	<div id="primary" class="site-content container">
 
+		<div class="page-header">
+			<h2>Rapport de Fréquentation</h2>
+		</div>
 
-	<div class="page-header">
-		<h1>Analytics of the fucking damned shop</h1>
+		<div class="btn-group">
+		  <button class="btn analytics-date-change" rel="31">Mois</button>
+		  <button class="btn analytics-date-change" rel="92">3 mois</button>
+		  <button class="btn analytics-date-change" rel="365">Année</button>
+		</div>
+
+
+		<button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+		<ul id="ga-table" class='hide'>
+			 <div id="start-date" class="c2" style="visibility: hidden"></div>
+			 <div id="end-date" class="c2" style="visibility: hidden"></div>
+		</ul>
+
+			<div id="output">Chargement en cours...</div>
+
+
+		<div class="row">
+			<div class="span12">
+				<center><h3>Côtelettes & Tarte Aux Fraises c'est:</h3></center>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="span3">
+				<div class="analytics-container clearfix">
+					<div id="pagesViews" class="analytics-value"></div>
+					<div class="analytics-caption">Pages Vues</div>
+				</div>
+			</div>
+
+			<div class="span3">
+				<div class="analytics-container clearfix">
+					<div id="visitsWebsite" class="analytics-value"></div>
+					<div class="analytics-caption">Visiteurs</div>
+				</div>
+			</div>
+
+			<div class="span3">
+				<div class="analytics-container clearfix">
+					<div id="newVisits" class="analytics-value"></div>
+					<div class="analytics-caption">Nouveaux Visiteurs</div>
+
+				</div>
+			</div>
+
+			<div class="span3">
+				<div class="analytics-container clearfix">
+					<div id="timeOnSite" class="analytics-value"></div>
+					<div class="analytics-caption">minutes par visites</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="span6">
+					<div id="mobile-chart" style="width: 600px; height: 400px;"></div>
+			</div>
+
+			<div class="span6">
+					<div id="source-chart" style="width: 600px; height: 400px;"></div>
+			</div>
+
+		</div>	
+
+		<div class="row">
+			<div class="span12">
+				<center><h3>Votre boutique {{ shop.slug }} c'est:</h3></center>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="span3">
+				<div class="analytics-container clearfix">
+					<div id="pagesViewsShop" class="analytics-value"></div>
+					<div class="analytics-caption">Pages Vues dans votre boutique</div>
+				</div>
+			</div>
+
+			<div class="span3">
+					<div id="maxViewArticle" ></div>
+			</div>
+
+
+
+		</div>
+
 	</div>
 
-
-    </div>
 </div>
 
 {% endblock %}
 
 {% block javascript %}
 {{ parent() }}
+
+<script type="text/javascript">
+
+	var slug = '{{ shop.slug }}';
+
+</script>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type="text/javascript">
+    google.load('visualization', '1');
+</script>
+
 <script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/auth_util.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/core_reporting_api_v3_reference.js') }}"></script>
+
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+
+<script type="text/javascript">
+
+	$(".analytics-date-change").click(function() {
+		var startdate = $(this).attr('rel');
+		document.getElementById('start-date').value = lastNDays(startdate);
+        handleClientLoad();
+    });
+
+</script>
 {% endblock %}
