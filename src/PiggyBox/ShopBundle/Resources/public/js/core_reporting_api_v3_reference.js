@@ -169,29 +169,30 @@ function pageCommercant(results) {
   if (!results.code) {
   var total = 0;
   var j = 0;
-	//Pour le calcul du nombre de pages vues
-	for (var i=0; i<results.rows.length; i++)
-		{
-		var value = String(results.rows[i]);
-		var number = parseInt(value.indexOf(",")+1)
-			// Pour la recherche du slug des trois produits les plus vus
-			if(j<3 && value.match('produits/[a-z]*/[a-z0-9.-]+'))
-				{
-				j +=1;
-				var slugProduct= String(value.match('produits/[a-z]*/[a-z0-9.-]+'));
-				var number1 = parseInt(slugProduct.indexOf("produits/")+1);
-				slugProduct = slugProduct.substring(9);
-				number1 = slugProduct.indexOf("/")+1;
-				slugProduct = slugProduct.substring(number1);
-				var div = document.getElementById('maxViewArticle');
-				div.innerHTML += slugProduct + '<br/>';
-				}
-		var number = parseInt(value.indexOf(",")+1);
-		value = parseInt(value.substring(number));
-		total += value;
-		}
-	var div = document.getElementById('pagesViewsShop');
-	div.innerHTML = total;
+    //Pour le calcul du nombre de pages vues
+    for (var i=0; i<results.rows.length; i++)
+        {
+        var value = String(results.rows[i]);
+        var number = parseInt(value.indexOf(",")+1)
+            // Pour la recherche du slug des trois produits les plus vus
+            if(j<3 && value.match('produits/[a-z]*/[a-z0-9.-]+'))
+                {
+                j +=1;
+                var slugProduct= String(value.match('produits/[a-z]*/[a-z0-9.-]+'));
+                var number1 = parseInt(slugProduct.indexOf("produits/")+1);
+                slugProduct = slugProduct.substring(9);
+                number1 = slugProduct.indexOf("/")+1;
+                slugProduct = slugProduct.substring(number1);
+                loadProduct(slugProduct);
+                //var div = document.getElementById('maxViewArticle');
+                //div.innerHTML += slugProduct + '<br/>';
+                }
+        var number = parseInt(value.indexOf(",")+1);
+        value = parseInt(value.substring(number));
+        total += value;
+        }
+//var div = document.getElementById('pagesViewsShop');
+//div.innerHTML = total;
   } else {
     outputToPage('Erreur: ' + results.message);
   }

@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\SecureReturn;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use PiggyBox\ShopBundle\Entity\Product;
+use PiggyBox\ShopBundle\Entity\Shop;
 
 /**
  * Analytics controller.
@@ -37,7 +40,25 @@ class AnalyticsController extends Controller
     {
         $user= $this->get('security.context')->getToken()->getUser();
         $shop = $user->getOwnshop();
+
         return array('shop' => $shop);
+    }
+
+    /**
+     * @Route("/{product_slug}.{_format}", name="outils_product", requirements={"_format"="(json)"}, options={"expose"=true}, defaults={"_format"="json"})
+     * @SecureReturn(permissions="VIEW, EDIT")
+     */
+    public function getProductAction($product_slug)
+    {
+        if ($this->request->isXmlHttpRequest()) {
+            $product = $this->em->getRepository('PiggyBoxShopBundle:Product')->findOneBySlug($product_slug);
+
+            $html = $this->renderView('PiggyBoxShopBundle:Analytics:get_product.html.twig', array('product' => $product));
+
+            return new JsonResponse(array('content' => $html));
+        }
+
+        return new JsonResponse(array('content' => null));
     }
 
 }

@@ -75,7 +75,7 @@
 					<div id="source-chart" style="width: 600px; height: 400px;"></div>
 			</div>
 
-		</div>	
+		</div>
 
 		<div class="row">
 			<div class="span12">
@@ -116,11 +116,11 @@
 </script>
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <script type="text/javascript">
     google.load('visualization', '1');
 </script>
-
 <script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/auth_util.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/piggyboxshop/js/core_reporting_api_v3_reference.js') }}"></script>
 
@@ -135,5 +135,14 @@
         handleClientLoad();
     });
 
+    function loadProduct(product_slug) {
+        $.ajax({
+            url: Routing.generate('outils_product', { "product_slug": product_slug}),
+            dataType: 'json',
+            success: function (data) {
+                $('#maxViewArticle').html(data.content);
+            }
+        });
+    }
 </script>
 {% endblock %}
