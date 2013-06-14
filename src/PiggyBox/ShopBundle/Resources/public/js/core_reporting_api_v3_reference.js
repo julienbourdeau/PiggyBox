@@ -100,6 +100,7 @@ function makeApiCall() {
 
 function pagesView(results) {
   if (!results.code) {
+	viewResultsAnalytics.style.visibility = '';
 	var div = document.getElementById('pagesViews');
     div.innerHTML = results.rows[0];
 	outputToPage(output.join(''));
@@ -173,7 +174,9 @@ function pageCommercant(results) {
     for (var i=0; i<results.rows.length; i++)
         {
         var value = String(results.rows[i]);
-        var number = parseInt(value.indexOf(",")+1)
+        var number = parseInt(value.indexOf(",")+1);
+		var viewProduct = parseInt(value.substring(number));
+		total += viewProduct;
             // Pour la recherche du slug des trois produits les plus vus
             if(j<3 && value.match('produits/[a-z]*/[a-z0-9.-]+'))
                 {
@@ -183,16 +186,14 @@ function pageCommercant(results) {
                 slugProduct = slugProduct.substring(9);
                 number1 = slugProduct.indexOf("/")+1;
                 slugProduct = slugProduct.substring(number1);
-                loadProduct(slugProduct);
-                //var div = document.getElementById('maxViewArticle');
-                //div.innerHTML += slugProduct + '<br/>';
+				document.getElementById('maxViewArticle').innerHTML = '';
+                var produit = loadProduct(slugProduct);
+                //var div = document.getElementById('viewPerArticle');
+                //div.innerHTML += ' Vue ' + viewProduct + ' fois';
                 }
-        var number = parseInt(value.indexOf(",")+1);
-        value = parseInt(value.substring(number));
-        total += value;
         }
-//var div = document.getElementById('pagesViewsShop');
-//div.innerHTML = total;
+var div = document.getElementById('pagesViewsShop');
+div.innerHTML = total;
   } else {
     outputToPage('Erreur: ' + results.message);
   }

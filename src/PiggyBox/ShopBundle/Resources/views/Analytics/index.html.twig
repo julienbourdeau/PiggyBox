@@ -6,7 +6,7 @@
 	<div id="primary" class="site-content container">
 
 		<div class="page-header">
-			<h2>Rapport de Fréquentation</h2>
+			<h2>Rapport d'audience:</h2>
 		</div>
 
 		<div class="btn-group">
@@ -25,78 +25,81 @@
 
 			<div id="output">Chargement en cours...</div>
 
-
-		<div class="row">
-			<div class="span12">
-				<center><h3>Côtelettes & Tarte Aux Fraises c'est:</h3></center>
-			</div>
-		</div>
-
-		<div class="row">
-
-			<div class="span3">
-				<div class="analytics-container clearfix">
-					<div id="pagesViews" class="analytics-value"></div>
-					<div class="analytics-caption">Pages Vues</div>
+		<div id="viewResultsAnalytics" style="visibility: hidden">
+			<div class="row">
+				<div class="span12">
+					<center><h3>Côtelettes & Tarte Aux Fraises c'est:</h3></center>
 				</div>
 			</div>
 
-			<div class="span3">
-				<div class="analytics-container clearfix">
-					<div id="visitsWebsite" class="analytics-value"></div>
-					<div class="analytics-caption">Visiteurs</div>
+			<div class="row">
+
+				<div class="span3">
+					<div class="analytics-container clearfix">
+						<div id="pagesViews" class="analytics-value"></div>
+						<div class="analytics-caption">Pages Vues</div>
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="analytics-container clearfix">
+						<div id="visitsWebsite" class="analytics-value"></div>
+						<div class="analytics-caption">Visiteurs</div>
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="analytics-container clearfix">
+						<div id="newVisits" class="analytics-value"></div>
+						<div class="analytics-caption">Nouveaux Visiteurs</div>
+
+					</div>
+				</div>
+
+				<div class="span3">
+					<div class="analytics-container clearfix">
+						<div id="timeOnSite" class="analytics-value"></div>
+						<div class="analytics-caption">minutes par visites</div>
+
+					</div>
 				</div>
 			</div>
 
-			<div class="span3">
-				<div class="analytics-container clearfix">
-					<div id="newVisits" class="analytics-value"></div>
-					<div class="analytics-caption">Nouveaux Visiteurs</div>
+			<div class="row">
 
+				<div class="span6">
+						<div id="mobile-chart" style="width: 600px; height: 400px;"></div>
+				</div>
+
+				<div class="span6">
+						<div id="source-chart" style="width: 600px; height: 400px;"></div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="span12">
+					<center><h3>Votre boutique {{ shop.slug }} c'est:</h3></center>
 				</div>
 			</div>
 
-			<div class="span3">
-				<div class="analytics-container clearfix">
-					<div id="timeOnSite" class="analytics-value"></div>
-					<div class="analytics-caption">minutes par visites</div>
+			<div class="row">
 
+				<div class="span3">
+					<div class="analytics-container clearfix">
+						<div id="pagesViewsShop" class="analytics-value"></div>
+						<div class="analytics-caption">Pages Vues dans votre boutique</div>
+					</div>
 				</div>
-			</div>
-		</div>
 
-		<div class="row">
-
-			<div class="span6">
-					<div id="mobile-chart" style="width: 600px; height: 400px;"></div>
-			</div>
-
-			<div class="span6">
-					<div id="source-chart" style="width: 600px; height: 400px;"></div>
-			</div>
-
-		</div>
-
-		<div class="row">
-			<div class="span12">
-				<center><h3>Votre boutique {{ shop.slug }} c'est:</h3></center>
-			</div>
-		</div>
-
-		<div class="row">
-
-			<div class="span3">
-				<div class="analytics-container clearfix">
-					<div id="pagesViewsShop" class="analytics-value"></div>
-					<div class="analytics-caption">Pages Vues dans votre boutique</div>
+				<div class="span9">
+						<div id="maxViewArticle" class='row-fluid' >
+							{# Les produits sont affichés ici #}
+						</div>			
 				</div>
 			</div>
 
-			<div class="span3">
-					<div id="maxViewArticle" ></div>
-			</div>
-
-
+			
 
 		</div>
 
@@ -140,7 +143,7 @@
             url: Routing.generate('outils_product', { "product_slug": product_slug}),
             dataType: 'json',
             success: function (data) {
-                $('#maxViewArticle').html(data.content);
+                $('#maxViewArticle').append(data.content);
             }
         });
     }

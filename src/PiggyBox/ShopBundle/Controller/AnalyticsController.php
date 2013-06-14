@@ -40,11 +40,10 @@ class AnalyticsController extends Controller
     {
         $user= $this->get('security.context')->getToken()->getUser();
         $shop = $user->getOwnshop();
-
         return array('shop' => $shop);
     }
-
-    /**
+   
+   /**
      * @Route("/{product_slug}.{_format}", name="outils_product", requirements={"_format"="(json)"}, options={"expose"=true}, defaults={"_format"="json"})
      * @SecureReturn(permissions="VIEW, EDIT")
      */
@@ -60,5 +59,4 @@ class AnalyticsController extends Controller
 
         return new JsonResponse(array('content' => null));
     }
-
 }

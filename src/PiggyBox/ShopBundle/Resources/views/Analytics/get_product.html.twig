@@ -1,6 +1,4 @@
-<div class="span4">
-    <img src="{{product.getWebPath | apply_filter('little_thumb') }}" alt="" class="">
-</div>
-<div class="span8">
-    <h3>{{product.name}}</h3>
-</div>
+<a class="span4 text-centered" href="http://cotelettes-tarteauxfraises.com/commerce/{{product.shop.slug}}/produits/{{product.category.slug}}/{{product.slug}}">
+    <img src="{{product.getWebPath | apply_filter('my_thumb') }}" alt="" class=""><br/>
+    	<strong>{{product.name}}</strong>
+</a>
