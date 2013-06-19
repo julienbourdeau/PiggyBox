@@ -1,39 +1,51 @@
 <div id="shop-infos" class="">
 
+    <div itemscope itemtype="http://schema.org/LocalBusiness">
 
-    <h1 class="">{{ shop.name }}</h1>
+        <h1 class="" itemprop="name">{{ shop.name }}</h1>
 
-    <div id="shop-details" class="row-fluid">
+        <div id="shop-details" class="row-fluid">
 
-        <div class="span12">
-            <p>{{ shopper.slogan }}</p>
+            <div class="span12">
 
-            <div class="shop-toolbar">
+                <span itemprop="description">
+                    <p>{{ shopper.slogan }}</p>
+                </span>
 
-                    <a id="show-phone-number" class="btn btn-inverse btn-block"
-                    data-toggle="popover"
-                    data-placement="top"
-                    data-content="<div class='phone-number-popover'>{{ shopper.telephone }}</div>"
-                    data-title="<i class='icon-comment'></i> Appelez votre commerçant">
-                        <i class="icon-comment icon-white"></i> Afficher le numéro
-                    </a>
+                <div class="shop-toolbar">
 
-                    <a href="mailto:{{ shopper.email }}" target="_blank" class="btn btn-inverse btn-block">
-                        <i class="icon-envelope icon-white"></i> Contacter par email
-                    </a>
 
-                    <a href="{{ path('user_show_shop_opening_time', {'shop_slug': shop.slug}) }}" class="btn btn-small" style="width: 48%;">
-                        <i class="icon-time"></i> Horaires
-                    </a>
+                        <span itemprop="telephone" class="hide">{{ shopper.telephone }}</span>
 
-                    <a href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}#map-large" class="btn btn-small" style="width: 45%; margin-left: 5%;">
-                        <i class="icon-map-marker"></i> Carte
-                    </a>
+                        <a id="show-phone-number" class="btn btn-inverse btn-block"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-content="<div class='phone-number-popover'>{{ shopper.telephone }}</div>"
+                        data-title="<i class='icon-comment'></i> Appelez votre commerçant">
+                            <i class="icon-comment icon-white"></i> Afficher le numéro
+                        </a>
+                        
+
+                        <span itemprop="email" class="hide">{{ shopper.email }}</span>
+
+                        <a href="mailto:{{ shopper.email }}" target="_blank" class="btn btn-inverse btn-block">
+                            <i class="icon-envelope icon-white"></i> Contacter par email
+                        </a>
+                        
+
+                        <a href="{{ path('user_show_shop_opening_time', {'shop_slug': shop.slug}) }}" class="btn btn-small" style="width: 48%;">
+                            <i class="icon-time"></i> Horaires
+                        </a>
+
+                        <a href="{{ path('user_show_shop_info', {'shop_slug': shop.slug}) }}#map-large" class="btn btn-small" style="width: 45%; margin-left: 5%;">
+                            <i class="icon-map-marker"></i> Carte
+                        </a>
+
+                </div>
 
             </div>
 
         </div>
-
     </div>
 
 
