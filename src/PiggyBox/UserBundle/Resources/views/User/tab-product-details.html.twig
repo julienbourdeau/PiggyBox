@@ -23,7 +23,7 @@
 	        <div class="product-thumbnail">
 				<div class="img300x300">
 					{% if product.hasImage %}
-						<img src="{{product.getWebPath | apply_filter('huge_thumb') }}"
+						<img itemprop="image" src="{{product.getWebPath | apply_filter('huge_thumb') }}"
 						alt="{{product.name}}" title="{{product.name}}" >
 					{% endif %}
 				</div>
@@ -36,12 +36,7 @@
 			<div class="product-infos">
 
 	            <div class="product-name">
-
-	            	<span itemprop="name">
-						<h1 class="text-centered">{{product.name}}</h1>
-						<span itemprop="category" content="{{product.category}}" class="hide">{{product.name}}</span>
-					</span>
-
+						<h1 class="text-centered" itemprop="name">{{product.name}}</h1>
 	            </div>
 
 				<div class="product-details row-fluid bottom-marged">
@@ -53,13 +48,12 @@
 	                <div class="product-price text-right span6">
 
 	                	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
 		                	{% if product.weightPrice is not null %}
 								<span class="kilo-price">{{product.weightPrice|number_format(2, ',', ' ')}} € /Kg</span>
 							{% endif %}
 		                    &nbsp;&nbsp;&nbsp;
-		                    <span itemprop="price">
-								<span class="primary-price">{{product.price|number_format(2, ',', ' ')}} €</span>
-							</span>
+								<span class="primary-price" itemprop="price">{{product.price|number_format(2, ',', ' ')}} €</span>
 						</div>
 
 	                </div>
