@@ -190,7 +190,7 @@ class ShopController extends Controller
                                  ->getSingleScalarResult(); */
                                  
         //Fonction donnant le nombre de commandes archivé en fonction du commerce                        
-        $data['totalCommandes'] = $em->createQuery('SELECT COUNT (o.id) FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s WHERE o.shop=s.id AND o.status=\'archived\' AND s.id =:shop_id')
+        $data['totalCommandes'] = $em->createQuery('SELECT COUNT (o.id) FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s WHERE o.shop=s.id AND o.status=\'archived\' AND o.shop=:shop_id')
                                     ->setParameter('shop_id', $user->getOwnShop()->getId())
                                     ->getSingleScalarResult();
 
