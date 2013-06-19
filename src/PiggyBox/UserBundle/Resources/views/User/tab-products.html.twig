@@ -6,68 +6,75 @@
 			<div class="clearfix">
 			{% set discountDisplayed = true %}
 		{% endif %}
-	<div class="product-item
-				box
-				box-light
-				text-centered
-				{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
-				tous
-				{{product.category.slug}}
-				{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
+	<div itemscope itemtype="http://schema.org/Product">
 
-	{% if product.menuItems|length > 0 and product.discount|length == 0 %}
-		<div class="ribbon ribbon-formule"></div>
-	{% endif %}
+		<div class="product-item
+					box
+					box-light
+					text-centered
+					{% if loop.index is divisibleby(3) %}product-item-last{% endif %}
+					tous
+					{{product.category.slug}}
+					{% if product.category.level > 0 %}{{product.category.parent.slug}}{% endif %}">
 
-	{% if product.discount|length > 0 %}
-		<div class="ribbon ribbon-{{product.discount.discountName}}"></div>
-	{% endif %}
+		{% if product.menuItems|length > 0 and product.discount|length == 0 %}
+			<div class="ribbon ribbon-formule"></div>
+		{% endif %}
 
-		<div class="product-infos">
+		{% if product.discount|length > 0 %}
+			<div class="ribbon ribbon-{{product.discount.discountName}}"></div>
+		{% endif %}
 
-			<div class="product-details">
-					<div class="product-name">
-						<h4><a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" style="color: #222222;">{{product.name}}</a></h4>
-					</div>
+			<div class="product-infos">
+
+				<div class="product-details">
+						<div class="product-name">
+
+							<span itemprop="name">
+								<h4><a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" style="color: #222222;">{{product.name}}</a></h4>
+							</span>
+
+						</div>
+				</div>
+
+				<div class="product-thumbnail">
+					<a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" class="img160x160">
+						{% if product.hasImage %}
+							<img src="{{product.getWebPath | apply_filter('my_thumb') }}"
+							alt="{{product.name}}" title="{{product.name}}" >
+						{% endif %}
+					</a>
+				</div>
+
+
 			</div>
 
-			<div class="product-thumbnail">
-				<a href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" class="img160x160">
-					{% if product.hasImage %}
-						<img src="{{product.getWebPath | apply_filter('my_thumb') }}"
-						alt="{{product.name}}" title="{{product.name}}" >
-					{% endif %}
-				</a>
-			</div>
+			<div class="product-toolbar row-fluid">
 
+				<div class="product-price span6">
+					{{product.price|number_format(2, ',', ' ')}} €
+				</div>
+
+				<div class="span6">
+					<a onclick="_gaq.push(['_trackEvent', 'PRODUIT', 'view-product-details', {{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}]);" href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" class="btn-mini">Voir en détail</a>
+				</div>
+
+				<div class="span12">
+					<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+						{% if product.priceType == 'chunk_price' %}
+							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
+						{% else %}
+							<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+							<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+						{% endif %}
+						<button class="btn btn-mini">Ajouter</button>
+						{{ form_widget(form[product.id]._token) }}
+					</form>
+				</div>
+			</div>
 
 		</div>
-
-		<div class="product-toolbar row-fluid">
-
-			<div class="product-price span6">
-				{{product.price|number_format(2, ',', ' ')}} €
-			</div>
-
-			<div class="span6">
-				<a onclick="_gaq.push(['_trackEvent', 'PRODUIT', 'view-product-details', {{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}]);" href="{{ path('view_product_details', {'shop_slug': product.shop.slug, 'category_slug': product.category.slug, 'product_slug': product.slug}) }}" class="btn-mini">Voir en détail</a>
-			</div>
-
-			<div class="span12">
-				<form id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
-					{% if product.priceType == 'chunk_price' %}
-						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
-					{% else %}
-						<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
-						{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-						<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
-					{% endif %}
-					<button class="btn btn-mini">Ajouter</button>
-					{{ form_widget(form[product.id]._token) }}
-				</form>
-			</div>
-		</div>
-
 	</div>
 	{% endif %}
 {% endfor %}
