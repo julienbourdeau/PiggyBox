@@ -84,13 +84,11 @@
                                                 <a id="shopping-cart-button" href="{{ path('view_order') }}" class="pull-right text-centered">
                                                     <strong><i class="icon-shopping-cart"></i> Panier</strong>
                                                     <br>
-                                                    {#
                                                     {% if piggybox_product_number_in_cart() > 0 %}
                                                         <span class="badge badge-success">{{piggybox_product_number_in_cart()}}</span> produit(s)
                                                     {% else %}
                                                         <small>Actuellement vide</small>
                                                     {% endif %}
-                                                    #}
                                                 </a>
                                             </li>
 
