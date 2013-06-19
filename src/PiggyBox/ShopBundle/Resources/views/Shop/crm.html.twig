@@ -1,0 +1,83 @@
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+
+
+{% block body %}
+{% include 'PiggyBoxShopBundle:Shop:crm_sub_header.html.twig'%}
+
+<div id="main">
+	<div id="primary" class="site-content container">
+		<h2>Liste des clients <sup id="super-badge" class="badge badge-success"></sup></h2>
+
+		<table class="table">
+
+			<thead>
+				<tr>
+					<th>Nom-Prenom</th> 
+					<th>E-mail</th>
+					<th>Téléphone</th>
+				</tr>
+			</thead>
+			
+
+			<tbody>
+
+			{% for client in clients %}
+
+			<tr>
+
+				<td>
+
+				{% if client.lastName == null %}
+					N/A
+				{% else %}
+				{{client.gender}} {{client.lastName}} {{client.firstName}}
+				{% endif %}
+
+				</td>
+
+				<td>
+					
+				{% if client.email == null %}
+					N/A
+				{% else %}
+					
+					{{client.email}}
+
+				</button>
+
+				{% endif %}
+
+				</td>
+
+				<td>
+					
+				{% if not client.phoneNumber == null %}
+					 
+				{{client.phoneNumber}}
+				{% endif %}
+
+				</td>
+
+				<td>
+					<a href="mailto:{{client.email}}" class="btn btn-primary btn-mini">
+						<i class="icon-envelope icon-white"></i> 
+						Email
+					</a>
+
+				</td>
+
+			</tr>
+
+			
+			{% endfor %}
+
+			</tbody>
+
+		</table>
+	</div>
+</div>
+
+
+
+{% endblock %}
+
