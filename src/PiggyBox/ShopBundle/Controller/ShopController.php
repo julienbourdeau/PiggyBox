@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\ShopBundle\Entity\Day;
+use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -162,5 +163,41 @@ class ShopController extends Controller
             'entity' => $shop,
             'form'   => $form->createView(),
         );
+    }
+
+    /**
+     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page
+     *
+     * @SecureReturn(permissions="VIEW")
+     * @Route("/clients", name="crm_index", defaults={"_format"="html"})
+     * @Template()
+     */
+    public function crmAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $data = array();
+
+        $data['shop'] = $user->getOwnShop();
+
+        $data['clients'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.user=u.id AND s.slug=:shop_slug order by u.lastName ASC')
+                                 ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
+                                 ->getResult();
+
+        /*$data['nbCommandes'] = $em->createQuery('SELECT COUNT(:user_id) FROM PiggyBoxUserBundle:User u, PiggyBoxShopBundle:Shop s WHERE s.shop=:shop_id and o.user_id=:user_id')
+                                 ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                 ->setParameter('user_id', $user->getOwnShop()->getClients())
+                                 ->getSingleScalarResult(); */
+                                 
+        //Fonction donnant le nombre de commandes archivé en fonction du commerce                        
+        $data['totalCommandes'] = $em->createQuery('SELECT COUNT (o.id) FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s WHERE o.shop=s.id AND o.status=\'archived\' AND s.id =:shop_id')
+                                    ->setParameter('shop_id', $user->getOwnShop()->getId())
+                                    ->getSingleScalarResult();
+
+        //$data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneById("1");
+
+        //$data['clients'] = $data['shop']->getClients();
+
+        return $data;
     }
 }
