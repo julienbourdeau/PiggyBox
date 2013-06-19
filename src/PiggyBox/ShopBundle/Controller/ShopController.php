@@ -180,7 +180,7 @@ class ShopController extends Controller
 
         $data['shop'] = $user->getOwnShop();
 
-        $data['clients'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.user=u.id AND s.slug=:shop_slug order by u.lastName ASC')
+        $data['clients'] = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.shop=u.id AND s.slug=:shop_slug order by u.lastName ASC')
                                  ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
                                  ->getResult();
 
