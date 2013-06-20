@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PiggyBox\ShopBundle\Entity\Shop;
 use PiggyBox\ShopBundle\Entity\Day;
+use PiggyBox\UserBundle\Entity\User;
 use PiggyBox\ShopBundle\Form\ShopType;
 use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -161,6 +162,30 @@ class ShopController extends Controller
         return array(
             'entity' => $shop,
             'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Homepage of the shop-owner. The goal of this page is receive order and to link all the other page
+     *
+     * @SecureReturn(permissions="VIEW")
+     * @Route("/clients", name="crm_index")
+     * @Template()
+     */
+    public function crmAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $user->getOwnShop();
+
+        $clients = $em->createQuery('SELECT distinct u.email, u.lastName, u.firstName, u.gender,u.city, u.phoneNumber FROM PiggyBoxOrderBundle:Order o, PiggyBoxShopBundle:Shop s, PiggyBoxUserBundle:User u WHERE o.shop=u.id AND s.slug=:shop_slug order by u.lastName ASC')
+                                 ->setParameter('shop_slug', $user->getOwnShop()->getSlug())
+                                 ->getResult();
+
+        return array(
+            'clients' => $clients,
+            'shop'   => $shop,
         );
     }
 }
