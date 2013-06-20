@@ -4177,6 +4177,8 @@ div.image-category:hover img {
   background: #f9b1a6;
   color: #222222;
 }
+
+// Class de l'onglet "Blog" sur le site
 .daBlog {
   background: #222222 !important;
 }
