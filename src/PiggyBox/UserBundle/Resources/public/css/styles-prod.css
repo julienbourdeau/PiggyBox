@@ -4177,6 +4177,13 @@ div.image-category:hover img {
   background: #f9b1a6;
   color: #222222;
 }
+.daBlog {
+  background: #222222 !important;
+}
+.daBlog:hover {
+  background: #f9b1a6 !important;
+  color: black !important;
+}
 .baseline {
   font-size: 21px;
   font-style: italic;
