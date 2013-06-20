@@ -27,6 +27,7 @@ app/config/parameters.yml
 *.DS_Store
 
 # Misc
+src/PiggyBox/UserBundle/Resources/public/socialstream/*
 composer.lock
 
 .codemod.bookmark
