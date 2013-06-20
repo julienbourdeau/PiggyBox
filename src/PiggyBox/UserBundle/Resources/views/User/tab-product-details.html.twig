@@ -6,172 +6,184 @@
 	<div class="ribbon ribbon-{{product.discount.discountName}}"></div>
 {% endif %}
 
-<div class="product-item
-            product-item-single {# HERE #}
-            row-fluid
-			box
-			box-light
-			tous
-			boeuf
-			viandes">
 
-    <div class="span5">
+<div itemscope itemtype="http://schema.org/Product">
 
-        <div class="product-thumbnail">
-			<div class="img300x300">
-				{% if product.hasImage %}
-					<img src="{{product.getWebPath | apply_filter('huge_thumb') }}"
-					alt="{{product.name}}" title="{{product.name}}" >
-				{% endif %}
-			</div>
-        </div>
+	<div class="product-item
+	            product-item-single {# HERE #}
+	            row-fluid
+				box
+				box-light
+				tous
+				boeuf
+				viandes">
 
-    </div>
+	    <div class="span5">
 
-    <div class="span7">
-
-		<div class="product-infos">
-
-            <div class="product-name">
-				<h1 class="text-centered">{{product.name}}</h1>
-            </div>
-
-			<div class="product-details row-fluid bottom-marged">
-                <div class="product-line span6">
-					{% if  product.productWeightPerSlice is not null%}
-						Environ {{product.productWeightPerSlice}}g par pièce
+	        <div class="product-thumbnail">
+				<div class="img300x300">
+					{% if product.hasImage %}
+						<img itemprop="image" src="{{product.getWebPath | apply_filter('huge_thumb') }}"
+						alt="{{product.name}}" title="{{product.name}}" >
 					{% endif %}
-                </div>
-                <div class="product-price text-right span6">
-                	{% if product.weightPrice is not null %}
-						<span class="kilo-price">{{product.weightPrice|number_format(2, ',', ' ')}} € /Kg</span>
-					{% endif %}
-                    &nbsp;&nbsp;&nbsp;
-					<span class="primary-price">{{product.price|number_format(2, ',', ' ')}} €</span>
-                </div>
-			</div>
-
-		</div>
-
-        <div class="product-content">
-
-            <div class="product-description">
-	        	{% if product.description is not null %}
-	                <p>{{ product.description|nl2br }}</p>
-	            {% else %}
-	            	<p><em>Aucune description disponible</em></p>
-	            {% endif %}
-            </div>
-
-			{% if product.discount|length > 0 %}
-				<div class="product-origin">
-					<h4>Offre spéciale</h4>
-					<i class="icon-tag"></i> {{ product.discount.discountdescription }}</div>
-			{% endif %}
-
-			{% if product.origin is not null %}
-				<div class="product-origin">
-					<h4>Origine</h4>
-					<i class="icon-flag-fr"></i> {{product.origin}}</div>
-			{% endif %}
-
-			{% if product.preservation is not null %}
-				<div class="product-conservation">
-					<h4>Conservation</h4>
-					<p>{{product.preservation}}</p>
 				</div>
-			{% endif %}
+	        </div>
 
-			<hr style="border-top: 1px solid #ddd; margin-top: 42px" />
-
-			<h4>Besoin d'un conseil ?</h4>
-			<img style="float: left; margin: -8px 10px 0 0;" width="60px" src="{{ asset('bundles/piggyboxuser/img/help-baptiste.jpg') }}" alt="">
-			<p>Appelez nous  <strong>02.40.37.46.67</strong> ou écrivez nous à l'adresse mail suivante :
-				<br /><a href="mailto: aide@cotelettes-tarteauxfraises.com">aide@cotelettes-tarteauxfraises.com</a></p>
-
-        </div>
-
-
-
-    </div>
-
-
-	{% if  product.priceType == 'unit_fixed_price' %}
-
-	    <div class="product-toolbar text-centered span6 offset3">
-			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
-
-	            <table class="table pricing pricing-fixed-unit-price">
-	                <tr>
-	                    <td class="select-quantity">
-							<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
-							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
-							<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
-	                    </td>
-
-	                    <td class="select-add">
-							<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'true' }]);">Ajouter</button>
-							{{ form_widget(form[product.id]._token) }}
-	                    </td>
-	                </tr>
-	            </table>
-
-	        </form>
 	    </div>
 
-	{% elseif product.priceType == 'unit_variable_price' %}
+	    <div class="span7">
 
-	    <div class="product-toolbar text-centered span9 offset1">
-			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
-				<table class="table pricing pricing-variable-unit-price">
-					<tbody>
-						<tr>
-							<td class="select-quantity">
+			<div class="product-infos">
+
+	            <div class="product-name">
+						<h1 class="text-centered" itemprop="name">{{product.name}}</h1>
+	            </div>
+
+				<div class="product-details row-fluid bottom-marged">
+	                <div class="product-line span6">
+						{% if  product.productWeightPerSlice is not null%}
+							Environ {{product.productWeightPerSlice}}g par pièce
+						{% endif %}
+	                </div>
+	                <div class="product-price text-right span6">
+
+	                	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+		                	{% if product.weightPrice is not null %}
+								<span class="kilo-price">{{product.weightPrice|number_format(2, ',', ' ')}} € /Kg</span>
+							{% endif %}
+		                    &nbsp;&nbsp;&nbsp;
+								<span class="primary-price" itemprop="price">{{product.price|number_format(2, ',', ' ')}} €</span>
+						</div>
+
+	                </div>
+				</div>
+
+			</div>
+
+	        <div class="product-content">
+
+	            <div class="product-description">
+	            	<span itemprop="description">
+			        	{% if product.description is not null %}
+			                <p>{{ product.description|nl2br }}</p>
+			            {% else %}
+			            	<p><em>Aucune description disponible</em></p>
+			            {% endif %}
+		       	 	</span>
+
+	            </div>
+
+				{% if product.discount|length > 0 %}
+					<div class="product-origin">
+						<h4>Offre spéciale</h4>
+						<i class="icon-tag"></i> {{ product.discount.discountdescription }}</div>
+				{% endif %}
+
+				{% if product.origin is not null %}
+					<div class="product-origin">
+						<h4>Origine</h4>
+						<i class="icon-flag-fr"></i> {{product.origin}}</div>
+				{% endif %}
+
+				{% if product.preservation is not null %}
+					<div class="product-conservation">
+						<h4>Conservation</h4>
+						<p>{{product.preservation}}</p>
+					</div>
+				{% endif %}
+
+				<hr style="border-top: 1px solid #ddd; margin-top: 42px" />
+
+				<h4>Besoin d'un conseil ?</h4>
+				<img style="float: left; margin: -8px 10px 0 0;" width="60px" src="{{ asset('bundles/piggyboxuser/img/help-baptiste.jpg') }}" alt="">
+				<p>Appelez nous  <strong>02.40.37.46.67</strong> ou écrivez nous à l'adresse mail suivante :
+					<br /><a href="mailto: aide@cotelettes-tarteauxfraises.com">aide@cotelettes-tarteauxfraises.com</a></p>
+
+	        </div>
+
+
+
+	    </div>
+
+
+		{% if  product.priceType == 'unit_fixed_price' %}
+
+		    <div class="product-toolbar text-centered span6 offset3">
+				<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+
+		            <table class="table pricing pricing-fixed-unit-price">
+		                <tr>
+		                    <td class="select-quantity">
 								<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
 								{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
 								<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
-							</td>
+		                    </td>
 
-							<td class="select-size">
-								{{ form_widget(form[product.id].quantityDetail) }}
-							</td>
-
-							<td class="select-add">
+		                    <td class="select-add">
 								<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'true' }]);">Ajouter</button>
 								{{ form_widget(form[product.id]._token) }}
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-	    </div>
+		                    </td>
+		                </tr>
+		            </table>
 
-	{% else %}
+		        </form>
+		    </div>
 
-	    <div class="product-toolbar text-centered span6 offset3">
-			<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+		{% elseif product.priceType == 'unit_variable_price' %}
 
-	            <table class="table pricing pricing-chunk-price">
-	                <tr>
-	                    <td class="select-quantity">
-							{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
-	                    </td>
+		    <div class="product-toolbar text-centered span9 offset1">
+				<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+					<table class="table pricing pricing-variable-unit-price">
+						<tbody>
+							<tr>
+								<td class="select-quantity">
+									<div id="quantity-minus" class="btn btn-mini left minus"><i class="icon-minus"></i></div>
+									{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity'} }) }}
+									<div id="quantity-plus" class="btn btn-mini right plus"><i class="icon-plus"></i></div>
+								</td>
 
-	                    <td class="select-add">
-							<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'true' }]);">Ajouter</button>
-							{{ form_widget(form[product.id]._token) }}
-	                    </td>
-	                </tr>
-	            </table>
+								<td class="select-size">
+									{{ form_widget(form[product.id].quantityDetail) }}
+								</td>
 
-	        </form>
-		</div>
+								<td class="select-add">
+									<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'true' }]);">Ajouter</button>
+									{{ form_widget(form[product.id]._token) }}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+		    </div>
 
-	{% endif %}
+		{% else %}
 
+		    <div class="product-toolbar text-centered span6 offset3">
+				<form class="form-inline" id="checkout" action="{{ path('cart_add_product', {'product_id': product.id}) }}" method="post" {{form_enctype(form[product.id])}}>
+
+		            <table class="table pricing pricing-chunk-price">
+		                <tr>
+		                    <td class="select-quantity">
+								{{ form_widget(form[product.id].quantity, { 'attr': {'class': 'inline-quantity-person'} }) }}
+		                    </td>
+
+		                    <td class="select-add">
+								<button class="btn btn-mini" onclick="_kmq.push(['record', 'Added to cart', {'Shop name':'{{shop.name}}', 'Product name': '{{product.name}}', 'Product details':'true' }]);">Ajouter</button>
+								{{ form_widget(form[product.id]._token) }}
+		                    </td>
+		                </tr>
+		            </table>
+
+		        </form>
+			</div>
+
+		{% endif %}
+
+
+	</div>
 
 </div>
-
 {% if similar_products|length > 0 %}
 
 <h1 class="text-centered">Produits similaires</h1>

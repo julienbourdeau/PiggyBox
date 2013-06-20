@@ -47,8 +47,18 @@
     <div class="container">
 
         <div class="row">
-            <div class="span12">
-				<h2>{{order.vars.value.shop.name}}</h2>
+            <div class="span6">
+                <h2>{{order.vars.value.shop.name}}</h2>
+            </div>
+            <div class="span6 text-right">
+                <button href="#" class="btn btn-primary">
+                    {% if app.user %}
+                        Etape suivante: Choisissez votre paiement
+                    {% else %}
+                        Etape suivante: Identifiez-vous
+                    {% endif %}
+                    <i class="icon-arrow-right icon-white"></i>
+                </button>
             </div>
         </div>
 
@@ -88,11 +98,11 @@
                     <a  href="#" class="btn btn-small"><i class="icon-arrow-left"></i> Retour à l'étape précédente</a>
                 </div>
                 <div class="span6 text-right">
-                    <button href="#" class="btn btn-large btn-primary">
+                    <button href="#" class="btn btn-primary">
                         {% if app.user %}
-                            Choisissez votre méthode de paiement
+                            Etape suivante: Choisissez votre paiement
                         {% else %}
-                            Identifiez-vous
+                            Etape suivante: Identifiez-vous
                         {% endif %}
                         <i class="icon-arrow-right icon-white"></i>
                     </button>

@@ -49,9 +49,16 @@
     <div id="{{order.vars.value.shop.slug}}" class="container">
 
         <div class="row">
-            <div class="span12">
-
+            <div class="span6">
 				<h2>{{order.vars.value.shop.name}}</h2>
+            </div>
+            <div class="span6 text-right">
+                <button class="btn btn-primary">Etape suivante: Vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
 
 				<table id="{{order.vars.value.shop.slug}}" class="table table-striped cart-large">
                     <thead>
@@ -191,56 +198,48 @@
             </div>
         </div>
 
-		<div class="row">
-            <div class="span10 offset1">
-                <span class="label label-warning" style="padding: 3px 4px 1px;">Note</span> Si besoin, vous pouvez faire une remarque à votre commerçant!<br>
-                {{ form_widget(order.note, { 'attr': {'class': 'span10', 'style': 'border: 1px solid #999;', 'placeholder': 'Exemple: Merci de mettre la sauce séparement'} }) }}
+        <div class="row">
+            <div class="span4">
+                <a  href="{{ path('user_show_shop', {'shop_slug': order.vars.value.shop.slug }) }}" class="">Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
+            </div>
+            <div class="span8">
+                <input name="reload" class="pull-right btn btn-small btn-info" type="submit" value="Mettre à jour mon panier">
+                <br><br>
             </div>
         </div>
 
-		<div class="row">
-			<div class="span12">
-				<input name="reload" class="pull-right btn btn-small btn-info" type="submit" value="Mettre à jour mon panier">
-				<br/>
-				<br/>
-			</div>
-		</div>
-
         <div class="row">
             <div class="span4 offset8">
-				<table id="{{order.vars.value.shop.slug}}-total" class="table table-bordered table-striped cart-total">
+                <table id="{{order.vars.value.shop.slug}}-total" class="table table-bordered table-striped cart-total">
                     <tr>
                         <td class=""><strong>Total TTC:</strong></td>
-						<td class="total-price">
-							<strong>
-								<span>
-									{{order.vars.value.totalprice|number_format(2, ',', ' ')}}
-								</span> €
-							</strong>
-						</td>
+                        <td class="total-price">
+                            <strong>
+                                <span>
+                                    {{order.vars.value.totalprice|number_format(2, ',', ' ')}}
+                                </span> €
+                            </strong>
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
 
         <div class="row">
-            <div class="toolbar">
-                <div class="span6">
-                    <a  href="{{ path('user_show_shop', {'shop_slug': order.vars.value.shop.slug }) }}" class="btn btn-small"><i class="icon-arrow-left"></i> Retourner à "<em>{{order.vars.value.shop.name}}</em>"</a>
-                </div>
+            <div class="span10 offset1">
+                <span class="label label-warning" style="padding: 3px 4px 1px;">Note</span> Si besoin, vous pouvez faire une remarque à votre commerçant!<br>
+                {{ form_widget(order.note, { 'attr': {'class': 'span11', 'style': 'border: 1px solid #999;', 'placeholder': 'Exemple: Merci de mettre la sauce séparement'} }) }}
             </div>
         </div>
+
     </div>
 	{% endfor %}
 
     <div class="container">
         <div class="row">
             <div class="toolbar">
-                <div class="span6">
-                    <a  href="{{path('shops')}}" class="btn"><i class="icon-map-marker"></i> Trouver d'autres commerçants</a>
-                </div>
-                <div class="span6 text-right">
-                    <button class="btn btn-large btn-primary">Précisez vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
+                <div class="span6 offset6 text-right">
+                    <button class="btn btn-primary">Etape suivante: Vos disponibilités  <i class="icon-arrow-right icon-white"></i></button>
                 </div>
             </div>
         </div>

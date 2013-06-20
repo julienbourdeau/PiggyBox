@@ -12,3 +12,4 @@
 2013-06-11 15:27:30|Visite|Hélène a visité la boutique.
 2013-06-12 06:55:44|Commande|Samuel a commandé Pintade Fermière des Landes Label Rouge.
 2013-06-12 14:40:31|Visite|Virginie a visité la boutique.
+2013-06-12 15:28:19|Visite|Suzanne a visité la boutique.

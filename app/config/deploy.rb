@@ -11,7 +11,7 @@ set :scm,         :git
 set :branch, 	  "master" 
 set :ssh_options,   :forward_agent => true
 set :shared_files,      ["app/config/parameters.yml", "web/.htaccess"]
-set :shared_children,     [app_path + "/logs", app_path + "/sessions", web_path + "/uploads", web_path + "/media"]
+set :shared_children,     [app_path + "/logs", app_path + "/sessions", web_path + "/uploads", web_path + "/media", src_path + "/PiggyBox/UserBundle/Resources/public/socialstream"]
 set :use_composer, true
 set :update_vendors, true
 
