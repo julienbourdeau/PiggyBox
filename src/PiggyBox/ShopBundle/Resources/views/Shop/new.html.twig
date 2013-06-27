@@ -1,8 +1,46 @@
-<h1>Shop creation</h1>
+{% extends 'PiggyBoxShopBundle::layout.html.twig'%}
+{% block body %}
 
+
+	<div id="primary" class="site-content container">
+
+		<div class="row">
+			<div class="span12">
+				<h1 class="text-centered">Création d'une nouvelle boutique</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				
+				<form action="{{ path('moncommerce_create') }}" method="post" class="form-horizontal" {{ form_enctype(form) }} >
+				    
+				    {{ form_widget(form) }}
+
+				    <button type="submit" class="btn btn-large btn-primary btn-block"> Créer la boutique ! </button>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascript %}
+	{{parent()}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/piggyboxshop/css/vendor/bigbox.css')}}">
+{% endblock %}
+
+{# 
 <form action="{{ path('moncommerce_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit">Create</button>
     </p>
 </form>
+#}
