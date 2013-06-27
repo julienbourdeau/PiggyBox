@@ -67,7 +67,7 @@ class UserController extends Controller
     }
 
     /**
-     * Gère la page des commerçants les plus proches de l'internaute + carte
+     * Gère la page des commerçants les plus proches de l'internaute (après avoir utilisé le input)
      * 
      * @Template()
      * @Route("vos-commerces/{nbShoppers}", name="customShops", defaults={"nbShoppers"=2})
@@ -86,14 +86,13 @@ class UserController extends Controller
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
-        // Magasins détails w/ _tri par distance_
+        // Tri les magasins par distance
         try {
             $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
         } catch(NoResultException $e) {
             $street_name = "Nantes";
             $shoppersDetailsByDistance = $this->getShoppersDetailsByDistance("all",$street_name);
         }
-        
 
         // Récupérer les produits des N premiers commerces.
         $keys = array_keys($shoppersDetailsByDistance);
@@ -112,6 +111,7 @@ class UserController extends Controller
 
         // Map + Markers
         // La bigCity du visiteur est celle des commerces les plus proches
+        // On force la bigCity ici au cas où le mec ait tapé une adresse autre que celle de SA ville.
         $visitorBigCity = ucfirst(reset($shoppersDetailsByDistance)['bigCity']);
         $map = $this->configureGoogleMap($visitorBigCity);
         $map = $this->configureMarkers($map);
@@ -129,22 +129,22 @@ class UserController extends Controller
     }
 
     /**
-     * Page qui liste les commerçants PAR VILLE, joli listing + carte de la ville
+     * Page qui liste les commerçants _PAR VILLE_, joli listing + carte de la ville
      * 
      * @Template()
-     * @Route("les-commercants/{city}", name="shops", defaults={"city"="none"})
+     * @Route("les-commercants/{city}", name="shops", defaults={"city"="geoip"})
      */
     public function shopsAction($city)
     {
         // Formatage de la city
         $city = ucfirst(strtolower($city));
 
-        // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "none"
-        if(!(array_key_exists($city, $this->getAvailableCities())) && $city != "none") {
-            $city = "none";
+        // Si le mec s'amuse avec l'URL et met une ville inexistante, on force à "geoip"
+        if(!(array_key_exists($city, $this->getAvailableCities())) && $city != "geoip") {
+            $city = "geoip";
         }
 
-        // Geoloc (forcé avec $city si != none)
+        // Geoloc (forcé avec $city si tout va bien)
         $geoDataVisitor = $this->getGeoDataVisitor($city);
         $latitude  = $geoDataVisitor['geoResponse']->getLatitude();
         $longitude = $geoDataVisitor['geoResponse']->getLongitude();
@@ -154,7 +154,7 @@ class UserController extends Controller
         $seoPage->setTitle("Côtelettes & Tarte aux Fraises - La commande en ligne pour vos commerces de proximité");
 
         // Map + Markers
-        if($city == "none") {
+        if($city == "geoip") {
             $map = $this->configureGoogleMap($geoDataVisitor['visitorBigCity']);
         }
         else {
@@ -453,18 +453,6 @@ class UserController extends Controller
         return $data;
     }
 
-    /**
-     * array_key_exists function but case INsensitive
-     * @param  string $needle   La clef à chercher
-     * @param  array  $haystack L'array à fouiller
-     * @return bool   true|false
-     */
-    private function array_ikey_exists($needle, $haystack)
-    {
-        $keys = array_keys($haystack);
-
-        return in_array(strtolower($needle), array_map('strtolower', $keys));
-    }
 
     /**
      * Retourne une Google Map bien configurée
@@ -490,7 +478,7 @@ class UserController extends Controller
         ));
 
         // On centre sur la ville si l'utilisateur est localisé
-        if ($city != "none") {
+        if ($city != "geoip") {
             $map->setCenter($availableCities[$city]['lat'], $availableCities[$city]['long'], true);
         }
 
@@ -532,10 +520,10 @@ class UserController extends Controller
 
     /**
      * Récupère des info sur la position du visiteur
-     * @param  string Si $city != "none", on force la geoloc sur $city, comme si l'user y était.
+     * @param  string Si $city != "geoip", on force la geoloc sur $city, comme si l'user y était.
      * @return [array]   visitorCity, bigCity, geoResponse
      */
-    private function getGeoDataVisitor($city="none")
+    private function getGeoDataVisitor($city="geoip")
     {
         // Geocoder
         $request  = Request::createFromGlobals();
@@ -550,7 +538,7 @@ class UserController extends Controller
                                     ));
 
         // Géolocalise via l'IP si aucune ville n'est forcée
-        if ($city == "none") {
+        if ($city == "geoip") {
             if (in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
                 $georesponse = $geocoder
                     ->using('free_geo_ip')
@@ -578,9 +566,10 @@ class UserController extends Controller
         // Cherche la "bigCity" (ville où CETAF a des commerces) aux alentours du visiteur.
         // S'il est dans un rayon de $perimeterKms, alors on lui dit qu'il appartient à la bigCity.
         // Sinon, on lui dit que CETAF n'est pas dispo chez lui.
-        // Au final, $bigCity contient la ville la plus proche du visiteur avec des commerces.
-        // S'il n'y en a aucune, $bigCity contient "none".
-        $bigCity           =  "none";                       // La grosse ville proche du visiteur
+        // Au final, $bigCity contient la ville proche du visiteur avec des commerces.
+        // S'il n'y en a aucune, $bigCity contient "geoip".
+
+        $bigCity           =  "geoip";                       // La grosse ville proche du visiteur
         $perimeterKms      =  100;                          // Le perimètre autour d'une big city
         $availableCities   =  $this->getAvailableCities();
         $directions        =  $this->get('ivory_google_map.directions');
@@ -604,7 +593,7 @@ class UserController extends Controller
 
         return array(
             'visitorCity'       => $visitorCity,        // La ville exacte du visiteur
-            'visitorBigCity'    => $bigCity,            // La ville dispo la plus proche (ou "none")
+            'visitorBigCity'    => $bigCity,            // La ville dispo la plus proche (ou "geoip")
             'geoResponse'       => $georesponse,        // Raw object response
         );
     }
@@ -825,7 +814,7 @@ class UserController extends Controller
     }
 
     /**
-     * Calcule la distance entre 2 points
+     * Calcule la distance entre 2 points (vol d'oiseau)
      * @param  [type] $latitude1
      * @param  [type] $longitude1
      * @param  [type] $latitude2
@@ -868,12 +857,12 @@ class UserController extends Controller
      */
     private function getFakeSocialStream($slug)
     {
-        $periodUpdateInHour = 1;
+        $periodUpdateInHour = 1; // Update au MAX une fois toutes XXX heures
         $slugFile = __DIR__."/../Resources/public/socialstream/$slug.txt";
         $handle = fopen($slugFile, 'a+');
         $lastStreamUpdate = filemtime($slugFile);
 
-        // Si le fichier de stream n'a pas été updaté depuis 1h, on le remplit
+        // Si le fichier de stream n'a pas été updaté depuis Xh, on le remplit
         if ($lastStreamUpdate < time()-($periodUpdateInHour*60*60)) {
             // Génère une ligne avec un prénom ou "inconnu"
             srand((double) microtime()*1000000);
