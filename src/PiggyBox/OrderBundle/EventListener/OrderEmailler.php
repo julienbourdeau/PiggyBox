@@ -66,12 +66,17 @@ class OrderEmailler
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Commande Passée - Côtelettes & Tarte aux Fraises')
                     ->setFrom('lifo@cotelettes-tarteauxfraises.com')
-                    ->setTo($user->getEmail());
-                $message->addBcc('julien@cotelettes-tarteauxfraises.com');
-                $message->addBcc('baptiste@cotelettes-tarteauxfraises.com');
+                    ->setTo('contact@cotelettes-tarteauxfraises.com');
 
-                $message->setBody('Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().' par l\'utilisateur : '.$entity->getUser()->getEmail(), 'text/html')
-                ;
+                if ($user->getSlug() == 'boucherie-zola') {
+                    $message->addBcc( $user->getSlug() );
+                }
+
+                $email_body = 'Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().'.';
+                $email_body .= 'Par l\'utilisateur '.$entity->getUser()->getFirstName().' '.$entity->getUser()->getLastName().'<'.$entity->getUser()->getEmail().'>';
+                $email_body .= 'Telephone: '.$entity->getUser()->getPhone();
+
+                $message->setBody($email_body, 'text/html');
 
                 $this->container->get('mailer')->send($message);
             }
