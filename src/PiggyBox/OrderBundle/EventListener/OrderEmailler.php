@@ -59,7 +59,7 @@ class OrderEmailler
         $entity = $event->getOrder();
 
         if ($entity instanceof Order) {
-            //if (!in_array($this->container->get('kernel')->getEnvironment(), array('dev', 'test'))) {
+            if (!in_array($this->container->get('kernel')->getEnvironment(), array('dev', 'test'))) {
                 $em = $this->container->get('doctrine.orm.default_entity_manager');
                 $user = $em->getRepository('PiggyBoxUserBundle:User')->findOneByOwnshop($entity->getShop());
 
@@ -79,7 +79,7 @@ class OrderEmailler
                 $message->setBody($email_body, 'text/html');
 
                 $this->container->get('mailer')->send($message);
-            //}
+            }
         }
     }
 }
