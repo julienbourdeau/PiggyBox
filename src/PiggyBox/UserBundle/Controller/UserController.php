@@ -247,7 +247,7 @@ class UserController extends Controller
         $seoPage = $this->get('sonata.seo.page');
         $seoPage->setTitle($data['product']->getName()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $slug = $shop->getSlug();
         $data['shopper'] = $shoppers[$slug];
 
@@ -272,7 +272,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['menus'] = $em->getRepository('PiggyBoxShopBundle:Menu')->findByShop($shop);
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $slug = $shop->getSlug();
         $data['shopper'] = $shoppers[$slug];
 
@@ -312,7 +312,7 @@ class UserController extends Controller
         $data = $this->createOrderDetailForm($products, $data);
         $seoPage->setTitle($category->getTitle()." au commerce ".$shop->getName()." sur Côtelettes & Tarte aux Fraises");
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $slug = $shop->getSlug();
         $data['shopper'] = $shoppers[$slug];
 
@@ -332,7 +332,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $data['shopper'] = $shoppers[$shop_slug];
 
         return $data;
@@ -351,7 +351,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $data['shopper'] = $shoppers[$shop_slug];
 
         return $data;
@@ -370,7 +370,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['shop'] = $em->getRepository('PiggyBoxShopBundle:Shop')->findOneBySlug($shop_slug);
 
-        $shoppers = $this->getShoppersDetails("nantes");
+        $shoppers = $this->getShoppersDetails("all");
         $data['shopper'] = $shoppers[$shop_slug];
 
         return $data;
@@ -615,6 +615,7 @@ class UserController extends Controller
         // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
         $markerIconBread    = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconBread.png";
         $markerIconMeat     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconMeat.png";
+        $markerIconStrawberry     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconStrawberry.png";
 
         if ($city == "nantes" || $city == "all") {
 
@@ -733,6 +734,23 @@ class UserController extends Controller
                     );
 
         }
+
+        if ($city == "la-baule" || $city == "all") {
+
+            $content['burban-production'] = array(
+                    'slug'          => "burban-production",
+                    'name'          => "Burban Production",
+                    'slogan'        => "Des fraises cultivées à La Baule depuis 3 générations",
+                    'description'   => "",
+                    'address'       => "Place du Marché , 44500 La Baule-Escoublac",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
+                    'telephone'     => "02 40 61 10 67",
+                    'email'         => "contact@burbanproduction.fr",
+                    'bigCity'       => "la-baule",
+                    );
+        }
+
 
         return $content;
     }
