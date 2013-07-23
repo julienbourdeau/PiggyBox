@@ -68,13 +68,13 @@ class OrderEmailler
                     ->setFrom('lifo@cotelettes-tarteauxfraises.com')
                     ->setTo('contact@cotelettes-tarteauxfraises.com');
 
-                if ($user->getSlug() == 'boucherie-zola') {
-                    $message->addBcc( $user->getSlug() );
+                if ($entity->getShop()->getSlug() == 'boucherie-zola') {
+                    $message->addBcc( $user->getEmail() );
                 }
 
                 $email_body = 'Une commande vient d\'être passé au magasin:'.$entity->getShop()->getName().'.';
-                $email_body .= 'Par l\'utilisateur '.$entity->getUser()->getFirstName().' '.$entity->getUser()->getLastName().'<'.$entity->getUser()->getEmail().'>';
-                $email_body .= 'Telephone: '.$entity->getUser()->getPhone();
+                //$email_body .= 'Par l\'utilisateur '.$entity->getUser()->getFirstName().' '.$entity->getUser()->getLastName().'<'.$entity->getUser()->getEmail().'>';
+                //$email_body .= 'Telephone: '.$entity->getUser()->getPhone();
 
                 $message->setBody($email_body, 'text/html');
 
