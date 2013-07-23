@@ -613,6 +613,7 @@ class UserController extends Controller
         // Gestion des markers
         // Les icones sont volés ici : http://www.shutterstock.com/pic.mhtml?id=115204399
         // Marker PSD ici : http://www.premiumpixels.com/freebies/map-location-pins-psd/
+        $markerIconNone     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconNone.png";
         $markerIconBread    = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconBread.png";
         $markerIconMeat     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconMeat.png";
         $markerIconStrawberry     = "http://www.cotelettes-tarteauxfraises.com/bundles/piggyboxuser/img/icons/markerIconStrawberry.png";
@@ -754,11 +755,23 @@ class UserController extends Controller
                     'name'          => "Grenier à Pain",
                     'slogan'        => "Une autre boulangerie",
                     'description'   => "",
-                    'address'       => "",
+                    'address'       => "303 Avenue du Maréchal de Lattre de Tassigny, 44500 La Baule-Escoublac",
                     'comingSoon'    => false,
-                    'coordinates'   => array(47.28505,-2.39515,$markerIconBread),
-                    'telephone'     => "",
+                    'coordinates'   => array(47.28689,-2.39256,$markerIconBread),
+                    'telephone'     => "02 40 60 28 82",
                     'email'         => "",
+                    'bigCity'       => "la-baule",
+                    );
+            $content['le-fondant-baulois'] = array(
+                    'slug'          => "le-fondant-baulois",
+                    'name'          => "Le Fondant Baulois",
+                    'slogan'        => "Le VRAI Fondant Baulois",
+                    'description'   => "",
+                    'address'       => "131 avenue de Gaulle, 44500 La Baule-Escoublac",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.28625,-2.39183,$markerIconNone),
+                    'telephone'     => "02 40 23 16 05",
+                    'email'         => "infos@lefondantbaulois.com",
                     'bigCity'       => "la-baule",
                     );
             $content['fleurs-de-toscane'] = array(
@@ -766,23 +779,11 @@ class UserController extends Controller
                     'name'          => "Fleurs de Toscane",
                     'slogan'        => "slogan",
                     'description'   => "",
-                    'address'       => "",
+                    'address'       => "40 Avenue Henri Bertho, 44500 La Baule-Escoublac",
                     'comingSoon'    => false,
-                    'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
-                    'telephone'     => "",
+                    'coordinates'   => array(47.29442,-2.3594,$markerIconNone),
+                    'telephone'     => "02 40 60 37 95",
                     'email'         => "",
-                    'bigCity'       => "la-baule",
-                    );
-            $content['le-fondant-baulois'] = array(
-                    'slug'          => "le-fondant-baulois",
-                    'name'          => "Le Fondant Baulois",
-                    'slogan'        => "slogan",
-                    'description'   => "",
-                    'address'       => "",
-                    'comingSoon'    => false,
-                    'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
-                    'telephone'     => "",
-                    'email'         => "infos@lefondantbaulois.com",
                     'bigCity'       => "la-baule",
                     );
         }
