@@ -154,15 +154,99 @@
 	<div class="span12">
 		<h4>Boucherie - Charcuterie - Traiteur</h4>
 
-    <p>Anne et Lionel Morel vous accueillent avec toute leur équipe, toute la semaine à Rezé. La boucherie est située au milieu d'une place commerçante: boulangerie, épicerie, salon de coiffure.</p>
+	    <p>Anne et Lionel Morel vous accueillent avec toute leur équipe, toute la semaine à Rezé. La boucherie est située au milieu d'une place commerçante: boulangerie, épicerie, salon de coiffure.</p>
 
-    <p>Installés depuis 2002, Anne et Lionel sont arrivés à Rezé en 2007. Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.</p>
+	    <p>Installés depuis 2002, Anne et Lionel sont arrivés à Rezé en 2007. Après plus de 10 ans de métier, Lionel vous propose un large choix de produits en viande, volaille, traiteur et fromage.</p>
 
-    <p>La boucherie ne travaille que des produits d'origine Française. Toutes les viandes sont labellisées "Label Rouge" ce qui garantie leur provenance et leur qualités.</p>
+	    <p>La boucherie ne travaille que des produits d'origine Française. Toutes les viandes sont labellisées "Label Rouge" ce qui garantie leur provenance et leur qualités.</p>
+	</div>
+
 </div>
 
+{% elseif (shop.slug == 'burban-production') %}
+
+<h2>Burban Production: Fraises & Framboises</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>L'historique</h4>
+
+		<p>Issu du maraîchage traditionnel, Alain BURBAN a fondé en 1983 l’entreprise BURBAN Production avec son frère Joël. Ils ont successivement abandonné certaines cultures en privilégiant celle de la fraise. Le succès fut au rendez-vous et les techniques se sont modernisées progressivement.</p>
+
+		<p>En 2007, les deux fils d’Alain, Stéphane et Xavier qui se sont investis dès leur plus jeune âge dans l’exploitation, assurent la relève en conservant l’esprit familial…</p>
+
+		<p>Aujourd’hui BURBAN Production c’est 2 gérants, 3 salariés à l’année, 50 saisonniers, plus de 300 000 plants de fraisiers par an, presque 200 tonnes de fraises produites sur une surface de 7 hectares. Mais c’est aussi des framboises, des pommes de terre nouvelles et des melons.</p>
+
+		<h4>La production</h4>
+
+		<p>Les fraises sont cultivées sous 7 hectares abrités sous grands tunnels, en jardin suspendu, c’est à dire en pots dans de la terre, en hauteur (1m20 du sol). Les hampes florales sont orientées vers l’extérieur du pot dans les rangs. Ceci facilite la cueillette et protège le fruit du contact de la terre et des feuilles qui pourraient l’abîmer.</p>
+
+		<p>Les fraisiers sont arrosés avec un système de goutte à goutte qui apporte également les solutions nutritives nécessaires à la plante.</p>
+
+		<p>La cueillette s’effectue à la main à l’aide de chariots, les fraises sont placées directement dans les barquettes qui sont pesées et installées dans les plateaux. Ainsi les fruits ne sont manipulés qu’une fois.</p>
+
+		<p>Après la cueillette, les fraises sont stockées en chambre froide et vendues dès le lendemain.</p>
+
+	</div>
+
 </div>
+
+
+{% elseif (shop.slug == 'grenier-a-pain') %}
+
+<h2>Le Grenier à Pain</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>TITRE</h4>
+
+		<p>TEXTE</p>
+
+	</div>
+
+</div>
+
+
+{% elseif (shop.slug == 'le-fondant-baulois') %}
+
+<h2>Le VRAI Fondant Baulois</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>Spécialité au chocolat de fabrication artisanale</h4>
+
+		<p>C'est au coeur de La Baule au tout début des années 80, que le Fondant Baulois sort pour la première fois du four d'un pâtissier de l'avenue De Gaulle.<p>
+
+		<p>Confectionné exclusivement à partir d'ingrédients nobles et parfaitement naturels (un grand cacao, des oeufs frais, du beurre, du beurre à la fleur de sel de Guérande, de la farine de froment et du sucre de canne), sa texture fine et sa saveur délicatement caramélisée, typiquement bretonne, en font très rapidement une spécialité locale recherchée.</p>
+
+		<p>Sa notoriété ne prend cependant son essor qu'au début des années 2000, lorsque Marie-Sophie et Stéphane Boullier rachètent la recette unique de ce délice au chocolat, et créent un petit laboratoire dédié à la fabrication artisanale du gâteau.</p>
+
+		<p>La recette ainsi que les modes de préparation et de cuisson restent totalement inchangés afin de préserver toutes les spécialités du produit. Mais cette implantation permet un développement commercial étendu, bien que très sélectif.</p>
+
+	</div>
+
+</div>
+
+
+{% elseif (shop.slug == 'fleurs-de-toscane') %}
+
+<h2>Fleurs de Toscane</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>TITRE</h4>
+
+		<p>TEXTE</p>
+
+	</div>
+
+</div>
+
 
 {% endif %}
 
-{% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' with {'shop': shop} %}
+{% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' with {'shop': shop, 'shopper': shopper} %}

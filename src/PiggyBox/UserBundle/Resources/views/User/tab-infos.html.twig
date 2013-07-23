@@ -464,4 +464,184 @@
 </div>
 
 
+{#
+#################################################################################################
+#####
+##### 			Burban Production
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'burban-production') %}
+
+<h2>Burban Production au marché de La Baule</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong></p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> Pas de CB</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Pas de TR</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Le Marché de La Baule</small></h3>
+
+    <iframe width="740" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Place+du+March%C3%A9,+La+Baule-Escoublac&amp;aq=0&amp;oq=place&amp;sll=47.285132,-2.394971&amp;sspn=0.002289,0.005681&amp;g=47.285055,-2.39509&amp;ie=UTF8&amp;hq=&amp;hnear=Place+du+March%C3%A9,+44500+La+Baule-Escoublac,+Loire-Atlantique,+Pays+de+la+Loire&amp;ll=47.284887,-2.394858&amp;spn=0.018311,0.045447&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+	</div>
+</div>
+
+
+{#
+#################################################################################################
+#####
+##### 			Le Grenier à Pain
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'grenier-a-pain') %}
+
+<h2>Le Grenier à Pain de La Baule</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong> (10 min)</p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir d' 1&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Tickets Restaurants</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Le Grenier à Pain de La Baule</small></h3>
+
+    <iframe width="740" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Le+Grenier+%C3%A0+Pain&amp;aq=&amp;sll=47.286784,-2.392573&amp;sspn=0.009155,0.022724&amp;ie=UTF8&amp;hq=Le+Grenier+%C3%A0+Pain&amp;hnear=&amp;t=m&amp;z=14&amp;iwloc=A&amp;cid=1319097720141316262&amp;ll=47.286758,-2.392569&amp;output=embed"></iframe>
+	</div>
+</div>
+
+
+{#
+#################################################################################################
+#####
+##### 			Le Fondant Baulois
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'le-fondant-baulois') %}
+
+<h2>A propos du Fondant Baulois</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong></p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir de 15&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Pas de TR</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Le VRAI Fondant Baulois</small></h3>
+
+    <iframe width="740" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.fr/maps?sll=47.214959999998136,-1.5646881642461687&amp;sspn=0.010611019950714291,0.03085811075280181&amp;t=m&amp;q=131+Avenue+du+G%C3%A9n%C3%A9ral+de+Gaulle,+La+Baule-Escoublac&amp;dg=opt&amp;ie=UTF8&amp;hq=&amp;hnear=131+Avenue+du+G%C3%A9n%C3%A9ral+de+Gaulle,+44500+La+Baule-Escoublac,+Loire-Atlantique,+Pays+de+la+Loire&amp;z=14&amp;iwloc=A&amp;ll=47.285948,-2.391816&amp;output=embed"></iframe>
+	</div>
+</div>
+
+
+{#
+#################################################################################################
+#####
+##### 			Fleurs De Toscane
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'fleurs-de-toscane') %}
+
+<h2>A propos des Fleurs de Toscane</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong></p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir de 15&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Pas de TR</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Fleurs de Toscane</small></h3>
+
+    <iframe width="740" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.fr/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Fleurs+de+Toscane+++40+Avenue+Henri+Bertho,+44500+Baule+Escoublac+(La)&amp;aq=&amp;sll=47.300129,-2.355151&amp;sspn=0.018306,0.045447&amp;ie=UTF8&amp;hq=Fleurs+de+Toscane&amp;hnear=40+Avenue+Henri+Bertho,+44500+Baule+Escoublac+(La)&amp;ll=47.294446,-2.359624&amp;spn=0.018307,0.045447&amp;t=m&amp;z=14&amp;iwloc=A&amp;cid=13172251931593771799&amp;output=embed"></iframe>
+	</div>
+</div>
+
+
 {% endif %}
