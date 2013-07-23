@@ -542,7 +542,8 @@ class UserController extends Controller
             if (in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
                 $georesponse = $geocoder
                     ->using('free_geo_ip')
-                    ->geocode('82.231.144.71'); // Nantes
+                    //->geocode('82.231.144.71'); // Nantes
+                    ->geocode('88.121.52.1'); // La Baule
                     // ->geocode('173.194.40.183'); // Mountain View
             }
             if (!in_array($this->get('kernel')->getEnvironment(), array('dev', 'test'))) {
@@ -736,7 +737,7 @@ class UserController extends Controller
 
         }
 
-        if ($city == "la-baule" || $city == "all") {
+        if ($city == "La-baule" || $city == "all") {
 
             $content['burban-production'] = array(
                     'slug'          => "burban-production",
@@ -748,7 +749,7 @@ class UserController extends Controller
                     'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
                     'telephone'     => "02 40 61 10 67",
                     'email'         => "contact@burbanproduction.fr",
-                    'bigCity'       => "la-baule",
+                    'bigCity'       => "La-baule",
                     );
             $content['grenier-a-pain'] = array(
                     'slug'          => "grenier-a-pain",
@@ -760,7 +761,7 @@ class UserController extends Controller
                     'coordinates'   => array(47.28689,-2.39256,$markerIconBread),
                     'telephone'     => "02 40 60 28 82",
                     'email'         => "",
-                    'bigCity'       => "la-baule",
+                    'bigCity'       => "La-baule",
                     );
             $content['le-fondant-baulois'] = array(
                     'slug'          => "le-fondant-baulois",
@@ -772,7 +773,7 @@ class UserController extends Controller
                     'coordinates'   => array(47.28625,-2.39183,$markerIconNone),
                     'telephone'     => "02 40 23 16 05",
                     'email'         => "infos@lefondantbaulois.com",
-                    'bigCity'       => "la-baule",
+                    'bigCity'       => "La-baule",
                     );
             $content['fleurs-de-toscane'] = array(
                     'slug'          => "fleurs-de-toscane",
@@ -784,7 +785,7 @@ class UserController extends Controller
                     'coordinates'   => array(47.29442,-2.3594,$markerIconNone),
                     'telephone'     => "02 40 60 37 95",
                     'email'         => "",
-                    'bigCity'       => "la-baule",
+                    'bigCity'       => "La-baule",
                     );
         }
 
@@ -801,8 +802,9 @@ class UserController extends Controller
         return array(
                 "Nantes"    => array('lat' => 47.211406, 'long' => -1.569672),
                 "Poitiers"  => array('lat' => 46.58022, 'long' => 0.34037),
+                "La-baule"  => array('lat' => 47.289709, 'long' => -2.39164),
                 );
-    }
+           }
 
     /**
      * Trie les commerçants dans l'ordre décroissants de distance (+ proche au - proche)

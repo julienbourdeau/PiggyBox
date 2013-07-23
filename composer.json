@@ -34,7 +34,7 @@
 		"whiteoctober/breadcrumbs-bundle": "dev-master",
         "willdurand/geocoder": "*",	
         "kriswallsmith/buzz": "@stable",
-        "egeloen/google-map-bundle": "dev-master",
+        "egeloen/google-map-bundle": "2.0.0",
         "liip/code-bundle": "dev-master"
     },
     "scripts": {
