@@ -193,6 +193,54 @@
 </div>
 
 
+{% elseif (shop.slug == 'grenier-a-pain') %}
+
+<h2>Le Grenier à Pain</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>TITRE</h4>
+
+		<p>TEXTE</p>
+
+	</div>
+
+</div>
+
+
+{% elseif (shop.slug == 'le-fondant-baulois') %}
+
+<h2>Le VRAI Fondant Baulois</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>TITRE</h4>
+
+		<p>TEXTE</p>
+
+	</div>
+
+</div>
+
+
+{% elseif (shop.slug == 'fleurs-de-toscane') %}
+
+<h2>Fleurs de Toscane</h2>
+
+<div class="row-fluid">
+
+	<div class="span12">
+		<h4>TITRE</h4>
+
+		<p>TEXTE</p>
+
+	</div>
+
+</div>
+
+
 {% endif %}
 
 {% include 'PiggyBoxUserBundle:User:tab-infos.html.twig' with {'shop': shop, 'shopper': shopper} %}

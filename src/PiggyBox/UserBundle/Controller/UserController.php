@@ -773,8 +773,8 @@ class UserController extends Controller
                     'email'         => "",
                     'bigCity'       => "la-baule",
                     );
-            $content['fondant-baulois'] = array(
-                    'slug'          => "fondant-baulois",
+            $content['le-fondant-baulois'] = array(
+                    'slug'          => "le-fondant-baulois",
                     'name'          => "Le Fondant Baulois",
                     'slogan'        => "slogan",
                     'description'   => "",

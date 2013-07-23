@@ -509,4 +509,139 @@
 </div>
 
 
+{#
+#################################################################################################
+#####
+##### 			Le Grenier à Pain
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'grenier-a-pain') %}
+
+<h2>Le Grenier à Pain de La Baule</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong> (10 min)</p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir d' 1&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Tickets Restaurants</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Le Grenier à Pain de La Baule</small></h3>
+
+    CARTE
+	</div>
+</div>
+
+
+{#
+#################################################################################################
+#####
+##### 			Le Fondant Baulois
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'le-fondant-baulois') %}
+
+<h2>A propos du Fondant Baulois</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong></p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir de 15&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Pas de TR</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Le VRAI Fondant Baulois</small></h3>
+
+    
+	</div>
+</div>
+
+
+{#
+#################################################################################################
+#####
+##### 			Fleurs De Toscane
+#####
+#################################################################################################
+#}
+{% elseif (shop.slug == 'fleurs-de-toscane') %}
+
+<h2>A propos des Fleurs de Toscane</h2>
+
+
+<div class="row-fluid">
+
+	<div class="span6">
+		<h4>Parking</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_parking_logo.png')}}" alt=""> Parking <strong>gratuit</strong></p>
+
+		<h4>Paiements acceptés</h4>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cb_logo.png')}}" alt=""> A partir de 15&euro;</p>
+		<p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_cheque_resto_logo.png')}}" alt=""> Pas de TR</p>
+
+	</div>
+
+	<div class="span6">
+		<h4>Coordonnées</h4>
+
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_tel_logo.png')}}" alt=""> {{shopper.telephone}} </p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_email_logo.png')}}" alt=""> {{shopper.email}}</p>
+        <p><img src="{{ asset('bundles/piggyboxuser/img/icons/new_addr_logo.png')}}" alt=""> {{shopper.address}} (<a href="#map-large">Carte</a>)</p>
+
+	</div>
+
+</div>
+
+
+<div class="row-fluid">
+    <div id="map-large" class="span12">
+     <h3>La carte <small>Fleurs de Toscane</small></h3>
+
+    
+	</div>
+</div>
+
+
 {% endif %}
