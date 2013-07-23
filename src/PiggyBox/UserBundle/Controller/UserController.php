@@ -749,6 +749,42 @@ class UserController extends Controller
                     'email'         => "contact@burbanproduction.fr",
                     'bigCity'       => "la-baule",
                     );
+            $content['grenier-a-pain'] = array(
+                    'slug'          => "grenier-a-pain",
+                    'name'          => "Grenier à Pain",
+                    'slogan'        => "Une autre boulangerie",
+                    'description'   => "",
+                    'address'       => "",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.28505,-2.39515,$markerIconBread),
+                    'telephone'     => "",
+                    'email'         => "",
+                    'bigCity'       => "la-baule",
+                    );
+            $content['fleurs-de-toscane'] = array(
+                    'slug'          => "fleurs-de-toscane",
+                    'name'          => "Fleurs de Toscane",
+                    'slogan'        => "slogan",
+                    'description'   => "",
+                    'address'       => "",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
+                    'telephone'     => "",
+                    'email'         => "",
+                    'bigCity'       => "la-baule",
+                    );
+            $content['fondant-baulois'] = array(
+                    'slug'          => "fondant-baulois",
+                    'name'          => "Le Fondant Baulois",
+                    'slogan'        => "slogan",
+                    'description'   => "",
+                    'address'       => "",
+                    'comingSoon'    => false,
+                    'coordinates'   => array(47.28505,-2.39515,$markerIconStrawberry),
+                    'telephone'     => "",
+                    'email'         => "infos@lefondantbaulois.com",
+                    'bigCity'       => "la-baule",
+                    );
         }
 
 
