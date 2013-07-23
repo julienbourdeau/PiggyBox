@@ -8,7 +8,7 @@
                 {% set path = "bundles/piggyboxuser/img/shops/" ~ shop.slug ~ "/slider-photos/" ~  shop.slug ~ "-" ~ count ~ ".jpg" %}
 
                 {% if file_exists( web_path ~ path ) %}
-                    <div class="item {% if count == 1 %}active{%endif%}">
+                    <div class="item {% if count == 0 %}active{%endif%}">
                             <img src="{{ asset(path) }}" alt="">
                     </div>
                 {% endif %}
