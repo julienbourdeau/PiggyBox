@@ -1,0 +1,15 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     _DB_NAME_GOES_HERE_
+    database_user:     _DB_USER_GOES_HERE_
+    database_password: _DB_PASS_GOES_HERE_
+
+    mailer_transport:  smtp
+    mailer_host:       localhost
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            fr
+    secret:            _SECRET_KEY_GOES_HERE_

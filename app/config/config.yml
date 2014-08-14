@@ -1,0 +1,216 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    default_locale:  %locale%
+    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    session:
+        save_path: "%kernel.root_dir%/sessions/"
+    ide: macvim
+
+# Twig Configuration
+twig:
+    globals:
+        web_path: %web_path%
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Parameters
+parameters:
+    web_path: %kernel.root_dir%/../web/
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [PiggyBoxUserBundle,PiggyBoxShopBundle]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: gmail
+    username:  lifo@cotelettes-tarteauxfraises.com
+    password:  _PASSWORD_GOES_HERE_
+
+# StofDoctrineExtensionBundle Configuration
+stof_doctrine_extensions:
+    default_locale: fr_FR 
+    orm:
+        default:
+            timestampable: true 
+            sluggable: true    
+            translatable: true
+            softdeleteable: true
+            tree: true
+
+# FOSUserBundle Configuration
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: PiggyBox\UserBundle\Entity\User
+    registration:
+        form:
+            type: piggybox_userbundle_registration
+    profile:
+        form:
+            type: piggybox_userbundle_profile
+
+
+# AvalancheImagineBundle Configuration
+avalanche_imagine:
+    filters:
+        little_thumb:
+            type:    thumbnail
+            options: { size: [100, 100], mode: outbound, quality: 100}
+        my_thumb:
+            type:    thumbnail
+            options: { size: [160, 160], mode: outbound, quality: 100}
+        large_thumb:
+            type:    thumbnail
+            options:  { size: [240, 240], mode: outbound, quality: 100}
+        huge_thumb:
+            type:    thumbnail
+            options:  { size: [300, 300], mode: outbound, quality: 100}
+        carousel_thumb:
+            type:    thumbnail
+            options:  { size: [770, 300], mode: outbound, quality: 100}
+#
+# Knp Menu Configuration
+knp_menu:
+    twig: ~
+    templating: true
+    default_renderer: twig
+
+# Knp Time Configuration
+knp_time: ~ 
+
+# Twig Extension Date
+services:
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+ 
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }
+
+# app/config/config.yml
+sonata_seo:
+    page:
+        title:            Côtelettes & Tarte aux Fraises
+        metas:
+            name:
+                keywords:             Boucherie Charcuterie Boulangerie Cremerie Nantes Sautrons Saint-Herblain horaires adresse telephone
+                description:          Vos commerçants de proximité en ligne. Recherchez, Découvrez, Commandez!
+                robots:               index, follow
+
+            property:
+                # Facebook application settings
+                #'fb:app_id':          XXXXXX
+                #'fb:admins':          admin1, admin2
+
+                # Open Graph information
+                # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
+                'og:title':     Côtelettes & Tarte aux Fraises
+                'og:url':       www.cotelettes-tarteauxfraises.com
+                'og:site_name':     Côtelettes & Tarte aux Fraises
+                'og:description':    Vos commerçants de proximité en ligne: Recherchez, Découvrez, Commandez!
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+                #'X-Ua-Compatible':      IE=EmulateIE7
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+            #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+    shop:
+        title:            Commerce  - Côtelettes & Tarte aux Fraises
+        metas:
+            name:
+                keywords:             Boucherie Charcuterie Boulangerie Cremerie Nantes Sautrons Saint-Herblain horaires adresse telephone
+                description:          Vos commerçants de proximité en ligne. Recherchez, Découvrez, Commandez!
+                robots:               index, follow
+
+            property:
+                # Facebook application settings
+                #'fb:app_id':          XXXXXX
+                #'fb:admins':          admin1, admin2
+
+                # Open Graph information
+                # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
+                'og:title':     Côtelettes & Tarte aux Fraises
+                'og:url':       www.cotelettes-tarteauxfraises.com
+                'og:site_name':     Côtelettes & Tarte aux Fraises
+                'og:description':    Vos commerçants de proximité en ligne: Recherchez, Découvrez, Commandez!
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+                #'X-Ua-Compatible':      IE=EmulateIE7
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+            #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+
+# CraueTwigExtensionsBundle configuration
+craue_twig_extensions: ~
+
+
+# WhiteOctoberBreadcrumbsBundle configuration
+white_october_breadcrumbs: ~
+
+# LiipCodeBundle configuration
+liip_code:
+    edit_command: "vim -f"
+    view_command: "vim -f"
+
+
+piggy_box_sitemap:
+    base_url: http://cotelettes-tarteauxfraises.com
+
+# IvoryGooglMapBundle configuration
+ivory_google_map:
+    api:
+        libraries: [ "places"]
