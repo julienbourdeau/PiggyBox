@@ -5,6 +5,7 @@ namespace PiggyBox\OrderBundle\EventListener;
 use PiggyBox\OrderBundle\Entity\Order;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use PiggyBox\OrderBundle\Event\OrderEvent;
+use \SoapClient;
 
 class OrderEmailler
 {
@@ -79,6 +80,39 @@ class OrderEmailler
                 $message->setBody($email_body, 'text/html');
 
                 $this->container->get('mailer')->send($message);
+
+                /**
+                 * Envoi de SMS
+                 * Page de commande des SMS :
+                 * https://www.ovh.com/managerv3/sms-main.pl?language=fr&hostname=&lastxsldoc=sub-home.xsl&csid=0
+                 */
+                
+                /*
+                $nic            =  'db50649-ovh';
+                $pass           =  '%8P5X&9&Oxm7';
+                $sms_compte     =  'sms-db50649-1'; // A verifier lors de la création du compte SMS
+                $from           =  'VOTRE NUMERO DE TELEPHONE EXPEDITEUR';
+                $to             =  '$entity->getShop()->getNumber() -> NUMERO DU COMMERÇANT';
+                $message        =  'Une commande vient d\'être passée au magasin : ....';
+
+                try
+                {
+                    $soap       =  new SoapClient("https://www.ovh.com/soapi/soapi-re-1.8.wsdl");
+                    $session    =  $soap->login($nic, $pass,'fr', false);
+                    $result     =  $soap->telephonySmsSend($session, $sms_compte, $from, $to, $message, '', '1', '', '');
+                    $soap->logout($session);
+                }
+
+                catch(SoapFault $fault)
+                {
+                    $message    =  \Swift_Message::newInstance()
+                        ->setSubject('Commande Passée - Côtelettes & Tarte aux Fraises')
+                        ->setFrom('lifo@cotelettes-tarteauxfraises.com')
+                        ->setTo('julien@cotelettes-tarteauxfraises.com');
+                    $message->addBcc('baptiste@cotelettes-tarteauxfraises.com');
+                    $message->setBody('Problème avec l\'envoi du SMS à '.$to, 'text/html');
+                    ;
+                }*/
             }
         }
     }
